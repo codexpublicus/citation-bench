@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="Score eyecite against the vectors (should be 100%)"
+#MISE alias="bench:eyecite"
+set -euo pipefail
+uv run -q bench/run.py --adapter "uv run -q --script adapters/eyecite/adapter.py" \
+  --vectors "${VECTORS:-vectors/eyecite-2.7.8}" "$@"

@@ -1,0 +1,10 @@
+#MISE description="citation-bench: engine-neutral legal citation benchmark"
+
+[tools]
+python = "3.13"
+uv = "0.9.21"
+rust = "stable"
+
+[env]
+# One build dir for every adapter, so tasks run the binary they just built.
+CARGO_TARGET_DIR = "{{config_root}}/target"

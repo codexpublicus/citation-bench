@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/codexpublicus/citation-bench/schema/citation.schema.json",
+  "title": "Citation",
+  "description": "One citation as an engine reports it. See docs/protocol.md.",
+  "type": "object",
+  "required": ["type", "groups", "metadata"],
+  "properties": {
+    "type": {"enum": ["full_case", "short_case", "supra", "id", "reference", "full_law", "full_journal", "unknown"]},
+    "span": {
+      "description": "[start, end) in Unicode code points. Omitted from expected citations whose source has no trustworthy offsets.",
+      "type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2
+    },
+    "groups": {"type": "object", "additionalProperties": {"type": "string"}},
+    "reporter_normalized": {"type": ["string", "null"]},
+    "year": {"type": ["integer", "null"]},
+    "metadata": {"type": "object", "additionalProperties": {"type": "string"}}
+  }
+}

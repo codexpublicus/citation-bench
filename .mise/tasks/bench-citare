@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Score citare against the vectors; fails only on regressions from baselines/citare.known-failures"
+#MISE alias="bench:citare"
+# CITARE_PATH=../citare benches a local checkout instead of the locked git commit.
+set -euo pipefail
+args=(--release -q --manifest-path adapters/citare/Cargo.toml)
+if [[ -n "${CITARE_PATH:-}" ]]; then
+  args+=(--config "patch.\"https://github.com/codexpublicus/citare\".citare-core.path=\"$(realpath "$CITARE_PATH")/crates/citare-core\"")
+fi
+cargo build "${args[@]}"
+uv run -q bench/run.py --adapter target/release/citare-bench-adapter \
+  --vectors "${VECTORS:-vectors/eyecite-2.7.8}" \
+  --known-failures baselines/citare.known-failures "$@"

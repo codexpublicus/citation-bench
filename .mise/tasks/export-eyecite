@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="Regenerate vectors/eyecite-<version> from that eyecite release's tests"
+#MISE alias="export:eyecite"
+#USAGE arg "<version>" help="eyecite release, e.g. 2.7.8"
+set -euo pipefail
+uv run -q tools/export_eyecite.py "${usage_version:-$1}"
