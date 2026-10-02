@@ -7,7 +7,7 @@
 #USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file" {
 #USAGE   choices "1" "10"
 #USAGE }
-#USAGE flag "--timeout <seconds>" default="300" help="restart the adapter if one opinion takes longer"
+#USAGE flag "--timeout <seconds>" default="900" help="restart the adapter if one opinion takes longer"
 # CITARE_PATH=../citare runs a local checkout instead of the locked git commit.
 set -euo pipefail
 engine="${usage_engine:?}"
@@ -30,5 +30,5 @@ case "$engine" in
     ;;
 esac
 uv run -q bench/run.py --adapter "$adapter" --vectors "$corpus" \
-  --timeout "${usage_timeout:-300}" --label "$label" \
+  --timeout "${usage_timeout:-900}" --label "$label" \
   --save "results/corpus-${size}pct/${engine}.json"
