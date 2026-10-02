@@ -4,6 +4,7 @@
 
 use std::collections::HashMap;
 use std::io::{self, BufRead, Write};
+use std::sync::Mutex;
 
 use citare_core::{
     annotate_citations, clean_text, get_citations, resolve_citations, Citation, CleanStep,
@@ -167,7 +168,33 @@ fn respond(req: &Value) -> Result<Map<String, Value>, String> {
     Ok(out)
 }
 
+/// The last panic's message and location, so the error reply can name it.
+static LAST_PANIC: Mutex<Option<String>> = Mutex::new(None);
+
+fn record_panics() {
+    std::panic::set_hook(Box::new(|info| {
+        let payload = info.payload();
+        let msg = payload
+            .downcast_ref::<&str>()
+            .map(|s| s.to_string())
+            .or_else(|| payload.downcast_ref::<String>().cloned())
+            .unwrap_or_default();
+        let at = info
+            .location()
+            .map(|l| {
+                let file = l.file();
+                // Trim the cargo checkout prefix: crates/citare-core/src/x.rs:1
+                let file = file.find("crates/").map_or(file, |i| &file[i..]);
+                format!(" at {file}:{}", l.line())
+            })
+            .unwrap_or_default();
+        eprintln!("panic: {msg}{at}");
+        *LAST_PANIC.lock().unwrap_or_else(|e| e.into_inner()) = Some(format!("{msg}{at}"));
+    }));
+}
+
 fn main() {
+    record_panics();
     // Build the tokenizer before the first timed request.
     get_citations("1 U.S. 1", false, "", &[]);
     let stdout = io::stdout();
@@ -188,7 +215,14 @@ fn main() {
                 Value::Object(body)
             }
             Ok(Err(e)) => json!({"id": req["id"], "error": e}),
-            Err(_) => json!({"id": req["id"], "error": "panic"}),
+            Err(_) => {
+                let what = LAST_PANIC
+                    .lock()
+                    .unwrap_or_else(|e| e.into_inner())
+                    .take()
+                    .unwrap_or_default();
+                json!({"id": req["id"], "error": format!("panic: {what}")})
+            }
         };
         writeln!(out, "{res}").unwrap();
         out.flush().unwrap();
