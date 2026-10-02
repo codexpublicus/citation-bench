@@ -163,3 +163,59 @@ def test_rejects_other_json(tmp_path):
     (tmp_path / "x.json").write_text("{}")
     with pytest.raises(SystemExit):
         diff.load(tmp_path / "x.json")
+
+
+def test_shifted_positional_citations_pair_as_changed_spans():
+    def id_cite(start):
+        return {"type": "id", "span": [start, start + 3], "groups": {}}
+
+    base = item("a", {"citations": [cite(), id_cite(10), id_cite(30)]})
+    cand = item("a", {"citations": [cite(), id_cite(12), id_cite(32), id_cite(50)]})
+    rows = diff.diff_input(base, cand)
+    assert [(r["change"], r["field"]) for r in rows] == [
+        ("gained", ""),
+        ("changed", "span"),
+        ("changed", "span"),
+    ]
+    assert rows[0]["reporter"] == "(id)"
+
+
+def test_agreement_reporters_and_errors():
+    other = cite("5", "5", span=(13, 21))
+    other["groups"]["reporter"] = "F.2d"
+    base = run(
+        "base",
+        item("a", {"citations": [cite(), other]}),
+        item("b", {"citations": [cite()]}),
+        item("c", {"citations": [cite()]}),
+    )
+    cand = run(
+        "cand",
+        item("a", {"citations": [cite()]}),
+        item("b", {"citations": [cite()]}),
+        item("c", {"error": "panic: boom"}),
+    )
+    rows, totals = diff.diff_runs(base, cand)
+    # c is left out: the candidate answered it with an error
+    assert (totals["found_by_both"], totals["found_by_either"]) == (2, 3)
+    assert totals["agreement"] == pytest.approx(2 / 3)
+    entry = totals["by_reporter"]["F.2d"]
+    assert (entry["base"], entry["candidate"], entry["lost"]) == (1, 0, 1)
+    assert totals["errors_candidate"] == {"c": "panic: boom"}
+    report = diff.markdown(base, cand, rows, totals, max_rows=10)
+    assert "agreement: **66.7%**" in report
+    assert "| F.2d | 1 | 0 | 0 | 1 | 0 | lost in `a`: 2 U.S. 2 |" in report
+    assert "## Errors in candidate (1)" in report and "panic: boom" in report
+
+
+def test_html_citations_located_with_context():
+    markup = "<p>See <i>Foo v. Bar</i>, 12 F.  Supp. 34 (1999).</p>"
+    c = cite("12", "34", span=(0, 99))
+    c["groups"]["reporter"] = "F. Supp."
+    base = item("h", {"citations": [c]}, text=markup)
+    base["input"]["format"] = "html"
+    cand = item("h", {"citations": []}, text=markup)
+    cand["input"]["format"] = "html"
+    (row,) = diff.diff_input(base, cand)
+    assert row["text"] == "See Foo v. Bar , 12 F. Supp. 34 (1999)."
+    assert diff.Located(base)({"type": "id", "span": [0, 3], "groups": {}}) == ""
