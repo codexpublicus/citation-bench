@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#MISE description="Compare two engines' corpus runs: agreement, differing reporters and fields, timing"
+#MISE alias="corpus:diff"
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file" {
+#USAGE   choices "1" "10"
+#USAGE }
+#USAGE flag "--base <engine>" default="eyecite" help="the run to compare against"
+#USAGE flag "--candidate <engine>" default="citare" help="the run being compared"
+set -euo pipefail
+size="${usage_size:-1}"
+runs="results/corpus-${size}pct"
+out="reports/corpus-${size}pct"
+uv run -q bench/diff.py "$runs/${usage_base:-eyecite}.json" "$runs/${usage_candidate:-citare}.json" \
+  --md "$out/report.md" --csv "$out/output.csv"

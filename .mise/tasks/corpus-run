@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#MISE description="Run one engine over the CourtListener sample and save the run"
+#MISE alias="corpus:run"
+#USAGE arg "<engine>" help="eyecite or citare" {
+#USAGE   choices "eyecite" "citare"
+#USAGE }
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file" {
+#USAGE   choices "1" "10"
+#USAGE }
+#USAGE flag "--timeout <seconds>" default="300" help="restart the adapter if one opinion takes longer"
+# CITARE_PATH=../citare runs a local checkout instead of the locked git commit.
+set -euo pipefail
+engine="${usage_engine:?}"
+size="${usage_size:-1}"
+corpus=".cache/corpora/courtlistener-${size}pct"
+[[ -f "$corpus/find.jsonl" ]] || uv run -q tools/fetch_corpus.py --size "$size"
+case "$engine" in
+  eyecite)
+    adapter="uv run -q --script adapters/eyecite/adapter.py"
+    label="eyecite-2.7.8"
+    ;;
+  citare)
+    mise run build-citare
+    adapter="target/release/citare-bench-adapter"
+    if [[ -n "${CITARE_PATH:-}" ]]; then
+      label="citare-$(git -C "$CITARE_PATH" rev-parse --short HEAD)-local"
+    else
+      label="citare-$(grep -o 'citare?branch=main#[0-9a-f]\{7\}' adapters/citare/Cargo.lock | head -1 | cut -d'#' -f2)"
+    fi
+    ;;
+esac
+uv run -q bench/run.py --adapter "$adapter" --vectors "$corpus" \
+  --timeout "${usage_timeout:-300}" --label "$label" \
+  --save "results/corpus-${size}pct/${engine}.json"
