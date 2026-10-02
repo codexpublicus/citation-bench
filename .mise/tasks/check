@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Lint, format check and unit tests for bench/, tools/ and tests/"
+set -euo pipefail
+paths=(bench tools tests adapters/eyecite)
+uvx ruff check "${paths[@]}"
+uvx ruff format --check "${paths[@]}"
+uv run -q --with pytest pytest -q tests
