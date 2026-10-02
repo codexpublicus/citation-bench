@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#MISE description="Build the citare adapter at the locked commit, or at CITARE_PATH"
+#MISE alias="build:citare"
+# CITARE_PATH=../citare builds against a local checkout instead of the locked git commit.
+set -euo pipefail
+args=(--release -q --manifest-path adapters/citare/Cargo.toml)
+if [[ -n "${CITARE_PATH:-}" ]]; then
+  args+=(--config "patch.\"https://github.com/codexpublicus/citare\".citare-core.path=\"$(realpath "$CITARE_PATH")/crates/citare-core\"")
+fi
+cargo build "${args[@]}"

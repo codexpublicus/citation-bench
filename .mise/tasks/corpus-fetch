@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#MISE description="Download the pinned CourtListener sample and convert it to find requests"
+#MISE alias="corpus:fetch"
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file" {
+#USAGE   choices "1" "10"
+#USAGE }
+set -euo pipefail
+uv run -q tools/fetch_corpus.py --size "${usage_size:-1}"

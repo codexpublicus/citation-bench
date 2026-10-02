@@ -14,14 +14,22 @@ long as they answered the same inputs (matched by id). For each input it reports
 - for resolve inputs, a changed grouping; for annotate inputs, changed output text;
 - errors that appear or go away.
 
-The Markdown summary (stdout, or --md) holds the totals and a table capped at --rows
-inputs; the CSV (--csv) lists every change, one row each.
+The Markdown summary (stdout, or --md) holds each run's timing, the totals, the
+agreement rate (citations found by both runs over those found by either), the reporters
+and fields that differ most with an example of each, the inputs either run answered
+with an error, and a table capped at --rows inputs; the CSV (--csv) lists every change,
+one row each. For html inputs, where spans index each engine's own cleaned text, a
+citation's text is found by searching the tag-stripped input for its volume, reporter
+and page, and shown with some context.
 """
 
 import argparse
 import collections
 import csv
+import difflib
+import html
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -34,7 +42,19 @@ FIELDS = ("span", "full_span", "groups", "reporter_normalized", "year") + tuple(
     f"metadata.{k}" for k in sorted(SCORED_METADATA)
 )
 MAX_CHANGE_ROWS = 200  # Markdown detail rows, across the inputs in the summary table
-CSV_COLUMNS = ("input", "kind", "change", "citation", "field", "base", "candidate")
+CSV_COLUMNS = (
+    "input",
+    "kind",
+    "change",
+    "citation",
+    "reporter",
+    "field",
+    "base",
+    "candidate",
+)
+CONTEXT = 50  # characters either side of a citation located in markup
+TAG = re.compile(r"<[^>]*>")
+SPACE = re.compile(r"\s+")
 
 
 def load(path):
@@ -70,6 +90,34 @@ def keyed(citations):
     return out
 
 
+def pair(bc, cc):
+    """Match two keyed citation lists. Returns (pairs, lost keys, gained keys).
+
+    Citations with a volume, reporter or page match on those. The rest (id., supra,
+    references, unknowns) are keyed by span, and a span moves whenever two engines clean
+    the text before it differently; those left over are paired by aligning their types
+    in document order, so a shifted id. shows as a changed span, not as lost and gained.
+    """
+    pairs = [(k, k) for k in bc if k in cc]
+    lost = [k for k in bc if k not in cc]
+    gained = [k for k in cc if k not in bc]
+
+    def positional(keys):
+        return sorted((k for k in keys if k[0][1] == "span"), key=lambda k: k[0][2])
+
+    lb, gc = positional(lost), positional(gained)
+    matcher = difflib.SequenceMatcher(
+        None, [k[0][0] for k in lb], [k[0][0] for k in gc], autojunk=False
+    )
+    for block in matcher.get_matching_blocks():
+        for j in range(block.size):
+            b, c = lb[block.a + j], gc[block.b + j]
+            pairs.append((b, c))
+            lost.remove(b)
+            gained.remove(c)
+    return pairs, lost, gained
+
+
 def field_value(c, field):
     if field.startswith("metadata."):
         return (c.get("metadata") or {}).get(field.split(".", 1)[1])
@@ -88,11 +136,55 @@ def field_changes(base, cand):
     return out
 
 
-def matched_text(item, c):
-    span = c.get("span")
-    if not span or item.get("input", {}).get("format") != "plain":
-        return ""
-    return item["input"]["text"][span[0] : span[1]]
+def reporter_of(c):
+    """What a citation cites, for grouping: its reporter, or its type when it has none."""
+    return (c.get("groups") or {}).get("reporter") or f"({c.get('type')})"
+
+
+class Located:
+    """Find a citation's text in an input, for showing it in the report.
+
+    Spans index the engine's own cleaned text, which the bench doesn't have for html
+    input, so there the citation is searched for by its volume, reporter and page in
+    the input with tags removed, and shown with some text either side.
+    """
+
+    def __init__(self, item):
+        self.item = item
+        self._text = None
+
+    @property
+    def text(self):
+        if self._text is None:
+            raw = self.item.get("input", {}).get("text", "")
+            if self.item.get("input", {}).get("format") == "html":
+                raw = html.unescape(TAG.sub(" ", raw))
+            self._text = SPACE.sub(" ", raw)
+        return self._text
+
+    def __call__(self, c, nth=0):
+        inp = self.item.get("input", {})
+        span = c.get("span")
+        if inp.get("format") == "plain":
+            return inp["text"][span[0] : span[1]] if span else ""
+        groups = c.get("groups") or {}
+        parts = [groups[k] for k in ("volume", "title", "reporter") if groups.get(k)]
+        parts += [groups[k] for k in ("chapter", "section", "page") if groups.get(k)]
+        if not parts:
+            return ""
+        pattern = r"\W{0,12}".join(
+            r"\s*".join(map(re.escape, p.split())) for p in parts
+        )
+        matches = list(re.finditer(r"(?<!\w)" + pattern + r"(?!\w)", self.text))
+        if not matches:
+            return ""
+        m = matches[min(nth, len(matches) - 1)]
+        start, end = max(m.start() - CONTEXT, 0), m.end() + CONTEXT
+        return (
+            ("…" if start else "")
+            + self.text[start:end].strip()
+            + ("…" if end < len(self.text) else "")
+        )
 
 
 def diff_input(base, cand):
@@ -100,13 +192,14 @@ def diff_input(base, cand):
     rows = []
     iid, kind = base["id"], base.get("kind", "find")
 
-    def row(change, citation="", field="", b="", c="", text=""):
+    def row(change, citation="", field="", b="", c="", text="", reporter=""):
         rows.append(
             {
                 "input": iid,
                 "kind": kind,
                 "change": change,
                 "citation": citation,
+                "reporter": reporter,
                 "field": field,
                 "base": b,
                 "candidate": c,
@@ -125,19 +218,32 @@ def diff_input(base, cand):
         return rows
 
     bc, cc = keyed(br.get("citations") or []), keyed(cr.get("citations") or [])
-    for k in bc.keys() - cc.keys():
-        row("lost", describe_key(k[0]), text=matched_text(base, bc[k]))
-    for k in cc.keys() - bc.keys():
-        row("gained", describe_key(k[0]), text=matched_text(cand, cc[k]))
-    for k in bc.keys() & cc.keys():
-        for field, b, c in field_changes(bc[k], cc[k]):
+    locate_b, locate_c = Located(base), Located(cand)
+    pairs, lost, gained = pair(bc, cc)
+    for k in lost:
+        row(
+            "lost",
+            describe_key(k[0]),
+            text=locate_b(bc[k], k[1]),
+            reporter=reporter_of(bc[k]),
+        )
+    for k in gained:
+        row(
+            "gained",
+            describe_key(k[0]),
+            text=locate_c(cc[k], k[1]),
+            reporter=reporter_of(cc[k]),
+        )
+    for kb, kc in pairs:
+        for field, b, c in field_changes(bc[kb], cc[kc]):
             row(
                 "changed",
-                describe_key(k[0]),
+                describe_key(kb[0]),
                 field,
                 json.dumps(b, ensure_ascii=False),
                 json.dumps(c, ensure_ascii=False),
-                matched_text(base, bc[k]),
+                locate_b(bc[kb], kb[1]),
+                reporter_of(bc[kb]),
             )
     if kind == "resolve" and canonical_resolution(
         br.get("resolution")
@@ -168,6 +274,51 @@ def diff_runs(base, cand):
             len((items[i].get("response") or {}).get("citations") or []) for i in shared
         )
 
+    def answered(item):
+        r = item.get("response")
+        return bool(r) and "error" not in r
+
+    # Agreement counts citations on inputs both runs answered without an error.
+    both = collections.Counter()
+    found = {"base": collections.Counter(), "candidate": collections.Counter()}
+    for i in shared:
+        if not (answered(bi[i]) and answered(ci[i])):
+            continue
+        bc = keyed(bi[i]["response"].get("citations") or [])
+        cc = keyed(ci[i]["response"].get("citations") or [])
+        found["base"].update(reporter_of(c) for c in bc.values())
+        found["candidate"].update(reporter_of(c) for c in cc.values())
+        both.update(reporter_of(bc[k]) for k, _ in pair(bc, cc)[0])
+    by_reporter = {}
+    for r in rows:
+        if r["change"] in ("lost", "gained"):
+            entry = by_reporter.setdefault(
+                r["reporter"],
+                {
+                    "base": found["base"][r["reporter"]],
+                    "candidate": found["candidate"][r["reporter"]],
+                    "both": both[r["reporter"]],
+                    "lost": 0,
+                    "gained": 0,
+                    "example": {},
+                },
+            )
+            entry[r["change"]] += 1
+            entry["example"].setdefault(r["change"], r)
+    field_examples = {}
+    for r in rows:
+        if r["change"] == "changed":
+            field_examples.setdefault(r["field"], r)
+    agreed = sum(both.values())
+    either = sum(found["base"].values()) + sum(found["candidate"].values()) - agreed
+
+    def errored(items):
+        return {
+            i: items[i]["response"]["error"]
+            for i in shared
+            if "error" in (items[i].get("response") or {})
+        }
+
     totals = {
         "inputs": len(shared),
         "only_in_base": len(bi.keys() - ci.keys()),
@@ -184,6 +335,18 @@ def diff_runs(base, cand):
         "resolution_changed": counts["resolution"],
         "text_changed": counts["text"],
         "errors_changed": counts["error"],
+        "found_by_both": agreed,
+        "found_by_either": either,
+        "agreement": agreed / either if either else None,
+        "by_reporter": dict(
+            sorted(
+                by_reporter.items(),
+                key=lambda kv: (-(kv[1]["lost"] + kv[1]["gained"]), kv[0]),
+            )
+        ),
+        "field_examples": field_examples,
+        "errors_base": errored(bi),
+        "errors_candidate": errored(ci),
     }
     return rows, totals
 
@@ -193,7 +356,16 @@ def md_cell(value, limit=80):
     return value if len(value) <= limit else value[: limit - 1] + "…"
 
 
-def markdown(base, cand, rows, totals, max_rows):
+def meta_row(label, bm, cm, key, fmt=str):
+    b, c = bm.get(key), cm.get(key)
+    if b is None and c is None:
+        return []
+    return [
+        f"| {label} | {'' if b is None else fmt(b)} | {'' if c is None else fmt(c)} |"
+    ]
+
+
+def markdown(base, cand, rows, totals, max_rows, max_reporters=15):
     bm, cm = base["meta"], cand["meta"]
     lines = [
         f"# {bm['label']} → {cm['label']}",
@@ -204,9 +376,28 @@ def markdown(base, cand, rows, totals, max_rows):
         f"| adapter | `{md_cell(bm['adapter'])}` | `{md_cell(cm['adapter'])}` |",
         f"| vectors | {md_cell(bm['vectors'])} | {md_cell(cm['vectors'])} |",
         f"| started | {bm.get('started')} | {cm.get('started')} |",
-        f"| ms/input | {bm.get('ms_per_input')} | {cm.get('ms_per_input')} |",
+        *meta_row("input KB", bm, cm, "input_kb"),
+        *meta_row("ms/input", bm, cm, "ms_per_input", lambda v: f"{v:.2f}"),
+        *meta_row("ms/KB", bm, cm, "ms_per_kb", lambda v: f"{v:.2f}"),
+        *meta_row("ms/input, median", bm, cm, "ms_p50", lambda v: f"{v:.2f}"),
+        *meta_row("cold start (s)", bm, cm, "cold_start_s"),
+        *meta_row("slowest input", bm, cm, "slowest", lambda v: f"`{v}`"),
         f"| citations | {totals['citations_base']} | {totals['citations_candidate']} |",
-        f"| passed | {bm.get('passed')}/{bm.get('scored')} | {cm.get('passed')}/{cm.get('scored')} |",
+        f"| errors | {len(totals['errors_base'])} | {len(totals['errors_candidate'])} |",
+        *meta_row("adapter crashes", bm, cm, "crashed", len),
+    ]
+    if bm.get("scored") or cm.get("scored"):
+        lines.append(
+            f"| passed | {bm.get('passed')}/{bm.get('scored')} "
+            f"| {cm.get('passed')}/{cm.get('scored')} |"
+        )
+    lines += [
+        "",
+        (
+            "Times are the adapter's own, per input, from the gap between its "
+            "replies. Cold start runs from process start to the reply to a "
+            "one-citation probe."
+        ),
         "",
         "## Totals",
         "",
@@ -216,6 +407,13 @@ def markdown(base, cand, rows, totals, max_rows):
             f"{totals['citations_changed']} found by both with changed fields"
         ),
     ]
+    if totals["agreement"] is not None:
+        lines.append(
+            f"- agreement: **{100 * totals['agreement']:.1f}%** "
+            f"({totals['found_by_both']} citations found by both of "
+            f"{totals['found_by_either']} found by either, on inputs neither "
+            "run answered with an error)"
+        )
     if totals["field_changes"]:
         lines.append(
             "- field changes: "
@@ -230,6 +428,53 @@ def markdown(base, cand, rows, totals, max_rows):
     ):
         if totals[key]:
             lines.append(f"- {totals[key]} {label}")
+
+    reporters = list(totals["by_reporter"].items())
+    if reporters:
+        lines += [
+            "",
+            f"## Reporters that differ ({len(reporters)}"
+            + (f", top {max_reporters} shown" if len(reporters) > max_reporters else "")
+            + ")",
+            "",
+            "Found by each run, by both, and an example of the larger difference.",
+            "",
+            "| reporter | base | candidate | both | lost | gained | example |",
+            "|---|---:|---:|---:|---:|---:|---|",
+        ]
+        for name, e in reporters[:max_reporters]:
+            change = "lost" if e["lost"] >= e["gained"] else "gained"
+            ex = e["example"][change]
+            example = f"{change} in `{ex['input']}`: {ex['text'] or ex['citation']}"
+            lines.append(
+                f"| {md_cell(name, 40)} | {e['base']} | {e['candidate']} | {e['both']} "
+                f"| {e['lost']} | {e['gained']} | {md_cell(example, 160)} |"
+            )
+    if totals["field_changes"]:
+        lines += [
+            "",
+            "## Fields that differ on citations both found",
+            "",
+            "| field | citations | example |",
+            "|---|---:|---|",
+        ]
+        for field, n in totals["field_changes"].items():
+            ex = totals["field_examples"][field]
+            example = (
+                f"`{ex['input']}` {ex['citation']}: {ex['base']} → {ex['candidate']}"
+                + (f" ({ex['text']})" if ex["text"] else "")
+            )
+            lines.append(f"| {field} | {n} | {md_cell(example, 200)} |")
+    for key, who in (("errors_base", "base"), ("errors_candidate", "candidate")):
+        errs = totals[key]
+        if errs:
+            lines += ["", f"## Errors in {who} ({len(errs)})", ""]
+            lines += [
+                f"- `{iid}`: {md_cell(msg, 160)}"
+                for iid, msg in list(errs.items())[:50]
+            ]
+            if len(errs) > 50:
+                lines.append(f"- … {len(errs) - 50} more")
 
     per_input = collections.defaultdict(collections.Counter)
     for r in rows:
@@ -270,8 +515,15 @@ def markdown(base, cand, rows, totals, max_rows):
                 b = r["text"]
             elif r["change"] == "gained":
                 c = r["text"]
-            cells = (r["input"], r["change"], r["citation"], r["field"], b, c)
-            lines.append("| " + " | ".join(md_cell(x) or " " for x in cells) + " |")
+            cells = (r["input"], r["change"], r["citation"], r["field"])
+            lines.append(
+                "| "
+                + " | ".join(
+                    [md_cell(x) or " " for x in cells]
+                    + [md_cell(x, 120) or " " for x in (b, c)]
+                )
+                + " |"
+            )
         if len(rows) > len(shown):
             lines += [
                 "",
@@ -296,11 +548,14 @@ def main(argv=None):
     ap.add_argument("--md", type=Path, help="write the Markdown summary here")
     ap.add_argument("--csv", type=Path, help="write every change here")
     ap.add_argument("--rows", type=int, default=50, help="inputs in the summary table")
+    ap.add_argument(
+        "--reporters", type=int, default=15, help="reporters in the summary table"
+    )
     args = ap.parse_args(argv)
 
     base, cand = load(args.base), load(args.candidate)
     rows, totals = diff_runs(base, cand)
-    report = markdown(base, cand, rows, totals, args.rows)
+    report = markdown(base, cand, rows, totals, args.rows, args.reporters)
     if args.md:
         args.md.parent.mkdir(parents=True, exist_ok=True)
         args.md.write_text(report, encoding="utf-8")
