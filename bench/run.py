@@ -2,7 +2,7 @@
 
 Usage:
   uv run bench/run.py --adapter CMD --vectors DIR [--show N] [--json OUT]
-                      [--save results/LABEL.json [--label LABEL]]
+                      [--save results/LABEL.json [--label LABEL]] [--timeout S]
                       [--known-failures FILE [--update-known-failures]]
 
 With --known-failures, the run fails only on vectors that aren't listed in FILE, and it
@@ -14,10 +14,16 @@ saved but not scored, so the same runner serves corpora that have no answers yet
 
 With --save, the run also writes every response with its timing and the run's metadata,
 which bench/diff.py compares across engines or versions.
+
+Timing: the adapter first answers a probe request, so its startup is reported once as
+the cold start, and each input is timed from the reply before it (ms per input and per
+KB of input text). If the adapter dies, or sits on one input longer than --timeout, the
+bench records that input as crashed and carries on with a fresh adapter.
 """
 
 import argparse
 import collections
+import dataclasses
 import datetime
 import json
 import platform
@@ -59,7 +65,48 @@ def load_vectors(path):
     ]
 
 
-def run_adapter(cmd, vectors):
+PROBE = {
+    "protocol": PROTOCOL,
+    "kind": "find",
+    "id": "citation-bench/probe",
+    "input": {"text": "1 U.S. 1", "format": "plain", "clean_steps": []},
+    "options": {},
+}
+
+
+@dataclasses.dataclass
+class AdapterRun:
+    responses: dict  # id -> response
+    seconds: dict  # id -> seconds the adapter spent on it, or None
+    cold_start: float | None  # process start to the probe's reply, first process only
+    exit_codes: list  # one per adapter process
+    crashed: list  # ids the adapter died or was killed on
+    timed_out: list  # the subset of crashed that hit --timeout
+
+    @property
+    def elapsed(self):
+        return sum(s for s in self.seconds.values() if s is not None)
+
+
+def request(v):
+    return {
+        "protocol": PROTOCOL,
+        "kind": v.get("kind", "find"),
+        "id": v["id"],
+        "input": v["input"],
+        "options": v.get("options", {}),
+    }
+
+
+def run_once(cmd, vectors, timeout=None):
+    """Start the adapter, send a probe and then every vector, collect the replies.
+
+    Returns (responses, seconds, cold_start, exit code, timed out). The probe's reply
+    marks the end of startup, so cold_start is process start plus one trivial request,
+    and every vector gets a measured time: requests are pipelined and answered in
+    order, so the gap between two replies is the time the adapter spent on the second.
+    """
+    t0 = time.perf_counter()
     proc = subprocess.Popen(
         cmd if isinstance(cmd, list) else shlex.split(cmd),
         stdin=subprocess.PIPE,
@@ -70,32 +117,104 @@ def run_adapter(cmd, vectors):
     )
 
     def feed():
-        for v in vectors:
-            req = {
-                "protocol": PROTOCOL,
-                "kind": v.get("kind", "find"),
-                "id": v["id"],
-                "input": v["input"],
-                "options": v.get("options", {}),
-            }
-            proc.stdin.write(json.dumps(req, ensure_ascii=False) + "\n")
-        proc.stdin.close()
+        try:
+            for req in [PROBE, *map(request, vectors)]:
+                proc.stdin.write(json.dumps(req, ensure_ascii=False) + "\n")
+            proc.stdin.close()
+        except (OSError, ValueError):
+            pass  # the adapter exited; the reader sees it and reports what's missing
+
+    last = [t0]
+    killed = threading.Event()
+    done = threading.Event()
+
+    def watchdog():
+        while not done.wait(1):
+            if time.perf_counter() - last[0] > timeout:
+                killed.set()
+                proc.kill()
+                return
 
     threading.Thread(target=feed, daemon=True).start()
-    responses, seconds, first, last = {}, {}, None, None
+    if timeout:
+        threading.Thread(target=watchdog, daemon=True).start()
+    responses, seconds, cold_start = {}, {}, None
     for line in proc.stdout:
         now = time.perf_counter()
-        if first is None:
-            first = now  # timing starts at the first reply, so the adapter's startup isn't counted
-        res = json.loads(line)
-        responses[res["id"]] = res
-        # Requests are pipelined and answered in order, so the gap between replies is
-        # the time the adapter spent on this one. The first reply has no gap to measure.
-        seconds[res["id"]] = None if last is None else now - last
-        last = now
-    end = time.perf_counter()
+        try:
+            res = json.loads(line)
+        except json.JSONDecodeError:
+            print(
+                f"adapter wrote a line that isn't JSON: {line[:200]!r}", file=sys.stderr
+            )
+            continue
+        if cold_start is None and res.get("id") == PROBE["id"]:
+            cold_start = now - t0
+        else:
+            responses[res.get("id")] = res
+            seconds[res.get("id")] = now - last[0]
+        last[0] = now
+    done.set()
     proc.wait()
-    return responses, seconds, (end - first) if first else 0.0, proc.returncode
+    return responses, seconds, cold_start, proc.returncode, killed.is_set()
+
+
+def run_adapter(cmd, vectors, timeout=None, max_restarts=10):
+    """Run every vector, starting a fresh adapter when one dies mid-run.
+
+    The adapter answers in order, so the first unanswered vector is the one it was on
+    when it crashed or was killed. That vector is recorded and skipped, and the rest go
+    to a new process, up to max_restarts times.
+    """
+    run = AdapterRun({}, {}, None, [], [], [])
+    pending = list(vectors)
+    while pending:
+        responses, seconds, cold, rc, killed = run_once(cmd, pending, timeout)
+        if not run.exit_codes:
+            run.cold_start = cold
+        run.exit_codes.append(rc)
+        run.responses.update(responses)
+        run.seconds.update(seconds)
+        missing = next(
+            (i for i, v in enumerate(pending) if v["id"] not in responses), None
+        )
+        if missing is None:
+            break
+        run.crashed.append(pending[missing]["id"])
+        if killed:
+            run.timed_out.append(pending[missing]["id"])
+        if len(run.exit_codes) > max_restarts:
+            break
+        pending = pending[missing + 1 :]
+    return run
+
+
+def input_kb(v):
+    return len(v["input"].get("text", "").encode("utf-8")) / 1024
+
+
+def timing(vectors, run):
+    """Throughput over the answered inputs, and the slowest one."""
+    timed = [
+        (run.seconds[v["id"]], v)
+        for v in vectors
+        if run.seconds.get(v["id"]) is not None
+    ]
+    kb = sum(input_kb(v) for _, v in timed)
+    elapsed = sum(s for s, _ in timed)
+    ms = sorted(1000 * s for s, _ in timed)
+    slowest = max(timed, key=lambda t: t[0], default=(None, None))[1]
+    return {
+        "elapsed_s": round(elapsed, 6),
+        "cold_start_s": None if run.cold_start is None else round(run.cold_start, 4),
+        "timed_inputs": len(timed),
+        "input_kb": round(kb, 1),
+        "ms_per_input": round(1000 * elapsed / max(len(timed), 1), 4),
+        "ms_per_kb": round(1000 * elapsed / kb, 4) if kb else None,
+        "ms_p50": round(ms[len(ms) // 2], 4) if ms else None,
+        "ms_max": round(ms[-1], 4) if ms else None,
+        "slowest": slowest["id"] if slowest else None,
+    }
 
 
 def canonical_resolution(groups):
@@ -179,7 +298,11 @@ def vector_sources(path):
     return json.loads(source.read_text()) if source.exists() else None
 
 
-def save_results(path, label, args, vectors, responses, seconds, elapsed, rc, results):
+def errors(run):
+    return sum("error" in r for r in run.responses.values())
+
+
+def save_results(path, label, args, vectors, run, results):
     """Write one run as JSON: metadata, then each input with its response and timing."""
     meta = {
         "label": label,
@@ -188,10 +311,13 @@ def save_results(path, label, args, vectors, responses, seconds, elapsed, rc, re
         "source": vector_sources(args.vectors),
         "protocol": PROTOCOL,
         "started": args.started,
-        "elapsed_s": round(elapsed, 6),
-        "ms_per_input": round(1000 * elapsed / max(len(vectors), 1), 4),
-        "adapter_exit": rc,
+        **timing(vectors, run),
+        "adapter_exit": run.exit_codes[-1],
+        "adapter_starts": len(run.exit_codes),
         "inputs": len(vectors),
+        "errors": errors(run),
+        "crashed": run.crashed,
+        "timed_out": run.timed_out,
         "scored": len(results),
         "passed": sum(not bad for bad in results.values()),
         "bench_commit": git_commit(ROOT),
@@ -207,8 +333,8 @@ def save_results(path, label, args, vectors, responses, seconds, elapsed, rc, re
             "kind": v.get("kind", "find"),
             "input": v["input"],
             "options": v.get("options", {}),
-            "response": responses.get(v["id"]),
-            "seconds": seconds.get(v["id"]),
+            "response": run.responses.get(v["id"]),
+            "seconds": run.seconds.get(v["id"]),
             "mismatches": results.get(v["id"]),
         }
         for v in vectors
@@ -239,30 +365,48 @@ def main():
         help="write responses, timing and run metadata here, for bench/diff.py",
     )
     ap.add_argument("--label", help="name for this run in --save (default: file stem)")
+    ap.add_argument(
+        "--timeout",
+        type=float,
+        help="kill the adapter after this many seconds without a reply, record the "
+        "input it was on, and carry on with a fresh one",
+    )
     ap.add_argument("--known-failures", type=Path)
     ap.add_argument("--update-known-failures", action="store_true")
     args = ap.parse_args()
 
     args.started = datetime.datetime.now(datetime.UTC).isoformat(timespec="seconds")
     vectors = load_vectors(args.vectors)
-    responses, seconds, elapsed, rc = run_adapter(args.adapter, vectors)
+    run = run_adapter(args.adapter, vectors, timeout=args.timeout)
+    responses = run.responses
     scored = [v for v in vectors if "expected" in v]
     results = {v["id"]: compare(v, responses.get(v["id"])) for v in scored}
     failing = {i for i, bad in results.items() if bad}
 
     if args.save:
         label = args.label or args.save.stem
-        save_results(
-            args.save, label, args, vectors, responses, seconds, elapsed, rc, results
-        )
+        save_results(args.save, label, args, vectors, run, results)
 
     passed = len(scored) - len(failing)
     unscored = len(vectors) - len(scored)
+    t = timing(vectors, run)
     print(
-        f"{passed}/{len(scored)} vectors pass ({pct(passed, len(scored))})"
-        + (f" · {unscored} inputs without answers" if unscored else "")
-        + f" · {1000 * elapsed / max(len(vectors), 1):.2f} ms/vector · adapter exit {rc}"
+        (
+            f"{passed}/{len(scored)} vectors pass ({pct(passed, len(scored))})"
+            + (f" · {unscored} inputs without answers" if unscored else "")
+            if scored
+            else f"{len(vectors)} inputs, none with answers to score"
+        )
+        + f" · {t['ms_per_input']:.2f} ms/vector"
+        + (f", {t['ms_per_kb']:.2f} ms/KB" if t["ms_per_kb"] else "")
+        + (f" · cold start {t['cold_start_s']:.2f} s" if t["cold_start_s"] else "")
+        + f" · adapter exit {run.exit_codes[-1]}"
     )
+    if errors(run):
+        print(f"{errors(run)} inputs answered with an error")
+    for i in run.crashed:
+        how = "timed out" if i in run.timed_out else "crashed"
+        print(f"adapter {how} on {i}; restarted for the rest", file=sys.stderr)
     if args.save:
         print(f"saved {len(vectors)} responses to {args.save}")
     by_kind = collections.defaultdict(lambda: [0, 0])

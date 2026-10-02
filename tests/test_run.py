@@ -1,6 +1,9 @@
 """Scorer tests on tiny synthetic vectors."""
 
-from run import canonical_resolution, compare
+import sys
+
+import pytest
+from run import canonical_resolution, compare, run_adapter, timing
 
 
 def cite(type_="full_case", **kw):
@@ -87,3 +90,47 @@ def test_annotate_compares_text():
 
 def test_unknown_kind():
     assert compare(vector("frobnicate"), {}) == ["unknown-kind:frobnicate"]
+
+
+FAKE_ADAPTER = """
+import json, sys, time
+for line in sys.stdin:
+    req = json.loads(line)
+    text = req["input"]["text"]
+    if text == "crash":
+        sys.exit(3)
+    if text == "hang":
+        time.sleep(30)
+    out = {"id": req["id"], "citations": []}
+    if text == "error":
+        out = {"id": req["id"], "error": "boom"}
+    print(json.dumps(out), flush=True)
+"""
+
+
+def corpus(*texts):
+    return [
+        {"id": f"c/{i}", "input": {"text": t, "format": "html", "clean_steps": []}}
+        for i, t in enumerate(texts)
+    ]
+
+
+def test_run_adapter_survives_errors_and_crashes():
+    vectors = corpus("a" * 2048, "error", "crash", "b" * 1024)
+    run = run_adapter([sys.executable, "-c", FAKE_ADAPTER], vectors)
+    assert run.crashed == ["c/2"] and run.timed_out == []
+    assert run.exit_codes == [3, 0]
+    assert set(run.responses) == {"c/0", "c/1", "c/3"}  # the probe isn't a response
+    assert run.responses["c/1"] == {"id": "c/1", "error": "boom"}
+    assert run.cold_start is not None and run.cold_start > 0
+    t = timing(vectors, run)
+    assert t["timed_inputs"] == 3
+    assert t["input_kb"] == 3.0  # 2 KB + 5 bytes + 1 KB, rounded
+    assert t["ms_per_kb"] == pytest.approx(1000 * run.elapsed / t["input_kb"], rel=0.01)
+
+
+def test_run_adapter_timeout_kills_and_restarts():
+    vectors = corpus("a", "hang", "b")
+    run = run_adapter([sys.executable, "-c", FAKE_ADAPTER], vectors, timeout=1)
+    assert run.crashed == run.timed_out == ["c/1"]
+    assert set(run.responses) == {"c/0", "c/2"}

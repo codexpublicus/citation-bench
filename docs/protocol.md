@@ -13,10 +13,15 @@ be shared: the bench only sees what crosses stdin and stdout.
 - When stdin closes, the adapter exits 0.
 - Anything written to stderr is logged and otherwise ignored.
 - If the adapter can't handle one request, it answers that request with an `error` and
-  carries on. A crash or a missing line fails every request still outstanding.
+  carries on. A crash or a missing line fails every request still outstanding in that
+  process. The bench records the request the adapter was on (the first unanswered one)
+  as crashed, starts a fresh adapter, and sends it the rest.
 
 Setup work such as loading data or compiling patterns belongs before the first request.
-The bench times the requests, not process start.
+The bench's first request is always a probe, a `find` of `1 U.S. 1` with the id
+`citation-bench/probe`; answer it like any other. The time from process start to the
+probe's reply is reported as the cold start, and each later request is timed from the
+reply before it, so setup counts toward the cold start and not toward any input.
 
 ## Version
 
