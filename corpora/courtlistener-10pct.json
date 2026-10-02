@@ -1,0 +1,19 @@
+{
+  "name": "courtlistener-10pct",
+  "url": "https://storage.courtlistener.com/bulk-data/eyecite/tests/ten-percent.csv.bz2",
+  "sha256": "5491da97def994eee874f1c58d30344f5428909b56a134b3a3533226db53ad3e",
+  "bytes": 21876990,
+  "rows": 7632,
+  "last_modified": "2025-07-28T16:33:16Z",
+  "pinned": "2026-10-02",
+  "columns": [
+    "id",
+    "plain_text",
+    "html",
+    "html_lawbox",
+    "html_columbia",
+    "html_anon_2020",
+    "xml_harvard"
+  ],
+  "provenance": "The larger sample published next to the one-percent file; eyecite's workflow does not use it. It was re-uploaded on 2025-07-28. 11 rows have every text column empty and go in as empty documents, as eyecite's benchmark would send them. eyecite's .github/workflows/benchmark.yml (v2.7.8) documents the query that made the ten-percent file: COPY (SELECT id, plain_text, html, html_lawbox, html_columbia, html_anon_2020, xml_harvard FROM search_opinion TABLESAMPLE BERNOULLI (0.1)) TO STDOUT WITH (FORMAT csv, ENCODING utf8, HEADER), bzip2-compressed. Postgres reads 0.1 as a percentage, so the one-percent and ten-percent names are labels for the two file sizes, not sampling rates."
+}

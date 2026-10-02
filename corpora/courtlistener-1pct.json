@@ -1,0 +1,19 @@
+{
+  "name": "courtlistener-1pct",
+  "url": "https://storage.courtlistener.com/bulk-data/eyecite/tests/one-percent.csv.bz2",
+  "sha256": "2e6c806742bbafd764b6879de44532169278e6748084cdd2ca8738314fcbe8fa",
+  "bytes": 2145859,
+  "rows": 779,
+  "last_modified": "2022-08-04T18:55:24Z",
+  "pinned": "2026-10-02",
+  "columns": [
+    "id",
+    "plain_text",
+    "html",
+    "html_lawbox",
+    "html_columbia",
+    "html_anon_2020",
+    "xml_harvard"
+  ],
+  "provenance": "The file eyecite's benchmark workflow downloads (with no checksum) and runs benchmark/benchmark.py over: a Bernoulli sample of CourtListener opinions published by Free Law Project. id is the CourtListener opinion id; the text columns are as CourtListener stored them. eyecite's .github/workflows/benchmark.yml (v2.7.8) documents the query that made the ten-percent file: COPY (SELECT id, plain_text, html, html_lawbox, html_columbia, html_anon_2020, xml_harvard FROM search_opinion TABLESAMPLE BERNOULLI (0.1)) TO STDOUT WITH (FORMAT csv, ENCODING utf8, HEADER), bzip2-compressed. Postgres reads 0.1 as a percentage, so the one-percent and ten-percent names are labels for the two file sizes, not sampling rates."
+}

@@ -2,18 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/codexpublicus/citation-bench/schema/vector.schema.json",
   "title": "Conformance vector",
-  "description": "One line of a vectors/<source>/*.jsonl file. The bench sends kind, id, input and options as a request (request.schema.json) and scores the response against expected.",
+  "description": "One line of a vectors/<source>/*.jsonl file, or of a corpus converted by tools/fetch_corpus.py. The bench sends kind, id, input and options as a request (request.schema.json) and scores the response against expected; a line without expected is run and saved but not scored.",
   "type": "object",
-  "required": ["id", "source", "input", "expected"],
+  "required": ["id", "source", "input"],
   "properties": {
-    "id": {"type": "string", "description": "Unique and stable: <source>/<kind>/<test>/<index>."},
+    "id": {"type": "string", "description": "Unique and stable: <source>/<kind>/<test>/<index> for test vectors, <corpus>/<opinion id> for a corpus."},
     "kind": {"enum": ["find", "resolve", "annotate"], "default": "find"},
     "source": {
       "type": "object",
-      "required": ["engine", "version"],
+      "description": "Where the input came from: an engine's test suite (engine, version, file, test) or a corpus (corpus, opinion, column).",
+      "anyOf": [{"required": ["engine", "version"]}, {"required": ["corpus"]}],
       "properties": {
         "engine": {"type": "string"}, "version": {"type": "string"},
-        "file": {"type": "string"}, "test": {"type": "string"}, "note": {"type": "string"}
+        "file": {"type": "string"}, "test": {"type": "string"}, "note": {"type": "string"},
+        "corpus": {"type": "string"}, "opinion": {"type": "string"}, "column": {"type": "string"}
       }
     },
     "input": {"$ref": "request.schema.json#/$defs/input"},
