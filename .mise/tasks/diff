@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Compare two saved runs (bench/run.py --save): gained, lost and changed citations"
+#USAGE arg "<base>" help="saved run, e.g. results/eyecite-2.7.8.json"
+#USAGE arg "<candidate>" help="saved run to compare against it"
+#USAGE flag "--out <dir>" help="write report.md and output.csv here instead of printing"
+set -euo pipefail
+base="${usage_base:-$1}"
+candidate="${usage_candidate:-$2}"
+if [[ -n "${usage_out:-}" ]]; then
+  uv run -q bench/diff.py "$base" "$candidate" --md "$usage_out/report.md" --csv "$usage_out/output.csv"
+else
+  uv run -q bench/diff.py "$base" "$candidate"
+fi

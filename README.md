@@ -32,7 +32,9 @@ or commercial tool can be benchmarked without sharing any code.
 | `tools/export_eyecite.py` | Regenerates `vectors/eyecite-*` from an eyecite release's tests (`tools/_capture_<kind>.py`) |
 | `adapters/eyecite/` | Reference adapter for eyecite |
 | `adapters/citare/` | Adapter for citare (Rust) |
-| `bench/run.py` | Sends vectors to an adapter, scores the replies, prints a report |
+| `bench/run.py` | Sends vectors to an adapter, scores the replies, prints a report; `--save` keeps the run |
+| `bench/diff.py` | Compares two saved runs: citations gained, lost and changed per input |
+| `tests/` | Unit tests for the scorer and the diff (`mise run check`) |
 
 ## Usage
 
@@ -41,7 +43,23 @@ mise install
 mise run bench:eyecite        # eyecite against its own vectors (should be 100%)
 mise run bench:citare         # citare against the same vectors
 mise run export:eyecite 2.7.8 # regenerate the vectors from an eyecite tag
+mise run check                # lint and unit tests
 ```
+
+Compare two runs, of different engines or of two versions of one engine, on the same
+inputs:
+
+```bash
+mise run bench:eyecite -- --save results/eyecite.json
+mise run bench:citare -- --save results/citare.json
+mise run diff results/eyecite.json results/citare.json                 # Markdown to stdout
+mise run diff results/eyecite.json results/citare.json --out results/diff  # report.md + output.csv
+```
+
+The diff matches citations by type, volume, reporter and page (by span for id., supra and
+references), lists the ones each run found alone, and the fields that changed on the ones
+both found: spans, pin cite, parties, court, year, normalized reporter and so on. Inputs
+without expected answers are run and saved but not scored, so the same works on a corpus.
 
 Any other engine:
 
