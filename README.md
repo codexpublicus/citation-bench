@@ -67,6 +67,11 @@ Any other engine:
 uv run bench/run.py --adapter "./my-adapter" --vectors vectors/eyecite-2.7.8 --show 5
 ```
 
+## License
+
+The code, schemas and protocol are licensed under the [PolyForm Shield License 1.0.0](LICENSE.md).
+The vectors in `vectors/eyecite-*` keep their BSD 2-Clause license (see [NOTICE](NOTICE)).
+
 ## Data provenance
 
 The vectors in `vectors/eyecite-*` come from eyecite's test suite, © Free Law Project,
