@@ -14,7 +14,10 @@ or commercial tool can be benchmarked without sharing any code.
 1. **Conformance vectors** (`vectors/`): known inputs with expected outputs. The first set
    is exported from eyecite's own test suite, pinned to an eyecite release
    (`vectors/eyecite-<version>/`). An engine's score is the share of vectors it reproduces
-   exactly.
+   exactly, reported per request kind:
+   - `find`: extract citations and their fields (`find.jsonl`)
+   - `resolve`: group citations by the resource they refer to (`resolve.jsonl`)
+   - `annotate`: wrap each citation in markers (`annotate.jsonl`)
 2. **Corpus comparison** (planned): run engines over real opinions, such as the Harvard CAP
    text that [stare.pub](https://stare.pub) serves, and report where they agree, how fast
    they run, and which spans differ. No hand-made answers needed.
@@ -24,9 +27,9 @@ or commercial tool can be benchmarked without sharing any code.
 | Path | Contents |
 |---|---|
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
-| `schema/` | JSON Schemas for vectors and citations |
+| `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
-| `tools/export_eyecite.py` | Regenerates `vectors/eyecite-*` from an eyecite release's tests |
+| `tools/export_eyecite.py` | Regenerates `vectors/eyecite-*` from an eyecite release's tests (`tools/_capture_<kind>.py`) |
 | `adapters/eyecite/` | Reference adapter for eyecite |
 | `adapters/citare/` | Adapter for citare (Rust) |
 | `bench/run.py` | Sends vectors to an adapter, scores the replies, prints a report |

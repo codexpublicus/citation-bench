@@ -2,11 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/codexpublicus/citation-bench/schema/vector.schema.json",
   "title": "Conformance vector",
-  "description": "One line of a vectors/<source>/*.jsonl file.",
+  "description": "One line of a vectors/<source>/*.jsonl file. The bench sends kind, id, input and options as a request (request.schema.json) and scores the response against expected.",
   "type": "object",
   "required": ["id", "source", "input", "expected"],
   "properties": {
-    "id": {"type": "string", "description": "Unique and stable: <source>/<suite>/<test>/<index>."},
+    "id": {"type": "string", "description": "Unique and stable: <source>/<kind>/<test>/<index>."},
+    "kind": {"enum": ["find", "resolve", "annotate"], "default": "find"},
     "source": {
       "type": "object",
       "required": ["engine", "version"],
@@ -15,20 +16,35 @@
         "file": {"type": "string"}, "test": {"type": "string"}, "note": {"type": "string"}
       }
     },
-    "input": {
-      "type": "object",
-      "required": ["text", "format"],
-      "properties": {
-        "text": {"type": "string"},
-        "format": {"enum": ["plain", "html"]},
-        "clean_steps": {"type": "array", "items": {"type": "string"}}
-      }
-    },
-    "options": {"type": "object", "properties": {"remove_ambiguous": {"type": "boolean"}}},
+    "input": {"$ref": "request.schema.json#/$defs/input"},
+    "options": {"$ref": "request.schema.json#/$defs/options"},
     "expected": {
       "type": "object",
-      "required": ["citations"],
-      "properties": {"citations": {"type": "array", "items": {"$ref": "citation.schema.json"}}}
+      "properties": {
+        "citations": {"type": "array", "items": {"$ref": "citation.schema.json"}},
+        "resolution": {"$ref": "response.schema.json#/$defs/resolution"},
+        "text": {"type": "string"}
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"kind": {"const": "resolve"}}, "required": ["kind"]},
+      "then": {"properties": {"expected": {"required": ["citations", "resolution"]}}}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "annotate"}}, "required": ["kind"]},
+      "then": {
+        "properties": {
+          "expected": {"required": ["text"]},
+          "options": {"required": ["annotate"]}
+        },
+        "required": ["options"]
+      }
+    },
+    {
+      "if": {"not": {"properties": {"kind": {"enum": ["resolve", "annotate"]}}, "required": ["kind"]}},
+      "then": {"properties": {"expected": {"required": ["citations"]}}}
+    }
+  ]
 }

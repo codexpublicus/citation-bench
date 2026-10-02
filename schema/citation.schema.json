@@ -11,6 +11,10 @@
       "description": "[start, end) in Unicode code points. Omitted from expected citations whose source has no trustworthy offsets.",
       "type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2
     },
+    "full_span": {
+      "description": "[start, end) in Unicode code points, covering case name, pin cite and parenthetical too. Optional.",
+      "type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2
+    },
     "groups": {"type": "object", "additionalProperties": {"type": "string"}},
     "reporter_normalized": {"type": ["string", "null"]},
     "year": {"type": ["integer", "null"]},
