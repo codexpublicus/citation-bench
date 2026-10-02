@@ -22,6 +22,7 @@ sys.path.insert(0, checkout)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "adapters" / "eyecite"))
 
 from serialize import citation
+
 from tests import test_FindTest
 
 # Tests that exercise eyecite-specific API rather than extraction behaviour.

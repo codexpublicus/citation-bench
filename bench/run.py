@@ -2,18 +2,25 @@
 
 Usage:
   uv run bench/run.py --adapter CMD --vectors DIR [--show N] [--json OUT]
+                      [--save results/LABEL.json [--label LABEL]]
                       [--known-failures FILE [--update-known-failures]]
 
 With --known-failures, the run fails only on vectors that aren't listed in FILE, and it
 reports listed vectors that now pass, so an engine's CI can ratchet toward full parity.
 
 Vectors carry a request kind (find, resolve or annotate; see docs/protocol.md), and the
-report breaks scores down by kind.
+report breaks scores down by kind. Inputs without an `expected` answer are sent and
+saved but not scored, so the same runner serves corpora that have no answers yet.
+
+With --save, the run also writes every response with its timing and the run's metadata,
+which bench/diff.py compares across engines or versions.
 """
 
 import argparse
 import collections
+import datetime
 import json
+import platform
 import shlex
 import subprocess
 import sys
@@ -22,6 +29,8 @@ import time
 from pathlib import Path
 
 PROTOCOL = 2
+SAVE_FORMAT = "citation-bench-results/1"
+ROOT = Path(__file__).resolve().parent.parent
 KINDS = ("find", "resolve", "annotate")
 
 SCORED_METADATA = {
@@ -73,16 +82,20 @@ def run_adapter(cmd, vectors):
         proc.stdin.close()
 
     threading.Thread(target=feed, daemon=True).start()
-    responses, first = {}, None
+    responses, seconds, first, last = {}, {}, None, None
     for line in proc.stdout:
         now = time.perf_counter()
         if first is None:
             first = now  # timing starts at the first reply, so the adapter's startup isn't counted
         res = json.loads(line)
         responses[res["id"]] = res
+        # Requests are pipelined and answered in order, so the gap between replies is
+        # the time the adapter spent on this one. The first reply has no gap to measure.
+        seconds[res["id"]] = None if last is None else now - last
+        last = now
     end = time.perf_counter()
     proc.wait()
-    return responses, (end - first) if first else 0.0, proc.returncode
+    return responses, seconds, (end - first) if first else 0.0, proc.returncode
 
 
 def canonical_resolution(groups):
@@ -147,6 +160,71 @@ def pct(ok, n):
     return f"{100 * ok / max(n, 1):.1f}%"
 
 
+def git_commit(path):
+    try:
+        return subprocess.run(
+            ["git", "-C", str(path), "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def vector_sources(path):
+    """SOURCE.json of the vector set(s), when there is one."""
+    directory = path if path.is_dir() else path.parent
+    source = directory / "SOURCE.json"
+    return json.loads(source.read_text()) if source.exists() else None
+
+
+def save_results(path, label, args, vectors, responses, seconds, elapsed, rc, results):
+    """Write one run as JSON: metadata, then each input with its response and timing."""
+    meta = {
+        "label": label,
+        "adapter": args.adapter,
+        "vectors": str(args.vectors),
+        "source": vector_sources(args.vectors),
+        "protocol": PROTOCOL,
+        "started": args.started,
+        "elapsed_s": round(elapsed, 6),
+        "ms_per_input": round(1000 * elapsed / max(len(vectors), 1), 4),
+        "adapter_exit": rc,
+        "inputs": len(vectors),
+        "scored": len(results),
+        "passed": sum(not bad for bad in results.values()),
+        "bench_commit": git_commit(ROOT),
+        "host": {
+            "platform": platform.platform(),
+            "machine": platform.machine(),
+            "python": platform.python_version(),
+        },
+    }
+    inputs = [
+        {
+            "id": v["id"],
+            "kind": v.get("kind", "find"),
+            "input": v["input"],
+            "options": v.get("options", {}),
+            "response": responses.get(v["id"]),
+            "seconds": seconds.get(v["id"]),
+            "mismatches": results.get(v["id"]),
+        }
+        for v in vectors
+    ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            {"format": SAVE_FORMAT, "meta": meta, "inputs": inputs},
+            ensure_ascii=False,
+            indent=1,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--adapter", required=True, help="adapter command line")
@@ -155,23 +233,41 @@ def main():
     )
     ap.add_argument("--show", type=int, default=0, help="print N failing examples")
     ap.add_argument("--json", type=Path, help="write per-vector results here")
+    ap.add_argument(
+        "--save",
+        type=Path,
+        help="write responses, timing and run metadata here, for bench/diff.py",
+    )
+    ap.add_argument("--label", help="name for this run in --save (default: file stem)")
     ap.add_argument("--known-failures", type=Path)
     ap.add_argument("--update-known-failures", action="store_true")
     args = ap.parse_args()
 
+    args.started = datetime.datetime.now(datetime.UTC).isoformat(timespec="seconds")
     vectors = load_vectors(args.vectors)
-    responses, elapsed, rc = run_adapter(args.adapter, vectors)
-    results = {v["id"]: compare(v, responses.get(v["id"])) for v in vectors}
+    responses, seconds, elapsed, rc = run_adapter(args.adapter, vectors)
+    scored = [v for v in vectors if "expected" in v]
+    results = {v["id"]: compare(v, responses.get(v["id"])) for v in scored}
     failing = {i for i, bad in results.items() if bad}
 
-    passed = len(vectors) - len(failing)
+    if args.save:
+        label = args.label or args.save.stem
+        save_results(
+            args.save, label, args, vectors, responses, seconds, elapsed, rc, results
+        )
+
+    passed = len(scored) - len(failing)
+    unscored = len(vectors) - len(scored)
     print(
-        f"{passed}/{len(vectors)} vectors pass ({pct(passed, len(vectors))})"
-        f" · {1000 * elapsed / max(len(vectors), 1):.2f} ms/vector · adapter exit {rc}"
+        f"{passed}/{len(scored)} vectors pass ({pct(passed, len(scored))})"
+        + (f" · {unscored} inputs without answers" if unscored else "")
+        + f" · {1000 * elapsed / max(len(vectors), 1):.2f} ms/vector · adapter exit {rc}"
     )
+    if args.save:
+        print(f"saved {len(vectors)} responses to {args.save}")
     by_kind = collections.defaultdict(lambda: [0, 0])
     by_test = collections.defaultdict(lambda: [0, 0])
-    for v in vectors:
+    for v in scored:
         kind = v.get("kind", "find")
         for tally, key in (
             (by_kind, kind),
@@ -191,7 +287,7 @@ def main():
         print("mismatches:", ", ".join(f"{k} {n}" for k, n in reasons.most_common()))
 
     shown = 0
-    for v in vectors:
+    for v in scored:
         if shown >= args.show:
             break
         if v["id"] in failing:

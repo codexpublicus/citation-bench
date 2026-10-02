@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "adapters" / "ey
 
 from eyecite import get_citations, resolve_citations
 from serialize import citation, resolution
+
 from tests import test_ResolveTest
 
 # Tried in order. A plain space is the most natural document, but eyecite reads some
