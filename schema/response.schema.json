@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/codexpublicus/citation-bench/schema/response.schema.json",
+  "title": "Adapter response",
+  "description": "One line an adapter writes to stdout per request. find: citations. resolve: citations and resolution. annotate: text. Any kind: error instead.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {"description": "The request's id, unchanged."},
+    "citations": {"type": "array", "items": {"$ref": "citation.schema.json"}},
+    "resolution": {"$ref": "#/$defs/resolution"},
+    "text": {"type": "string", "description": "annotate: input.text with markers inserted."},
+    "error": {"type": "string"}
+  },
+  "$defs": {
+    "resolution": {
+      "description": "Per citation, in document order: its resource group index, or null.",
+      "type": "array",
+      "items": {"type": ["integer", "null"], "minimum": 0}
+    }
+  }
+}

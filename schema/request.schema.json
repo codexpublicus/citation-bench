@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/codexpublicus/citation-bench/schema/request.schema.json",
+  "title": "Adapter request",
+  "description": "One line the bench writes to an adapter's stdin. See docs/protocol.md.",
+  "type": "object",
+  "required": ["id", "input"],
+  "properties": {
+    "protocol": {"const": 2, "description": "Protocol version. Absent in version 1."},
+    "kind": {"enum": ["find", "resolve", "annotate"], "default": "find"},
+    "id": {"type": "string"},
+    "input": {"$ref": "#/$defs/input"},
+    "options": {"$ref": "#/$defs/options"}
+  },
+  "$defs": {
+    "input": {
+      "type": "object",
+      "required": ["text", "format"],
+      "properties": {
+        "text": {"type": "string"},
+        "format": {"enum": ["plain", "html"]},
+        "clean_steps": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "remove_ambiguous": {"type": "boolean"},
+        "annotate": {
+          "type": "object",
+          "required": ["before", "after"],
+          "properties": {
+            "before": {"type": "string", "description": "Marker template; {i} is the citation's index."},
+            "after": {"type": "string"},
+            "unbalanced_tags": {"enum": ["unchecked", "skip", "wrap"], "default": "unchecked"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,7 +29,24 @@ def citation(cite, with_span=True):
     }
     if with_span:
         out["span"] = list(cite.span())
+        out["full_span"] = list(cite.full_span())
     if isinstance(cite, ResourceCitation):
         out["reporter_normalized"] = cite.corrected_reporter()
         out["year"] = cite.year
     return out
+
+
+def resolution(cites, resolutions):
+    """For each citation in document order, the index of its resource group or None.
+
+    Groups are numbered by the position of their first citation, so the labels don't
+    depend on how an engine orders its resources.
+    """
+    group_of = {
+        id(c): g for g, members in enumerate(resolutions.values()) for c in members
+    }
+    seen = {}
+    return [
+        None if id(c) not in group_of else seen.setdefault(group_of[id(c)], len(seen))
+        for c in cites
+    ]

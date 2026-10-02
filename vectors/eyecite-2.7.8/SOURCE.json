@@ -4,5 +4,6 @@
   "commit": "09165c2d90b4295b4967b1b01b83963c37ab2a98",
   "repository": "https://github.com/freelawproject/eyecite",
   "license": "BSD-2-Clause",
-  "exporter": "tools/export_eyecite.py"
+  "exporter": "tools/export_eyecite.py",
+  "protocol": 2
 }
