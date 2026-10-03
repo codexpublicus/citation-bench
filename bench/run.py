@@ -82,6 +82,7 @@ class AdapterRun:
     exit_codes: list  # one per adapter process
     crashed: list  # ids the adapter died or was killed on
     timed_out: list  # the subset of crashed that hit --timeout
+    engine: dict | None = None  # what the adapter says it runs, from its probe reply
 
     @property
     def elapsed(self):
@@ -101,7 +102,7 @@ def request(v):
 def run_once(cmd, vectors, timeout=None):
     """Start the adapter, send a probe and then every vector, collect the replies.
 
-    Returns (responses, seconds, cold_start, exit code, timed out). The probe's reply
+    Returns (responses, seconds, cold_start, exit code, timed out, engine). The probe's reply
     marks the end of startup, so cold_start is process start plus one trivial request,
     and every vector gets a measured time: requests are pipelined and answered in
     order, so the gap between two replies is the time the adapter spent on the second.
@@ -138,7 +139,7 @@ def run_once(cmd, vectors, timeout=None):
     threading.Thread(target=feed, daemon=True).start()
     if timeout:
         threading.Thread(target=watchdog, daemon=True).start()
-    responses, seconds, cold_start = {}, {}, None
+    responses, seconds, cold_start, engine = {}, {}, None, None
     for line in proc.stdout:
         now = time.perf_counter()
         try:
@@ -150,13 +151,14 @@ def run_once(cmd, vectors, timeout=None):
             continue
         if cold_start is None and res.get("id") == PROBE["id"]:
             cold_start = now - t0
+            engine = res.get("engine")
         else:
             responses[res.get("id")] = res
             seconds[res.get("id")] = now - last[0]
         last[0] = now
     done.set()
     proc.wait()
-    return responses, seconds, cold_start, proc.returncode, killed.is_set()
+    return responses, seconds, cold_start, proc.returncode, killed.is_set(), engine
 
 
 def run_adapter(cmd, vectors, timeout=None, max_restarts=10):
@@ -169,9 +171,10 @@ def run_adapter(cmd, vectors, timeout=None, max_restarts=10):
     run = AdapterRun({}, {}, None, [], [], [])
     pending = list(vectors)
     while pending:
-        responses, seconds, cold, rc, killed = run_once(cmd, pending, timeout)
+        responses, seconds, cold, rc, killed, engine = run_once(cmd, pending, timeout)
         if not run.exit_codes:
             run.cold_start = cold
+            run.engine = engine
         run.exit_codes.append(rc)
         run.responses.update(responses)
         run.seconds.update(seconds)
@@ -307,6 +310,7 @@ def save_results(path, label, args, vectors, run, results):
     meta = {
         "label": label,
         "adapter": args.adapter,
+        "engine": run.engine,
         "vectors": str(args.vectors),
         "source": vector_sources(args.vectors),
         "protocol": PROTOCOL,
@@ -389,6 +393,13 @@ def main():
 
     passed = len(scored) - len(failing)
     unscored = len(vectors) - len(scored)
+    if run.engine:
+        e = run.engine
+        print(
+            "engine: "
+            + " ".join(str(e[k]) for k in ("name", "version") if e.get(k))
+            + (f" at {e['commit']}" if e.get("commit") else "")
+        )
     t = timing(vectors, run)
     print(
         (

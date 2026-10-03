@@ -193,6 +193,17 @@ fn record_panics() {
     }));
 }
 
+const PROBE_ID: &str = "citation-bench/probe";
+
+/// What this build is: the citare version and commit the build task resolved and checked.
+fn engine() -> Value {
+    json!({
+        "name": "citare",
+        "version": env!("CITARE_VERSION"),
+        "commit": env!("CITARE_COMMIT"),
+    })
+}
+
 fn main() {
     record_panics();
     // Build the tokenizer before the first timed request.
@@ -212,6 +223,9 @@ fn main() {
         let res = match result {
             Ok(Ok(mut body)) => {
                 body.insert("id".into(), req["id"].clone());
+                if req["id"] == PROBE_ID {
+                    body.insert("engine".into(), engine());
+                }
                 Value::Object(body)
             }
             Ok(Err(e)) => json!({"id": req["id"], "error": e}),
