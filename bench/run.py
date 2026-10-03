@@ -7,6 +7,8 @@ Usage:
 
 With --known-failures, the run fails only on vectors that aren't listed in FILE, and it
 reports listed vectors that now pass, so an engine's CI can ratchet toward full parity.
+FILE can list vectors from several sets; entries this run doesn't score are ignored, and
+--update-known-failures keeps them.
 
 Vectors carry a request kind (find, resolve or annotate; see docs/protocol.md), and the
 report breaks scores down by kind. Inputs without an `expected` answer are sent and
@@ -275,6 +277,17 @@ def compare(vector, response):
     return sorted(set(bad))
 
 
+def ratchet(failing, known, ran):
+    """(regressions, newly passing) against a known-failures list.
+
+    A baseline can list vectors from more than one set (an engine's file covers
+    vectors/eyecite-* and vectors/divergences), so entries this run didn't score are
+    neither passing nor failing here.
+    """
+    known = known & ran
+    return sorted(failing - known), sorted(known - failing)
+
+
 def pct(ok, n):
     return f"{100 * ok / max(n, 1):.1f}%"
 
@@ -455,16 +468,19 @@ def main():
         )
 
     if args.known_failures:
-        if args.update_known_failures:
-            args.known_failures.write_text("".join(f"{i}\n" for i in sorted(failing)))
-            print(f"\nwrote {len(failing)} known failures to {args.known_failures}")
-            return 0
         known = (
             set(args.known_failures.read_text().split())
             if args.known_failures.exists()
             else set()
         )
-        new, fixed = sorted(failing - known), sorted(known - failing)
+        ran = {v["id"] for v in scored}
+        if args.update_known_failures:
+            # Entries for vectors this run didn't score belong to another set; keep them.
+            kept = (known - ran) | failing
+            args.known_failures.write_text("".join(f"{i}\n" for i in sorted(kept)))
+            print(f"\nwrote {len(kept)} known failures to {args.known_failures}")
+            return 0
+        new, fixed = ratchet(failing, known, ran)
         for i in fixed:
             print(f"newly passing (remove from known failures): {i}")
         for i in new:
