@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Fail if a stored eyecite run in baselines/eyecite/ no longer matches its key"
+#MISE alias="baseline:check"
+set -euo pipefail
+uv run -q bench/baseline.py check

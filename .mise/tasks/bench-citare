@@ -5,5 +5,5 @@
 # CITARE_PATH=../citare benches a local checkout instead of the locked git commit.
 set -euo pipefail
 uv run -q bench/run.py --adapter target/release/citare-bench-adapter \
-  --vectors "${VECTORS:-vectors/eyecite-2.7.8}" \
+  --vectors "${VECTORS:-vectors/eyecite-$(uv run -q bench/baseline.py version)}" \
   --known-failures baselines/citare.known-failures "$@"

@@ -365,7 +365,9 @@ def meta_row(label, bm, cm, key, fmt=str):
     ]
 
 
-def markdown(base, cand, rows, totals, max_rows, max_reporters=15):
+def markdown(
+    base, cand, rows, totals, max_rows, max_reporters=15, max_changes=MAX_CHANGE_ROWS
+):
     bm, cm = base["meta"], cand["meta"]
     lines = [
         f"# {bm['label']} → {cm['label']}",
@@ -499,7 +501,7 @@ def markdown(base, cand, rows, totals, max_rows, max_reporters=15):
         for r in rows:
             by_input[r["input"]].append(r)
         shown = [r for iid, _ in ranked[:max_rows] for r in by_input[iid]]
-        shown = shown[:MAX_CHANGE_ROWS]
+        shown = shown[:max_changes]
         lines += [
             "",
             "## Changes",

@@ -1,0 +1,87 @@
+{
+  "corpus-10pct": {
+    "key": "2c77c49e5f1396541e4b069fad7769567cd7e302fcf398f234ae041ff59e836c",
+    "version": "2.7.8",
+    "files": {
+      "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
+      "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
+      "bench/run.py": "b8ffdec1a9d4605ab4863e02bb0904cb21602395d17bb9af74dbefc0175b4efb",
+      "corpora/courtlistener-10pct.json": "f57e2849d15301292418534e00e25d5d6aec68f9d2261e2d4c3a169b8da659ec",
+      "tools/fetch_corpus.py": "6c687753c8d61a214fed024f1f6cb5d3a9031a072ccc9f8888eff16902c93703"
+    },
+    "run": "corpus-10pct.json.gz",
+    "sha256": "adda3284262ea09844d89d5c86f0d644ed78ab3412585adf6f72993c77d3374f",
+    "bench_commit": "a99957c7ad8733ace38366f44fd758ce10c5cb9d",
+    "started": "2026-10-03T16:55:21+00:00",
+    "host": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "python": "3.13.16"
+    },
+    "inputs": 7632,
+    "passed": 0,
+    "scored": 0,
+    "errors": 11,
+    "citations": 160687,
+    "ms_per_input": 80.001,
+    "ms_per_kb": 6.8714,
+    "cold_start_s": 0.2088
+  },
+  "corpus-1pct": {
+    "key": "b8f432b5ec2ebc30083416d29ab9e03c881762c7c430fd27100d83e8a5459ff7",
+    "version": "2.7.8",
+    "files": {
+      "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
+      "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
+      "bench/run.py": "b8ffdec1a9d4605ab4863e02bb0904cb21602395d17bb9af74dbefc0175b4efb",
+      "corpora/courtlistener-1pct.json": "43f4746c4b3760898691b7e602e4bb9fe08271b3b2de1942904cd3a4c5c69af9",
+      "tools/fetch_corpus.py": "6c687753c8d61a214fed024f1f6cb5d3a9031a072ccc9f8888eff16902c93703"
+    },
+    "run": "corpus-1pct.json.gz",
+    "sha256": "60f5ea59c60bab2ea3104418afb10dac9ce313648c399f2be5be81d137469967",
+    "bench_commit": "a99957c7ad8733ace38366f44fd758ce10c5cb9d",
+    "started": "2026-10-03T16:54:26+00:00",
+    "host": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "python": "3.13.16"
+    },
+    "inputs": 779,
+    "passed": 0,
+    "scored": 0,
+    "errors": 0,
+    "citations": 15988,
+    "ms_per_input": 65.4783,
+    "ms_per_kb": 5.8852,
+    "cold_start_s": 0.2399
+  },
+  "vectors": {
+    "key": "e6cd8df0a563d67a8215eb46d2fbe99ff2d8494a6350d3caea4619cb381205f3",
+    "version": "2.7.8",
+    "files": {
+      "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
+      "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
+      "bench/run.py": "b8ffdec1a9d4605ab4863e02bb0904cb21602395d17bb9af74dbefc0175b4efb",
+      "vectors/eyecite-2.7.8/annotate.jsonl": "04a9e416a7493a334bc5f1b35925f025a070997d92e1e069a64e47ec9652bb1f",
+      "vectors/eyecite-2.7.8/find.jsonl": "bde884a32b7b237d736db914527ccced640efe449b1da7dc87528cd2e7a79d7c",
+      "vectors/eyecite-2.7.8/resolve.jsonl": "f6da8845d1482563a9408b26ad2dc49170e70688069bc98d9a731be96bf4e514"
+    },
+    "run": "vectors.json.gz",
+    "sha256": "0e5cf66733fe0ee34227e5a6a0ad5d153bdb8f39f13f67e7368760c990f3b071",
+    "bench_commit": "a99957c7ad8733ace38366f44fd758ce10c5cb9d",
+    "started": "2026-10-03T16:54:12+00:00",
+    "host": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "python": "3.13.16"
+    },
+    "inputs": 278,
+    "passed": 278,
+    "scored": 278,
+    "errors": 0,
+    "citations": 374,
+    "ms_per_input": 1.3969,
+    "ms_per_kb": 21.3604,
+    "cold_start_s": 12.1565
+  }
+}

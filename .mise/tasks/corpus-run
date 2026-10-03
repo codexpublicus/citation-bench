@@ -8,7 +8,8 @@
 #USAGE   choices "1" "10"
 #USAGE }
 #USAGE flag "--timeout <seconds>" default="900" help="restart the adapter if one opinion takes longer"
-# CITARE_PATH=../citare runs a local checkout instead of the locked git commit.
+# CITARE_PATH=../citare runs a local checkout instead of the locked git commit, and
+# CITARE_LABEL names the run (default: the commit).
 set -euo pipefail
 engine="${usage_engine:?}"
 size="${usage_size:-1}"
@@ -17,12 +18,14 @@ corpus=".cache/corpora/courtlistener-${size}pct"
 case "$engine" in
   eyecite)
     adapter="uv run -q --script adapters/eyecite/adapter.py"
-    label="eyecite-2.7.8"
+    label="eyecite-$(uv run -q bench/baseline.py version)"
     ;;
   citare)
     mise run build-citare
     adapter="target/release/citare-bench-adapter"
-    if [[ -n "${CITARE_PATH:-}" ]]; then
+    if [[ -n "${CITARE_LABEL:-}" ]]; then
+      label="$CITARE_LABEL"
+    elif [[ -n "${CITARE_PATH:-}" ]]; then
       label="citare-$(git -C "$CITARE_PATH" rev-parse --short HEAD)-local"
     else
       label="citare-$(grep -o 'citare?branch=main#[0-9a-f]\{7\}' adapters/citare/Cargo.lock | head -1 | cut -d'#' -f2)"
