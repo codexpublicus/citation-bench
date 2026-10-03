@@ -18,6 +18,13 @@ or commercial tool can be benchmarked without sharing any code.
    - `find`: extract citations and their fields (`find.jsonl`)
    - `resolve`: group citations by the resource they refer to (`resolve.jsonl`)
    - `annotate`: wrap each citation in markers (`annotate.jsonl`)
+
+   A second set, `vectors/divergences/`, holds inputs where citare deliberately differs
+   from eyecite, with citare's output as the expected answer and the evidence for it
+   written up in citare's [`docs/divergences.md`](https://github.com/codexpublicus/citare/blob/main/docs/divergences.md).
+   It is scored on its own (`bench:divergences`), so eyecite's score on its own vectors
+   stays 100%, and `baselines/eyecite.known-differences` lists the divergence vectors
+   eyecite is expected to miss.
 2. **Corpus comparison**: run engines over real opinions and report where they agree, how
    fast they run, and which citations and fields differ. No hand-made answers needed. The
    corpus is the CourtListener sample eyecite benchmarks itself on (779 opinions, or 7,632
@@ -32,6 +39,8 @@ or commercial tool can be benchmarked without sharing any code.
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
 | `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
+| `vectors/divergences/` | Inputs where citare deliberately differs from eyecite ([README](vectors/divergences/README.md)) |
+| `baselines/` | Known failures per engine: `citare.known-failures`, and `eyecite.known-differences` for the divergence set |
 | `tools/export_eyecite.py` | Regenerates `vectors/eyecite-*` from an eyecite release's tests (`tools/_capture_<kind>.py`) |
 | `corpora/` | Corpus manifests: URL, sha256, row count and provenance of each pinned file |
 | `tools/fetch_corpus.py` | Downloads a pinned corpus into `.cache/corpora/`, verifies it, and converts it to find requests |
@@ -51,6 +60,8 @@ mise install
 mise run bench:eyecite        # eyecite against its own vectors (should be 100%)
 mise run bench:citare         # citare against the same vectors
 mise run export:eyecite 2.7.8 # regenerate the vectors from an eyecite tag
+mise run bench:divergences eyecite  # the divergence set; fails only outside its baseline
+mise run bench:divergences citare
 mise run check                # lint and unit tests
 ```
 

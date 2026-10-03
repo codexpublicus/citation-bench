@@ -3,7 +3,7 @@
 import sys
 
 import pytest
-from run import canonical_resolution, compare, run_adapter, timing
+from run import canonical_resolution, compare, ratchet, run_adapter, timing
 
 
 def cite(type_="full_case", **kw):
@@ -134,3 +134,9 @@ def test_run_adapter_timeout_kills_and_restarts():
     run = run_adapter([sys.executable, "-c", FAKE_ADAPTER], vectors, timeout=1)
     assert run.crashed == run.timed_out == ["c/1"]
     assert set(run.responses) == {"c/0", "c/2"}
+
+
+def test_ratchet_ignores_known_failures_outside_the_run():
+    ran = {"a/0", "a/1", "a/2"}
+    known = {"a/1", "a/2", "b/0"}
+    assert ratchet({"a/0", "a/1"}, known, ran) == (["a/0"], ["a/2"])
