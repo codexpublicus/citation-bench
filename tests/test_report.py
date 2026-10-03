@@ -58,7 +58,10 @@ def test_report_files(tmp_path):
         [item("a", {}, "find", []), item("b", {}, "annotate", [])],
     )
     corpus = run(
-        tmp_path / "c.json", "citare-x", [item("o", {"citations": [cite("1")]})]
+        tmp_path / "c.json",
+        "citare-x",
+        [item("o", {"citations": [cite("1")]})],
+        engine={"name": "citare", "version": "0.4.1", "commit": "abcdef1234567890"},
     )
     corpus0 = run(
         tmp_path / "c0.json",
@@ -87,6 +90,7 @@ def test_report_files(tmp_path):
     assert "| agreement with eyecite | 50.0% |  | 0.0% |" in md
     assert "no regressions, 1 newly passing" in md
     assert "stored run (key `ffffffffffff`)" in md
+    assert "built from citare 0.4.1 at `abcdef123456`" in md
     assert "+0 gained, −1 lost" in md and "+1 gained, −0 lost" in md
     assert md.endswith("https://example.test/run\n")
     summary = json.loads((out / "summary.json").read_text())

@@ -191,6 +191,12 @@ class Report:
                 f"{meta['inputs']:,} opinions, {meta.get('input_kb', 0):,.0f} KB"
             )
         ]
+        engine = meta.get("engine") or {}
+        if engine.get("commit"):
+            lines.append(
+                f"built from {engine.get('name', '')} {engine.get('version', '')} "
+                f"at `{engine['commit'][:12]}`"
+            )
         if cached:
             lines.append(
                 f"eyecite: the stored run (key `{cached['key'][:12]}`), "
