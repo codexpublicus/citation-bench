@@ -23,6 +23,14 @@ The bench's first request is always a probe, a `find` of `1 U.S. 1` with the id
 probe's reply is reported as the cold start, and each later request is timed from the
 reply before it, so setup counts toward the cold start and not toward any input.
 
+The probe's reply may also say what the adapter runs, which the bench prints and keeps
+in a saved run's metadata, so a report names the build it measured:
+
+```json
+{"id": "citation-bench/probe", "citations": [...],
+ "engine": {"name": "citare", "version": "0.4.1", "commit": "b48f3359f8a2..."}}
+```
+
 ## Version
 
 This is protocol version **2**. Each request carries `"protocol": 2`. Version 1 had no

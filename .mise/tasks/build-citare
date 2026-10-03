@@ -2,9 +2,63 @@
 #MISE description="Build the citare adapter at the locked commit, or at CITARE_PATH"
 #MISE alias="build:citare"
 # CITARE_PATH=../citare builds against a local checkout instead of the locked git commit.
+# Either way the adapter reports the citare version and commit it was built from in its
+# probe reply, and the build fails if that isn't what cargo actually compiled.
 set -euo pipefail
-args=(--release -q --manifest-path adapters/citare/Cargo.toml)
+adapter=adapters/citare
+target="${CARGO_TARGET_DIR:-target}"
+binary="$target/release/citare-bench-adapter"
+log=$(mktemp)
+trap 'rm -f "$log"' EXIT
+
 if [[ -n "${CITARE_PATH:-}" ]]; then
-  args+=(--config "patch.\"https://github.com/codexpublicus/citare\".citare-core.path=\"$(realpath "$CITARE_PATH")/crates/citare-core\"")
+  src=$(realpath "$CITARE_PATH")
+  commit=$(git -C "$src" rev-parse HEAD)
+  [[ -z "$(git -C "$src" status --porcelain --untracked-files=no)" ]] || commit+="-dirty"
+  version=$(cargo metadata -q --no-deps --format-version 1 --manifest-path "$src/Cargo.toml" |
+    uv run -q python -c 'import json, sys; print(next(p["version"] for p in json.load(sys.stdin)["packages"] if p["name"] == "citare-core"))')
+  # Every citare crate in the adapter's graph comes from the checkout. They're resolved
+  # in a copy of the adapter, so the committed Cargo.lock never changes.
+  patch=()
+  for crate in citare-core citare-data-build; do
+    patch+=(--config "patch.\"https://github.com/codexpublicus/citare\".$crate.path=\"$src/crates/$crate\"")
+  done
+  manifest="$target/citare-adapter-local/Cargo.toml"
+  rm -rf "$(dirname "$manifest")"
+  mkdir -p "$(dirname "$manifest")"
+  cp -r "$adapter/Cargo.toml" "$adapter/Cargo.lock" "$adapter/build.rs" "$adapter/src" \
+    "$adapter/.cargo" "$(dirname "$manifest")/"
+  # The copied lock still pins citare's crates at the locked commit's version, and cargo
+  # ignores a patch whose version differs ("was not used in the crate graph") and builds
+  # the locked commit. Re-resolving just those crates moves them onto the checkout and
+  # leaves every third-party pin as committed.
+  cargo update -q --manifest-path "$manifest" "${patch[@]}" -p citare-core -p citare-data-build
+  CITARE_VERSION="$version" CITARE_COMMIT="$commit" \
+    cargo build --release -q --locked --manifest-path "$manifest" "${patch[@]}" 2> >(tee "$log" >&2)
+  if grep -q "was not used in the crate graph" "$log"; then
+    echo "build:citare: cargo didn't use $src for every citare crate (see above)" >&2
+    exit 1
+  fi
+  tree=$(cargo tree -q --manifest-path "$manifest" "${patch[@]}" -e normal -i citare-core --depth 0)
+  if [[ "$tree" != "citare-core v$version ($src/crates/citare-core)" ]]; then
+    echo "build:citare: built $tree, expected citare-core v$version from $src" >&2
+    exit 1
+  fi
+else
+  read -r version commit < <(uv run -q python - "$adapter/Cargo.lock" <<'PY'
+import sys, tomllib
+pkg = next(p for p in tomllib.load(open(sys.argv[1], "rb"))["package"] if p["name"] == "citare-core")
+print(pkg["version"], pkg["source"].rsplit("#", 1)[1])
+PY
+  )
+  CITARE_VERSION="$version" CITARE_COMMIT="$commit" \
+    cargo build --release -q --locked --manifest-path "$adapter/Cargo.toml"
 fi
-cargo build "${args[@]}"
+
+probe='{"protocol":2,"kind":"find","id":"citation-bench/probe","input":{"text":"1 U.S. 1","format":"plain","clean_steps":[]},"options":{}}'
+built=$("$binary" <<<"$probe" | uv run -q python -c 'import json, sys; e = json.load(sys.stdin).get("engine", {}); print(e.get("version"), e.get("commit"))')
+if [[ "$built" != "$version $commit" ]]; then
+  echo "build:citare: the adapter reports citare $built, expected $version $commit" >&2
+  exit 1
+fi
+echo "built the citare adapter: citare-core $version at ${commit}" >&2
