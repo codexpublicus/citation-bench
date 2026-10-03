@@ -39,6 +39,9 @@ or commercial tool can be benchmarked without sharing any code.
 | `adapters/citare/` | Adapter for citare (Rust) |
 | `bench/run.py` | Sends vectors to an adapter, scores the replies, prints a report; `--save` keeps the run |
 | `bench/diff.py` | Compares two saved runs: citations gained, lost and changed per input |
+| `bench/baseline.py` | Stores eyecite's runs in `baselines/eyecite/` by key, and restores them |
+| `bench/report.py` | An engine's report: vector scores, corpus speed, diffs against eyecite and an earlier version |
+| `baselines/` | citare's known failures, and the stored eyecite runs |
 | `tests/` | Unit tests for the scorer, the diff and the corpus conversion (`mise run check`) |
 
 ## Usage
@@ -92,6 +95,37 @@ all. Spans of `html` input index each engine's own cleaned text, so the report s
 citation by finding its volume, reporter and page in the tag-stripped opinion. If an
 adapter crashes, or takes longer than `--timeout` on one opinion, the bench records that
 opinion and restarts the adapter for the rest.
+
+### Stored eyecite runs
+
+eyecite's answers to a fixed set of inputs only change when eyecite or the harness
+changes, so its runs over the vectors and both corpora are committed in
+`baselines/eyecite/` and reused while their key holds. A tier's key is a sha256 over
+the eyecite version the adapter pins and the bytes of the files that decide the run:
+the eyecite adapter, `bench/run.py`, and either the vector set or the corpus manifest
+and `tools/fetch_corpus.py`. `MANIFEST.json` lists each key's files and hashes beside
+the run's headline numbers, so a refresh reads as a diff of that file in review; the
+runs themselves are gzipped responses and timings, without the input text.
+
+```bash
+mise run baseline:check                        # fails if a stored run's key has changed
+mise run baseline:eyecite                      # reruns eyecite on each stale tier and stores it
+uv run bench/baseline.py restore corpus-1pct results/eyecite.json   # exit 3 on a key miss
+```
+
+CI's **Stored eyecite runs** job does the same as `baseline:eyecite` on a GitHub
+runner, the runner class citare's CI times itself on, and uploads the result as the
+`eyecite-baseline` artifact to commit. A weekly workflow opens an issue when PyPI has an
+eyecite newer than the adapter's pin.
+
+### Engine reports
+
+`mise run report:citare --size 1` writes citare's report to `reports/citare/`: vector
+scores per request kind, the known-failures ratchet, corpus speed, and the corpus diffs
+against eyecite (from its stored run, or a live one on a key miss) and against an
+earlier citare (`--previous DIR` with that run's `vectors.json` and
+`corpus-<size>pct.json`). citare's CI posts it on every PR and attaches it to every
+release.
 
 Any other engine:
 

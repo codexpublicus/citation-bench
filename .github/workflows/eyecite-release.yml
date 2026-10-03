@@ -1,0 +1,57 @@
+name: eyecite releases
+
+# Weekly: when PyPI has an eyecite newer than the one adapters/eyecite/adapter.py pins,
+# open an issue with the steps to export its vectors and refresh the stored runs (#5).
+# Moving to a new eyecite means repinning the adapter's dependencies from that
+# release's uv.lock and reviewing the new vectors, so this asks rather than acts.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: Check PyPI for a new eyecite
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Open an issue for a new release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          latest=$(curl -fsSL https://pypi.org/pypi/eyecite/json | jq -r .info.version)
+          pinned=$(sed -n 's/.*"eyecite==\([^"]*\)".*/\1/p' adapters/eyecite/adapter.py)
+          if [[ ! "$latest" =~ ^[0-9][0-9A-Za-z.+-]*$ || -z "$pinned" ]]; then
+            echo "::error::unexpected versions: PyPI '$latest', pinned '$pinned'"
+            exit 1
+          fi
+          newest=$(printf '%s\n%s\n' "$pinned" "$latest" | sort -V | tail -1)
+          if [[ "$latest" == "$pinned" || "$newest" != "$latest" ]]; then
+            echo "eyecite $pinned is the latest release" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          title="eyecite $latest released"
+          if gh issue list --state all --search "\"$title\" in:title" --json title --jq '.[].title' | grep -qxF "$title"; then
+            echo "an issue for eyecite $latest already exists" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh issue create --title "$title" --body-file - <<BODY
+          PyPI has eyecite $latest; the adapter pins $pinned. To benchmark against it:
+
+          1. \`mise run export:eyecite $latest\` writes \`vectors/eyecite-$latest/\`. Keep \`vectors/eyecite-$pinned/\` for comparison.
+          2. Pin \`adapters/eyecite/adapter.py\` to \`eyecite==$latest\` and to the dependency versions in that release's \`uv.lock\`. The vector defaults in \`.mise/tasks/\` follow the pin.
+          3. \`mise run bench:eyecite\` must score 100%.
+          4. Push. CI's **Stored eyecite runs** job reruns eyecite on every tier and uploads \`eyecite-baseline\`; commit it into \`baselines/eyecite/\`.
+          5. Rebaseline \`baselines/citare.known-failures\` and bump \`CITATION_BENCH_REF\` in citare.
+
+          Opened by \`.github/workflows/eyecite-release.yml\`. Refs #5.
+          BODY

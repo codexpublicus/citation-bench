@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#MISE description="citare's benchmark report: vectors and corpus, against eyecite's stored runs and an earlier citare"
+#MISE alias="report:citare"
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent corpus" {
+#USAGE   choices "1" "10"
+#USAGE }
+#USAGE flag "--previous <dir>" help="an earlier citare's saved runs: vectors.json and corpus-<size>pct.json"
+#USAGE flag "--previous-note <text>" help="shown when there is no earlier run to compare"
+#USAGE flag "--link <url>" help="where the full report and runs will be"
+#USAGE flag "--out <dir>" default="reports/citare" help="report directory"
+# CITARE_PATH=../citare reports on a checkout; CITARE_LABEL names the run (default: its
+# commit). eyecite's runs come from baselines/eyecite/ when their key matches and are run
+# live otherwise. The citare vectors run is results/vectors/citare.json when CI's gate
+# already made it (mise run bench:citare --save ...), and is made here if not.
+set -euo pipefail
+size="${usage_size:-1}"
+tier="corpus-${size}pct"
+out="${usage_out:-reports/citare}"
+runs="results/report"
+mkdir -p "$runs"
+
+uv run -q bench/baseline.py restore --or-run vectors "$runs/eyecite-vectors.json"
+uv run -q bench/baseline.py restore --or-run "$tier" "$runs/eyecite-$tier.json"
+
+if [[ ! -f results/vectors/citare.json ]]; then
+  mise run bench:citare --save results/vectors/citare.json ${CITARE_LABEL:+--label "$CITARE_LABEL"} || true
+fi
+mise run corpus:run citare --size "$size"
+
+args=(
+  --vectors results/vectors/citare.json --vectors-base "$runs/eyecite-vectors.json"
+  --corpus "results/$tier/citare.json" --corpus-base "$runs/eyecite-$tier.json"
+  --known-failures baselines/citare.known-failures --out "$out"
+)
+prev="${usage_previous:-}"
+if [[ -n "$prev" && -f "$prev/$tier.json" ]]; then
+  args+=(--previous-corpus "$prev/$tier.json")
+  [[ -f "$prev/vectors.json" ]] && args+=(--previous-vectors "$prev/vectors.json")
+elif [[ -n "${usage_previous_note:-}" ]]; then
+  args+=(--previous-note "$usage_previous_note")
+fi
+[[ -n "${usage_link:-}" ]] && args+=(--link "$usage_link")
+uv run -q bench/report.py "${args[@]}"
