@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#MISE description="Run eyecite over each stale tier and store the run in baselines/eyecite/"
+#MISE alias="baseline:eyecite"
+#USAGE flag "--tier <tier>" default="stale" help="vectors, corpus-1pct, corpus-10pct, all, or stale (every tier whose key changed)" {
+#USAGE   choices "stale" "all" "vectors" "corpus-1pct" "corpus-10pct"
+#USAGE }
+# The stored runs' timings are reported beside citare's CI runs, so CI's baseline job,
+# which runs on the same runner class, is the better place to make them; this task is
+# the same steps for a local refresh.
+set -euo pipefail
+case "${usage_tier:-stale}" in
+  stale) mapfile -t tiers < <(uv run -q bench/baseline.py stale) ;;
+  all) tiers=(vectors corpus-1pct corpus-10pct) ;;
+  *) tiers=("$usage_tier") ;;
+esac
+if [[ ${#tiers[@]} -eq 0 ]]; then
+  echo "every stored eyecite run is current"
+  exit 0
+fi
+for tier in "${tiers[@]}"; do
+  run="results/baseline/eyecite-$tier.json"
+  uv run -q bench/baseline.py run "$tier" "$run"
+  uv run -q bench/baseline.py save "$tier" "$run"
+done

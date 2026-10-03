@@ -3,4 +3,4 @@
 #MISE alias="bench:eyecite"
 set -euo pipefail
 uv run -q bench/run.py --adapter "uv run -q --script adapters/eyecite/adapter.py" \
-  --vectors "${VECTORS:-vectors/eyecite-2.7.8}" "$@"
+  --vectors "${VECTORS:-vectors/eyecite-$(uv run -q bench/baseline.py version)}" "$@"
