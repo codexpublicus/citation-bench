@@ -82,7 +82,7 @@ jobs:
           TIERS: ${{ steps.stale.outputs.tiers }}
           RUN_ID: ${{ github.run_id }}
         run: |
-          msg="Stored eyecite runs are stale ($TIERS). Commit the new ones: gh run download $RUN_ID -n eyecite-baseline -D baselines/eyecite"
+          msg="Stored eyecite runs are stale ($TIERS). Commit the new ones: gh run download $RUN_ID -n eyecite-baseline -D /tmp/eyecite-$RUN_ID && cp /tmp/eyecite-$RUN_ID/* baselines/eyecite/"
           echo "::error title=Stale eyecite runs::$msg"
           { echo; echo "$msg"; echo; sed 's/^/    /' baselines/eyecite/MANIFEST.json; } >> "$GITHUB_STEP_SUMMARY"
           exit 1

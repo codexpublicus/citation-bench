@@ -102,6 +102,18 @@ def test_stale_run_is_a_miss_with_a_reason(repo, tmp_path):
     assert "9.9.10" in baseline.stale_reason("vectors")
 
 
+def test_runner_class_is_part_of_the_key(repo, tmp_path, monkeypatch):
+    saved_run(tmp_path / "run.json", [{"citations": []}, {"citations": []}])
+    baseline.save("vectors", tmp_path / "run.json")
+    entry = json.loads(baseline.MANIFEST.read_text())["vectors"]
+    assert entry["runner"] == baseline.RUNNER
+    monkeypatch.setattr(baseline, "RUNNER", "elsewhere")
+    assert baseline.stale_reason("vectors") == (
+        f"timed on {entry['runner']}, CI runs on elsewhere"
+    )
+    assert entry["key"] != baseline.compute_key(baseline.key_inputs("vectors"))
+
+
 def test_check_and_stale(repo, tmp_path, capsys):
     assert baseline.main(["check", "vectors"]) == 1
     saved_run(tmp_path / "run.json", [{"citations": []}, {"citations": []}])
