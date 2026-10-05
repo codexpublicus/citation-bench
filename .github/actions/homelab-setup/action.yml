@@ -1,0 +1,27 @@
+name: Homelab runner setup
+description: >-
+  Installs what the homelab runner image lacks and the jobs need, then the mise tools.
+  The image is actions-runner with gh, git, curl and jq but no C compiler; uv builds
+  sdists for some of the eyecite adapter's pinned dependencies (pyahocorasick 2.0.0,
+  regex 2023.12.25) because they have no cp313 wheels.
+
+runs:
+  using: composite
+  steps:
+    - name: Install a C toolchain
+      shell: bash
+      run: |
+        if command -v cc >/dev/null && command -v c++ >/dev/null; then
+          echo "cc and c++ are already installed"
+          exit 0
+        fi
+        if ! sudo -n true 2>/dev/null; then
+          echo "::error::no C compiler and no passwordless sudo to install one"
+          exit 1
+        fi
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq --no-install-recommends build-essential >/dev/null
+        cc --version | head -1
+
+    - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
