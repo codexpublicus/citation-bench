@@ -20,6 +20,9 @@ bytes of every file that decides the run:
 - corpus-1pct, corpus-10pct: the corpus manifest (corpora/*.json, which pins the
   download by sha256) and tools/fetch_corpus.py, which turns it into requests
 
+The key also covers RUNNER, the CI runner class the runs are timed on, since engines'
+CI reports its own ms/KB beside eyecite's; changing it makes every tier stale.
+
 baselines/eyecite/MANIFEST.json records, per tier, the key, the files and hashes it was
 made from, and the run's headline numbers, so a refresh shows up in review as a diff of
 that file. The runs themselves are <tier>.json.gz: the run's metadata and each input's
@@ -52,6 +55,7 @@ TIERS = ("vectors", *(f"corpus-{s}pct" for s in CORPUS_SIZES))
 MISS = 3  # restore's exit code when the stored run doesn't match the current key
 EYECITE = "uv run -q --script adapters/eyecite/adapter.py"
 TIMEOUT = "900"  # seconds on one input before the adapter is restarted
+RUNNER = "homelab"  # the runs-on of CI's Stored eyecite runs job
 
 
 def eyecite_version():
@@ -100,6 +104,7 @@ def key_inputs(tier):
         "engine": "eyecite",
         "version": eyecite_version(),
         "tier": tier,
+        "runner": RUNNER,
         "files": dict(sorted(files.items())),
     }
 
@@ -119,6 +124,9 @@ def stale_reason(tier, manifest=None):
         return "no stored run"
     if entry["version"] != eyecite_version():
         return f"eyecite {entry['version']} stored, adapter pins {eyecite_version()}"
+    if entry.get("runner") != RUNNER:
+        stored = entry.get("runner") or "a GitHub-hosted runner"
+        return f"timed on {stored}, CI runs on {RUNNER}"
     inputs = key_inputs(tier)
     if entry["key"] == compute_key(inputs):
         return None
@@ -202,7 +210,7 @@ def save(tier, run_path):
     manifest = load_manifest()
     manifest[tier] = {
         "key": key,
-        **{k: inputs[k] for k in ("version", "files")},
+        **{k: inputs[k] for k in ("version", "runner", "files")},
         "run": f"{tier}.json.gz",
         "sha256": sha256_bytes(data),
         "bench_commit": meta.get("bench_commit"),

@@ -112,9 +112,10 @@ opinion and restarts the adapter for the rest.
 eyecite's answers to a fixed set of inputs only change when eyecite or the harness
 changes, so its runs over the vectors and both corpora are committed in
 `baselines/eyecite/` and reused while their key holds. A tier's key is a sha256 over
-the eyecite version the adapter pins and the bytes of the files that decide the run:
-the eyecite adapter, `bench/run.py`, and either the vector set or the corpus manifest
-and `tools/fetch_corpus.py`. `MANIFEST.json` lists each key's files and hashes beside
+the eyecite version the adapter pins, the CI runner class the runs are timed on
+(`RUNNER` in `bench/baseline.py`), and the bytes of the files that decide the run: the
+eyecite adapter, `bench/run.py`, and either the vector set or the corpus manifest and
+`tools/fetch_corpus.py`. `MANIFEST.json` lists each key's files and hashes beside
 the run's headline numbers, so a refresh reads as a diff of that file in review; the
 runs themselves are gzipped responses and timings, without the input text.
 
@@ -124,9 +125,10 @@ mise run baseline:eyecite                      # reruns eyecite on each stale ti
 uv run bench/baseline.py restore corpus-1pct results/eyecite.json   # exit 3 on a key miss
 ```
 
-CI's **Stored eyecite runs** job does the same as `baseline:eyecite` on a GitHub
+CI's **Stored eyecite runs** job does the same as `baseline:eyecite` on a `homelab`
 runner, the runner class citare's CI times itself on, and uploads the result as the
-`eyecite-baseline` artifact to commit. A weekly workflow opens an issue when PyPI has an
+`eyecite-baseline` artifact to commit (`gh run download RUN_ID -n eyecite-baseline -D
+DIR` wants an empty or new `DIR`). A weekly workflow opens an issue when PyPI has an
 eyecite newer than the adapter's pin.
 
 ### Engine reports
