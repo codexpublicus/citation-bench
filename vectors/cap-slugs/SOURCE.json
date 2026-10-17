@@ -1,0 +1,10 @@
+{
+  "name": "cap-slugs",
+  "description": "Case citations whose reporter name the Caselaw Access Project splits between series, with the CAP slug each citation's volume is filed under. See README.md.",
+  "corpora": [
+    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py)",
+    "Harvard Caselaw Access Project bulk volumes (static.case.law), casebody.opinions[].text and case metadata"
+  ],
+  "selected": "2026-10-17",
+  "protocol": 2
+}
