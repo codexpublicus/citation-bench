@@ -49,6 +49,9 @@ divergences/find/short_name_after_semicolon/0
 divergences/find/subsequent_history/0
 divergences/find/subsequent_history/1
 divergences/resolve/id_chain_past_section_pin/0
+divergences/resolve/reference_after_parallel/0
+divergences/resolve/reference_after_parallel/1
+divergences/resolve/reference_after_parallel/2
 divergences/resolve/section_pin_after_case/0
 divergences/resolve/section_pin_after_case/1
 divergences/resolve/section_pin_after_case/2
