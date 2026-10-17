@@ -287,6 +287,11 @@ fn extract_metadata(citation: &citare_core::Citation) -> HashMap<String, Option<
             insert_opt(&mut map, "month", &m.month);
             insert_opt(&mut map, "day", &m.day);
             insert_opt(&mut map, "publisher", &m.publisher);
+            // The code's jurisdiction (`Connecticut`, `United States`), from citare's law
+            // fields; docs/protocol.md has it as metadata.jurisdiction.
+            if let Some(law) = citation.law() {
+                insert_opt(&mut map, "jurisdiction", &law.jurisdiction);
+            }
         }
         citare_core::Citation::FullJournal(d) => {
             let m = &d.metadata;
