@@ -43,6 +43,12 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/homelab-setup
       - run: mise run bench:eyecite
+      # Per-kind statute metrics (bench/statutes.py) for eyecite, in the job summary.
+      # citare's CI reports its own beside these; nothing here gates.
+      - name: Statute metrics
+        run: |
+          mise run report:statutes eyecite
+          cat reports/statutes/report.md >> "$GITHUB_STEP_SUMMARY"
 
   # The stored eyecite runs in baselines/eyecite/ (bench/baseline.py) have to match
   # their keys, or engines' CI falls back to running eyecite live. When one is stale,
