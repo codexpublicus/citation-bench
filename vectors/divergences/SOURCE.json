@@ -5,5 +5,10 @@
   "differs_from": "eyecite 2.7.8",
   "documented": "https://github.com/codexpublicus/citare/blob/main/docs/divergences.md",
   "license": "PolyForm-Shield-1.0.0",
+  "provenance": {
+    "status": "engine-output",
+    "engine": "citare",
+    "note": "The expected output is citare's, with the evidence for each divergence in citare's docs/divergences.md. Not a reference for scoring citare."
+  },
   "protocol": 2
 }

@@ -18,6 +18,7 @@
         "corpus": {"type": "string"}, "opinion": {"type": "string"}, "column": {"type": "string"}
       }
     },
+    "provenance": {"$ref": "#/$defs/provenance"},
     "input": {"$ref": "request.schema.json#/$defs/input"},
     "options": {"$ref": "request.schema.json#/$defs/options"},
     "expected": {
@@ -26,6 +27,23 @@
         "citations": {"type": "array", "items": {"$ref": "citation.schema.json"}},
         "resolution": {"$ref": "response.schema.json#/$defs/resolution"},
         "text": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "description": "Where the expected answer came from. A vector without one takes its set's (the provenance in SOURCE.json); a set without one is unrecorded. See docs/protocol.md, Vector provenance.",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["verified", "hand-checked", "proposed", "engine-output", "engine-tests"],
+          "description": "verified: reviewed by the maintainer against the input. hand-checked: read by hand against the input when added, not yet verified. proposed: drafted and awaiting review. engine-output: copied from an engine's output. engine-tests: exported from an engine's own test suite."
+        },
+        "engine": {"type": "string", "description": "For engine-output and engine-tests: the engine and version."},
+        "drafted_from": {"type": "string", "description": "What the expected answer was drafted from before it was checked, when that was an engine's output."},
+        "drafted": {"type": "string", "description": "How and when the expected answer was drafted."},
+        "note": {"type": "string"}
       }
     }
   },

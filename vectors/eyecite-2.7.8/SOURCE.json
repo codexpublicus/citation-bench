@@ -5,5 +5,10 @@
   "repository": "https://github.com/freelawproject/eyecite",
   "license": "BSD-2-Clause",
   "exporter": "tools/export_eyecite.py",
+  "provenance": {
+    "status": "engine-tests",
+    "engine": "eyecite 2.7.8",
+    "note": "Exported from eyecite's test suite: the expectations its authors wrote, except STANDALONE_TESTS in tools/_capture_find.py, whose expected citations are eyecite's own output (spans included)."
+  },
   "protocol": 2
 }

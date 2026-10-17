@@ -28,11 +28,11 @@ citation gives:
 - `metadata`: pin cite, parenthetical and year as for any citation, and `jurisdiction`
   (`Connecticut`, `United States`), the jurisdiction reporters-db's laws data gives the code
 
-`metadata.jurisdiction` is recorded but not scored yet. `bench/run.py` scores a fixed list
-of metadata keys, and adding one changes the key of every stored eyecite run
-(`baselines/eyecite/`); that change belongs with #22's corpus metrics, which touch the
-scorer anyway. `full_span` is left out, so the spans a pin cite or parenthetical adds aren't
-scored.
+`bench/run.py` doesn't score `metadata.jurisdiction`: it scores a fixed list of metadata
+keys, and adding one changes the key of every stored eyecite run (`baselines/eyecite/`).
+`bench/statutes.py` scores it instead, with precision, recall and F1 per kind of law
+(`mise run report:statutes`). `full_span` is left out, so the spans a pin cite or
+parenthetical adds aren't scored.
 
 ## How the inputs were chosen and checked
 
@@ -53,6 +53,12 @@ Those three stay in `baselines/citare.known-failures` after the state-code forms
 rest of the set is there too until citation-bench's locked citare commit has them.
 
 ## Provenance
+
+The set's `SOURCE.json` gives every vector here the provenance `hand-checked`: the
+expected citations were drafted from citare's output and read by hand against their
+sentences, as described above, and the maintainer has not yet verified them
+(docs/protocol.md, "Vector provenance"). `bench/statutes.py` treats them as the reference
+until then.
 
 `source` names the corpus, the opinion and the character offset of the excerpt:
 
@@ -108,7 +114,9 @@ The `N.Y. Gen. Bus. Law § 394-ccc` split (citare#49) is in `vectors/divergences
 
 ## Not covered yet
 
-From #22's list: court rules other than Connecticut's Practice Book (`Fed. R. Civ. P.`, state
-rules of procedure and evidence), `Stat.`, `Pub. L.` and `Fed. Reg.`, Idaho's and Indiana's
-shared `I.C. §`, Maryland's article abbreviations (`CP § 8-301`), `U.S.S.G. §`, and the section
-forms: ranges, lists (`§§ 17a-101(b)(9) and 17a-101a`), `et seq.` and Id. chains into a statute.
+[`vectors/statutes-proposed`](../statutes-proposed/README.md) has unreviewed vectors for
+federal and state court rules, constitutions, state administrative codes, `Treas. Reg.`,
+`U.S.S.G.`, `Fed. Reg.`, `Stat.`, `Pub. L.`, `et seq.` and section ranges; they join this
+set once reviewed. Still missing from #22's list: Idaho's and Indiana's shared `I.C. §`,
+Maryland's article abbreviations (`CP § 8-301`), lists (`§§ 17a-101(b)(9) and 17a-101a`)
+and Id. chains into a statute.
