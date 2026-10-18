@@ -12,7 +12,7 @@ writes three files here:
   SHA-256
 
 The sources themselves are cached under `.cache/statute-sources/` (gitignored, about
-150 MB, nearly all of it U.S. Code metadata). A later run refuses a cached copy whose
+235 MB: U.S. Code metadata, California's 32 MB bulk-data prefix and the PDFs). A later run refuses a cached copy whose
 hash differs from `sources.json`; a source that changed upstream is used as it is now,
 repinned, and listed in the report. `--offline` uses the cache only. CI doesn't run the
 verifier; `tests/test_verify_statutes.py` tests it on small fixtures with no network.
@@ -36,10 +36,16 @@ check. A verdict never changes a vector's provenance.
 The checks were tried against seventeen wrong vectors (a section, rule, page, public law,
 clause or year that doesn't exist, one per source); all seventeen came out
 `contradicted`.
+The state sources added later (California through Texas's rules in the table below) are
+checked the same way by fixture tests, each with a section or rule that isn't there.
+
+Every state source is the code as in force now. A section that has since been repealed
+or renumbered isn't in it, and the vector comes out `contradicted`; the report names
+the source and the URL so a person can tell a wrong vector from an old citation.
 
 ## Sources
 
-Access as found on 2026-10-18. None needs a key or an account.
+Access as found on 2026-10-18. None needs a key or an account. PDFs are read with pypdf (pinned in the script's inline metadata), and each PDF's text is kept in the cache next to it.
 
 | Source | Publisher | What it checks | Form and access |
 |---|---|---|---|
@@ -52,6 +58,18 @@ Access as found on 2026-10-18. None needs a key or an account.
 | reporters-db `laws.json` at `v3.2.67` | Free Law Project, maintained by hand on GitHub | The normalized code and its jurisdiction | JSON; the repository's license is BSD-2-Clause |
 | Case files | Caselaw Access Project (`static.case.law/<reporter>/<vol>/cases/<case>.json`) | The excerpt and its offset; the citing court's jurisdiction | Static JSON |
 | Official state code pages | Arizona (azleg.gov), North Carolina (ncleg.gov), Maine (legislature.maine.gov), Texas Legislative Council (tcss.legis.texas.gov, chapter pages), Michigan (legislature.mi.gov), Rhode Island (rilegislature.gov), West Virginia (code.wvlegislature.gov), Wisconsin (docs.legis.wisconsin.gov), Massachusetts (malegislature.gov), Pennsylvania consolidated statutes (palegis.us) | That the section exists in the state's code | One HTML page per section (Texas: per chapter), addressed from the citation; the page has to hold the section's heading, and a 404 is a contradiction |
+| California codes, leginfo bulk data (`pubinfo_2025.zip`) | California Legislative Counsel (`downloads.leginfo.legislature.ca.gov`) | Cal. Pen., Civ. Proc., Evid. and Civ. Code sections (active rows of `LAW_SECTION_TBL`) | A 1.2 GB zip of the session's data, rewritten weekly. The script fetches only its first 32 MB with an HTTP range request (`LAW_SECTION_TBL.dat` sits near the start) and pins that prefix under `<url>#bytes=0-33554431`. No key; the readme (`pubinfo_Readme.pdf`) documents the tables |
+| Connecticut General Statutes | Connecticut General Assembly (`cga.ct.gov/current/pub/`) | Conn. Gen. Stat. sections | The title page gives each chapter's section range; the chapter page has to hold `Sec. <n>.`. The server sends its certificate without the GoDaddy intermediate, which is why it "didn't answer" before: the script fetches that intermediate from the URL the certificate names (`certificates.godaddy.com/repository/gdig2.crt`, pinned too) and verifies the chain as usual. robots.txt disallows only scripts and media directories |
+| Connecticut Practice Book, 2026 | Connecticut Judicial Branch (`jud.ct.gov/Publications/PracticeBook/PB.pdf`) | Practice Book sections (`Sec. 63-8.` headings) | One 24 MB PDF |
+| Hawaii Revised Statutes | Hawaii State Legislature's data host (`data.capitol.hawaii.gov/hrscurrent/`) | Haw. Rev. Stat. sections | A directory listing of volumes, then one HTML page per section. capitol.hawaii.gov answers scripts with HTTP 403; the data host answers, and its robots.txt allows every path except `.axd` handlers |
+| Vermont Statutes | Vermont General Assembly (`legislature.vermont.gov/statutes/`) | V.S.A. sections | The title page lists chapters without section ranges, so the script bisects the chapters (sections are numbered in chapter order) and looks for the section in the chapter's list. robots.txt asks for 30 seconds between requests, and the script waits that long |
+| North Dakota Century Code | Legislative Assembly (`ndlegis.gov/cencode/t<title>c<chapter>.pdf`) | N.D.C.C. sections | One PDF per chapter; a line starting with the section number |
+| New Mexico Statutes, unannotated | New Mexico Compilation Commission, NMOneSource (`nmonesource.com/nmos/nmsa-unanno/`) | N.M. Stat. Ann. sections | The navigation pages map each chapter to a document; the document is a PDF of the chapter. NMCC describes NMOneSource as the official, free legal research service of the New Mexico courts and legislature |
+| Constitution of New Mexico | NMCC, NMOneSource (`nmonesource.com/nmos/c/`) | N.M. Const. articles and sections | One 7 MB PDF with annotations; only bracketed section headings (`Sec. 10. [Searches and seizures.]`) count |
+| Louisiana Revised Statutes | Louisiana Legislature (`legis.la.gov`) | La. Rev. Stat. sections | The Revised Statutes contents page opens a title by form post (ASP.NET postback, the site's own navigation); the title's list gives each section's document id, and the section page has to hold `§<n>.`. The post is pinned under `<url>#postback=TITLE <n>` |
+| Code of Alabama 1975 | Alabama Legislature, ALISON (`alison.legislature.state.al.us/graphql`) | Ala. Code sections | The GraphQL endpoint ALISON's own pages query, read by GET with the query in the URL; no key |
+| Constitution of the State of Indiana, as amended 2024 | Indiana General Assembly (`iga.in.gov/publications/indiana_constitution/`) | Ind. Const. articles and sections | One PDF |
+| Texas Rules of Civil Procedure (2026-10-01) and Rules of Appellate Procedure (2026-02-06) | Supreme Court of Texas, `txcourts.gov/media/` | Tex. R. Civ. P. and Tex. R. App. P. rules | One PDF each; `RULE 185.`, `Rule 25.`, `25.2.` headings |
 
 The verifier doesn't use CAP's `cites_to` or CourtListener's `html_with_citations`:
 both are software output (eyecite or its predecessor), not labels.
@@ -62,16 +80,17 @@ Sources for the remaining codes, as found on 2026-10-18 (`NO_SOURCE` in the scri
 
 - Online only through a commercial publisher: Georgia, Tennessee and Arkansas codes
   (LexisNexis), N.J.A.C. (LexisNexis), NYCRR (Thomson Reuters Westlaw)
-- Refused scripted requests: California (leginfo.legislature.ca.gov, HTTP 403; its bulk
-  `pubinfo` archive is the alternative), New York statutes (nysenate.gov, HTTP 403; the
-  Open Legislation API needs a free key), Hawaii (capitol.hawaii.gov, HTTP 403),
-  constitution.congress.gov (HTTP 403; GPO's text is used instead)
-- No answer: cga.ct.gov (Connecticut) didn't answer from here
-- Need a lookup the script doesn't do yet: Vermont (paths need the chapter), North Dakota
-  (chapter PDFs), Oklahoma (OSCN document ids), New Mexico (nmonesource.com document ids),
-  Louisiana (legis.la.gov document ids), Alabama and Ohio's constitution (sections render
-  client-side), Practice Book, Texas, Michigan and Pennsylvania court rules (PDFs or
-  pages that load the text by script)
+- Refused scripted requests: New York statutes (nysenate.gov, HTTP 403; the Open
+  Legislation API needs a free key), constitution.congress.gov (HTTP 403; GPO's text
+  is used instead)
+- robots.txt disallows every path to every crawler (`User-agent: *` / `Disallow: /`),
+  so the script doesn't fetch them:
+  - Oklahoma: oscn.net (allows only `/rss/` and `/recaptcha/`) and oklegislature.gov
+    (whose title downloads are the other official copy)
+  - Ohio Constitution: codes.ohio.gov. legislature.ohio.gov allows crawlers but
+    links to codes.ohio.gov for the text
+  - Michigan Court Rules: courts.michigan.gov
+  - Pennsylvania Rules of Civil Procedure: pacodeandbulletin.gov (231 Pa. Code)
 - No official per-section source: Purdon's (`P.S.`) title and section numbers
 
 ## Independent human-labelled corpora

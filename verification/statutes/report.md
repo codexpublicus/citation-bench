@@ -4,13 +4,14 @@ Written by `bench/verify_statutes.py` (`mise run verify:statutes`). A verdict do
 
 | Set | Vectors | Verified by source | Contradicted | Unverifiable |
 |---|---:|---:|---:|---:|
-| statutes | 78 | 19 | 0 | 59 |
+| statutes | 78 | 28 | 2 | 48 |
 | statutes-proposed | 36 | 21 | 0 | 15 |
-| **all** | 114 | 40 | 0 | 74 |
+| **all** | 114 | 49 | 2 | 63 |
 
 ## Contradicted
 
-None.
+- `statutes/find/vt_vsa/0`: existence: § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117)
+- `statutes/find/nm_nmsa/0`: existence: no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do
 
 ## What needs a person
 
@@ -69,62 +70,46 @@ None.
 
 ### No machine source for the section's existence
 
-- `Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages: 6 (`conn_general_statutes/0`, `conn_general_statutes/1`, `conn_general_statutes_revision/0`, `conn_general_statutes_revision/1`, `conn_gen_stat/0`, `conn_gen_stat/1`)
 - `Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used: 4 (`ga_ocga/0`, `ga_ocga/1`, `ga_o_c_g_a/0`, `ga_o_c_g_a/1`)
-- `Ala. Code`: alison.legislature.state.al.us renders sections client-side: 2 (`ala_code_1975/0`, `ala_code_1975/1`)
 - `Ark. Code Ann.`: Arkansas's official code is online through LexisNexis; not used: 2 (`ark_aca/0`, `ark_aca/1`)
-- `Cal. Civ. Proc. Code`: as Cal. Pen. Code: 2 (`cal_code_civ_proc/0`, `cal_code_civ_proc/1`)
-- `Cal. Evid. Code`: as Cal. Pen. Code: 2 (`cal_evid_code/0`, `cal_evid_code/1`)
-- `Cal. Pen. Code`: leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in: 2 (`cal_pen_code/0`, `cal_pen_code/1`)
-- `Conn. Practice Book`: the Practice Book is a PDF on jud.ct.gov; not wired in: 2 (`conn_practice_book/0`, `conn_practice_book/1`)
-- `Haw. Rev. Stat.`: capitol.hawaii.gov answered HTTP 403 to scripted requests: 2 (`haw_hrs/0`, `haw_hrs/1`)
-- `La. Stat. Ann.`: legis.la.gov addresses sections by document id; not wired in: 2 (`la_rev_stat/0`, `la_rev_stat/1`)
-- `N.D. Cent. Code`: ndlegis.gov publishes chapter PDFs; PDF text isn't read here: 2 (`nd_ndcc/0`, `nd_ndcc/1`)
-- `N.M. Stat. Ann.`: nmonesource.com addresses sections by document id; not wired in: 2 (`nm_nmsa/0`, `nm_nmsa/1`)
 - `N.Y. Family Ct Act`: as N.Y. Penal Law: 2 (`ny_family_ct_act/0`, `ny_family_ct_act/1`)
 - `N.Y. Penal Law`: nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key: 2 (`ny_penal_law/0`, `ny_penal_law/1`)
-- `Okla. Stat.`: OSCN addresses sections by document id; not wired in: 2 (`okla_os/0`, `okla_os/1`)
+- `Okla. Stat.`: the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler: 2 (`okla_os/0`, `okla_os/1`)
 - `Pa. Stat. Ann.`: Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act: 2 (`pa_ps/0`, `pa_ps/1`)
 - `Tenn. Code Ann.`: Tennessee's official code is online through LexisNexis; not used: 2 (`tenn_tca/0`, `tenn_tca/1`)
-- `Vt. Stat. Ann.`: legislature.vermont.gov paths need the chapter; not wired in: 2 (`vt_vsa/0`, `vt_vsa/1`)
-- `Cal. Civ. Code`: as Cal. Pen. Code: 1 (`cal_civ_code/0`)
-- `Ind. Const.`: no official source wired in: 1 (`state_const/1`)
-- `Mich. Ct. R.`: the rules are a PDF on courts.michigan.gov; not wired in: 1 (`mich_ct_r/0`)
+- `Mich. Ct. R.`: courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler: 1 (`mich_ct_r/0`)
 - `N.J. Admin. Code`: the N.J.A.C. is online through LexisNexis; not used: 1 (`njac/0`)
-- `N.M. Const.`: no official source wired in: 1 (`state_const/2`)
 - `N.Y. Comp. Codes R. & Regs.`: the official NYCRR is online through Thomson Reuters Westlaw; not used: 1 (`nycrr/0`)
 - `N.Y. Judiciary Law`: as N.Y. Penal Law: 1 (`ny_judiciary_law/0`)
-- `Ohio Const.`: codes.ohio.gov renders sections client-side: 1 (`state_const/0`)
-- `Pa. R. Civ. P.`: pacodeandbulletin.gov returned no rule text without scripting: 1 (`pa_r_civ_p/0`)
-- `Tex. R. App. P.`: the rules are a PDF on txcourts.gov; not wired in: 1 (`tex_r_p/1`)
-- `Tex. R. Civ. P.`: the rules are a PDF on txcourts.gov; not wired in: 1 (`tex_r_p/0`)
+- `Ohio Const.`: codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler: 1 (`state_const/0`)
+- `Pa. R. Civ. P.`: pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler: 1 (`pa_r_civ_p/0`)
 
 ## Verdicts
 
 | Vector | Provenance | Verdict |
 |---|---|---|
-| `statutes/find/conn_general_statutes/0` | hand-checked | unverifiable:existence |
-| `statutes/find/conn_general_statutes/1` | hand-checked | unverifiable:existence |
-| `statutes/find/conn_general_statutes_revision/0` | hand-checked | unverifiable:existence, span |
-| `statutes/find/conn_general_statutes_revision/1` | hand-checked | unverifiable:existence, span |
-| `statutes/find/conn_practice_book/0` | hand-checked | unverifiable:code, existence |
-| `statutes/find/conn_practice_book/1` | hand-checked | unverifiable:code, existence |
-| `statutes/find/conn_gen_stat/0` | hand-checked | unverifiable:existence |
-| `statutes/find/conn_gen_stat/1` | hand-checked | unverifiable:existence, span |
+| `statutes/find/conn_general_statutes/0` | hand-checked | verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67 |
+| `statutes/find/conn_general_statutes/1` | hand-checked | verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67 |
+| `statutes/find/conn_general_statutes_revision/0` | hand-checked | unverifiable:span |
+| `statutes/find/conn_general_statutes_revision/1` | hand-checked | unverifiable:span |
+| `statutes/find/conn_practice_book/0` | hand-checked | unverifiable:code |
+| `statutes/find/conn_practice_book/1` | hand-checked | unverifiable:code |
+| `statutes/find/conn_gen_stat/0` | hand-checked | verified-by-source:cga+reporters-db@v3.2.67 |
+| `statutes/find/conn_gen_stat/1` | hand-checked | unverifiable:span |
 | `statutes/find/ga_ocga/0` | hand-checked | unverifiable:existence, form |
 | `statutes/find/ga_ocga/1` | hand-checked | unverifiable:existence, form |
 | `statutes/find/ga_o_c_g_a/0` | hand-checked | unverifiable:existence, form |
 | `statutes/find/ga_o_c_g_a/1` | hand-checked | unverifiable:existence, form |
 | `statutes/find/ariz_ars/0` | hand-checked | unverifiable:form |
 | `statutes/find/ariz_ars/1` | hand-checked | unverifiable:form |
-| `statutes/find/haw_hrs/0` | hand-checked | unverifiable:existence |
-| `statutes/find/haw_hrs/1` | hand-checked | unverifiable:existence, form |
+| `statutes/find/haw_hrs/0` | hand-checked | verified-by-source:cap+cap-case-metadata+hawaii-legislature+reporters-db@v3.2.67 |
+| `statutes/find/haw_hrs/1` | hand-checked | unverifiable:form |
 | `statutes/find/nc_ncgs/0` | hand-checked | verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67 |
 | `statutes/find/nc_ncgs/1` | hand-checked | verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67 |
 | `statutes/find/nc_gs/0` | hand-checked | verified-by-source:ncleg+reporters-db@v3.2.67 |
 | `statutes/find/nc_gs/1` | hand-checked | verified-by-source:ncleg+reporters-db@v3.2.67 |
-| `statutes/find/nd_ndcc/0` | hand-checked | unverifiable:existence |
-| `statutes/find/nd_ndcc/1` | hand-checked | unverifiable:existence, form |
+| `statutes/find/nd_ndcc/0` | hand-checked | verified-by-source:cap+cap-case-metadata+nd-legislature+reporters-db@v3.2.67 |
+| `statutes/find/nd_ndcc/1` | hand-checked | unverifiable:form |
 | `statutes/find/tenn_tca/0` | hand-checked | unverifiable:existence, form |
 | `statutes/find/tenn_tca/1` | hand-checked | unverifiable:existence, form |
 | `statutes/find/pa_cs/0` | hand-checked | unverifiable:form |
@@ -137,8 +122,8 @@ None.
 | `statutes/find/me_mrs/1` | hand-checked | verified-by-source:cap+cap-case-metadata+maine-legislature+reporters-db@v3.2.67 |
 | `statutes/find/me_mrsa/0` | hand-checked | unverifiable:form |
 | `statutes/find/me_mrsa/1` | hand-checked | unverifiable:form |
-| `statutes/find/vt_vsa/0` | hand-checked | unverifiable:existence |
-| `statutes/find/vt_vsa/1` | hand-checked | unverifiable:existence |
+| `statutes/find/vt_vsa/0` | hand-checked | contradicted:existence: § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117) |
+| `statutes/find/vt_vsa/1` | hand-checked | verified-by-source:cap+cap-case-metadata+reporters-db@v3.2.67+vermont-legislature |
 | `statutes/find/okla_os/0` | hand-checked | unverifiable:existence, span |
 | `statutes/find/okla_os/1` | hand-checked | unverifiable:existence, form, span |
 | `statutes/find/ny_penal_law/0` | hand-checked | unverifiable:existence, form |
@@ -146,13 +131,13 @@ None.
 | `statutes/find/ny_judiciary_law/0` | hand-checked | unverifiable:existence |
 | `statutes/find/ny_family_ct_act/0` | hand-checked | unverifiable:code, existence, form |
 | `statutes/find/ny_family_ct_act/1` | hand-checked | unverifiable:code, existence, form |
-| `statutes/find/cal_pen_code/0` | hand-checked | unverifiable:existence, form |
-| `statutes/find/cal_pen_code/1` | hand-checked | unverifiable:existence |
-| `statutes/find/cal_code_civ_proc/0` | hand-checked | unverifiable:existence, form |
-| `statutes/find/cal_code_civ_proc/1` | hand-checked | unverifiable:existence, form |
-| `statutes/find/cal_evid_code/0` | hand-checked | unverifiable:existence |
-| `statutes/find/cal_evid_code/1` | hand-checked | unverifiable:existence, form |
-| `statutes/find/cal_civ_code/0` | hand-checked | unverifiable:existence |
+| `statutes/find/cal_pen_code/0` | hand-checked | unverifiable:form |
+| `statutes/find/cal_pen_code/1` | hand-checked | verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67 |
+| `statutes/find/cal_code_civ_proc/0` | hand-checked | unverifiable:form |
+| `statutes/find/cal_code_civ_proc/1` | hand-checked | unverifiable:form |
+| `statutes/find/cal_evid_code/0` | hand-checked | verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67 |
+| `statutes/find/cal_evid_code/1` | hand-checked | unverifiable:form |
+| `statutes/find/cal_civ_code/0` | hand-checked | verified-by-source:ca-leginfo-pubinfo-2025+reporters-db@v3.2.67 |
 | `statutes/find/tex_small_caps/0` | hand-checked | verified-by-source:reporters-db@v3.2.67+texas-legislative-council |
 | `statutes/find/tex_small_caps/1` | hand-checked | verified-by-source:reporters-db@v3.2.67+texas-legislative-council |
 | `statutes/find/tex_no_space/0` | hand-checked | verified-by-source:cap+reporters-db@v3.2.67+texas-legislative-council |
@@ -162,16 +147,16 @@ None.
 | `statutes/find/mass_g_l_c/0` | hand-checked | unverifiable:form |
 | `statutes/find/mass_g_l_c/1` | hand-checked | unverifiable:form |
 | `statutes/find/mass_gen_laws_ch/0` | hand-checked | verified-by-source:ma-legislature+reporters-db@v3.2.67 |
-| `statutes/find/nm_nmsa/0` | hand-checked | unverifiable:existence, form, span |
-| `statutes/find/nm_nmsa/1` | hand-checked | unverifiable:existence, form, span |
+| `statutes/find/nm_nmsa/0` | hand-checked | contradicted:existence: no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do |
+| `statutes/find/nm_nmsa/1` | hand-checked | unverifiable:form, span |
 | `statutes/find/mich_mcl/0` | hand-checked | unverifiable:form |
 | `statutes/find/mich_mcl/1` | hand-checked | unverifiable:form |
-| `statutes/find/ala_code_1975/0` | hand-checked | unverifiable:existence, span |
-| `statutes/find/ala_code_1975/1` | hand-checked | unverifiable:existence, span |
+| `statutes/find/ala_code_1975/0` | hand-checked | unverifiable:span |
+| `statutes/find/ala_code_1975/1` | hand-checked | unverifiable:span |
 | `statutes/find/ark_aca/0` | hand-checked | unverifiable:existence, form |
 | `statutes/find/ark_aca/1` | hand-checked | unverifiable:existence, form |
-| `statutes/find/la_rev_stat/0` | hand-checked | unverifiable:existence, form |
-| `statutes/find/la_rev_stat/1` | hand-checked | unverifiable:existence, form |
+| `statutes/find/la_rev_stat/0` | hand-checked | unverifiable:form |
+| `statutes/find/la_rev_stat/1` | hand-checked | unverifiable:form |
 | `statutes/find/ri_gl_1956/0` | hand-checked | unverifiable:form, span |
 | `statutes/find/ri_gl_1956/1` | hand-checked | unverifiable:form, span |
 | `statutes/find/wva_code/0` | hand-checked | unverifiable:form |
@@ -190,8 +175,8 @@ None.
 | `statutes-proposed/find/fed_r_crim_p/1` | proposed | unverifiable:code |
 | `statutes-proposed/find/fed_r_app_p/0` | proposed | unverifiable:code |
 | `statutes-proposed/find/fed_r_app_p/1` | proposed | unverifiable:code |
-| `statutes-proposed/find/tex_r_p/0` | proposed | unverifiable:code, existence |
-| `statutes-proposed/find/tex_r_p/1` | proposed | unverifiable:code, existence |
+| `statutes-proposed/find/tex_r_p/0` | proposed | unverifiable:code |
+| `statutes-proposed/find/tex_r_p/1` | proposed | unverifiable:code |
 | `statutes-proposed/find/pa_r_civ_p/0` | proposed | unverifiable:code, existence |
 | `statutes-proposed/find/mich_ct_r/0` | proposed | unverifiable:existence, form |
 | `statutes-proposed/find/us_const/0` | proposed | verified-by-source:gpo-constitution |
@@ -199,8 +184,8 @@ None.
 | `statutes-proposed/find/us_const/2` | proposed | verified-by-source:gpo-constitution |
 | `statutes-proposed/find/us_const/3` | proposed | verified-by-source:gpo-constitution |
 | `statutes-proposed/find/state_const/0` | proposed | unverifiable:code, existence |
-| `statutes-proposed/find/state_const/1` | proposed | unverifiable:code, existence |
-| `statutes-proposed/find/state_const/2` | proposed | unverifiable:code, existence |
+| `statutes-proposed/find/state_const/1` | proposed | unverifiable:code |
+| `statutes-proposed/find/state_const/2` | proposed | unverifiable:code |
 | `statutes-proposed/find/nycrr/0` | proposed | unverifiable:existence, form |
 | `statutes-proposed/find/njac/0` | proposed | unverifiable:existence, form |
 | `statutes-proposed/find/treas_reg/0` | proposed | verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67 |
@@ -222,16 +207,41 @@ None.
 
 | URL | Retrieved | Bytes | SHA-256 |
 |---|---|---:|---|
+| http://certificates.godaddy.com/repository/gdig2.crt | 2026-10-18 | 1236 | `973a41276ffd01e0` |
+| https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2212-2-7%22%7D | 2026-10-18 | 130 | `e32c7b902b235c0d` |
+| https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2225-5-1%22%7D | 2026-10-18 | 99 | `2676e795d9084d21` |
 | https://code.wvlegislature.gov/31-1-15/ | 2026-10-18 | 40139 | `8491d2872b4f8df3` |
 | https://code.wvlegislature.gov/56-6-31/ | 2026-10-18 | 44556 | `693677696d02e655` |
+| https://data.capitol.hawaii.gov/hrscurrent/ | 2026-10-18 | 2128 | `212f935aa1e4edc4` |
+| https://data.capitol.hawaii.gov/hrscurrent/Vol05_Ch0261-0319/HRS0291E/HRS_0291E-0021.htm | 2026-10-18 | 9152 | `466db453566c270b` |
+| https://data.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0707/HRS_0707-0721.htm | 2026-10-18 | 3938 | `8e2f6ee014d15e3a` |
 | https://docs.legis.wisconsin.gov/statutes/statutes/706/09 | 2026-10-18 | 95515 | `8184d1a627ddbd91` |
+| https://downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip#bytes=0-33554431 | 2026-10-18 | 33554432 | `4b741426c9e8c84c` |
+| https://iga.in.gov/publications/indiana_constitution/Constitution%20(as%20amended%202024).pdf | 2026-10-18 | 171051 | `0711f8e2bdcb51e3` |
 | https://legislature.maine.gov/statutes/1/title1sec402.html | 2026-10-18 | 48892 | `4d965854b6c7328a` |
 | https://legislature.maine.gov/statutes/11/title11sec1-203.html | 2026-10-18 | 9232 | `22009510bb98d7e1` |
 | https://legislature.maine.gov/statutes/15/title15sec2115-A.html | 2026-10-18 | 18779 | `3c8209a1c9993b3e` |
 | https://legislature.maine.gov/statutes/19-A/title19-Asec1653.html | 2026-10-18 | 80149 | `ea2010ffd24c776a` |
+| https://legislature.vermont.gov/statutes/chapter/24/081 | 2026-10-18 | 58549 | `7ebd5585177bf6a8` |
+| https://legislature.vermont.gov/statutes/chapter/24/115 | 2026-10-18 | 58428 | `efec69337a833e95` |
+| https://legislature.vermont.gov/statutes/chapter/24/117 | 2026-10-18 | 79850 | `6c99dd47b5269e1a` |
+| https://legislature.vermont.gov/statutes/chapter/24/118 | 2026-10-18 | 59150 | `aa1c6adcc95ee132` |
+| https://legislature.vermont.gov/statutes/chapter/24/120 | 2026-10-18 | 65646 | `6e38e62cfbdb2fae` |
+| https://legislature.vermont.gov/statutes/chapter/24/126 | 2026-10-18 | 60305 | `862f4e24f30d57c1` |
+| https://legislature.vermont.gov/statutes/title/24 | 2026-10-18 | 75304 | `b437705da83e7f3c` |
 | https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15 | 2026-10-18 | 81354 | `5a90d3adfaf50c3e` |
 | https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A | 2026-10-18 | 73446 | `1162013886cfdf9b` |
 | https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E | 2026-10-18 | 74745 | `77fac6d4742f81c4` |
+| https://ndlegis.gov/cencode/t19c03-4.pdf | 2026-10-18 | 83496 | `584d85a6b29cf7ae` |
+| https://ndlegis.gov/cencode/t23c06.pdf | 2026-10-18 | 127283 | `efd9e918efaa462f` |
+| https://nmonesource.com/nmos/c/en/5916/1/document.do | 2026-10-18 | 7413964 | `06d371e024550ba7` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do | 2026-10-18 | 1980025 | `93064b4fc5fadc88` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/18541/1/document.do | 2026-10-18 | 410939 | `6f056359211217d7` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?iframe=true | 2026-10-18 | 39863 | `6956d66ced228b52` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=1&iframe=true | 2026-10-18 | 39874 | `dd172e07dd8557b9` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=2&iframe=true | 2026-10-18 | 40087 | `641259830154fb00` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=3&iframe=true | 2026-10-18 | 40034 | `f32ac2d81bdbe4e2` |
+| https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=4&iframe=true | 2026-10-18 | 24138 | `68659ffaf74f3143` |
 | https://raw.githubusercontent.com/freelawproject/reporters-db/v3.2.67/reporters_db/data/laws.json | 2026-10-18 | 211528 | `cba1f8f2225a2760` |
 | https://static.case.law/a3d/134/cases/1062-01.json | 2026-10-18 | 17106 | `501e849a9b35e06e` |
 | https://static.case.law/a3d/139/cases/0904-01.json | 2026-10-18 | 47135 | `a390a8e60b2f5e84` |
@@ -263,6 +273,15 @@ None.
 | https://webserver.rilegislature.gov/Statutes/TITLE39/39-3/39-3-11.htm | 2026-10-18 | 8202 | `4fdfeef114eafe62` |
 | https://www.azleg.gov/ars/12/02101.htm | 2026-10-18 | 3675 | `932de813453c1457` |
 | https://www.azleg.gov/ars/32/01451.htm | 2026-10-18 | 14886 | `162a49f869da6d3e` |
+| https://www.cga.ct.gov/current/pub/chap_170.htm | 2026-10-18 | 785200 | `59d2a5c54436f955` |
+| https://www.cga.ct.gov/current/pub/chap_319a.htm | 2026-10-18 | 563668 | `12600b721582c2ff` |
+| https://www.cga.ct.gov/current/pub/chap_926.htm | 2026-10-18 | 176362 | `29bd29d8f82067f1` |
+| https://www.cga.ct.gov/current/pub/chap_951.htm | 2026-10-18 | 92053 | `64f059094af25b8e` |
+| https://www.cga.ct.gov/current/pub/chap_952.htm | 2026-10-18 | 1300036 | `f53e86c7ddd84ea9` |
+| https://www.cga.ct.gov/current/pub/title_10.htm | 2026-10-18 | 14522 | `5ec794ca0d08cf6c` |
+| https://www.cga.ct.gov/current/pub/title_17a.htm | 2026-10-18 | 8587 | `ac748e06c3c7fa8b` |
+| https://www.cga.ct.gov/current/pub/title_52.htm | 2026-10-18 | 15085 | `872b09649dd03518` |
+| https://www.cga.ct.gov/current/pub/title_53a.htm | 2026-10-18 | 6164 | `3ac7ae8f74e40edc` |
 | https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-25.json | 2026-10-18 | 1688966 | `75578ae09f3bca7e` |
 | https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-26.json | 2026-10-18 | 2022515 | `3b460699588bae45` |
 | https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-40.json | 2026-10-18 | 9395956 | `a1075ffa9b788006` |
@@ -279,6 +298,12 @@ None.
 | https://www.govinfo.gov/metadata/pkg/USCODE-2024-title28/mods.xml | 2026-10-18 | 13235138 | `63b10e16b6a5a6a3` |
 | https://www.govinfo.gov/metadata/pkg/USCODE-2024-title29/mods.xml | 2026-10-18 | 10072797 | `55b6c944b3d13dd2` |
 | https://www.govinfo.gov/metadata/pkg/USCODE-2024-title45/mods.xml | 2026-10-18 | 3494927 | `dbcc96092c153760` |
+| https://www.jud.ct.gov/Publications/PracticeBook/PB.pdf | 2026-10-18 | 24019149 | `bb406ab49314de7f` |
+| https://www.legis.la.gov/legis/Law.aspx?d=107262 | 2026-10-18 | 25756 | `0fea6e5dcd251b25` |
+| https://www.legis.la.gov/legis/Law.aspx?d=408539 | 2026-10-18 | 21717 | `7a30d93b8259a297` |
+| https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent | 2026-10-18 | 86685 | `44f615e83ad19ae8` |
+| https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 13 | 2026-10-18 | 1824663 | `995c2a07f03978f9` |
+| https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 9 | 2026-10-18 | 2060003 | `795446a94dc6d4fd` |
 | https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520 | 2026-10-18 | 27577 | `f24ef7b214570fd2` |
 | https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013 | 2026-10-18 | 31460 | `780369394425a4a6` |
 | https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_1/GS_1-420.html | 2026-10-18 | 1734 | `004307100b711558` |
@@ -289,4 +314,6 @@ None.
 | https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=42&div=0&chapter=97&section=81&subsctn=0&iFrame=true | 2026-10-18 | 11669 | `e096791cff28b0cd` |
 | https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=58&div=0&chapter=32&section=2&subsctn=0&iFrame=true | 2026-10-18 | 3918 | `c5268ed39731a309` |
 | https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=75&div=0&chapter=15&section=43&subsctn=0&iFrame=true | 2026-10-18 | 17059 | `347644ee5fc0f7da` |
+| https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf | 2026-10-18 | 1910974 | `28d0d6236d84e174` |
+| https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf | 2026-10-18 | 1760656 | `bd9d874a40e3fdd9` |
 | https://www.ussc.gov/guidelines/2025-guidelines-manual | 2026-10-18 | 171898 | `f9698d73ca5945f2` |

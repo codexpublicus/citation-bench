@@ -1,4 +1,22 @@
 {
+ "http://certificates.godaddy.com/repository/gdig2.crt": {
+  "bytes": 1236,
+  "retrieved": "2026-10-18",
+  "sha256": "973a41276ffd01e027a2aad49e34c37846d3e976ff6a620b6712e33832041aa6",
+  "status": 200
+ },
+ "https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2212-2-7%22%7D": {
+  "bytes": 130,
+  "retrieved": "2026-10-18",
+  "sha256": "e32c7b902b235c0dffe11d52c2c53af28e78d95210a25562021c227f2790422c",
+  "status": 200
+ },
+ "https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2225-5-1%22%7D": {
+  "bytes": 99,
+  "retrieved": "2026-10-18",
+  "sha256": "2676e795d9084d214f010e2637f45abe563cb1c92cad5760f42df449dbdfea6a",
+  "status": 200
+ },
  "https://code.wvlegislature.gov/31-1-15/": {
   "bytes": 40139,
   "retrieved": "2026-10-18",
@@ -11,10 +29,41 @@
   "sha256": "693677696d02e65536270587ad2e2d20e99ba5f737365a2457b17b566b1028c5",
   "status": 200
  },
+ "https://data.capitol.hawaii.gov/hrscurrent/": {
+  "bytes": 2128,
+  "retrieved": "2026-10-18",
+  "sha256": "212f935aa1e4edc49f0853f8dfa6796fb568db2ec243e6d044ad34923897a223",
+  "status": 200
+ },
+ "https://data.capitol.hawaii.gov/hrscurrent/Vol05_Ch0261-0319/HRS0291E/HRS_0291E-0021.htm": {
+  "bytes": 9152,
+  "retrieved": "2026-10-18",
+  "sha256": "466db453566c270b965f5f2451d0ac69ea3c71fc7e007106a220bb5dee1d3ec7",
+  "status": 200
+ },
+ "https://data.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0707/HRS_0707-0721.htm": {
+  "bytes": 3938,
+  "retrieved": "2026-10-18",
+  "sha256": "8e2f6ee014d15e3a6d1244e03ff3edb18e96f7b8dfdf531bc1d5854a13713cc2",
+  "status": 200
+ },
  "https://docs.legis.wisconsin.gov/statutes/statutes/706/09": {
   "bytes": 95515,
   "retrieved": "2026-10-18",
   "sha256": "8184d1a627ddbd915ef30e0b09e49f5c640046c60d47571e888acef58e6405bd",
+  "status": 200
+ },
+ "https://downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip#bytes=0-33554431": {
+  "bytes": 33554432,
+  "retrieved": "2026-10-18",
+  "sha256": "4b741426c9e8c84c1703b7cbf75154462f46a28ca9af6dd5a52cb14d57241432",
+  "status": 206,
+  "url": "https://downloads.leginfo.legislature.ca.gov/pubinfo_2025.zip"
+ },
+ "https://iga.in.gov/publications/indiana_constitution/Constitution%20(as%20amended%202024).pdf": {
+  "bytes": 171051,
+  "retrieved": "2026-10-18",
+  "sha256": "0711f8e2bdcb51e3afc31b0dce394734b95dccb951318dcc9ef6d470f1e1edee",
   "status": 200
  },
  "https://legislature.maine.gov/statutes/1/title1sec402.html": {
@@ -41,6 +90,48 @@
   "sha256": "ea2010ffd24c776ac386c211bc27e81ae87a6a7c9238d1868437ebd1b350942a",
   "status": 200
  },
+ "https://legislature.vermont.gov/statutes/chapter/24/081": {
+  "bytes": 58549,
+  "retrieved": "2026-10-18",
+  "sha256": "7ebd5585177bf6a8e9d1839e9182f0ecc109ca828d5affe9c63bddfb480a5d85",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/chapter/24/115": {
+  "bytes": 58428,
+  "retrieved": "2026-10-18",
+  "sha256": "efec69337a833e952788503bda2c4601f757f3b18bbfe8cf0523f752875b497b",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/chapter/24/117": {
+  "bytes": 79850,
+  "retrieved": "2026-10-18",
+  "sha256": "6c99dd47b5269e1ae95be2bbda56053bff13e04cb7858692a243bcc3bf0775dc",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/chapter/24/118": {
+  "bytes": 59150,
+  "retrieved": "2026-10-18",
+  "sha256": "aa1c6adcc95ee132d5ff81bda40438c569113a531fc83cd20c98f015956ffc84",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/chapter/24/120": {
+  "bytes": 65646,
+  "retrieved": "2026-10-18",
+  "sha256": "6e38e62cfbdb2faea3079ee135000413f2c630f77cc8c80dabc25f0aca3a6377",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/chapter/24/126": {
+  "bytes": 60305,
+  "retrieved": "2026-10-18",
+  "sha256": "862f4e24f30d57c1ddb96801bc28f8aab357057b0c2a2b40544c64a1e3dc6842",
+  "status": 200
+ },
+ "https://legislature.vermont.gov/statutes/title/24": {
+  "bytes": 75304,
+  "retrieved": "2026-10-18",
+  "sha256": "b437705da83e7f3c6f86ef8ff1a27dfdfdfbdd21d123d14d5c66847c8f3f3440",
+  "status": 200
+ },
  "https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15": {
   "bytes": 81354,
   "retrieved": "2026-10-18",
@@ -57,6 +148,66 @@
   "bytes": 74745,
   "retrieved": "2026-10-18",
   "sha256": "77fac6d4742f81c4933c34e75e10e5a064e02ef65cb5e812185056edd9fa2699",
+  "status": 200
+ },
+ "https://ndlegis.gov/cencode/t19c03-4.pdf": {
+  "bytes": 83496,
+  "retrieved": "2026-10-18",
+  "sha256": "584d85a6b29cf7ae48aa1c01ba8230e263e173dd5b07e8fefa3643b1f3101fbe",
+  "status": 200
+ },
+ "https://ndlegis.gov/cencode/t23c06.pdf": {
+  "bytes": 127283,
+  "retrieved": "2026-10-18",
+  "sha256": "efd9e918efaa462f555a3ce1e401040e1984d22594a3acca191838b07256a16b",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/c/en/5916/1/document.do": {
+  "bytes": 7413964,
+  "retrieved": "2026-10-18",
+  "sha256": "06d371e024550ba7243201fc2d3993ef5267346e8c74c5cda69593066bb7de63",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do": {
+  "bytes": 1980025,
+  "retrieved": "2026-10-18",
+  "sha256": "93064b4fc5fadc88a72c5075fb3fcc90d95468a8cf95c8b5b0f819284eb1a52b",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/18541/1/document.do": {
+  "bytes": 410939,
+  "retrieved": "2026-10-18",
+  "sha256": "6f056359211217d76b60148d93f5abcac6a3fb629acdd74a33a5cf0b64ff2e55",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?iframe=true": {
+  "bytes": 39863,
+  "retrieved": "2026-10-18",
+  "sha256": "6956d66ced228b52244b6ef634e22d63ff5e71d9ef14b54dd9511f47f9b73553",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=1&iframe=true": {
+  "bytes": 39874,
+  "retrieved": "2026-10-18",
+  "sha256": "dd172e07dd8557b9ff3179338b3c93995215cbdd8ec017c35f420410e2d022e5",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=2&iframe=true": {
+  "bytes": 40087,
+  "retrieved": "2026-10-18",
+  "sha256": "641259830154fb00a3632ca1adc658639cc92876e508bbd2c4a2e9a02612a3fb",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=3&iframe=true": {
+  "bytes": 40034,
+  "retrieved": "2026-10-18",
+  "sha256": "f32ac2d81bdbe4e29b9812f5622ad6ce75fdf430579f72f5d15a577f4998d1d6",
+  "status": 200
+ },
+ "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do?page=4&iframe=true": {
+  "bytes": 24138,
+  "retrieved": "2026-10-18",
+  "sha256": "68659ffaf74f31430841f731a5015b29c9fc032dae097d3cf1c1ed5375c510c5",
   "status": 200
  },
  "https://raw.githubusercontent.com/freelawproject/reporters-db/v3.2.67/reporters_db/data/laws.json": {
@@ -245,6 +396,60 @@
   "sha256": "162a49f869da6d3ee23f73bd347f088cb1d39d9572c3fd94222cb25ada886a8e",
   "status": 200
  },
+ "https://www.cga.ct.gov/current/pub/chap_170.htm": {
+  "bytes": 785200,
+  "retrieved": "2026-10-18",
+  "sha256": "59d2a5c54436f955db7e1001f46aa3ca0722d1e73e1c8ec641b56eec4855412b",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/chap_319a.htm": {
+  "bytes": 563668,
+  "retrieved": "2026-10-18",
+  "sha256": "12600b721582c2ff8883527912383921b3849ac9a71db2e73ba057fc3bfecec2",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/chap_926.htm": {
+  "bytes": 176362,
+  "retrieved": "2026-10-18",
+  "sha256": "29bd29d8f82067f1a90cfffa4b5e1ba158aafe60a3bcd979838f464ad7f60329",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/chap_951.htm": {
+  "bytes": 92053,
+  "retrieved": "2026-10-18",
+  "sha256": "64f059094af25b8e5fc57d56f8d3a27ea84e599d05fd37ffc6dee851289ed356",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/chap_952.htm": {
+  "bytes": 1300036,
+  "retrieved": "2026-10-18",
+  "sha256": "f53e86c7ddd84ea98f75ba45aa96e0665593d6f84e4f390c0cca0b56e8d45051",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/title_10.htm": {
+  "bytes": 14522,
+  "retrieved": "2026-10-18",
+  "sha256": "5ec794ca0d08cf6c56363c87b428b4095190018375a2f625ae7e6e98b5191e66",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/title_17a.htm": {
+  "bytes": 8587,
+  "retrieved": "2026-10-18",
+  "sha256": "ac748e06c3c7fa8b1e6f3f68c80828be04b65c2ed28c9e1d691522b631a25998",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/title_52.htm": {
+  "bytes": 15085,
+  "retrieved": "2026-10-18",
+  "sha256": "872b09649dd03518062f682155510d67662b77e63db665368996251eaac27202",
+  "status": 200
+ },
+ "https://www.cga.ct.gov/current/pub/title_53a.htm": {
+  "bytes": 6164,
+  "retrieved": "2026-10-18",
+  "sha256": "3ac7ae8f74e40edcda6ab40aa6f97f08dacf0942fd59065b21949a7daa90292a",
+  "status": 200
+ },
  "https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-25.json": {
   "bytes": 1688966,
   "retrieved": "2026-10-18",
@@ -343,6 +548,44 @@
   "sha256": "dbcc96092c1537602f05bb6e96a084b7b5d2c7a0afcac5530e1eefb8e6e4f0c2",
   "status": 200
  },
+ "https://www.jud.ct.gov/Publications/PracticeBook/PB.pdf": {
+  "bytes": 24019149,
+  "retrieved": "2026-10-18",
+  "sha256": "bb406ab49314de7f6b49f5de43e1b2e354465bb70ce52ecc37412ec058db69d6",
+  "status": 200
+ },
+ "https://www.legis.la.gov/legis/Law.aspx?d=107262": {
+  "bytes": 25756,
+  "retrieved": "2026-10-18",
+  "sha256": "0fea6e5dcd251b258fa4aabc2874a444cecc172a9f591b82b423360118eaffb4",
+  "status": 200
+ },
+ "https://www.legis.la.gov/legis/Law.aspx?d=408539": {
+  "bytes": 21717,
+  "retrieved": "2026-10-18",
+  "sha256": "7a30d93b8259a297d38a58e5479eee05a0d7e0b093c49dce80c81a8f3f98cf27",
+  "status": 200
+ },
+ "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent": {
+  "bytes": 86685,
+  "retrieved": "2026-10-18",
+  "sha256": "44f615e83ad19ae8d1562b39b7dcc539fb5b82da0261c6b3a580f737d454a24e",
+  "status": 200
+ },
+ "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 13": {
+  "bytes": 1824663,
+  "retrieved": "2026-10-18",
+  "sha256": "995c2a07f03978f92fa2ce56ca95b3c0760064e18a6edbc25daa895bdf00eda7",
+  "status": 200,
+  "url": "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent"
+ },
+ "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 9": {
+  "bytes": 2060003,
+  "retrieved": "2026-10-18",
+  "sha256": "795446a94dc6d4fdea5f618bda7c32c6a26aa33f7e5b550fb2fb34db360d16e2",
+  "status": 200,
+  "url": "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent"
+ },
  "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520": {
   "bytes": 27577,
   "retrieved": "2026-10-18",
@@ -401,6 +644,18 @@
   "bytes": 17059,
   "retrieved": "2026-10-18",
   "sha256": "347644ee5fc0f7da54bc53ad933b9c57b72f9990a668e10a3d89d7fb7c0984c6",
+  "status": 200
+ },
+ "https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf": {
+  "bytes": 1910974,
+  "retrieved": "2026-10-18",
+  "sha256": "28d0d6236d84e1740c07ceb7a369602588c89787aed8d24a513700f369ebcf51",
+  "status": 200
+ },
+ "https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf": {
+  "bytes": 1760656,
+  "retrieved": "2026-10-18",
+  "sha256": "bd9d874a40e3fdd9a25a675daad31de2fa3db30acea44d80d3e3362c9d4e178a",
   "status": 200
  },
  "https://www.ussc.gov/guidelines/2025-guidelines-manual": {

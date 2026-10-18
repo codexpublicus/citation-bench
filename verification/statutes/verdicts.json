@@ -5,7 +5,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -37,13 +37,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_951.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -53,7 +50,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -85,13 +82,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_319a.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -101,7 +95,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "excerpt",
@@ -143,13 +137,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_319a.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -159,7 +150,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "excerpt",
@@ -208,13 +199,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_952.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -224,7 +212,7 @@
   "provenance": "hand-checked",
   "kind": "court rule",
   "code": "Conn. Practice Book",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "excerpt",
@@ -259,13 +247,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the Practice Book is a PDF on jud.ct.gov; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Practice Book`: the Practice Book is a PDF on jud.ct.gov; not wired in"
-    ]
+    "result": "pass",
+    "detail": "rule 63-8 in https://www.jud.ct.gov/Publications/PracticeBook/PB.pdf",
+    "source": "ct-judicial",
+    "human": []
    }
   ]
  },
@@ -275,7 +260,7 @@
   "provenance": "hand-checked",
   "kind": "court rule",
   "code": "Conn. Practice Book",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "excerpt",
@@ -310,13 +295,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the Practice Book is a PDF on jud.ct.gov; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Practice Book`: the Practice Book is a PDF on jud.ct.gov; not wired in"
-    ]
+    "result": "pass",
+    "detail": "rule 66-5 in https://www.jud.ct.gov/Publications/PracticeBook/PB.pdf",
+    "source": "ct-judicial",
+    "human": []
    }
   ]
  },
@@ -326,7 +308,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cga+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -351,13 +333,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_926.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -367,7 +346,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "span",
@@ -409,13 +388,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
-    "source": "",
-    "human": [
-     "existence",
-     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
-    ]
+    "result": "pass",
+    "detail": "https://www.cga.ct.gov/current/pub/chap_170.htm",
+    "source": "cga",
+    "human": []
    }
   ]
  },
@@ -711,7 +687,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Haw. Rev. Stat.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+hawaii-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -743,13 +719,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "capitol.hawaii.gov answered HTTP 403 to scripted requests",
-    "source": "",
-    "human": [
-     "existence",
-     "`Haw. Rev. Stat.`: capitol.hawaii.gov answered HTTP 403 to scripted requests"
-    ]
+    "result": "pass",
+    "detail": "https://data.capitol.hawaii.gov/hrscurrent/Vol05_Ch0261-0319/HRS0291E/HRS_0291E-0021.htm",
+    "source": "hawaii-legislature",
+    "human": []
    }
   ]
  },
@@ -759,7 +732,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Haw. Rev. Stat.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -787,13 +760,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "capitol.hawaii.gov answered HTTP 403 to scripted requests",
-    "source": "",
-    "human": [
-     "existence",
-     "`Haw. Rev. Stat.`: capitol.hawaii.gov answered HTTP 403 to scripted requests"
-    ]
+    "result": "pass",
+    "detail": "https://data.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0707/HRS_0707-0721.htm",
+    "source": "hawaii-legislature",
+    "human": []
    }
   ]
  },
@@ -969,7 +939,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.D. Cent. Code",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+nd-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -1001,13 +971,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "ndlegis.gov publishes chapter PDFs; PDF text isn't read here",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.D. Cent. Code`: ndlegis.gov publishes chapter PDFs; PDF text isn't read here"
-    ]
+    "result": "pass",
+    "detail": "§ 23-06-03 in https://ndlegis.gov/cencode/t23c06.pdf",
+    "source": "nd-legislature",
+    "human": []
    }
   ]
  },
@@ -1017,7 +984,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.D. Cent. Code",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -1052,13 +1019,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "ndlegis.gov publishes chapter PDFs; PDF text isn't read here",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.D. Cent. Code`: ndlegis.gov publishes chapter PDFs; PDF text isn't read here"
-    ]
+    "result": "pass",
+    "detail": "§ 19-03.4-03 in https://ndlegis.gov/cencode/t19c03-4.pdf",
+    "source": "nd-legislature",
+    "human": []
    }
   ]
  },
@@ -1650,7 +1614,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Vt. Stat. Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "contradicted:existence: § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117)",
   "checks": [
    {
     "claim": "excerpt",
@@ -1689,13 +1653,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "legislature.vermont.gov paths need the chapter; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Vt. Stat. Ann.`: legislature.vermont.gov paths need the chapter; not wired in"
-    ]
+    "result": "fail",
+    "detail": "§ 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117)",
+    "source": "vermont-legislature",
+    "human": []
    }
   ]
  },
@@ -1705,7 +1666,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Vt. Stat. Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+reporters-db@v3.2.67+vermont-legislature",
   "checks": [
    {
     "claim": "excerpt",
@@ -1744,13 +1705,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "legislature.vermont.gov paths need the chapter; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Vt. Stat. Ann.`: legislature.vermont.gov paths need the chapter; not wired in"
-    ]
+    "result": "pass",
+    "detail": "https://legislature.vermont.gov/statutes/chapter/24/117",
+    "source": "vermont-legislature",
+    "human": []
    }
   ]
  },
@@ -1803,11 +1761,11 @@
    {
     "claim": "existence",
     "result": "none",
-    "detail": "OSCN addresses sections by document id; not wired in",
+    "detail": "the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler",
     "source": "",
     "human": [
      "existence",
-     "`Okla. Stat.`: OSCN addresses sections by document id; not wired in"
+     "`Okla. Stat.`: the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler"
     ]
    }
   ]
@@ -1857,11 +1815,11 @@
    {
     "claim": "existence",
     "result": "none",
-    "detail": "OSCN addresses sections by document id; not wired in",
+    "detail": "the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler",
     "source": "",
     "human": [
      "existence",
-     "`Okla. Stat.`: OSCN addresses sections by document id; not wired in"
+     "`Okla. Stat.`: the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler"
     ]
    }
   ]
@@ -2102,7 +2060,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Pen. Code",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -2130,13 +2088,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Pen. Code`: leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in"
-    ]
+    "result": "pass",
+    "detail": "PEN § 1385 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2146,7 +2101,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Pen. Code",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -2178,13 +2133,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Pen. Code`: leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in"
-    ]
+    "result": "pass",
+    "detail": "PEN § 641.3 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2194,7 +2146,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -2222,13 +2174,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as Cal. Pen. Code",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Civ. Proc. Code`: as Cal. Pen. Code"
-    ]
+    "result": "pass",
+    "detail": "CCP § 325 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2238,7 +2187,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -2266,13 +2215,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as Cal. Pen. Code",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Civ. Proc. Code`: as Cal. Pen. Code"
-    ]
+    "result": "pass",
+    "detail": "CCP § 1286.2 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2282,7 +2228,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Evid. Code",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -2314,13 +2260,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as Cal. Pen. Code",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Evid. Code`: as Cal. Pen. Code"
-    ]
+    "result": "pass",
+    "detail": "EVID § 1250 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2330,7 +2273,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Evid. Code",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -2358,13 +2301,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as Cal. Pen. Code",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Evid. Code`: as Cal. Pen. Code"
-    ]
+    "result": "pass",
+    "detail": "EVID § 1040 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2374,7 +2314,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Code",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2406,13 +2346,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as Cal. Pen. Code",
-    "source": "",
-    "human": [
-     "existence",
-     "`Cal. Civ. Code`: as Cal. Pen. Code"
-    ]
+    "result": "pass",
+    "detail": "CIV § 1770 in LAW_SECTION_TBL",
+    "source": "ca-leginfo-pubinfo-2025",
+    "human": []
    }
   ]
  },
@@ -2819,7 +2756,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.M. Stat. Ann.",
-  "verdict": "unverifiable:existence, form, span",
+  "verdict": "contradicted:existence: no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do",
   "checks": [
    {
     "claim": "span",
@@ -2864,13 +2801,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "nmonesource.com addresses sections by document id; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.M. Stat. Ann.`: nmonesource.com addresses sections by document id; not wired in"
-    ]
+    "result": "fail",
+    "detail": "no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do",
+    "source": "nmcc-nmonesource",
+    "human": []
    }
   ]
  },
@@ -2880,7 +2814,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.M. Stat. Ann.",
-  "verdict": "unverifiable:existence, form, span",
+  "verdict": "unverifiable:form, span",
   "checks": [
    {
     "claim": "span",
@@ -2925,13 +2859,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "nmonesource.com addresses sections by document id; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.M. Stat. Ann.`: nmonesource.com addresses sections by document id; not wired in"
-    ]
+    "result": "pass",
+    "detail": "§ 41-4-3 in https://nmonesource.com/nmos/nmsa-unanno/en/18541/1/document.do",
+    "source": "nmcc-nmonesource",
+    "human": []
    }
   ]
  },
@@ -3030,7 +2961,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ala. Code",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "excerpt",
@@ -3079,13 +3010,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "alison.legislature.state.al.us renders sections client-side",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ala. Code`: alison.legislature.state.al.us renders sections client-side"
-    ]
+    "result": "pass",
+    "detail": "Ala. Code § 12-2-7 (Section 12-2-7 Jurisdiction and Powers of Court Generally.)",
+    "source": "alison",
+    "human": []
    }
   ]
  },
@@ -3095,7 +3023,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ala. Code",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "span",
@@ -3137,13 +3065,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "alison.legislature.state.al.us renders sections client-side",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ala. Code`: alison.legislature.state.al.us renders sections client-side"
-    ]
+    "result": "pass",
+    "detail": "Ala. Code § 25-5-1 (Section 25-5-1 Definitions.)",
+    "source": "alison",
+    "human": []
    }
   ]
  },
@@ -3255,7 +3180,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "La. Stat. Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -3283,13 +3208,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "legis.la.gov addresses sections by document id; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`La. Stat. Ann.`: legis.la.gov addresses sections by document id; not wired in"
-    ]
+    "result": "pass",
+    "detail": "https://www.legis.la.gov/legis/Law.aspx?d=408539",
+    "source": "la-legislature",
+    "human": []
    }
   ]
  },
@@ -3299,7 +3221,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "La. Stat. Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:form",
   "checks": [
    {
     "claim": "span",
@@ -3334,13 +3256,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "legis.la.gov addresses sections by document id; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`La. Stat. Ann.`: legis.la.gov addresses sections by document id; not wired in"
-    ]
+    "result": "pass",
+    "detail": "https://www.legis.la.gov/legis/Law.aspx?d=107262",
+    "source": "la-legislature",
+    "human": []
    }
   ]
  },
@@ -4161,7 +4080,7 @@
   "provenance": "proposed",
   "kind": "court rule",
   "code": "Tex. R. Civ. P.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -4189,13 +4108,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the rules are a PDF on txcourts.gov; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Tex. R. Civ. P.`: the rules are a PDF on txcourts.gov; not wired in"
-    ]
+    "result": "pass",
+    "detail": "rule 185 in https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf",
+    "source": "txcourts",
+    "human": []
    }
   ]
  },
@@ -4205,7 +4121,7 @@
   "provenance": "proposed",
   "kind": "court rule",
   "code": "Tex. R. App. P.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -4240,13 +4156,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the rules are a PDF on txcourts.gov; not wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Tex. R. App. P.`: the rules are a PDF on txcourts.gov; not wired in"
-    ]
+    "result": "pass",
+    "detail": "rule 25.2 in https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf",
+    "source": "txcourts",
+    "human": []
    }
   ]
  },
@@ -4292,11 +4205,11 @@
    {
     "claim": "existence",
     "result": "none",
-    "detail": "pacodeandbulletin.gov returned no rule text without scripting",
+    "detail": "pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler",
     "source": "",
     "human": [
      "existence",
-     "`Pa. R. Civ. P.`: pacodeandbulletin.gov returned no rule text without scripting"
+     "`Pa. R. Civ. P.`: pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler"
     ]
    }
   ]
@@ -4343,11 +4256,11 @@
    {
     "claim": "existence",
     "result": "none",
-    "detail": "the rules are a PDF on courts.michigan.gov; not wired in",
+    "detail": "courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler",
     "source": "",
     "human": [
      "existence",
-     "`Mich. Ct. R.`: the rules are a PDF on courts.michigan.gov; not wired in"
+     "`Mich. Ct. R.`: courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler"
     ]
    }
   ]
@@ -4553,11 +4466,11 @@
    {
     "claim": "existence",
     "result": "none",
-    "detail": "codes.ohio.gov renders sections client-side",
+    "detail": "codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler",
     "source": "",
     "human": [
      "existence",
-     "`Ohio Const.`: codes.ohio.gov renders sections client-side"
+     "`Ohio Const.`: codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler"
     ]
    }
   ]
@@ -4568,7 +4481,7 @@
   "provenance": "proposed",
   "kind": "constitution",
   "code": "Ind. Const.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -4596,13 +4509,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "no official source wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ind. Const.`: no official source wired in"
-    ]
+    "result": "pass",
+    "detail": "art. 1, § 18",
+    "source": "iga-constitution",
+    "human": []
    }
   ]
  },
@@ -4612,7 +4522,7 @@
   "provenance": "proposed",
   "kind": "constitution",
   "code": "N.M. Const.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -4640,13 +4550,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "no official source wired in",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.M. Const.`: no official source wired in"
-    ]
+    "result": "pass",
+    "detail": "art. II, § 10",
+    "source": "nmcc-nmonesource",
+    "human": []
    }
   ]
  },
