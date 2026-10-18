@@ -8,6 +8,14 @@ cap-slugs/find/mass_app_div_annual/1
 cap-slugs/find/mass_app_div_numbered/0
 cap-slugs/find/mass_app_div_numbered/1
 cap-slugs/find/ohio_reports/0
+curated/find/consecutive_runs_own_year/0
+curated/find/nameless_parallel_run/0
+curated/find/ohio_reports/0
+curated/find/ohio_state_variation/0
+curated/find/runs_split_at_semicolon/0
+curated/resolve/id_as_case_name/0
+curated/resolve/id_as_case_name/1
+curated/resolve/id_as_case_name/2
 divergences/find/beyond_search_window/0
 divergences/find/closing_year/0
 divergences/find/closing_year_then_and/0

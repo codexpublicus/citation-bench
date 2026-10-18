@@ -45,6 +45,7 @@ or commercial tool can be benchmarked without sharing any code.
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
 | `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
+| `vectors/curated/` | Hand-curated vectors from real opinions, each checked against the opinion and the cited cases' records; no engine's output is the reference ([README](vectors/curated/README.md)) |
 | `vectors/divergences/` | Inputs where citare deliberately differs from eyecite ([README](vectors/divergences/README.md)) |
 | `vectors/statutes/` | Statute and court-rule citations by jurisdiction and form, from real opinions ([README](vectors/statutes/README.md)) |
 | `baselines/` | Known failures per engine: `citare.known-failures`, and `eyecite.known-differences` for the divergence and statute sets |
@@ -72,6 +73,8 @@ mise run bench:divergences citare
 mise run bench:statutes eyecite     # the statute set, the same way
 mise run bench:statutes citare
 mise run check                # lint and unit tests
+mise run bench:curated eyecite      # the hand-curated set, the same way as the divergence set
+mise run bench:curated citare
 ```
 
 Compare two runs, of different engines or of two versions of one engine, on the same
