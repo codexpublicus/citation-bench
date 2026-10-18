@@ -1,0 +1,412 @@
+{
+ "https://code.wvlegislature.gov/31-1-15/": {
+  "bytes": 40139,
+  "retrieved": "2026-10-18",
+  "sha256": "8491d2872b4f8df385beebbd5ed37c5115974f637bbb72f5a377355eff09a2c6",
+  "status": 200
+ },
+ "https://code.wvlegislature.gov/56-6-31/": {
+  "bytes": 44556,
+  "retrieved": "2026-10-18",
+  "sha256": "693677696d02e65536270587ad2e2d20e99ba5f737365a2457b17b566b1028c5",
+  "status": 200
+ },
+ "https://docs.legis.wisconsin.gov/statutes/statutes/706/09": {
+  "bytes": 95515,
+  "retrieved": "2026-10-18",
+  "sha256": "8184d1a627ddbd915ef30e0b09e49f5c640046c60d47571e888acef58e6405bd",
+  "status": 200
+ },
+ "https://legislature.maine.gov/statutes/1/title1sec402.html": {
+  "bytes": 48892,
+  "retrieved": "2026-10-18",
+  "sha256": "4d965854b6c7328aad807954eb75c8b465f8f704c1d9844cbbbac6a7bcbeeaff",
+  "status": 200
+ },
+ "https://legislature.maine.gov/statutes/11/title11sec1-203.html": {
+  "bytes": 9232,
+  "retrieved": "2026-10-18",
+  "sha256": "22009510bb98d7e1818152cdccfa2790aa8569db49d70f763875e94ffbe12276",
+  "status": 200
+ },
+ "https://legislature.maine.gov/statutes/15/title15sec2115-A.html": {
+  "bytes": 18779,
+  "retrieved": "2026-10-18",
+  "sha256": "3c8209a1c9993b3e696b85d5526cebf6776f83e898a3a6f0aad03f430751db28",
+  "status": 200
+ },
+ "https://legislature.maine.gov/statutes/19-A/title19-Asec1653.html": {
+  "bytes": 80149,
+  "retrieved": "2026-10-18",
+  "sha256": "ea2010ffd24c776ac386c211bc27e81ae87a6a7c9238d1868437ebd1b350942a",
+  "status": 200
+ },
+ "https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15": {
+  "bytes": 81354,
+  "retrieved": "2026-10-18",
+  "sha256": "5a90d3adfaf50c3e929ccf08a21ee484f2a6dcbd3d85f011b8b4cb0bbb2ebe8d",
+  "status": 200
+ },
+ "https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A": {
+  "bytes": 73446,
+  "retrieved": "2026-10-18",
+  "sha256": "1162013886cfdf9bc03f8167ef7d1a50742ac72fe904ebdddad0840d393863a7",
+  "status": 200
+ },
+ "https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E": {
+  "bytes": 74745,
+  "retrieved": "2026-10-18",
+  "sha256": "77fac6d4742f81c4933c34e75e10e5a064e02ef65cb5e812185056edd9fa2699",
+  "status": 200
+ },
+ "https://raw.githubusercontent.com/freelawproject/reporters-db/v3.2.67/reporters_db/data/laws.json": {
+  "bytes": 211528,
+  "retrieved": "2026-10-18",
+  "sha256": "cba1f8f2225a27600b4906c0ed6cb5ede00fbba0983538845e628f77fb0fce69",
+  "status": 200
+ },
+ "https://static.case.law/a3d/134/cases/1062-01.json": {
+  "bytes": 17106,
+  "retrieved": "2026-10-18",
+  "sha256": "501e849a9b35e06e0b914901d862727834f1657e93aba8ab2072b71a3953ff33",
+  "status": 200
+ },
+ "https://static.case.law/a3d/139/cases/0904-01.json": {
+  "bytes": 47135,
+  "retrieved": "2026-10-18",
+  "sha256": "a390a8e60b2f5e847efea18c8ace2f129cb5a5da507c875e22c128b717030595",
+  "status": 200
+ },
+ "https://static.case.law/a3d/140/cases/1249-01.json": {
+  "bytes": 43185,
+  "retrieved": "2026-10-18",
+  "sha256": "b4816562ef9ce4215c9baffadce512c34bcc0e29a2b9f0b1c138bb9b5a187bf3",
+  "status": 200
+ },
+ "https://static.case.law/ad3d/122/cases/1232-02.json": {
+  "bytes": 3150,
+  "retrieved": "2026-10-18",
+  "sha256": "e7b71fa899f95b4e1090080cd9406fbc0a3d1a1810d723251d381acbd759bca3",
+  "status": 200
+ },
+ "https://static.case.law/cal-4th/52/cases/0769-01.json": {
+  "bytes": 293419,
+  "retrieved": "2026-10-18",
+  "sha256": "e5d32f96c28e9983686133578de97b2288e01e769f1d0d8eaee5d6aa603a6c82",
+  "status": 200
+ },
+ "https://static.case.law/cal-app-4th/231/cases/1337-01.json": {
+  "bytes": 71772,
+  "retrieved": "2026-10-18",
+  "sha256": "9d0b6570fd7dec1f6c277fcafa8f61159300494a9dff8c9b33a287041a416018",
+  "status": 200
+ },
+ "https://static.case.law/conn-app/116/cases/0112-01.json": {
+  "bytes": 86793,
+  "retrieved": "2026-10-18",
+  "sha256": "f167ddf30edaf33f34ea0276d37863588e0d03f474443a9d66b241135035e789",
+  "status": 200
+ },
+ "https://static.case.law/conn-app/116/cases/0758-01.json": {
+  "bytes": 55332,
+  "retrieved": "2026-10-18",
+  "sha256": "50143529fc423dfce717356efb094b26a42fac1f35ed9ea547f786838b996b80",
+  "status": 200
+ },
+ "https://static.case.law/conn-app/128/cases/0425-01.json": {
+  "bytes": 60674,
+  "retrieved": "2026-10-18",
+  "sha256": "1c2618930b87a74b10e8b10773b1bb30d9d74215118beccbeae9f0994eb4b2aa",
+  "status": 200
+ },
+ "https://static.case.law/conn/267/cases/0539-01.json": {
+  "bytes": 90479,
+  "retrieved": "2026-10-18",
+  "sha256": "13276cfb5dc64259b29d06a30ae558bc118e920df04608bfaf637db0103b07a9",
+  "status": 200
+ },
+ "https://static.case.law/haw/118/cases/0001-01.json": {
+  "bytes": 72291,
+  "retrieved": "2026-10-18",
+  "sha256": "ee7b8d4adbee064da1f4bbb518056899f37a7b1b71020c54529f7e41e2c33814",
+  "status": 200
+ },
+ "https://static.case.law/nc-app/201/cases/0146-01.json": {
+  "bytes": 21524,
+  "retrieved": "2026-10-18",
+  "sha256": "702e2ba023847ed412672906d112b8c8e992e12a3c3f9828bcc876fc1e3c9e4c",
+  "status": 200
+ },
+ "https://static.case.law/nw2d/891/cases/0760-01.json": {
+  "bytes": 24313,
+  "retrieved": "2026-10-18",
+  "sha256": "0ad4cae75b50b305c926bbc72eac7ecdab29ff2d3f8c64375d382cbdd05ff2ae",
+  "status": 200
+ },
+ "https://static.case.law/p3d/383/cases/0773-01.json": {
+  "bytes": 39680,
+  "retrieved": "2026-10-18",
+  "sha256": "bb8f47650f7f7e243e4df6b6dc5a6bef325e64d1b07e2d2c3b9b3adfbfcdf100",
+  "status": 200
+ },
+ "https://static.case.law/pa-super/370/cases/0444-01.json": {
+  "bytes": 48618,
+  "retrieved": "2026-10-18",
+  "sha256": "f09e4b28544255835a3a71e027970202a1cb86b85be21e852c84010859e5e167",
+  "status": 200
+ },
+ "https://static.case.law/se2d/805/cases/0751-01.json": {
+  "bytes": 42300,
+  "retrieved": "2026-10-18",
+  "sha256": "1095fe05a6313305e404c7e153aab6bfe09376b37bf452108b46e7f20839ebc2",
+  "status": 200
+ },
+ "https://static.case.law/so3d/217/cases/0906-01.json": {
+  "bytes": 69965,
+  "retrieved": "2026-10-18",
+  "sha256": "2c101342a555ba9895151feb4f7173137a8adcf4d43ba32e72af61eae091f537",
+  "status": 200
+ },
+ "https://static.case.law/sw3d/451/cases/0028-01.json": {
+  "bytes": 148577,
+  "retrieved": "2026-10-18",
+  "sha256": "ffce7165074f1406adfb7c47290693b8130264491f84df307740952fdc135abb",
+  "status": 200
+ },
+ "https://static.case.law/vt/190/cases/0188-01.json": {
+  "bytes": 19012,
+  "retrieved": "2026-10-18",
+  "sha256": "0f59cce59b6ab42f7176f622b2d5cc43e86bd3a965bd6f809ef9b83ad4950d7e",
+  "status": 200
+ },
+ "https://static.case.law/vt/199/cases/0019-01.json": {
+  "bytes": 147491,
+  "retrieved": "2026-10-18",
+  "sha256": "140e537cafba4aec78eb6f855c947cba1410eef454539a474ac92897fa065f2f",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/FA/htm/FA.54.htm": {
+  "bytes": 215450,
+  "retrieved": "2026-10-18",
+  "sha256": "f5208d35e88244b8ac034521356609b96a838ded7fea04b3f9d73436c07aacb7",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/PE/htm/PE.1.htm": {
+  "bytes": 35667,
+  "retrieved": "2026-10-18",
+  "sha256": "2e34c7b8b9a48bbd8d6557b06592b6bb0cf58ee87d50723c74a1d871cc6d1997",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/PE/htm/PE.3.htm": {
+  "bytes": 19870,
+  "retrieved": "2026-10-18",
+  "sha256": "031c804625144d3d05a0d2b78f825e9b98ece4530505c75f387bf8114ef6d007",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/PE/htm/PE.36.htm": {
+  "bytes": 35232,
+  "retrieved": "2026-10-18",
+  "sha256": "c9b863b99baea3a44c935ec2985a4ecfd5fe07c1a7cbfa177c91ddc9e9712996",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/PE/htm/PE.9.htm": {
+  "bytes": 41526,
+  "retrieved": "2026-10-18",
+  "sha256": "1f7d415f4f4fdc684819a37764ced3b38f6cd5d1f92c514fdb95abe0c075b422",
+  "status": 200
+ },
+ "https://tcss.legis.texas.gov/resources/PR/htm/PR.204.htm": {
+  "bytes": 28886,
+  "retrieved": "2026-10-18",
+  "sha256": "127ce162725fec5fd67fec8cbc9612e372176e3b761fe0bc87f39dbf4fe595d3",
+  "status": 200
+ },
+ "https://webserver.rilegislature.gov/Statutes/TITLE24/24-10/24-10-1.htm": {
+  "bytes": 4036,
+  "retrieved": "2026-10-18",
+  "sha256": "50ad3e2f85dee289f1daed3b447e74a262e0ee69dc167505ac27e91ed86a5fd6",
+  "status": 200
+ },
+ "https://webserver.rilegislature.gov/Statutes/TITLE39/39-3/39-3-11.htm": {
+  "bytes": 8202,
+  "retrieved": "2026-10-18",
+  "sha256": "4fdfeef114eafe62e7030d2de2b90cec198bf531b67f0c7f01818c77297f1309",
+  "status": 200
+ },
+ "https://www.azleg.gov/ars/12/02101.htm": {
+  "bytes": 3675,
+  "retrieved": "2026-10-18",
+  "sha256": "932de813453c145758444d6beeca5052b170b62751ca5319908bdfdc43679b8a",
+  "status": 200
+ },
+ "https://www.azleg.gov/ars/32/01451.htm": {
+  "bytes": 14886,
+  "retrieved": "2026-10-18",
+  "sha256": "162a49f869da6d3ee23f73bd347f088cb1d39d9572c3fd94222cb25ada886a8e",
+  "status": 200
+ },
+ "https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-25.json": {
+  "bytes": 1688966,
+  "retrieved": "2026-10-18",
+  "sha256": "75578ae09f3bca7e89baa1ef45134f1d47de42e4279b4a5c82b92e2df397f079",
+  "status": 200
+ },
+ "https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-26.json": {
+  "bytes": 2022515,
+  "retrieved": "2026-10-18",
+  "sha256": "3b460699588bae45f48cabd015145ec2db7fb4c6efb61b9581b157008920a7d7",
+  "status": 200
+ },
+ "https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-40.json": {
+  "bytes": 9395956,
+  "retrieved": "2026-10-18",
+  "sha256": "a1075ffa9b788006761c64df61f2fdb2c96d0ade86b5a4cda481028ef76f4d74",
+  "status": 200
+ },
+ "https://www.govinfo.gov/content/pkg/CDOC-110hdoc50/html/CDOC-110hdoc50.htm": {
+  "bytes": 298236,
+  "retrieved": "2026-10-18",
+  "sha256": "e8a9606e762ea07e1975dad91574e1c69b42b0caf37d8f6e3d193b207e8721da",
+  "status": 200
+ },
+ "https://www.govinfo.gov/link/fr/11/5593": {
+  "bytes": 78,
+  "location": "https://www.govinfo.gov/content/pkg/FR-1946-05-23/pdf/FR-1946-05-23.pdf#page=1",
+  "retrieved": "2026-10-18",
+  "sha256": "9f24f6698f9e7b9d2512a9fb6f582771ac922c10545e4fb92547824ce61e7e79",
+  "status": 302
+ },
+ "https://www.govinfo.gov/link/fr/50/40293": {
+  "bytes": 80,
+  "location": "https://www.govinfo.gov/content/pkg/FR-1985-10-02/pdf/FR-1985-10-02.pdf#page=119",
+  "retrieved": "2026-10-18",
+  "sha256": "545e0c8fdad170883cbbdf43ae79b939033c20f1a031b0f6492c87e6b4e5b6cf",
+  "status": 302
+ },
+ "https://www.govinfo.gov/metadata/pkg/STATUTE-112/mods.xml": {
+  "bytes": 2373696,
+  "retrieved": "2026-10-18",
+  "sha256": "d318fcfdf59f45597b33af238441990f307ed9c422449971fb68f99000b37c42",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/STATUTE-87/mods.xml": {
+  "bytes": 2716308,
+  "retrieved": "2026-10-18",
+  "sha256": "2c2f5722bd0c68c38b31a8e31a4ce44d29b0e9c394290b3864f70902b7d7dc5e",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/STATUTE-88/mods.xml": {
+  "bytes": 4105166,
+  "retrieved": "2026-10-18",
+  "sha256": "256ac7d04318b1f9e1af3fbad980ead80ed9fe178e5079656e912d081d9f5263",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title10/mods.xml": {
+  "bytes": 59625382,
+  "retrieved": "2026-10-18",
+  "sha256": "d64ecdf7e9f720a5aa6a51452a1779b733da24e09621177268d7a5fc3ff23ebc",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title18/mods.xml": {
+  "bytes": 17920559,
+  "retrieved": "2026-10-18",
+  "sha256": "00adbdc751c12800b9dd59df7d91f6ac7b18f4d3127fddc75c4a94d6fc6ad753",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title21/mods.xml": {
+  "bytes": 8936598,
+  "retrieved": "2026-10-18",
+  "sha256": "ec71e4b67494cc538e98bdb3f7eda7fec7b672445ad035e23a6a8a4e700e1f31",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title25/mods.xml": {
+  "bytes": 16249854,
+  "retrieved": "2026-10-18",
+  "sha256": "f38e98aa99d7878930311fae1fcc68e6a60b6dcf269e6a23f25b42b65fb926ba",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title28/mods.xml": {
+  "bytes": 13235138,
+  "retrieved": "2026-10-18",
+  "sha256": "63b10e16b6a5a6a3765de2d7b8baf94d33d777df35f6cd5edf8faa1d880dad09",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title29/mods.xml": {
+  "bytes": 10072797,
+  "retrieved": "2026-10-18",
+  "sha256": "55b6c944b3d13dd2c2baa4bf97bf0f1d1bb595a913b95e5841443ac008ef24d0",
+  "status": 200
+ },
+ "https://www.govinfo.gov/metadata/pkg/USCODE-2024-title45/mods.xml": {
+  "bytes": 3494927,
+  "retrieved": "2026-10-18",
+  "sha256": "dbcc96092c1537602f05bb6e96a084b7b5d2c7a0afcac5530e1eefb8e6e4f0c2",
+  "status": 200
+ },
+ "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520": {
+  "bytes": 27577,
+  "retrieved": "2026-10-18",
+  "sha256": "f24ef7b214570fd27e8260a135d901a1441431c5a43460bd4f5547a62c81c3d0",
+  "status": 200
+ },
+ "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013": {
+  "bytes": 31460,
+  "retrieved": "2026-10-18",
+  "sha256": "780369394425a4a69943fd7277856053d4a4551be6906483365b729b127c1ebe",
+  "status": 200
+ },
+ "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_1/GS_1-420.html": {
+  "bytes": 1734,
+  "retrieved": "2026-10-18",
+  "sha256": "004307100b7115586f4bd381a0769eff714b7885a8baa6fd766fb428a102f929",
+  "status": 200
+ },
+ "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-544.5.html": {
+  "bytes": 12761,
+  "retrieved": "2026-10-18",
+  "sha256": "e694c4d396c95c6cee760a4bec1fca77e5fe31d616618ae8744b69d9f537c574",
+  "status": 200
+ },
+ "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-910.html": {
+  "bytes": 3076,
+  "retrieved": "2026-10-18",
+  "sha256": "b407dd706f6b83ab68e5bc3c42d726a49975be61e20c9527597acacb2f889ccb",
+  "status": 200
+ },
+ "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_163/GS_163-122.html": {
+  "bytes": 12381,
+  "retrieved": "2026-10-18",
+  "sha256": "46a22beb9a82d761813fc06d19c96cb091b422994cee8f4c52db7deff53847d3",
+  "status": 200
+ },
+ "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=42&div=0&chapter=7&section=8&subsctn=0&iFrame=true": {
+  "bytes": 6876,
+  "retrieved": "2026-10-18",
+  "sha256": "3f19abc41aa66ab9280f62c33527b0977d343cce44c4d8305d45a596d57b7e7b",
+  "status": 200
+ },
+ "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=42&div=0&chapter=97&section=81&subsctn=0&iFrame=true": {
+  "bytes": 11669,
+  "retrieved": "2026-10-18",
+  "sha256": "e096791cff28b0cdf00642f7911c7915eb188a09552dbb1862f188c8bc6d647e",
+  "status": 200
+ },
+ "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=58&div=0&chapter=32&section=2&subsctn=0&iFrame=true": {
+  "bytes": 3918,
+  "retrieved": "2026-10-18",
+  "sha256": "c5268ed39731a309dd465eb938d7bf08cda46d824a488c0b531626d9424fa55e",
+  "status": 200
+ },
+ "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=75&div=0&chapter=15&section=43&subsctn=0&iFrame=true": {
+  "bytes": 17059,
+  "retrieved": "2026-10-18",
+  "sha256": "347644ee5fc0f7da54bc53ad933b9c57b72f9990a668e10a3d89d7fb7c0984c6",
+  "status": 200
+ },
+ "https://www.ussc.gov/guidelines/2025-guidelines-manual": {
+  "bytes": 171898,
+  "retrieved": "2026-10-18",
+  "sha256": "f9698d73ca5945f2541ebcf6df6383e9ae5e96da122891d90d80c0c822926f1e",
+  "status": 200
+ }
+}

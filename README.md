@@ -68,6 +68,7 @@ or commercial tool can be benchmarked without sharing any code.
 | `bench/baseline.py` | Stores eyecite's runs in `baselines/eyecite/` by key, and restores them |
 | `bench/report.py` | An engine's report: vector scores, statute metrics, corpus speed, diffs against eyecite and an earlier version |
 | `bench/statutes.py` | Statute and court-rule metrics from saved runs: precision, recall and F1 per kind of law, field accuracy, agreement between engines |
+| `bench/verify_statutes.py` | Checks the statute vectors' parts against official sources and lists what needs a person ([`verification/statutes/`](verification/statutes/README.md)) |
 | `baselines/` | citare's known failures, and the stored eyecite runs |
 | `tests/` | Unit tests for the scorer, the diff and the corpus conversion (`mise run check`) |
 

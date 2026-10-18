@@ -1,0 +1,5336 @@
+[
+ {
+  "id": "statutes/find/conn_general_statutes/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_general_statutes/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_general_statutes_revision/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '(Rev. to 1997)'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `(Rev. to ####)`"
+    ]
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_general_statutes_revision/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '(Rev. to 2005)'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `(Rev. to ####)`"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_practice_book/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "court rule",
+  "code": "Conn. Practice Book",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Conn. Practice Book` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Conn. Practice Book` (Connecticut): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the Practice Book is a PDF on jud.ct.gov; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Practice Book`: the Practice Book is a PDF on jud.ct.gov; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_practice_book/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "court rule",
+  "code": "Conn. Practice Book",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Conn. Practice Book` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Conn. Practice Book` (Connecticut): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Connecticut (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the Practice Book is a PDF on jud.ct.gov; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Practice Book`: the Practice Book is a PDF on jud.ct.gov; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_gen_stat/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/conn_gen_stat/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Conn. Gen. Stat.",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "section '10 -236b' has whitespace in it",
+    "source": "",
+    "human": [
+     "span",
+     "whitespace inside a section (`10 -236b`)"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Conn. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages",
+    "source": "",
+    "human": [
+     "existence",
+     "`Conn. Gen. Stat.`: cga.ct.gov didn't answer from here on 2026-10-18, and it publishes sections inside chapter pages"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ga_ocga/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ga. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ga. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`OCGA` read as `Ga. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`OCGA` means `Ga. Code Ann.` (Georgia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Georgia's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ga_ocga/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ga. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ga. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`OCGA` read as `Ga. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`OCGA` means `Ga. Code Ann.` (Georgia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Georgia's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ga_o_c_g_a/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ga. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ga. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`O.C.G.A.` means `Ga. Code Ann.` (Georgia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Georgia's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ga_o_c_g_a/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ga. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ga. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`O.C.G.A.` means `Ga. Code Ann.` (Georgia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Georgia's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ariz_ars/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ariz. Rev. Stat.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ariz. Rev. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`A.R.S.` read as `Ariz. Rev. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`A.R.S.` means `Ariz. Rev. Stat.` (Arizona)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.azleg.gov/ars/32/01451.htm",
+    "source": "azleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ariz_ars/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ariz. Rev. Stat.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ariz. Rev. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`A.R.S.` read as `Ariz. Rev. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`A.R.S.` means `Ariz. Rev. Stat.` (Arizona)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.azleg.gov/ars/12/02101.htm",
+    "source": "azleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/haw_hrs/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Haw. Rev. Stat.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Haw. Rev. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Hawaii (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "capitol.hawaii.gov answered HTTP 403 to scripted requests",
+    "source": "",
+    "human": [
+     "existence",
+     "`Haw. Rev. Stat.`: capitol.hawaii.gov answered HTTP 403 to scripted requests"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/haw_hrs/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Haw. Rev. Stat.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Haw. Rev. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`HRS` read as `Haw. Rev. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`HRS` means `Haw. Rev. Stat.` (Hawaii)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "capitol.hawaii.gov answered HTTP 403 to scripted requests",
+    "source": "",
+    "human": [
+     "existence",
+     "`Haw. Rev. Stat.`: capitol.hawaii.gov answered HTTP 403 to scripted requests"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nc_ncgs/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.C. Gen. Stat.",
+  "verdict": "verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.C. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in North Carolina (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-544.5.html",
+    "source": "ncleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nc_ncgs/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.C. Gen. Stat.",
+  "verdict": "verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.C. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in North Carolina (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-910.html",
+    "source": "ncleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nc_gs/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.C. Gen. Stat.",
+  "verdict": "verified-by-source:ncleg+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.C. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the official page cites the section as `G.S. 163-122`",
+    "source": "ncleg",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_163/GS_163-122.html",
+    "source": "ncleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nc_gs/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.C. Gen. Stat.",
+  "verdict": "verified-by-source:ncleg+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.C. Gen. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the official page cites the section as `G.S. 1-420`",
+    "source": "ncleg",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_1/GS_1-420.html",
+    "source": "ncleg",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nd_ndcc/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.D. Cent. Code",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.D. Cent. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in North Dakota (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "ndlegis.gov publishes chapter PDFs; PDF text isn't read here",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.D. Cent. Code`: ndlegis.gov publishes chapter PDFs; PDF text isn't read here"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nd_ndcc/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.D. Cent. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.D. Cent. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`N.D.C.C.` read as `N.D. Cent. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`N.D.C.C.` means `N.D. Cent. Code` (North Dakota)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "ndlegis.gov publishes chapter PDFs; PDF text isn't read here",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.D. Cent. Code`: ndlegis.gov publishes chapter PDFs; PDF text isn't read here"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tenn_tca/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tenn. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tenn. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`T.C.A.` read as `Tenn. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`T.C.A.` means `Tenn. Code Ann.` (Tennessee)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Tennessee's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Tenn. Code Ann.`: Tennessee's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tenn_tca/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tenn. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tenn. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`T.C.A.` read as `Tenn. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`T.C.A.` means `Tenn. Code Ann.` (Tennessee)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Tennessee's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Tenn. Code Ann.`: Tennessee's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_cs/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Cons. Stat.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pa. Cons. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Pa.C.S.` read as `Pa. Cons. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`Pa.C.S.` means `Pa. Cons. Stat.` (Pennsylvania)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=58&div=0&chapter=32&section=2&subsctn=0&iFrame=true",
+    "source": "pa-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_cs/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Cons. Stat.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pa. Cons. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Pa.C.S.` read as `Pa. Cons. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`Pa.C.S.` means `Pa. Cons. Stat.` (Pennsylvania)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=42&div=0&chapter=7&section=8&subsctn=0&iFrame=true",
+    "source": "pa-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_csa/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Cons. Stat.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pa. Cons. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Pa.C.S.A.` read as `Pa. Cons. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`Pa.C.S.A.` means `Pa. Cons. Stat.` (Pennsylvania)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=75&div=0&chapter=15&section=43&subsctn=0&iFrame=true",
+    "source": "pa-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_csa/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Cons. Stat.",
+  "verdict": "verified-by-source:cap+cap-case-metadata+pa-legislature+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pa. Cons. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Pennsylvania (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=42&div=0&chapter=97&section=81&subsctn=0&iFrame=true",
+    "source": "pa-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_ps/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Stat. Ann.",
+  "verdict": "unverifiable:code, existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Pa. Stat. Ann.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Pa. Stat. Ann.` (Pennsylvania): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`P.S.` read as `Pa. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`P.S.` means `Pa. Stat. Ann.` (Pennsylvania)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act",
+    "source": "",
+    "human": [
+     "existence",
+     "`Pa. Stat. Ann.`: Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_ps/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Pa. Stat. Ann.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Pa. Stat. Ann.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Pa. Stat. Ann.` (Pennsylvania): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Pennsylvania (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act",
+    "source": "",
+    "human": [
+     "existence",
+     "`Pa. Stat. Ann.`: Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/me_mrs/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Me. Rev. Stat. Ann.",
+  "verdict": "verified-by-source:cap+cap-case-metadata+maine-legislature+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Me. Rev. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Maine (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://legislature.maine.gov/statutes/1/title1sec402.html",
+    "source": "maine-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/me_mrs/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Me. Rev. Stat. Ann.",
+  "verdict": "verified-by-source:cap+cap-case-metadata+maine-legislature+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Me. Rev. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Maine (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://legislature.maine.gov/statutes/19-A/title19-Asec1653.html",
+    "source": "maine-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/me_mrsa/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Me. Rev. Stat. Ann.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Me. Rev. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`M.R.S.A.` means `Me. Rev. Stat. Ann.` (Maine)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://legislature.maine.gov/statutes/11/title11sec1-203.html",
+    "source": "maine-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/me_mrsa/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Me. Rev. Stat. Ann.",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Me. Rev. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`M.R.S.A.` means `Me. Rev. Stat. Ann.` (Maine)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://legislature.maine.gov/statutes/15/title15sec2115-A.html",
+    "source": "maine-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/vt_vsa/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Vt. Stat. Ann.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Vt. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Vermont (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "legislature.vermont.gov paths need the chapter; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Vt. Stat. Ann.`: legislature.vermont.gov paths need the chapter; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/vt_vsa/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Vt. Stat. Ann.",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Vt. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Vermont (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "legislature.vermont.gov paths need the chapter; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Vt. Stat. Ann.`: legislature.vermont.gov paths need the chapter; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/okla_os/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Okla. Stat.",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '2001'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####`"
+    ]
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Okla. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in Oklahoma (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "OSCN addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Okla. Stat.`: OSCN addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/okla_os/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Okla. Stat.",
+  "verdict": "unverifiable:existence, form, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1991'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####`"
+    ]
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Okla. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`O.S.` read as `Okla. Stat.`",
+    "source": "",
+    "human": [
+     "form",
+     "`O.S.` means `Okla. Stat.` (Oklahoma)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "OSCN addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Okla. Stat.`: OSCN addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ny_penal_law/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.Y. Penal Law",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.Y. Law` (N\\.Y\\. $law_subject Law)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Penal Law` read as `N.Y. Penal Law`",
+    "source": "",
+    "human": [
+     "form",
+     "`Penal Law` means `N.Y. Penal Law` (New York)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Penal Law`: nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ny_penal_law/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.Y. Penal Law",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.Y. Law` (N\\.Y\\. $law_subject Law)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Penal Law` read as `N.Y. Penal Law`",
+    "source": "",
+    "human": [
+     "form",
+     "`Penal Law` means `N.Y. Penal Law` (New York)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Penal Law`: nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ny_judiciary_law/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.Y. Judiciary Law",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.Y. Law` (N\\.Y\\. $law_subject Law)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as N.Y. Penal Law",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Judiciary Law`: as N.Y. Penal Law"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ny_family_ct_act/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.Y. Family Ct Act",
+  "verdict": "unverifiable:code, existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`N.Y. Family Ct Act` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`N.Y. Family Ct Act` (New York): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Family Ct Act` read as `N.Y. Family Ct Act`",
+    "source": "",
+    "human": [
+     "form",
+     "`Family Ct Act` means `N.Y. Family Ct Act` (New York)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as N.Y. Penal Law",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Family Ct Act`: as N.Y. Penal Law"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ny_family_ct_act/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.Y. Family Ct Act",
+  "verdict": "unverifiable:code, existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`N.Y. Family Ct Act` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`N.Y. Family Ct Act` (New York): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Family Ct Act` read as `N.Y. Family Ct Act`",
+    "source": "",
+    "human": [
+     "form",
+     "`Family Ct Act` means `N.Y. Family Ct Act` (New York)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as N.Y. Penal Law",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Family Ct Act`: as N.Y. Penal Law"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_pen_code/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Pen. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Pen. Code` read as `Cal. Pen. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`Pen. Code` means `Cal. Pen. Code` (California)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Pen. Code`: leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_pen_code/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Pen. Code",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in California (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Pen. Code`: leginfo.legislature.ca.gov answered HTTP 403 to scripted requests; its bulk pubinfo archive isn't wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_code_civ_proc/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Civ. Proc. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Code Civ. Proc.` read as `Cal. Civ. Proc. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`Code Civ. Proc.` means `Cal. Civ. Proc. Code` (California)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as Cal. Pen. Code",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Civ. Proc. Code`: as Cal. Pen. Code"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_code_civ_proc/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Civ. Proc. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Code Civ. Proc.` read as `Cal. Civ. Proc. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`Code Civ. Proc.` means `Cal. Civ. Proc. Code` (California)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as Cal. Pen. Code",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Civ. Proc. Code`: as Cal. Pen. Code"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_evid_code/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Evid. Code",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in California (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as Cal. Pen. Code",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Evid. Code`: as Cal. Pen. Code"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_evid_code/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Evid. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`Evid. Code` read as `Cal. Evid. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`Evid. Code` means `Cal. Evid. Code` (California)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as Cal. Pen. Code",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Evid. Code`: as Cal. Pen. Code"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cal_civ_code/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Cal. Civ. Code",
+  "verdict": "unverifiable:existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Cal. Code` (Cal\\. $law_subject Code)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "as Cal. Pen. Code",
+    "source": "",
+    "human": [
+     "existence",
+     "`Cal. Civ. Code`: as Cal. Pen. Code"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_small_caps/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Penal Code Ann.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/PE/htm/PE.1.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_small_caps/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Penal Code Ann.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/PE/htm/PE.9.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_no_space/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Fam. Code Ann.",
+  "verdict": "verified-by-source:cap+reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/FA/htm/FA.54.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_no_space/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Prop. Code Ann.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/PR/htm/PR.204.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_penal_code_ann/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Penal Code Ann.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/PE/htm/PE.36.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_penal_code_ann/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Tex. Penal Code Ann.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+texas-legislative-council",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Tex. Code Ann.` (Tex\\. $law_subject Code Ann\\.)",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://tcss.legis.texas.gov/resources/PE/htm/PE.3.htm",
+    "source": "texas-legislative-council",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mass_g_l_c/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Mass. Gen. Laws",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Mass. Gen. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`G. L.` read as `Mass. Gen. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`G. L.` means `Mass. Gen. Laws` (Massachusetts)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15",
+    "source": "ma-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mass_g_l_c/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Mass. Gen. Laws",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Mass. Gen. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`G.L.` read as `Mass. Gen. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`G.L.` means `Mass. Gen. Laws` (Massachusetts)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E",
+    "source": "ma-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mass_gen_laws_ch/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Mass. Gen. Laws",
+  "verdict": "verified-by-source:ma-legislature+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Mass. Gen. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A",
+    "source": "ma-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nm_nmsa/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.M. Stat. Ann.",
+  "verdict": "unverifiable:existence, form, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1978,'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####,`"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.M. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`NMSA` read as `N.M. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`NMSA` means `N.M. Stat. Ann.` (New Mexico)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "nmonesource.com addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.M. Stat. Ann.`: nmonesource.com addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nm_nmsa/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "N.M. Stat. Ann.",
+  "verdict": "unverifiable:existence, form, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1978,'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####,`"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.M. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`NMSA` read as `N.M. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`NMSA` means `N.M. Stat. Ann.` (New Mexico)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "nmonesource.com addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.M. Stat. Ann.`: nmonesource.com addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mich_mcl/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Mich. Comp. Laws",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Mich. Comp. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`M.C.L.A.` means `Mich. Comp. Laws` (Michigan)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520",
+    "source": "mi-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mich_mcl/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Mich. Comp. Laws",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Mich. Comp. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`M.C.L.A.` means `Mich. Comp. Laws` (Michigan)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013",
+    "source": "mi-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ala_code_1975/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ala. Code",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1975,'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####,`"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ala. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "alison.legislature.state.al.us renders sections client-side",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ala. Code`: alison.legislature.state.al.us renders sections client-side"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ala_code_1975/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ala. Code",
+  "verdict": "unverifiable:existence, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1975,'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####,`"
+    ]
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ala. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "alison.legislature.state.al.us renders sections client-side",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ala. Code`: alison.legislature.state.al.us renders sections client-side"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ark_aca/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ark. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ark. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`A.C.A.` read as `Ark. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`A.C.A.` means `Ark. Code Ann.` (Arkansas)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Arkansas's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ark. Code Ann.`: Arkansas's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ark_aca/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Ark. Code Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Ark. Code Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`A.C.A.` read as `Ark. Code Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`A.C.A.` means `Ark. Code Ann.` (Arkansas)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "Arkansas's official code is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ark. Code Ann.`: Arkansas's official code is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/la_rev_stat/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "La. Stat. Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `La. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`La.Rev.Stat.` read as `La. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`La.Rev.Stat.` means `La. Stat. Ann.` (Louisiana)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "legis.la.gov addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`La. Stat. Ann.`: legis.la.gov addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/la_rev_stat/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "La. Stat. Ann.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `La. Stat. Ann.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`La.Rev.Stat.` read as `La. Stat. Ann.`",
+    "source": "",
+    "human": [
+     "form",
+     "`La.Rev.Stat.` means `La. Stat. Ann.` (Louisiana)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "legis.la.gov addresses sections by document id; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`La. Stat. Ann.`: legis.la.gov addresses sections by document id; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ri_gl_1956/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "R.I. Gen. Laws",
+  "verdict": "unverifiable:form, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1956,'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `####,`"
+    ]
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `R.I. Gen. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`G.L.` read as `R.I. Gen. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`G.L.` means `R.I. Gen. Laws` (Rhode Island)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://webserver.rilegislature.gov/Statutes/TITLE24/24-10/24-10-1.htm",
+    "source": "ri-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/ri_gl_1956/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "R.I. Gen. Laws",
+  "verdict": "unverifiable:form, span",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "none",
+    "detail": "text in the span no field holds: '1956 (1969 Reenactment)'",
+    "source": "",
+    "human": [
+     "span",
+     "in-span text not in any field: `#### (#### Reenactment)`"
+    ]
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `R.I. Gen. Laws`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`G.L.` read as `R.I. Gen. Laws`",
+    "source": "",
+    "human": [
+     "form",
+     "`G.L.` means `R.I. Gen. Laws` (Rhode Island)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://webserver.rilegislature.gov/Statutes/TITLE39/39-3/39-3-11.htm",
+    "source": "ri-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/wva_code/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "W. Va. Code",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `W. Va. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`West Virginia Code` read as `W. Va. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`West Virginia Code` means `W. Va. Code` (West Virginia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://code.wvlegislature.gov/31-1-15/",
+    "source": "wv-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/wva_code/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "W. Va. Code",
+  "verdict": "unverifiable:form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `W. Va. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`West Virginia Code` read as `W. Va. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`West Virginia Code` means `W. Va. Code` (West Virginia)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://code.wvlegislature.gov/56-6-31/",
+    "source": "wv-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/wis_stat_caps/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "state statute",
+  "code": "Wis. Stat.",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+wi-legislature",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Wis. Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "https://docs.legis.wisconsin.gov/statutes/statutes/706/09",
+    "source": "wi-legislature",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/usc/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "25 U.S.C. 1912",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/usc/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "18 U.S.C. 3553",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cfr/0",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "regulation",
+  "code": "C.F.R.",
+  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `C.F.R.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "40 C.F.R. § 261.4",
+    "source": "ecfr-2026-10-01",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/cfr/1",
+  "set": "statutes",
+  "provenance": "hand-checked",
+  "kind": "regulation",
+  "code": "C.F.R.",
+  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `C.F.R.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "25 C.F.R. § 83.2",
+    "source": "ecfr-2026-10-01",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_civ_p/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Civ. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Civil Procedure, Rule 52",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_civ_p/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Civ. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Civil Procedure, Rule 12",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_civ_p/2",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Civ. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Civil Procedure, Rule 60",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_evid/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Evid.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. Evid.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. Evid.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Evidence, Rule 801",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_evid/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Evid.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. Evid.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. Evid.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Evidence, Rule 801",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_crim_p/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Crim. P.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. Crim. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. Crim. P.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Criminal Procedure, Rule 8",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_crim_p/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. Crim. P.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. Crim. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. Crim. P.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Criminal Procedure, Rule 33",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_app_p/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. App. P.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. App. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. App. P.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Appellate Procedure, Rule 34",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_r_app_p/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Fed. R. App. P.",
+  "verdict": "unverifiable:code",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Fed. R. App. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Fed. R. App. P.` (United States): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Appellate Procedure, Rule 4",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/tex_r_p/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Tex. R. Civ. P.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Tex. R. Civ. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Tex. R. Civ. P.` (Texas): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the rules are a PDF on txcourts.gov; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Tex. R. Civ. P.`: the rules are a PDF on txcourts.gov; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/tex_r_p/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Tex. R. App. P.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Tex. R. App. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Tex. R. App. P.` (Texas): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the rules are a PDF on txcourts.gov; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Tex. R. App. P.`: the rules are a PDF on txcourts.gov; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/pa_r_civ_p/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Pa. R. Civ. P.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Pa. R. Civ. P.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Pa. R. Civ. P.` (Pennsylvania): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "pacodeandbulletin.gov returned no rule text without scripting",
+    "source": "",
+    "human": [
+     "existence",
+     "`Pa. R. Civ. P.`: pacodeandbulletin.gov returned no rule text without scripting"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/mich_ct_r/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "court rule",
+  "code": "Mich. Ct. R.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`MCR` read as `Mich. Ct. R.`",
+    "source": "",
+    "human": [
+     "form",
+     "`MCR` means `Mich. Ct. R.` (Michigan)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the rules are a PDF on courts.michigan.gov; not wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Mich. Ct. R.`: the rules are a PDF on courts.michigan.gov; not wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/us_const/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "U.S. Const.",
+  "verdict": "verified-by-source:gpo-constitution",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "amendment VIII",
+    "source": "gpo-constitution",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/us_const/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "U.S. Const.",
+  "verdict": "verified-by-source:gpo-constitution",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "amendment XIV",
+    "source": "gpo-constitution",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/us_const/2",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "U.S. Const.",
+  "verdict": "verified-by-source:gpo-constitution",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "article I, section 8, clause 3 of 18",
+    "source": "gpo-constitution",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/us_const/3",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "U.S. Const.",
+  "verdict": "verified-by-source:gpo-constitution",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "article I, section 8, clause 10 of 18",
+    "source": "gpo-constitution",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/state_const/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "Ohio Const.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Ohio Const.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Ohio Const.` (Ohio): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "codes.ohio.gov renders sections client-side",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ohio Const.`: codes.ohio.gov renders sections client-side"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/state_const/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "Ind. Const.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`Ind. Const.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`Ind. Const.` (Indiana): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "no official source wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`Ind. Const.`: no official source wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/state_const/2",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "constitution",
+  "code": "N.M. Const.",
+  "verdict": "unverifiable:code, existence",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "none",
+    "detail": "`N.M. Const.` is in neither reporters-db's laws nor the conventions",
+    "source": "",
+    "human": [
+     "code",
+     "`N.M. Const.` (New Mexico): is this the code's standard abbreviation?"
+    ]
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "no official source wired in",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.M. Const.`: no official source wired in"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/nycrr/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "N.Y. Comp. Codes R. & Regs.",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.Y. Comp. Codes R. & Regs.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`NYCRR` read as `N.Y. Comp. Codes R. & Regs.`",
+    "source": "",
+    "human": [
+     "form",
+     "`NYCRR` means `N.Y. Comp. Codes R. & Regs.` (New York)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the official NYCRR is online through Thomson Reuters Westlaw; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.Y. Comp. Codes R. & Regs.`: the official NYCRR is online through Thomson Reuters Westlaw; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/njac/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "N.J. Admin. Code",
+  "verdict": "unverifiable:existence, form",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.J. Admin. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "none",
+    "detail": "`N.J.A.C.` read as `N.J. Admin. Code`",
+    "source": "",
+    "human": [
+     "form",
+     "`N.J.A.C.` means `N.J. Admin. Code` (New Jersey)"
+    ]
+   },
+   {
+    "claim": "existence",
+    "result": "none",
+    "detail": "the N.J.A.C. is online through LexisNexis; not used",
+    "source": "",
+    "human": [
+     "existence",
+     "`N.J. Admin. Code`: the N.J.A.C. is online through LexisNexis; not used"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/treas_reg/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "Treas. Reg.",
+  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Treas. Reg.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "26 C.F.R. § 1.170A-1",
+    "source": "ecfr-2026-10-01",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/treas_reg/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "Treas. Reg.",
+  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Treas. Reg.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "26 C.F.R. § 1.48-1",
+    "source": "ecfr-2026-10-01",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/ussg/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "guideline",
+  "code": "U.S.S.G.",
+  "verdict": "verified-by-source:ussc-guidelines-2025",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "§3B1.2 in the 2025 Guidelines Manual",
+    "source": "ussc-guidelines-2025",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/ussg/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "guideline",
+  "code": "U.S.S.G.",
+  "verdict": "verified-by-source:ussc-guidelines-2025",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "§4B1.1 in the 2025 Guidelines Manual",
+    "source": "ussc-guidelines-2025",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_reg/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "Fed. Reg.",
+  "verdict": "verified-by-source:govinfo-fr-link",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "11 Fed. Reg. 5593 is in pkg/FR-1946-05-23",
+    "source": "govinfo-fr-link",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/fed_reg/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "regulation",
+  "code": "Fed. Reg.",
+  "verdict": "verified-by-source:govinfo-fr-link",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "50 Fed. Reg. 40293 is in pkg/FR-1985-10-02",
+    "source": "govinfo-fr-link",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/stat/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "Stat.",
+  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "STATUTE-112-Pg3227 (1998-11-03)",
+    "source": "govinfo-statute",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/stat/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "Stat.",
+  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Stat.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "STATUTE-88-Pg829 (1974-09-02)",
+    "source": "govinfo-statute",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/pub_l/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "Pub. L.",
+  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pub. L.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Pub. L. 93-233 is STATUTE-87-Pg947",
+    "source": "govinfo-statute",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/pub_l/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "Pub. L.",
+  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `Pub. L.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Pub. L. 93-406 is STATUTE-88-Pg829",
+    "source": "govinfo-statute",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/usc_et_seq/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "45 U.S.C. 151",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/usc_et_seq/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "29 U.S.C. 201",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/usc_range/0",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "21 U.S.C. 801 and 904",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes-proposed/find/usc_range/1",
+  "set": "statutes-proposed",
+  "provenance": "proposed",
+  "kind": "federal statute",
+  "code": "U.S.C.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `U.S.C.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "10 U.S.C. 1201 and 1221",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ }
+]

@@ -194,6 +194,12 @@ and `hand-checked` vectors as the reference and reports every other status in a 
 its own. An engine's output is never ground truth, the reference engine's included:
 agreement between two engines is reported as agreement, apart from the scores.
 
+`bench/verify_statutes.py` (`mise run verify:statutes`) checks the statute vectors' parts
+against official sources (the U.S. Code, eCFR, the Statutes at Large, the Federal Register,
+the Guidelines Manual, GPO's Constitution and state legislatures' code pages) and lists
+what still needs a person ([`verification/statutes/`](../verification/statutes/README.md)).
+Its verdicts don't change a vector's provenance.
+
 ## Running an adapter
 
 ```bash
