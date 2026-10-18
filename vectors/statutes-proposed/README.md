@@ -1,6 +1,6 @@
 # Proposed statute vectors
 
-Statute, court-rule, constitution and regulation citations for the forms
+Statute, court-rule, constitution, regulation and sentencing-guideline citations for the forms
 [`vectors/statutes`](../statutes/README.md) covers thinly or not at all (#22): federal
 court rules, state court rules besides Connecticut's Practice Book, the U.S. and state
 constitutions, state administrative codes, `Treas. Reg.`, `U.S.S.G.`, `Fed. Reg.`, `Stat.`,
@@ -18,10 +18,11 @@ gates it, so `bench:statutes` doesn't run it. A reviewed vector moves into
 mise run report:statutes             # both engines, reference and proposed sets
 ```
 
-## Conventions to review
+## Conventions
 
-Besides each answer, these choices need a decision, since no reporters-db entry or
-earlier vector settles them:
+No reporters-db entry or earlier vector settled these choices; the maintainer accepted
+them on 2026-10-18 (docs/protocol.md, "Statute and court-rule citations"). The vectors
+themselves still need review, one by one.
 
 - Court rules: the rule number is the `rule` group (`Fed.R.Civ.P. 12(b)(6)`: rule `12`,
   pin cite `(b)(6)`), and `reporter_normalized` is the Bluebook abbreviation (`Fed. R.
@@ -35,7 +36,7 @@ earlier vector settles them:
 - A range keeps both ends in `section` (`21 U.S.C. §§ 801-904`: section `801-904`), as
   both engines give it; a hyphenated section number looks the same (`§ 2000e-5`).
 - `et seq.` is the pin cite, as in eyecite's own test vectors.
-- `U.S.S.G.` counts as a regulation in `bench/statutes.py`'s kinds.
+- `U.S.S.G.` is its own kind in `bench/statutes.py`, guideline, not a regulation.
 - The span of `Pub.L. No. 93-233.` ends before the sentence's period; both engines take
   the period in.
 
@@ -74,8 +75,8 @@ parts; "bare `§`" means an unknown citation for the section sign and no law cit
 | `njac/0` | regulation | `N.J.A.C. 10:129A-3.4` | `N.J. Admin. Code`; section `10:129A-3.4` | none | none |
 | `treas_reg/0` | regulation | `Treas.Reg. § 1.170A-1` | `Treas. Reg.`; section `1.170A-1` | section `1` | right |
 | `treas_reg/1` | regulation | `Treas.Reg. § 1.48-1` | `Treas. Reg.`; section `1.48-1` | right | right |
-| `ussg/0` | regulation | `U.S.S.G. § 3B1.2` | `U.S.S.G.`; section `3B1.2` | bare `§` | bare `§` |
-| `ussg/1` | regulation | `U.S.S.G. § 4B1.1` | `U.S.S.G.`; section `4B1.1` | bare `§` | bare `§` |
+| `ussg/0` | guideline | `U.S.S.G. § 3B1.2` | `U.S.S.G.`; section `3B1.2` | bare `§` | bare `§` |
+| `ussg/1` | guideline | `U.S.S.G. § 4B1.1` | `U.S.S.G.`; section `4B1.1` | bare `§` | bare `§` |
 | `fed_reg/0` | regulation | `11 Fed. Reg. 5593` | `Fed. Reg.`; volume `11`, page `5593` | code `FR` | code `FR` |
 | `fed_reg/1` | regulation | `50 Fed.Reg. 40,293` | `Fed. Reg.`; volume `50`, page `40,293` | code `FR` | code `FR` |
 | `stat/0` | federal statute | `112 Stat. 3227` | `Stat.`; volume `112`, page `3227` | right | right |

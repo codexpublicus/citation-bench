@@ -43,6 +43,7 @@ LAW_KINDS = (
     "federal statute",
     "state statute",
     "regulation",
+    "guideline",
     "court rule",
     "constitution",
 )
@@ -70,9 +71,10 @@ FIELDS = (
 )
 
 CONSTITUTION = re.compile(r"\bConst\b")
-# Sentencing guidelines are counted with regulations: agency-made, cited by section.
+# The U.S. Sentencing Guidelines are their own kind, not a regulation (ruling of 2026-10-18).
+GUIDELINE = re.compile(r"^U\.? ?S\.? ?S\.? ?G\.?$|Sentencing Guidelines")
 REGULATION = re.compile(
-    r"C\.F\.R\.|Fed\. ?Reg\.|^F\.?R\.?$|Treas\. ?Reg\.|U\.S\.S\.G\.|Admin\.|\bRegs?\.|"
+    r"C\.F\.R\.|Fed\. ?Reg\.|^F\.?R\.?$|Treas\. ?Reg\.|Admin\.|\bRegs?\.|"
     r"Code R\.|NYCRR|N\.J\.A\.C\."
 )
 COURT_RULE = re.compile(
@@ -86,6 +88,8 @@ def law_kind(code, jurisdiction=None):
     code = code or ""
     if CONSTITUTION.search(code):
         return "constitution"
+    if GUIDELINE.search(code):
+        return "guideline"
     if REGULATION.search(code):
         return "regulation"
     if COURT_RULE.search(code):

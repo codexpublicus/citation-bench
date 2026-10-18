@@ -150,14 +150,30 @@ groups, named as reporters-db's laws data names them where it has the code: `rep
 session law or register (`88 Stat. 829`), `title` for a public law number (`Pub. L. No.
 93-233`). `reporter_normalized` is the code's standard abbreviation whatever the spelling
 (`Conn. Gen. Stat.` for `General Statutes`), and `metadata.jurisdiction` its
-jurisdiction. For forms reporters-db doesn't have, `vectors/statutes-proposed` proposes
-`rule` for a court rule's number (`Fed. R. Civ. P. 12`) and `article`, `amendment` and
-`section` for a constitution (`U.S. Const. art. I, § 8`); those names are proposals until
-the vectors are reviewed.
+jurisdiction.
+
+The maintainer accepted these conventions on 2026-10-18 for the forms reporters-db
+doesn't settle:
+
+- A court rule's number is the `rule` group (`Fed.R.Civ.P. 12(b)(6)`: rule `12`, pin
+  cite `(b)(6)`), and `reporter_normalized` is the Bluebook abbreviation (`Fed. R. Civ.
+  P.`, `Mich. Ct. R.` for `MCR`).
+- A constitution has `article`, `amendment` and `section` groups (`U.S. Const. art. I, §
+  8`), each as written, with a clause as the pin cite (`cl. 3`).
+- `Fed. Reg.` normalizes to `Fed. Reg.` as written, not reporters-db's `FR`.
+- `U.S.C.A.` normalizes to `U.S.C.`.
+- A range stays whole in `section` (`21 U.S.C. §§ 801-904`: section `801-904`).
+- `et seq.` is the pin cite.
+- The U.S. Sentencing Guidelines (`U.S.S.G.`) are their own kind of law, a guideline, not
+  a regulation.
+
+`vectors/statutes-proposed` follows them. Its vectors are still `proposed` until each is
+reviewed: settling the conventions doesn't make the answers checked.
 
 `bench/statutes.py` scores law citations per kind of law (federal statute, state
-statute, regulation, court rule, constitution): precision, recall and F1 for finding them
-at the right place, and for getting the code and every part right. See its docstring.
+statute, regulation, guideline, court rule, constitution): precision, recall and F1 for
+finding them at the right place, and for getting the code and every part right. See its
+docstring.
 
 ## Vector provenance
 

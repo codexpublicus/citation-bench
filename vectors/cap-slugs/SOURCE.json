@@ -6,5 +6,9 @@
     "Harvard Caselaw Access Project bulk volumes (static.case.law), casebody.opinions[].text and case metadata"
   ],
   "selected": "2026-10-17",
+  "provenance": {
+    "status": "hand-checked",
+    "note": "Every field but cap_slug was read by hand against its excerpt when the set was added (#27); cap_slug comes from CAP's reporter and volume metadata (README.md). Not yet verified by the maintainer."
+  },
   "protocol": 2
 }

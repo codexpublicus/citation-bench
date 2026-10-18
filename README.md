@@ -30,7 +30,7 @@ or commercial tool can be benchmarked without sharing any code.
    jurisdiction and form, taken from real opinions with hand-checked answers
    ([README](vectors/statutes/README.md)). It is scored on its own too (`bench:statutes`),
    with the same two baselines. `bench/statutes.py` breaks it down by kind of law (federal
-   statute, state statute, regulation, court rule, constitution), with precision, recall
+   statute, state statute, regulation, guideline, court rule, constitution), with precision, recall
    and F1 per engine (`mise run report:statutes`). `vectors/statutes-proposed/` holds
    unreviewed vectors for the forms the set lacks, scored apart and never as a reference
    ([README](vectors/statutes-proposed/README.md)).

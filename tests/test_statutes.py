@@ -22,6 +22,9 @@ ROOT = statutes.ROOT
         ("Treas. Reg.", "United States", "regulation"),
         ("N.Y. Comp. Codes R. & Regs.", "New York", "regulation"),
         ("N.J. Admin. Code", "New Jersey", "regulation"),
+        ("U.S.S.G.", "United States", "guideline"),
+        ("USSG", "United States", "guideline"),
+        ("U.S. Sentencing Guidelines Manual", "United States", "guideline"),
         ("Conn. Practice Book", "Connecticut", "court rule"),
         ("Fed. R. Civ. P.", "United States", "court rule"),
         ("Tex. R. App. P.", "Texas", "court rule"),
@@ -252,7 +255,13 @@ def test_proposed_vectors_cover_the_thin_kinds():
         for v, _, _ in vectors.values()
         for c in v["expected"]["citations"]
     }
-    assert {"federal statute", "regulation", "court rule", "constitution"} <= kinds
+    assert {
+        "federal statute",
+        "regulation",
+        "guideline",
+        "court rule",
+        "constitution",
+    } <= kinds
     for v, _, _ in vectors.values():
         text = v["input"]["text"]
         for c in v["expected"]["citations"]:
