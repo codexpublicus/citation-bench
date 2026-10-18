@@ -1,3 +1,7 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = ["pypdf==6.21.1"]
+# ///
 """Check statute vectors against official, human-maintained sources.
 
 Usage:
@@ -43,13 +47,19 @@ import dataclasses
 import datetime
 import hashlib
 import html
+import io
 import json
+import logging
 import re
+import ssl
+import struct
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+import zlib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -122,22 +132,38 @@ TEXAS_CODES = {
     "Est.": "ES",
 }
 
+# California's bulk data: the session archive holds the whole of every code in
+# LAW_SECTION_TBL.dat, near the start of the zip. Only that prefix is fetched.
+CA_PUBINFO = "2025"
+CA_PUBINFO_PREFIX = 32 * 1024 * 1024
+# California code -> its code in leginfo's LAW_SECTION_TBL (law_code column).
+CA_CODES = {
+    "Cal. Pen. Code": "PEN",
+    "Cal. Civ. Proc. Code": "CCP",
+    "Cal. Evid. Code": "EVID",
+    "Cal. Civ. Code": "CIV",
+}
+
+# Hosts that send their certificate without the intermediate that signed it. The
+# intermediate is fetched (and pinned) from the URL the certificate itself names in
+# its Authority Information Access field; verification is otherwise the usual one.
+INTERMEDIATE_CERTS = {
+    "www.cga.ct.gov": "http://certificates.godaddy.com/repository/gdig2.crt",
+}
+# Hosts that offer only a cipher outside OpenSSL's default list (RSA key exchange,
+# no forward secrecy): host -> the cipher, added to the defaults for that host only.
+EXTRA_CIPHERS = {"www.jud.ct.gov": "AES256-SHA256"}
+# Hosts whose robots.txt asks for a delay between requests, in seconds.
+CRAWL_DELAY = {"legislature.vermont.gov": 30}
+
 # Why there's no machine check yet, per code with no source wired in. Facts about the
 # sources as found on 2026-10-18; see verification/statutes/README.md.
 NO_SOURCE = {
-    "Conn. Gen. Stat.": "cga.ct.gov didn't answer from here on 2026-10-18, and it "
-    "publishes sections inside chapter pages",
-    "Conn. Practice Book": "the Practice Book is a PDF on jud.ct.gov; not wired in",
     "Ga. Code Ann.": "Georgia's official code is online through LexisNexis; not used",
     "Tenn. Code Ann.": "Tennessee's official code is online through LexisNexis; not used",
     "Ark. Code Ann.": "Arkansas's official code is online through LexisNexis; not used",
-    "Haw. Rev. Stat.": "capitol.hawaii.gov answered HTTP 403 to scripted requests",
-    "N.D. Cent. Code": "ndlegis.gov publishes chapter PDFs; PDF text isn't read here",
-    "Vt. Stat. Ann.": "legislature.vermont.gov paths need the chapter; not wired in",
-    "Okla. Stat.": "OSCN addresses sections by document id; not wired in",
-    "N.M. Stat. Ann.": "nmonesource.com addresses sections by document id; not wired in",
-    "Ala. Code": "alison.legislature.state.al.us renders sections client-side",
-    "La. Stat. Ann.": "legis.la.gov addresses sections by document id; not wired in",
+    "Okla. Stat.": "the robots.txt of both oscn.net and oklegislature.gov disallows "
+    "every path to every crawler",
     "Pa. Stat. Ann.": "Purdon's title and section numbers have no official per-section "
     "source; palegis.us indexes unconsolidated statutes by act",
     "N.Y. Penal Law": "nysenate.gov answered HTTP 403 to scripted requests; its Open "
@@ -147,20 +173,13 @@ NO_SOURCE = {
     "N.Y. Comp. Codes R. & Regs.": "the official NYCRR is online through Thomson Reuters "
     "Westlaw; not used",
     "N.J. Admin. Code": "the N.J.A.C. is online through LexisNexis; not used",
-    "Cal. Pen. Code": "leginfo.legislature.ca.gov answered HTTP 403 to scripted "
-    "requests; its bulk pubinfo archive isn't wired in",
-    "Cal. Civ. Proc. Code": "as Cal. Pen. Code",
-    "Cal. Evid. Code": "as Cal. Pen. Code",
-    "Cal. Civ. Code": "as Cal. Pen. Code",
-    "Ohio Const.": "codes.ohio.gov renders sections client-side",
-    "Ind. Const.": "no official source wired in",
-    "N.M. Const.": "no official source wired in",
-    "Tex. R. Civ. P.": "the rules are a PDF on txcourts.gov; not wired in",
-    "Tex. R. App. P.": "the rules are a PDF on txcourts.gov; not wired in",
-    "Mich. Ct. R.": "the rules are a PDF on courts.michigan.gov; not wired in",
-    "Pa. R. Civ. P.": "pacodeandbulletin.gov returned no rule text without scripting",
+    "Ohio Const.": "codes.ohio.gov, the only official text, has a robots.txt that "
+    "disallows every path to every crawler",
+    "Mich. Ct. R.": "courts.michigan.gov, which publishes the rules, has a robots.txt "
+    "that disallows every path to every crawler",
+    "Pa. R. Civ. P.": "pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), "
+    "has a robots.txt that disallows every path to every crawler",
 }
-
 
 # --- fetching, caching and pinning -------------------------------------------------
 
@@ -181,30 +200,40 @@ class Fetcher:
     lock: dict
     offline: bool = False
     refresh: bool = False
-    opener: object = None  # callable(url, follow) -> (status, body bytes, location)
+    opener: object = (
+        None  # callable(url, follow[, headers=, data=]) -> (status, body, location)
+    )
     used: dict = dataclasses.field(default_factory=dict)
     changed: dict = dataclasses.field(
         default_factory=dict
-    )  # url -> sha256 it was pinned at
+    )  # key -> sha256 it was pinned at
+    _last: dict = dataclasses.field(default_factory=dict)  # host -> last request time
 
-    def _path(self, url):
-        return self.cache / hashlib.sha256(url.encode()).hexdigest()[:32]
+    def _path(self, key):
+        return self.cache / hashlib.sha256(key.encode()).hexdigest()[:32]
 
-    def get(self, url, follow=True):
+    def get(self, url, follow=True, *, key=None, headers=None, data=None):
         """(status, body) for url, with redirects followed or not.
 
-        Without follow, the body is the redirect's Location (empty if none).
+        Without follow, the body is the redirect's Location (empty if none). key names
+        the request in the cache and the lock when it isn't a plain GET of url (a byte
+        range, a form post); it defaults to url.
         """
-        path = self._path(url)
+        key = key or url
+        host = urllib.parse.urlsplit(url).hostname
+        if host in INTERMEDIATE_CERTS:
+            # Pinned with every source from that host, cached or not.
+            self.get(INTERMEDIATE_CERTS[host])
+        path = self._path(key)
         meta_path = path.with_suffix(".json")
         cached = path.exists() and meta_path.exists() and not self.refresh
         if cached:
             body = path.read_bytes()
             meta = json.loads(meta_path.read_text())
         elif self.offline:
-            raise SourceUnavailable(f"not cached (offline): {url}")
+            raise SourceUnavailable(f"not cached (offline): {key}")
         else:
-            status, body, location = (self.opener or _urlopen)(url, follow)
+            status, body, location = self._open(url, follow, headers, data)
             meta = {
                 "url": url,
                 "retrieved": datetime.date.today().isoformat(),
@@ -218,34 +247,65 @@ class Fetcher:
             path.write_bytes(body)
             meta_path.write_text(json.dumps(meta))
         digest = hashlib.sha256(body).hexdigest()
-        pinned = self.lock.get(url)
+        pinned = self.lock.get(key)
         if pinned and pinned["sha256"] != digest:
             if cached:
                 raise SourceChanged(
-                    f"{url}: the cached copy's sha256 {digest[:12]} differs from the "
+                    f"{key}: the cached copy's sha256 {digest[:12]} differs from the "
                     f"pinned {pinned['sha256'][:12]} (rerun with --refresh to refetch)"
                 )
             # The source changed upstream since it was pinned: use what it says now,
             # record the new hash and report the change.
-            self.changed[url] = pinned["sha256"]
+            self.changed[key] = pinned["sha256"]
             pinned = None
         if not pinned or self.refresh:
             pinned = {**meta, "sha256": digest, "bytes": len(body)}
-            pinned.pop("url", None)
-        self.used[url] = pinned
+            if pinned.get("url") == key:
+                pinned.pop("url")
+        self.used[key] = pinned
         return meta["status"], body
 
+    def _open(self, url, follow, headers, data):
+        if self.opener:
+            if headers or data:
+                return self.opener(url, follow, headers=headers, data=data)
+            return self.opener(url, follow)
+        host = urllib.parse.urlsplit(url).hostname
+        context = None
+        if host in INTERMEDIATE_CERTS or host in EXTRA_CIPHERS:
+            context = ssl.create_default_context()
+        if host in INTERMEDIATE_CERTS:
+            status, der = self.get(INTERMEDIATE_CERTS[host])
+            if status != 200:
+                raise SourceUnavailable(f"{INTERMEDIATE_CERTS[host]}: HTTP {status}")
+            context.load_verify_locations(cadata=der)
+        if host in EXTRA_CIPHERS:
+            context.set_ciphers(f"DEFAULT:{EXTRA_CIPHERS[host]}")
+        delay = CRAWL_DELAY.get(host, 0) - (
+            time.monotonic() - self._last.get(host, -1e9)
+        )
+        if delay > 0:
+            time.sleep(delay)
+        try:
+            return _urlopen(url, follow, headers, data, context)
+        finally:
+            self._last[host] = time.monotonic()
 
-def _urlopen(url, follow):
+
+def _urlopen(url, follow, headers=None, data=None, context=None):
     class NoRedirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, *args, **kwargs):
             return None
 
     handlers = [] if follow else [NoRedirect()]
+    if context is not None:
+        handlers.append(urllib.request.HTTPSHandler(context=context))
     opener = urllib.request.build_opener(*handlers)
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    req = urllib.request.Request(
+        url, data=data, headers={"User-Agent": USER_AGENT, **(headers or {})}
+    )
     try:
-        with opener.open(req, timeout=120) as r:
+        with opener.open(req, timeout=300) as r:
             return r.status, r.read(), r.headers.get("Location")
     except urllib.error.HTTPError as e:
         return e.code, e.read() if follow else b"", e.headers.get("Location")
@@ -362,6 +422,134 @@ class Sources:
 
     def page(self, url):
         return self.f.get(url)
+
+    # A PDF's text, extracted once per file and kept next to the cached copy
+    def pdf(self, url):
+        def build():
+            status, body = self.f.get(url)
+            if status in (404, 410):
+                return None
+            if status != 200 or not body.startswith(b"%PDF"):
+                raise SourceUnavailable(f"{url}: HTTP {status}, not a PDF")
+            digest = hashlib.sha256(body).hexdigest()
+            path = self.f.cache / f"{digest[:32]}.pdf.txt"
+            if path.exists():
+                return path.read_text()
+            text = pdf_text(body)
+            path.write_text(text)
+            return text
+
+        return self._once(("pdf", url), build)
+
+    # California Legislative Counsel, leginfo bulk data (pubinfo): every code section
+    def ca_sections(self):
+        def build():
+            url = (
+                f"https://downloads.leginfo.legislature.ca.gov/pubinfo_{CA_PUBINFO}.zip"
+            )
+            last = CA_PUBINFO_PREFIX - 1
+            status, body = self.f.get(
+                url, key=f"{url}#bytes=0-{last}", headers={"Range": f"bytes=0-{last}"}
+            )
+            if status not in (200, 206):
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            return parse_ca_law_sections(zip_member(body, "LAW_SECTION_TBL.dat"))
+
+        return self._once("ca", build)
+
+    # Connecticut General Assembly: a title's chapters and their section ranges
+    def ct_title(self, title):
+        def build():
+            url = f"https://www.cga.ct.gov/current/pub/title_{ct_title_file(title)}.htm"
+            status, body = self.f.get(url)
+            if status in (404, 410):
+                return None
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            return parse_ct_title(body.decode("utf-8", errors="replace"))
+
+        return self._once(("ct", title), build)
+
+    # Hawaii State Legislature, HRS volumes on its data host
+    def hi_volumes(self):
+        def build():
+            url = "https://data.capitol.hawaii.gov/hrscurrent/"
+            status, body = self.f.get(url)
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            found = re.findall(
+                r"(Vol\d+_Ch(\d+[A-Z]*)-(\d+[A-Z]*))/", body.decode("utf-8", "replace")
+            )
+            return list(dict.fromkeys(found))
+
+        return self._once("hi", build)
+
+    # Vermont General Assembly: a title's chapters, and a chapter's sections
+    def vt_chapters(self, title):
+        def build():
+            url = f"https://legislature.vermont.gov/statutes/title/{title}"
+            status, body = self.f.get(url)
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            return parse_vt_title(body.decode("utf-8", "replace"), title)
+
+        return self._once(("vt", title), build)
+
+    def vt_chapter(self, title, chapter):
+        def build():
+            url = f"https://legislature.vermont.gov/statutes/chapter/{title}/{chapter}"
+            status, body = self.f.get(url)
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            return url, parse_vt_chapter(
+                body.decode("utf-8", "replace"), title, chapter
+            )
+
+        return self._once(("vt", title, chapter), build)
+
+    # NM Compilation Commission (nmonesource.com): NMSA chapter -> document item
+    def nm_chapters(self):
+        def build():
+            base = "https://nmonesource.com/nmos/nmsa-unanno/en/nav_date.do"
+            items, pages, seen = {}, [None], set()
+            while pages:
+                page = pages.pop(0)
+                url = (
+                    f"{base}?iframe=true"
+                    if page is None
+                    else (f"{base}?page={page}&iframe=true")
+                )
+                status, body = self.f.get(url)
+                if status != 200:
+                    raise SourceUnavailable(f"{url}: HTTP {status}")
+                text = body.decode("utf-8", "replace")
+                items.update(parse_nm_nav(text))
+                for n in re.findall(r"nav_date\.do\?page=(\d+)", text):
+                    if n not in seen:
+                        seen.add(n)
+                        pages.append(n)
+            return items
+
+        return self._once("nm", build)
+
+    # Louisiana Legislature: a Revised Statutes title's sections and document ids
+    def la_title(self, title):
+        def build():
+            url = "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent"
+            status, body = self.f.get(url)
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            form = la_postback(body.decode("utf-8", "replace"), f"TITLE {title}")
+            if form is None:
+                return None
+            status, body = self.f.get(
+                url, key=f"{url}#postback=TITLE {title}", data=form
+            )
+            if status != 200:
+                raise SourceUnavailable(f"{url} (TITLE {title}): HTTP {status}")
+            return parse_la_toc(body.decode("utf-8", "replace"))
+
+        return self._once(("la", title), build)
 
 
 def parse_uscode_mods(body):
@@ -487,6 +675,139 @@ def parse_constitution(text):
                 n += 1
         if sec or n:
             out[kind][num][sec] = n
+    return out
+
+
+def pdf_text(body):
+    """A PDF's text, page after page."""
+    from pypdf import PdfReader  # only the network run needs it
+
+    logging.getLogger("pypdf").setLevel(logging.ERROR)
+    try:
+        reader = PdfReader(io.BytesIO(body))
+        return "\n".join(page.extract_text() or "" for page in reader.pages)
+    except Exception as e:  # pypdf raises many kinds; any of them means no text
+        raise SourceUnavailable(f"PDF text: {e}") from e
+
+
+def zip_member(prefix, name):
+    """One member of a zip archive, from the archive's first bytes (local headers)."""
+    pos = 0
+    while prefix[pos : pos + 4] == b"PK\x03\x04" and pos + 30 <= len(prefix):
+        flag, method, _t, _d, crc, csize, _usize, nlen, xlen = struct.unpack(
+            "<HHHHIIIHH", prefix[pos + 6 : pos + 30]
+        )
+        member = prefix[pos + 30 : pos + 30 + nlen].decode("utf-8", "replace")
+        start = pos + 30 + nlen + xlen
+        if flag & 8:
+            raise SourceUnavailable(f"{member}: sizes follow the data; can't walk on")
+        if member == name:
+            if start + csize > len(prefix):
+                break
+            raw = prefix[start : start + csize]
+            data = zlib.decompress(raw, -15) if method == 8 else raw
+            if zlib.crc32(data) != crc:
+                raise SourceUnavailable(f"{name}: CRC mismatch")
+            return data
+        pos = start + csize
+    raise SourceUnavailable(f"{name} isn't within the first {len(prefix)} bytes")
+
+
+def parse_ca_law_sections(dat):
+    """{law_code: {section, ...}} from leginfo's LAW_SECTION_TBL (active rows)."""
+    out = collections.defaultdict(set)
+    for line in dat.decode("utf-8", "replace").splitlines():
+        cols = [c.strip("`") for c in line.split("\t")]
+        if len(cols) > 15 and cols[15] == "Y":
+            out[cols[1]].add(cols[2].rstrip("."))
+    return dict(out)
+
+
+def section_key(part):
+    """Sort key for a section number within a title or chapter: `101k` -> (101, 'k')."""
+    m = re.fullmatch(r"(\d+)(.*)", part)
+    return (int(m.group(1)), m.group(2)) if m else (-1, part)
+
+
+def ct_title_file(title):
+    """`1` -> `01`, `17a` -> `17a`, as cga.ct.gov names title pages."""
+    m = re.fullmatch(r"(\d+)(\D*)", title)
+    return m.group(1).zfill(2) + m.group(2) if m else title
+
+
+def parse_ct_title(text):
+    """[(chapter page, first section, last section)] from a CGA title page."""
+    rows = re.findall(
+        r'href="(chap_[^"]+\.htm)">Chapter [^<]*</a>\s*'
+        r'<span class="toc_rng_secs">Secs?\. ([^<]*?)(?: to ([^<]*?))?\s*</span>',
+        text,
+    )
+    return [(page, first, last or first) for page, first, last in rows]
+
+
+def parse_vt_title(text, title):
+    """A Vermont title's chapters, in order, from the title page."""
+    return re.findall(rf'href="/statutes/chapter/{title}/([0-9A-Z]+)"', text)
+
+
+def parse_vt_chapter(text, title, chapter):
+    """A Vermont chapter's section numbers (`4469`, `4302a`) from the chapter page."""
+    found = re.findall(
+        rf'href="/statutes/section/{title}/{chapter}/0*([0-9][0-9A-Za-z.]*)"', text
+    )
+    return list(dict.fromkeys(found))
+
+
+def parse_nm_nav(text):
+    """{chapter: document item} from an NMOneSource navigation page."""
+    return {
+        ch: item
+        for item, ch in re.findall(
+            r'href="/nmos/nmsa-unanno/en/item/(\d+)/index\.do">Chapter ([0-9A-Z]+) -',
+            text,
+        )
+    }
+
+
+def la_postback(text, label):
+    """The form post that opens one entry (`TITLE 9`) of a legis.la.gov contents page."""
+    m = re.search(
+        r"__doPostBack\(&#39;([^&]+)&#39;,&#39;&#39;\)\">" + re.escape(label) + "</a>",
+        text,
+    )
+    if not m:
+        return None
+    fields = dict(
+        re.findall(
+            r'<input type="hidden" name="([^"]+)" id="[^"]*" value="([^"]*)"', text
+        )
+    )
+    fields["__EVENTTARGET"] = html.unescape(m.group(1))
+    fields["__EVENTARGUMENT"] = ""
+    return urllib.parse.urlencode(fields).encode()
+
+
+def parse_la_toc(text):
+    """{`RS 9:2800.54`: document id} from a legis.la.gov title listing."""
+    out = {}
+    for doc, label in re.findall(r'href="Law\.aspx\?d=(\d+)"[^>]*>([^<]*)<', text):
+        out.setdefault(label.strip(), doc)
+    return out
+
+
+def parse_state_constitution(text, article_pattern, section_pattern):
+    """{article number: {section, ...}} from a constitution's text, by heading lines."""
+    out, article = {}, None
+    for line in text.splitlines():
+        m = re.match(article_pattern, line)
+        if m:
+            a = m.group(1)
+            article = int(a) if a.isdigit() else roman_to_int(a)
+            out.setdefault(article, set())
+            continue
+        m = re.match(section_pattern, line)
+        if m and article is not None:
+            out[article].add(m.group(1))
     return out
 
 
@@ -987,6 +1308,263 @@ def exists_state(sources, code, groups):
     return None
 
 
+def _pdf_has(sources, url, pattern, src, what):
+    text = sources.pdf(url)
+    if text is None:
+        return Check("existence", "fail", f"{url}: HTTP 404", src)
+    if re.search(pattern, text, re.MULTILINE):
+        return Check("existence", "pass", f"{what} in {url}", src)
+    return Check("existence", "fail", f"no {what} in {url}", src)
+
+
+def exists_ca(sources, code, sec):
+    law = CA_CODES.get(code)
+    if not law:
+        return Check("existence", "none", f"no leginfo code for {code}")
+    src = f"ca-leginfo-pubinfo-{CA_PUBINFO}"
+    if sec in sources.ca_sections().get(law, ()):
+        return Check("existence", "pass", f"{law} § {sec} in LAW_SECTION_TBL", src)
+    return Check("existence", "fail", f"no {law} § {sec} in LAW_SECTION_TBL", src)
+
+
+def exists_ct(sources, sec):
+    sec = re.sub(r"\s", "", sec)  # `10 -236b`: the space is a span question
+    title, _, part = sec.partition("-")
+    src = "cga"
+    chapters = sources.ct_title(title)
+    if chapters is None:
+        return Check("existence", "fail", f"no title {title} on cga.ct.gov", src)
+    key = section_key(part)
+    for page, first, last in chapters:
+        lo, hi = (section_key(x.partition("-")[2]) for x in (first, last))
+        if lo <= key <= hi:
+            url = f"https://www.cga.ct.gov/current/pub/{page}"
+            return _page_has(sources, url, rf"Sec\. {re.escape(sec)}\. ", src)
+    return Check("existence", "fail", f"§ {sec} is in no chapter of title {title}", src)
+
+
+def exists_hi(sources, sec):
+    m = re.fullmatch(r"(\d+)([A-Z]*)-(\d+)(?:\.(\d+))?", sec)
+    if not m:
+        return Check("existence", "none", f"HRS section {sec} isn't chapter-section")
+    num, suffix, n, dec = m.groups()
+    key = (int(num), suffix)
+    vol = next(
+        (
+            v
+            for v in sources.hi_volumes()
+            if section_key(v[1]) <= key <= section_key(v[2])
+        ),
+        None,
+    )
+    if vol is None:
+        return Check("existence", "fail", f"chapter {num}{suffix} is in no HRS volume")
+    chapter = num.zfill(4) + suffix
+    name = f"HRS_{chapter}-{n.zfill(4)}" + (f"_{dec.zfill(4)}" if dec else "")
+    url = f"https://data.capitol.hawaii.gov/hrscurrent/{vol[0]}/HRS{chapter}/{name}.htm"
+    return _page_has(sources, url, rf"§\s?{re.escape(sec)}\b", "hawaii-legislature")
+
+
+def exists_vt(sources, title, sec):
+    """Find the chapter by bisection over the title's chapters (sections are numbered
+    in chapter order), then look for the section in the chapter's list."""
+    src = "vermont-legislature"
+    chapters = sources.vt_chapters(title)
+    if not chapters:
+        return Check("existence", "fail", f"no title {title} in the V.S.A.", src)
+    key = section_key(sec)
+
+    def keys(i):
+        return sorted(section_key(s) for s in sources.vt_chapter(title, chapters[i])[1])
+
+    lo, hi, best = 0, len(chapters) - 1, None
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        j = mid
+        while j <= hi and not keys(j):
+            j += 1
+        if j > hi:
+            hi = mid - 1
+        elif keys(j)[0] <= key:
+            best, lo = j, j + 1
+        else:
+            hi = mid - 1
+    if best is None:
+        return Check(
+            "existence", "none", f"§ {sec} precedes every chapter of title {title}"
+        )
+    url, secs = sources.vt_chapter(title, chapters[best])
+    if sec in secs:
+        sources.page_texts[url] = page_text(sources.page(url)[1])
+        return Check("existence", "pass", url, src)
+    if keys(best)[-1] >= key:
+        return Check(
+            "existence",
+            "fail",
+            f"§ {sec} falls inside chapter {chapters[best]}'s sections but isn't one "
+            f"({url})",
+            src,
+        )
+    return Check(
+        "existence", "none", f"§ {sec} falls between chapters of title {title} ({url})"
+    )
+
+
+def exists_nd(sources, sec):
+    parts = sec.split("-")
+    if len(parts) != 3:
+        return Check("existence", "none", f"N.D.C.C. {sec} isn't title-chapter-section")
+    url = f"https://ndlegis.gov/cencode/t{parts[0]}c{parts[1].replace('.', '-')}.pdf"
+    return _pdf_has(
+        sources, url, rf"^\s*{re.escape(sec)}\.\s", "nd-legislature", f"§ {sec}"
+    )
+
+
+def exists_nm(sources, sec):
+    chapter = sec.split("-")[0]
+    item = sources.nm_chapters().get(chapter)
+    src = "nmcc-nmonesource"
+    if item is None:
+        return Check("existence", "fail", f"no NMSA chapter {chapter}", src)
+    url = f"https://nmonesource.com/nmos/nmsa-unanno/en/{item}/1/document.do"
+    return _pdf_has(sources, url, rf"^\s*{re.escape(sec)}\.\s", src, f"§ {sec}")
+
+
+def exists_la(sources, sec):
+    title, _, part = sec.partition(":")
+    src = "la-legislature"
+    toc = sources.la_title(title)
+    if toc is None:
+        return Check("existence", "fail", f"no R.S. title {title}", src)
+    doc = toc.get(f"RS {sec}")
+    if doc is None:
+        return Check(
+            "existence", "fail", f"RS {sec} isn't in title {title}'s contents", src
+        )
+    url = f"https://www.legis.la.gov/legis/Law.aspx?d={doc}"
+    return _page_has(sources, url, rf"§{re.escape(part)}\. ", src)
+
+
+ALABAMA_QUERY = (
+    "query($displayId: String!){codesOfAlabama(where:{type:{eq:Section},"
+    "displayId:{eq:$displayId}}){data{displayId title}}}"
+)
+
+
+def exists_al(sources, sec):
+    url = "https://alison.legislature.state.al.us/graphql?" + urllib.parse.urlencode(
+        {"query": ALABAMA_QUERY, "variables": json.dumps({"displayId": sec})}
+    )
+    src = "alison"
+    status, body = sources.page(url)
+    if status != 200:
+        return Check("existence", "none", f"{url}: HTTP {status}, no answer either way")
+    try:
+        rows = json.loads(body)["data"]["codesOfAlabama"]["data"]
+    except (ValueError, KeyError, TypeError):
+        return Check("existence", "none", f"{url}: no data in the answer")
+    if any(r.get("displayId") == sec for r in rows):
+        return Check(
+            "existence", "pass", f"Ala. Code § {sec} ({rows[0]['title']})", src
+        )
+    return Check("existence", "fail", f"no Ala. Code § {sec} in ALISON", src)
+
+
+# State constitutions as PDFs: code -> (url, article heading, section heading, source).
+STATE_CONSTITUTIONS = {
+    "Ind. Const.": (
+        (
+            "https://iga.in.gov/publications/indiana_constitution/"
+            "Constitution%20(as%20amended%202024).pdf"
+        ),
+        r"ARTICLE (\d+)\.\s*$",
+        r"\s*Section (\d+)\.",
+        "iga-constitution",
+    ),
+    "N.M. Const.": (
+        "https://nmonesource.com/nmos/c/en/5916/1/document.do",
+        r"ARTICLE ([IVXL]+)\s*$",
+        r"(?:Sec\.|Section) (\d+[A-Z]?)\. \[",
+        "nmcc-nmonesource",
+    ),
+}
+
+# Court rules as PDFs: code -> (url, heading pattern with {rule}, source).
+COURT_RULES = {
+    "Tex. R. Civ. P.": (
+        "https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf",
+        r"^\s*RULE {rule}\.\s",
+        "txcourts",
+    ),
+    "Tex. R. App. P.": (
+        (
+            "https://www.txcourts.gov/media/1463134/"
+            "texas-rules-of-appellate-procedure-02062026.pdf"
+        ),
+        r"^\s*(?:Rule\s+)?{rule}\.\s",
+        "txcourts",
+    ),
+    "Conn. Practice Book": (
+        "https://www.jud.ct.gov/Publications/PracticeBook/PB.pdf",
+        r"^\s*Sec\. {rule}\.\s",
+        "ct-judicial",
+    ),
+}
+
+
+def exists_state_const(sources, code, groups):
+    url, art_rx, sec_rx, src = STATE_CONSTITUTIONS[code]
+    text = sources.pdf(url)
+    if text is None:
+        return Check("existence", "fail", f"{url}: HTTP 404", src)
+    parsed = parse_state_constitution(text, art_rx, sec_rx)
+    a = groups.get("article", "")
+    n = int(a) if a.isdigit() else roman_to_int(a.upper())
+    if n not in parsed:
+        return Check("existence", "fail", f"no article {a} in {url}", src)
+    sec = groups.get("section")
+    if sec and sec not in parsed[n]:
+        return Check(
+            "existence", "fail", f"no section {sec} in article {a} ({url})", src
+        )
+    return Check("existence", "pass", f"art. {a}" + (f", § {sec}" if sec else ""), src)
+
+
+def exists_court_rule(sources, code, rule):
+    url, pattern, src = COURT_RULES[code]
+    if code == "Tex. R. App. P." and "." not in rule:
+        pattern = r"^\s*Rule\s+{rule}\.\s"  # a bare `25.` could be any numbered line
+    return _pdf_has(
+        sources, url, pattern.format(rule=re.escape(rule)), src, f"rule {rule}"
+    )
+
+
+def exists_more(sources, code, groups):
+    """States and rules whose sources need a lookup or a PDF."""
+    sec = groups.get("section", "")
+    if code in CA_CODES:
+        return exists_ca(sources, code, sec)
+    if code == "Conn. Gen. Stat.":
+        return exists_ct(sources, sec)
+    if code == "Haw. Rev. Stat.":
+        return exists_hi(sources, sec)
+    if code == "Vt. Stat. Ann.":
+        return exists_vt(sources, groups.get("title", ""), sec)
+    if code == "N.D. Cent. Code":
+        return exists_nd(sources, sec)
+    if code == "N.M. Stat. Ann.":
+        return exists_nm(sources, sec)
+    if code == "La. Stat. Ann.":
+        return exists_la(sources, sec)
+    if code == "Ala. Code":
+        return exists_al(sources, sec)
+    if code in STATE_CONSTITUTIONS:
+        return exists_state_const(sources, code, groups)
+    if code in COURT_RULES:
+        return exists_court_rule(sources, code, groups.get("rule") or sec)
+    return None
+
+
 def existence_check(sources, cite):
     code = cite.get("reporter_normalized") or ""
     groups = cite.get("groups") or {}
@@ -1012,7 +1590,9 @@ def existence_check(sources, cite):
             return exists_ussg(sources, groups)
         if code == "U.S. Const.":
             return exists_us_const(sources, groups, md)
-        state = exists_state(sources, code, groups)
+        state = exists_state(sources, code, groups) or exists_more(
+            sources, code, groups
+        )
         if state is not None:
             return state
     except SourceUnavailable as e:

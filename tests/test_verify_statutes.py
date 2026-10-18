@@ -1,7 +1,9 @@
 """bench/verify_statutes.py on small fixtures; no network."""
 
 import hashlib
+import io
 import json
+import zipfile
 
 import pytest
 import verify_statutes as vs
@@ -124,11 +126,12 @@ def vector(vid, text, span, groups, code, jurisdiction, **metadata):
 def fake_opener(pages):
     calls = []
 
-    def opener(url, follow):
+    def opener(url, follow, headers=None, data=None):
         calls.append(url)
-        if url not in pages:
+        key = (url, data) if data else url
+        if key not in pages:
             return 404, b"", None
-        status, body, location = pages[url]
+        status, body, location = pages[key]
         return status, body.encode() if isinstance(body, str) else body, location
 
     opener.calls = calls
@@ -387,3 +390,338 @@ def test_verdicts(tmp_path):
     assert list(human["form"]) == ["`Penal Law` means `N.Y. Penal Law` (New York)"]
     md = vs.markdown(list(results.values()), f.used)
     assert "| **all** | 6 | 3 | 2 | 1 |" in md
+
+
+# --- sources that need a lookup or a PDF ----------------------------------------------
+
+
+def cite(groups, code, jurisdiction="X"):
+    return {
+        "type": "full_law",
+        "span": [0, 1],
+        "groups": groups,
+        "reporter_normalized": code,
+        "metadata": {"jurisdiction": jurisdiction},
+    }
+
+
+def existence(page_map, groups, code, tmp_path, monkeypatch=None):
+    if monkeypatch is not None:
+        # PDF fixtures are plain text after a %PDF marker; pypdf isn't needed here.
+        monkeypatch.setattr(vs, "pdf_text", lambda body: body.decode()[9:])
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=fake_opener(page_map))
+    return vs.existence_check(vs.Sources(f), cite(groups, code))
+
+
+def pdf(text):
+    return b"%PDF-1.7\n" + text.encode()
+
+
+LAW_SECTION_ROWS = (
+    "`PEN1385.1`\t`PEN`\t`1385.`\t`1970`\tNULL\tNULL\tNULL\t`id`\tNULL\tNULL\tNULL"
+    "\tNULL\tNULL\t`Added`\tLAW_SECTION_TBL_1.lob\t`Y`\t`LEG`\t2026-09-26\n"
+    "`PEN9.1`\t`PEN`\t`9.`\t`1970`\tNULL\tNULL\tNULL\t`id`\tNULL\tNULL\tNULL"
+    "\tNULL\tNULL\t`Repealed`\tLAW_SECTION_TBL_2.lob\t`N`\t`LEG`\t2026-09-26\n"
+)
+
+
+def pubinfo_prefix():
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("BILL_TBL.dat", "bills\n" * 100)
+        z.writestr("LAW_SECTION_TBL.dat", LAW_SECTION_ROWS)
+        z.writestr("LAW_TOC_TBL.dat", "toc\n")
+    return buf.getvalue()[:-40]  # a prefix: the central directory is cut off
+
+
+def test_zip_member_and_california_rows():
+    data = vs.zip_member(pubinfo_prefix(), "LAW_SECTION_TBL.dat")
+    assert vs.parse_ca_law_sections(data) == {"PEN": {"1385"}}  # inactive row dropped
+    with pytest.raises(vs.SourceUnavailable):
+        vs.zip_member(pubinfo_prefix(), "NOT_THERE.dat")
+
+
+def test_california_from_the_pubinfo_prefix(tmp_path):
+    url = f"https://downloads.leginfo.legislature.ca.gov/pubinfo_{vs.CA_PUBINFO}.zip"
+    pages = {url: (206, pubinfo_prefix(), None)}
+    ok = existence(pages, {"section": "1385"}, "Cal. Pen. Code", tmp_path)
+    assert ok.result == "pass" and ok.source.startswith("ca-leginfo-pubinfo")
+    bad = existence(pages, {"section": "9"}, "Cal. Pen. Code", tmp_path / "b")
+    assert bad.result == "fail"
+
+
+def test_range_requests_are_pinned_under_their_own_key(tmp_path):
+    f = vs.Fetcher(tmp_path, {}, opener=fake_opener({"https://x/z": (206, "ab", None)}))
+    f.get("https://x/z", key="https://x/z#bytes=0-1", headers={"Range": "bytes=0-1"})
+    assert f.used["https://x/z#bytes=0-1"]["url"] == "https://x/z"
+    assert "https://x/z" not in f.used
+
+
+CT_TITLE = (
+    '<td><a class="toc_ch_link" href="chap_950.htm">Chapter 950</a> '
+    '<span class="toc_rng_secs">Secs. 53a-1 to 53a-3</span></td>'
+    '<td><a class="toc_ch_link" href="chap_951.htm">Chapter 951</a> '
+    '<span class="toc_rng_secs">Secs. 53a-4 to 53a-23</span></td>'
+    '<td><a class="toc_ch_link" href="chap_951a.htm">Chapter 951a</a> '
+    '<span class="toc_rng_secs">Sec. 53a-23a</span></td>'
+)
+CT_CHAPTER = (
+    '<p><span class="catchln" id="sec_53a-21">Sec. 53a-21. Use of physical force '
+    "in defense of property.</span> A person is justified...</p>"
+)
+
+
+def test_connecticut_title_ranges():
+    rows = vs.parse_ct_title(CT_TITLE)
+    assert rows[1] == ("chap_951.htm", "53a-4", "53a-23")
+    assert rows[2] == ("chap_951a.htm", "53a-23a", "53a-23a")
+    assert vs.ct_title_file("1") == "01" and vs.ct_title_file("17a") == "17a"
+    assert vs.section_key("101k") > vs.section_key("101") > vs.section_key("99z")
+
+
+def test_connecticut_section(tmp_path):
+    pages = {
+        "https://www.cga.ct.gov/current/pub/title_53a.htm": (200, CT_TITLE, None),
+        "https://www.cga.ct.gov/current/pub/chap_951.htm": (200, CT_CHAPTER, None),
+    }
+    assert existence(
+        pages, {"section": "53a-21"}, "Conn. Gen. Stat.", tmp_path
+    ).result == ("pass")
+    # in chapter 951's range, but not on the page
+    gone = existence(pages, {"section": "53a-22"}, "Conn. Gen. Stat.", tmp_path / "b")
+    assert gone.result == "fail"
+    beyond = existence(
+        pages, {"section": "53a-400"}, "Conn. Gen. Stat.", tmp_path / "c"
+    )
+    assert beyond.result == "fail" and "no chapter" in beyond.detail
+
+
+HI_INDEX = (
+    '<A HREF="/hrscurrent/Vol05_Ch0261-0319/">Vol05_Ch0261-0319</A><br>'
+    '<A HREF="/hrscurrent/Vol14_Ch0701-0853/">Vol14_Ch0701-0853</A><br>'
+)
+
+
+def test_hawaii_section_page(tmp_path):
+    base = "https://data.capitol.hawaii.gov/hrscurrent/"
+    pages = {
+        base: (200, HI_INDEX, None),
+        base + "Vol05_Ch0261-0319/HRS0291E/HRS_0291E-0021.htm": (
+            200,
+            "<p>&nbsp;<b>§291E-21&nbsp; Restitution.</b></p>",
+            None,
+        ),
+    }
+    ok = existence(pages, {"section": "291E-21"}, "Haw. Rev. Stat.", tmp_path)
+    assert ok.result == "pass" and ok.source == "hawaii-legislature"
+    missing = existence(
+        pages, {"section": "707-999.5"}, "Haw. Rev. Stat.", tmp_path / "b"
+    )
+    assert missing.result == "fail" and "HRS_0707-0999_0005.htm" in missing.detail
+
+
+def vt_chapter_page(chapter, sections):
+    return "".join(
+        f'<a href="/statutes/section/24/{chapter}/{s.zfill(5)}">  § {s}. Heading</a>'
+        for s in sections
+    )
+
+
+def test_vermont_bisects_the_chapters(tmp_path):
+    base = "https://legislature.vermont.gov/statutes/"
+    chapters = {
+        "001": ["1", "2"],
+        "005": [],  # a chapter whose sections are all repealed
+        "061": ["2201", "2202"],
+        "117": ["4301", "4469", "4498"],
+        "121": ["4601"],
+    }
+    pages = {
+        base + "title/24": (
+            200,
+            "".join(
+                f'<a href="/statutes/chapter/24/{c}">Chapter {c}</a>' for c in chapters
+            ),
+            None,
+        ),
+        **{
+            base + f"chapter/24/{c}": (200, vt_chapter_page(c, s), None)
+            for c, s in chapters.items()
+        },
+    }
+    ok = existence(
+        pages, {"title": "24", "section": "4469"}, "Vt. Stat. Ann.", tmp_path
+    )
+    assert ok.result == "pass" and ok.detail.endswith("chapter/24/117")
+    gone = existence(
+        pages, {"title": "24", "section": "4407"}, "Vt. Stat. Ann.", tmp_path / "b"
+    )
+    assert gone.result == "fail" and "inside chapter 117" in gone.detail
+    between = existence(
+        pages, {"title": "24", "section": "4550"}, "Vt. Stat. Ann.", tmp_path / "c"
+    )
+    assert between.result == "none"
+
+
+def test_north_dakota_chapter_pdf(tmp_path, monkeypatch):
+    url = "https://ndlegis.gov/cencode/t19c03-4.pdf"
+    text = (
+        "CHAPTER 19-03.4\n19-03.4-02. Definitions.\nSee section 19-03.4-03.\n"
+        "19-03.4-03. Unlawful possession of drug paraphernalia - Penalty.\n"
+    )
+    pages = {url: (200, pdf(text), None)}
+    ok = existence(
+        pages, {"section": "19-03.4-03"}, "N.D. Cent. Code", tmp_path, monkeypatch
+    )
+    assert ok.result == "pass"
+    no = existence(
+        pages, {"section": "19-03.4-09"}, "N.D. Cent. Code", tmp_path / "b", monkeypatch
+    )
+    assert no.result == "fail"
+
+
+def test_new_mexico_chapter_document(tmp_path, monkeypatch):
+    base = "https://nmonesource.com/nmos/nmsa-unanno/en/"
+    pages = {
+        base + "nav_date.do?iframe=true": (
+            200,
+            (
+                '<a href="/nmos/nmsa-unanno/en/item/18532/index.do">Chapter 32A - Code</a>'
+                '<a href="/nmos/nmsa/en/nav_date.do?page=2">2</a>'
+            ),
+            None,
+        ),
+        base + "nav_date.do?page=2&iframe=true": (
+            200,
+            '<a href="/nmos/nmsa-unanno/en/item/18541/index.do">Chapter 41 - Torts</a>',
+            None,
+        ),
+        base + "18541/1/document.do": (200, pdf("41-4-3. Definitions. \n"), None),
+    }
+    ok = existence(
+        pages, {"section": "41-4-3"}, "N.M. Stat. Ann.", tmp_path, monkeypatch
+    )
+    assert ok.result == "pass" and ok.source == "nmcc-nmonesource"
+    no = existence(
+        pages, {"section": "52-1-1"}, "N.M. Stat. Ann.", tmp_path / "b", monkeypatch
+    )
+    assert no.result == "fail" and "no NMSA chapter 52" in no.detail
+
+
+LA_TOC_URL = "https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent"
+LA_TOC = (
+    '<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="abc" />'
+    '<a id="x" href="javascript:__doPostBack(&#39;ctl00$List$ctrl6$LinkButton1a&#39;,'
+    '&#39;&#39;)">TITLE 9</a>'
+)
+
+
+def test_louisiana_title_postback_and_section(tmp_path):
+    form = vs.la_postback(LA_TOC, "TITLE 9")
+    assert b"__EVENTTARGET=ctl00%24List%24ctrl6%24LinkButton1a" in form
+    assert vs.la_postback(LA_TOC, "TITLE 99") is None
+    pages = {
+        LA_TOC_URL: (200, LA_TOC, None),
+        (LA_TOC_URL, form): (
+            200,
+            (
+                '<a href="Law.aspx?d=107262">RS 9:2800.54</a>'
+                '<a href="Law.aspx?d=1">RS 9:2800.5</a>'
+            ),
+            None,
+        ),
+        "https://www.legis.la.gov/legis/Law.aspx?d=107262": (
+            200,
+            "<span>RS 9:2800.54</span><p>§2800.54. Manufacturer responsibility</p>",
+            None,
+        ),
+    }
+    ok = existence(pages, {"section": "9:2800.54"}, "La. Stat. Ann.", tmp_path)
+    assert ok.result == "pass"
+    no = existence(pages, {"section": "9:2800.99"}, "La. Stat. Ann.", tmp_path / "b")
+    assert no.result == "fail"
+
+
+def test_alabama_graphql(tmp_path):
+    def url(sec):
+        return (
+            "https://alison.legislature.state.al.us/graphql?"
+            + vs.urllib.parse.urlencode(
+                {"query": vs.ALABAMA_QUERY, "variables": json.dumps({"displayId": sec})}
+            )
+        )
+
+    hit = {
+        "data": {"codesOfAlabama": {"data": [{"displayId": "12-2-7", "title": "S"}]}}
+    }
+    miss = {"data": {"codesOfAlabama": {"data": []}}}
+    pages = {
+        url("12-2-7"): (200, json.dumps(hit), None),
+        url("12-2-999"): (200, json.dumps(miss), None),
+    }
+    assert (
+        existence(pages, {"section": "12-2-7"}, "Ala. Code", tmp_path).result == "pass"
+    )
+    assert (
+        existence(pages, {"section": "12-2-999"}, "Ala. Code", tmp_path).result
+        == "fail"
+    )
+
+
+IND_CONST = (
+    "ARTICLE 1.\nBill of Rights\nSection 1. WE DECLARE...\n"
+    "   Section 18. The penal code shall be founded...\n"
+    "ARTICLE 2.\nSuffrage and Election\nSection 1. All elections shall be free.\n"
+)
+NM_CONST = (
+    "ARTICLE II\nBill of Rights\nSection 1. [Supreme law of the land.]\n"
+    "Sec. 10. [Searches and seizures.]\nANNOTATIONS\nSec. 11. of this article\n"
+    "ARTICLE III\nSec. 1. [Departments of government.]\n"
+)
+
+
+def test_state_constitutions(tmp_path, monkeypatch):
+    ind, _, _, _ = vs.STATE_CONSTITUTIONS["Ind. Const."]
+    nm, _, _, _ = vs.STATE_CONSTITUTIONS["N.M. Const."]
+    pages = {ind: (200, pdf(IND_CONST), None), nm: (200, pdf(NM_CONST), None)}
+
+    def check(groups, code, d):
+        return existence(pages, groups, code, tmp_path / d, monkeypatch).result
+
+    assert check({"article": "1", "section": "18"}, "Ind. Const.", "a") == "pass"
+    assert check({"article": "2", "section": "18"}, "Ind. Const.", "b") == "fail"
+    assert check({"article": "II", "section": "10"}, "N.M. Const.", "c") == "pass"
+    assert check({"article": "II", "section": "1"}, "N.M. Const.", "d") == "pass"
+    # an annotation's `Sec. 11.` isn't a section heading
+    assert check({"article": "II", "section": "11"}, "N.M. Const.", "e") == "fail"
+
+
+def test_court_rule_pdfs(tmp_path, monkeypatch):
+    trcp, _, _ = vs.COURT_RULES["Tex. R. Civ. P."]
+    trap, _, _ = vs.COURT_RULES["Tex. R. App. P."]
+    pb, _, _ = vs.COURT_RULES["Conn. Practice Book"]
+    pages = {
+        trcp: (200, pdf("RULE 185.  SUIT ON ACCOUNT\n"), None),
+        trap: (
+            200,
+            pdf("Rule 25. Perfecting Appeal\n25.2.  Criminal Cases\n2. Item\n"),
+            None,
+        ),
+        pb: (200, pdf("Sec. 63-8. Ordering and Filing of Transcripts\n"), None),
+    }
+
+    def check(rule, code, d):
+        return existence(pages, {"rule": rule}, code, tmp_path / d, monkeypatch).result
+
+    assert check("185", "Tex. R. Civ. P.", "a") == "pass"
+    assert check("186", "Tex. R. Civ. P.", "b") == "fail"
+    assert check("25.2", "Tex. R. App. P.", "c") == "pass"
+    assert check("25", "Tex. R. App. P.", "d") == "pass"
+    assert check("2", "Tex. R. App. P.", "e") == "fail"  # `2. Item` isn't Rule 2
+    assert check("63-8", "Conn. Practice Book", "f") == "pass"
+
+
+def test_refused_sources_stay_with_a_person(tmp_path):
+    for code in ("Okla. Stat.", "Ohio Const.", "Mich. Ct. R.", "Pa. R. Civ. P."):
+        c = existence({}, {"section": "1", "rule": "1", "article": "I"}, code, tmp_path)
+        assert c.result == "none" and "robots.txt" in c.detail
