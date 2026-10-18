@@ -89,6 +89,26 @@ references), lists the ones each run found alone, and the fields that changed on
 both found: spans, pin cite, parties, court, year, normalized reporter and so on. Inputs
 without expected answers are run and saved but not scored, so the same works on a corpus.
 
+### Which citare gets benchmarked
+
+`adapters/citare/Cargo.toml` names citare by its git URL on `main`, and the committed
+`adapters/citare/Cargo.lock` pins the exact commit. That commit is what `bench:citare`
+builds by default, and the adapter reports it in every run's `engine` field. To move it,
+run `cargo update --manifest-path adapters/citare/Cargo.toml -p citare-core -p
+citare-data-build`, check that `mise run bench:citare` still passes against
+`baselines/citare.known-failures`, and commit the lock in its own PR. I don't put a `rev`
+in `Cargo.toml`; the lock already pins the commit, and a second copy of it would only
+drift.
+
+`CITARE_PATH=../citare` builds a local checkout instead. `build:citare` patches every
+citare crate with the checkout in a copy of the adapter under `target/`, so the
+committed lock never changes, and it fails if cargo leaves any of those patches unused,
+if the build compiled anything other than the checkout's `citare-core`, or if the
+adapter reports a different version or commit. citare's own CI uses this path: it checks
+out citation-bench at the commit in citare's `.github/citation-bench-ref` and runs
+`bench:citare` with `CITARE_PATH` set to the citare commit under test, so the lock here
+never decides what citare's CI scores.
+
 ### Corpus
 
 ```bash

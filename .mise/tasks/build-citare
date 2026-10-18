@@ -33,8 +33,25 @@ if [[ -n "${CITARE_PATH:-}" ]]; then
   # the locked commit. Re-resolving just those crates moves them onto the checkout and
   # leaves every third-party pin as committed.
   cargo update -q --manifest-path "$manifest" "${patch[@]}" -p citare-core -p citare-data-build
-  CITARE_VERSION="$version" CITARE_COMMIT="$commit" \
-    cargo build --release -q --locked --manifest-path "$manifest" "${patch[@]}" 2> >(tee "$log" >&2)
+  # cargo only warns about an unused patch (and -q hides the warning), then records it
+  # under [[patch.unused]] in the lock it resolved. Any entry there means part of the
+  # build would come from the locked git commit instead of the checkout.
+  unused=$(uv run -q python - "$(dirname "$manifest")/Cargo.lock" <<'PY'
+import sys, tomllib
+lock = tomllib.load(open(sys.argv[1], "rb"))
+print(" ".join(f'{p["name"]} v{p["version"]}' for p in lock.get("patch", {}).get("unused", [])))
+PY
+  )
+  if [[ -n "$unused" ]]; then
+    echo "build:citare: CITARE_PATH=$src, but cargo left these [patch] entries unused: $unused" >&2
+    echo "build:citare: the build would compile the locked git commit instead of the checkout; check that CITARE_PATH is a citare checkout whose crates the adapter depends on" >&2
+    exit 1
+  fi
+  if ! CITARE_VERSION="$version" CITARE_COMMIT="$commit" \
+    cargo build --release -q --locked --manifest-path "$manifest" "${patch[@]}" 2> >(tee "$log" >&2); then
+    echo "build:citare: cargo failed to build the adapter against $src (see above)" >&2
+    exit 1
+  fi
   if grep -q "was not used in the crate graph" "$log"; then
     echo "build:citare: cargo didn't use $src for every citare crate (see above)" >&2
     exit 1
