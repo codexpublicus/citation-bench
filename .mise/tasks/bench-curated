@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#MISE description="Score an engine on vectors/curated, hand-curated vectors checked against the opinions they come from"
+#MISE alias="bench:curated"
+#USAGE arg "<engine>" help="eyecite or citare" {
+#USAGE   choices "eyecite" "citare"
+#USAGE }
+#USAGE arg "[args]" var=#true help="passed on to bench/run.py, after --"
+# eyecite's expected misses are in baselines/eyecite.known-differences; citare's, until the
+# locked commit has the change, are in baselines/citare.known-failures.
+# CITARE_PATH=../citare benches a local checkout instead of the locked git commit.
+set -euo pipefail
+shift  # the engine; anything after it goes to bench/run.py
+case "${usage_engine:?}" in
+  eyecite)
+    adapter="uv run -q --script adapters/eyecite/adapter.py"
+    baseline=baselines/eyecite.known-differences
+    ;;
+  citare)
+    mise run build-citare
+    adapter=target/release/citare-bench-adapter
+    baseline=baselines/citare.known-failures
+    ;;
+esac
+uv run -q bench/run.py --adapter "$adapter" --vectors vectors/curated \
+  --known-failures "$baseline" "$@"
