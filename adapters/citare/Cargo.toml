@@ -5,8 +5,10 @@ edition = "2021"
 publish = false
 description = "citation-bench adapter for citare"
 
-# Track citare main; Cargo.lock pins the exact commit. To bench a local checkout:
-#   cargo run --release --config 'patch."https://github.com/codexpublicus/citare".citare-core.path="../citare/crates/citare-core"'
+# Track citare main; Cargo.lock pins the exact commit, and moving it is its own PR
+# (see "Which citare gets benchmarked" in the README). To bench a local checkout, use
+# `CITARE_PATH=../citare mise run bench:citare`; a plain `--config patch...` on this
+# manifest is ignored whenever the checkout's version differs from the locked one.
 [dependencies]
 citare-core = { git = "https://github.com/codexpublicus/citare", branch = "main" }
 serde_json = "1"
