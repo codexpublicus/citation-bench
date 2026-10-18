@@ -1,21 +1,21 @@
 {
   "corpus-10pct": {
-    "key": "e3df5b00fcf62c9bb25e3a52e14f9d97a7296e7185010a3ab05843883db5096b",
+    "key": "b7aad3a081ed68c8de013dccad53bbf404abfb363cb2fc8c2d9aba6dc0bedf67",
     "version": "2.7.8",
     "runner": "homelab",
     "files": {
       "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
       "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
-      "bench/run.py": "696c8517bd0a1d37b5d43ca43b4c57d53c7f09765786bace17eea6d7a8c7f249",
+      "bench/run.py": "2be4160e5c3ac81b984898bc55c48ef833a8d9f6492ddea74aff2cf47ce5c1b0",
       "corpora/courtlistener-10pct.json": "f57e2849d15301292418534e00e25d5d6aec68f9d2261e2d4c3a169b8da659ec",
       "tools/fetch_corpus.py": "6c687753c8d61a214fed024f1f6cb5d3a9031a072ccc9f8888eff16902c93703"
     },
     "run": "corpus-10pct.json.gz",
-    "sha256": "b78c2c45d64d513af80f8c9c0f4d6cba7d0215671f4e3288d4dd7465d9297f8c",
-    "bench_commit": "8f8bc1c7243009d9df55ebb33e9a90b97b7b70f5",
-    "started": "2026-10-05T06:01:50+00:00",
+    "sha256": "16be1ecc8284bb288605ad4a11c31edd41afcfb242e95d45a85be0f6c538c15f",
+    "bench_commit": "19f3fff1eb61cb4506c0fa1e92b013f71b523ff3",
+    "started": "2026-10-17T10:06:48+00:00",
     "host": {
-      "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.39",
+      "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
       "machine": "x86_64",
       "python": "3.13.16"
     },
@@ -24,27 +24,27 @@
     "scored": 0,
     "errors": 11,
     "citations": 160687,
-    "ms_per_input": 165.7005,
-    "ms_per_kb": 14.2322,
-    "cold_start_s": 0.3348
+    "ms_per_input": 164.7329,
+    "ms_per_kb": 14.1491,
+    "cold_start_s": 0.3647
   },
   "corpus-1pct": {
-    "key": "0b456d28d5785253e75b43a504783959c4d4d142119c979c1d4d38318868e545",
+    "key": "f4ec36ec1636dc659a3231c6a23b5422b99b784357388e22f996b54e4e3606a2",
     "version": "2.7.8",
     "runner": "homelab",
     "files": {
       "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
       "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
-      "bench/run.py": "696c8517bd0a1d37b5d43ca43b4c57d53c7f09765786bace17eea6d7a8c7f249",
+      "bench/run.py": "2be4160e5c3ac81b984898bc55c48ef833a8d9f6492ddea74aff2cf47ce5c1b0",
       "corpora/courtlistener-1pct.json": "43f4746c4b3760898691b7e602e4bb9fe08271b3b2de1942904cd3a4c5c69af9",
       "tools/fetch_corpus.py": "6c687753c8d61a214fed024f1f6cb5d3a9031a072ccc9f8888eff16902c93703"
     },
     "run": "corpus-1pct.json.gz",
-    "sha256": "085da7c72c140ca220568870081ca0b5aa5e6e2581497cd5d1ea0466ef64a217",
-    "bench_commit": "8f8bc1c7243009d9df55ebb33e9a90b97b7b70f5",
-    "started": "2026-10-05T06:00:05+00:00",
+    "sha256": "9c51e5366582032ccb2a104622a86b60873d71faf71d44e68e66772a55f6556c",
+    "bench_commit": "19f3fff1eb61cb4506c0fa1e92b013f71b523ff3",
+    "started": "2026-10-17T10:04:52+00:00",
     "host": {
-      "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.39",
+      "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
       "machine": "x86_64",
       "python": "3.13.16"
     },
@@ -53,28 +53,28 @@
     "scored": 0,
     "errors": 0,
     "citations": 15988,
-    "ms_per_input": 126.2549,
-    "ms_per_kb": 11.3477,
-    "cold_start_s": 0.3785
+    "ms_per_input": 139.4826,
+    "ms_per_kb": 12.5367,
+    "cold_start_s": 0.3819
   },
   "vectors": {
-    "key": "a155007a27f568e2bd4156b7efd0e19decdd9f7fe9597a48406a9fffb28a5305",
+    "key": "32980cf5beeb03c2a3d139f1c324b0a60d97fe3259ea5750bb03c149c607132c",
     "version": "2.7.8",
     "runner": "homelab",
     "files": {
       "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
       "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
-      "bench/run.py": "696c8517bd0a1d37b5d43ca43b4c57d53c7f09765786bace17eea6d7a8c7f249",
+      "bench/run.py": "2be4160e5c3ac81b984898bc55c48ef833a8d9f6492ddea74aff2cf47ce5c1b0",
       "vectors/eyecite-2.7.8/annotate.jsonl": "04a9e416a7493a334bc5f1b35925f025a070997d92e1e069a64e47ec9652bb1f",
       "vectors/eyecite-2.7.8/find.jsonl": "bde884a32b7b237d736db914527ccced640efe449b1da7dc87528cd2e7a79d7c",
       "vectors/eyecite-2.7.8/resolve.jsonl": "f6da8845d1482563a9408b26ad2dc49170e70688069bc98d9a731be96bf4e514"
     },
     "run": "vectors.json.gz",
-    "sha256": "ddeb9e9dfdfdf1434c149e6a152ed1c224666ffaa1370c3f65d981bf2a8b3abf",
-    "bench_commit": "8f8bc1c7243009d9df55ebb33e9a90b97b7b70f5",
-    "started": "2026-10-05T05:59:50+00:00",
+    "sha256": "5835369cb4ad4b676a77107b30c23a8289d6571611223d2fb39a4ee01ea6daa5",
+    "bench_commit": "19f3fff1eb61cb4506c0fa1e92b013f71b523ff3",
+    "started": "2026-10-17T10:04:37+00:00",
     "host": {
-      "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.39",
+      "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
       "machine": "x86_64",
       "python": "3.13.16"
     },
@@ -83,8 +83,8 @@
     "scored": 278,
     "errors": 0,
     "citations": 374,
-    "ms_per_input": 2.257,
-    "ms_per_kb": 34.5137,
-    "cold_start_s": 13.3221
+    "ms_per_input": 2.3657,
+    "ms_per_kb": 36.1758,
+    "cold_start_s": 14.1703
   }
 }

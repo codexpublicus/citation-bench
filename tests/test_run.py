@@ -63,6 +63,20 @@ def test_spans_only_scored_when_expected_and_plain():
     assert compare(plain, {"citations": [cite(full_span=[0, 9])]}) == ["full_span"]
 
 
+def test_cap_slug_scored_only_when_expected():
+    assert (
+        compare(vector(citations=[cite()]), {"citations": [cite(cap_slug="x")]}) == []
+    )
+    v = vector(citations=[cite(cap_slug="us-ct-cl")])
+    assert compare(v, {"citations": [cite(cap_slug="us-ct-cl")]}) == []
+    assert compare(v, {"citations": [cite(cap_slug="wv-ct-cl")]}) == ["cap_slug"]
+    assert compare(v, {"citations": [cite()]}) == ["cap_slug"]
+    # An expected null passes an engine that leaves the field out.
+    assert (
+        compare(vector(citations=[cite(cap_slug=None)]), {"citations": [cite()]}) == []
+    )
+
+
 def test_unscored_metadata_is_ignored():
     v = vector(citations=[cite()])
     assert compare(v, {"citations": [cite(metadata={"resolved_case_name": "X"})]}) == []

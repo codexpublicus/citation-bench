@@ -135,6 +135,7 @@ Each citation is described by [`schema/citation.schema.json`](../schema/citation
 | `groups` | The citation's parts as found: `volume`, `reporter`, `page`, or for statutes `chapter`, `section` and so on. Leave out anything absent; never send null or a blank placeholder such as `___`. |
 | `reporter_normalized` | The canonical reporter abbreviation, e.g. `U. S.` becomes `U.S.` (resource citations only). |
 | `year` | Integer year, or null. |
+| `cap_slug` | Case citations, optional: the [Caselaw Access Project](https://case.law)'s slug for the reporter series the cited volume is in, so that `static.case.law/<cap_slug>/<volume>` is that volume; null when CAP has no such series. `2019-Ohio-1234` is null (CAP's `ohio` is the Ohio Reports, volumes 1 to 20), `100 Ct. Cl. 123` from the federal Court of Claims is `us-ct-cl`. An engine without CAP data leaves it out. Scored only where an expected citation has it. |
 | `metadata` | String values only. The bench scores `pin_cite`, `court`, `plaintiff`, `defendant`, `antecedent_guess`, `parenthetical`, `extra`, `year`, `month`, `day`, `publisher` and `volume`. Other keys are allowed and not scored. |
 
 Citations come in document order. Expected citations leave out `span` and `full_span`

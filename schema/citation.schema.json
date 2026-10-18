@@ -18,6 +18,10 @@
     "groups": {"type": "object", "additionalProperties": {"type": "string"}},
     "reporter_normalized": {"type": ["string", "null"]},
     "year": {"type": ["integer", "null"]},
+    "cap_slug": {
+      "description": "The Caselaw Access Project's slug for the reporter series the cited volume is in (static.case.law/<slug>/<volume>), or null when CAP has no such reporter. Case citations only; optional.",
+      "type": ["string", "null"]
+    },
     "metadata": {"type": "object", "additionalProperties": {"type": "string"}}
   }
 }
