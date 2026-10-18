@@ -236,7 +236,7 @@ def compare_citations(vector, exp, got):
     for e, g in zip(exp, got):
         if e.get("groups", {}) != g.get("groups", {}):
             bad.append("groups")
-        for field in ("reporter_normalized", "year"):
+        for field in ("reporter_normalized", "year", "cap_slug"):
             if field in e and e[field] != g.get(field):
                 bad.append(field)
         for field in ("span", "full_span"):

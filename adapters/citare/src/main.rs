@@ -85,6 +85,15 @@ fn citation_json(c: &Citation, cleaned: &str) -> Value {
     if let Some(rc) = c.resource_common() {
         out.insert("reporter_normalized".into(), json!(c.corrected_reporter()));
         out.insert("year".into(), json!(rc.year));
+        if c.is_case() {
+            // The guessed edition's, else the first edition's, as citare's CLI picks it.
+            let cap = rc
+                .edition_guess
+                .as_ref()
+                .or(rc.all_editions.first())
+                .and_then(|e| e.harvard_slug.clone());
+            out.insert("cap_slug".into(), json!(cap));
+        }
     }
     Value::Object(out)
 }
