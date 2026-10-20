@@ -25,7 +25,7 @@ verifier; `tests/test_verify_statutes.py` tests it on small fixtures with no net
 | span, judgment | `Ala. Code 1975, § 12-2-7` | Text in the span that no field holds (`1975,`) and whitespace inside a number (`10 -236b`) go to a person, grouped by pattern |
 | metadata as written | pin cite `(a)` | The pin cite follows the span; the year, parenthetical and publisher are in the text after it |
 | code | `N.C. Gen. Stat.`, North Carolina | reporters-db's laws data has the code for that jurisdiction (its `$law_subject` patterns cover `N.Y. Penal Law`, `Cal. Pen. Code`, `Tex. Penal Code Ann.`), or the 2026-10-18 conventions name it |
-| form | `G.S.` means `N.C. Gen. Stat.` | The written form is the code's own abbreviation; or the official page cites the section in that form (ncleg.gov writes `G.S. 163-122`); or, for a CAP excerpt, the citing court sits in the code's jurisdiction (CAP case metadata) |
+| form | `G.S.` means `N.C. Gen. Stat.` | The written form is the code's own abbreviation; or the official page cites the section in that form (ncleg.gov writes `G.S. 163-122`); or the citing court sits in the code's jurisdiction (CAP case metadata for a CAP excerpt; CourtListener's API for a CourtListener excerpt, with a key) |
 | existence | § 163-122 exists | The official source for the code holds the section, rule, article and section, clause, page or public law, and a year agrees with it |
 | excerpt | CAP vectors | The input is the opinion's text at the recorded offset |
 
@@ -43,9 +43,39 @@ Every state source is the code as in force now. A section that has since been re
 or renumbered isn't in it, and the vector comes out `contradicted`; the report names
 the source and the URL so a person can tell a wrong vector from an old citation.
 
+## Keyed sources
+
+Two sources need a key, and the script reads each from the environment only:
+
+- `COURTLISTENER_API_TOKEN`: CourtListener's REST API v4, sent as
+  `Authorization: Token ...`. For a CourtListener vector whose written form no other
+  check settles, the script follows the opinion to its cluster, docket and court
+  (`/opinions/<id>/`, `/clusters/<id>/`, `/dockets/<id>/`, `/courts/<id>/`, each with
+  `fields=` so only the link it needs comes back). A state court whose name gives the
+  code's state (`S`, `SA`, `ST`, `SS` courts), or a federal court for a federal code,
+  settles the form, as CAP's case metadata does for CAP vectors. A court anywhere else
+  is named in the form check and the form stays with a person. The token is limited to
+  5 requests a minute, so requests are spaced 12 seconds apart.
+- `NY_OPENLEG_API_KEY`: NY Open Legislation API v3
+  (`legislation.nysenate.gov/api/3/laws/<law>/<section>?key=...`) for N.Y. Penal Law
+  (`PEN`), Family Ct Act (`FCT`) and Judiciary Law (`JUD`) sections. A `SECTION`
+  document at that location passes; HTTP 404 is a contradiction.
+
+Both are age-encrypted in `.mise/config.toml` and decrypted only in the operator's
+environment, so the run that writes this directory is
+`MISE_EXPERIMENTAL=1 mise run verify:statutes`. With a key unset, as in CI, its checks
+are recorded as `not-run`, the vector stays `unverifiable`, and the report lists the
+checks not run; nothing fails. A key goes into the request only: the cache, the lock,
+the verdicts, the report and error messages hold the URL without it. An HTTP 429 is
+retried after the wait the server names (`Retry-After`, or CourtListener's "available
+in N seconds"), or after 15, 30, 60 seconds and so on, six times at most. A wait over
+two minutes (CourtListener's hourly quota asks for about 20) ends requests to that
+host for the run: its uncached checks are recorded as `not-run`, and the next run
+picks up from the cache. A 5xx answer is neither cached nor pinned.
+
 ## Sources
 
-Access as found on 2026-10-18. None needs a key or an account. PDFs are read with pypdf (pinned in the script's inline metadata), and each PDF's text is kept in the cache next to it.
+Access as found on 2026-10-18. None needs a key or an account except the two above. PDFs are read with pypdf (pinned in the script's inline metadata), and each PDF's text is kept in the cache next to it.
 
 | Source | Publisher | What it checks | Form and access |
 |---|---|---|---|
@@ -70,6 +100,8 @@ Access as found on 2026-10-18. None needs a key or an account. PDFs are read wit
 | Code of Alabama 1975 | Alabama Legislature, ALISON (`alison.legislature.state.al.us/graphql`) | Ala. Code sections | The GraphQL endpoint ALISON's own pages query, read by GET with the query in the URL; no key |
 | Constitution of the State of Indiana, as amended 2024 | Indiana General Assembly (`iga.in.gov/publications/indiana_constitution/`) | Ind. Const. articles and sections | One PDF |
 | Texas Rules of Civil Procedure (2026-10-01) and Rules of Appellate Procedure (2026-02-06) | Supreme Court of Texas, `txcourts.gov/media/` | Tex. R. Civ. P. and Tex. R. App. P. rules | One PDF each; `RULE 185.`, `Rule 25.`, `25.2.` headings |
+| NY Open Legislation API v3 | New York State Senate (`legislation.nysenate.gov/api/3/laws/`) | N.Y. Penal Law, Family Ct Act and Judiciary Law sections | JSON per section; needs `NY_OPENLEG_API_KEY` (free) |
+| CourtListener REST API v4 | Free Law Project (`courtlistener.com/api/rest/v4/`) | The court that cited the statute in a CourtListener excerpt, for the form | JSON per opinion, cluster, docket and court; needs `COURTLISTENER_API_TOKEN` (free account), 5 requests a minute |
 
 The verifier doesn't use CAP's `cites_to` or CourtListener's `html_with_citations`:
 both are software output (eyecite or its predecessor), not labels.
@@ -80,9 +112,9 @@ Sources for the remaining codes, as found on 2026-10-18 (`NO_SOURCE` in the scri
 
 - Online only through a commercial publisher: Georgia, Tennessee and Arkansas codes
   (LexisNexis), N.J.A.C. (LexisNexis), NYCRR (Thomson Reuters Westlaw)
-- Refused scripted requests: New York statutes (nysenate.gov, HTTP 403; the Open
-  Legislation API needs a free key), constitution.congress.gov (HTTP 403; GPO's text
-  is used instead)
+- Refused scripted requests: constitution.congress.gov (HTTP 403; GPO's text is used
+  instead). nysenate.gov's pages answer HTTP 403 too; New York statutes come from the
+  Open Legislation API with a key (above)
 - robots.txt disallows every path to every crawler (`User-agent: *` / `Disallow: /`),
   so the script doesn't fetch them:
   - Oklahoma: oscn.net (allows only `/rss/` and `/recaptcha/`) and oklegislature.gov

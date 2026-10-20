@@ -50,6 +50,7 @@ import html
 import io
 import json
 import logging
+import os
 import re
 import ssl
 import struct
@@ -153,8 +154,47 @@ INTERMEDIATE_CERTS = {
 # Hosts that offer only a cipher outside OpenSSL's default list (RSA key exchange,
 # no forward secrecy): host -> the cipher, added to the defaults for that host only.
 EXTRA_CIPHERS = {"www.jud.ct.gov": "AES256-SHA256"}
-# Hosts whose robots.txt asks for a delay between requests, in seconds.
-CRAWL_DELAY = {"legislature.vermont.gov": 30}
+# Hosts whose robots.txt or API limits ask for a delay between requests, in seconds.
+# CourtListener throttles this account's token at 5 requests a minute.
+CRAWL_DELAY = {
+    "legislature.vermont.gov": 30,
+    "www.courtlistener.com": 12,
+    "legislation.nysenate.gov": 1,
+}
+# HTTP 429: wait (Retry-After, or the seconds CourtListener's message names, or a
+# doubling delay from 15 seconds) and try again, this many times.
+RATE_LIMIT_RETRIES = 6
+# A wait longer than this (CourtListener's hourly quota asks for about 20 minutes)
+# ends requests to that host for the run: its uncached checks are recorded as not run.
+RATE_LIMIT_MAX_WAIT = 120
+
+# Keyed APIs. Each key comes from the environment only (the operator's mise env
+# decrypts it from .mise/config.toml); with it unset the check is recorded as not run.
+# A key never goes into a URL that is cached, pinned, logged or reported.
+COURTLISTENER_API = "https://www.courtlistener.com/api/rest/v4/"
+COURTLISTENER_TOKEN_ENV = "COURTLISTENER_API_TOKEN"
+NY_OPENLEG_API = "https://legislation.nysenate.gov/api/3/laws/"
+NY_OPENLEG_KEY_ENV = "NY_OPENLEG_API_KEY"
+# NY Open Legislation law ids (`/api/3/laws` lists them).
+NY_LAWS = {
+    "N.Y. Penal Law": "PEN",
+    "N.Y. Family Ct Act": "FCT",
+    "N.Y. Judiciary Law": "JUD",
+}
+# CourtListener court jurisdiction codes for federal courts (the courts endpoint's
+# `jurisdiction`); a state court's state is the state its name gives.
+CL_FEDERAL = {"F", "FD", "FB", "FBP", "FS"}
+CL_STATE = {"S", "SA", "ST", "SS"}
+US_STATES = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+    "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+    "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
+    "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+    "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+    "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+    "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming",
+]  # fmt: skip
 
 # Why there's no machine check yet, per code with no source wired in. Facts about the
 # sources as found on 2026-10-18; see verification/statutes/README.md.
@@ -167,7 +207,7 @@ NO_SOURCE = {
     "Pa. Stat. Ann.": "Purdon's title and section numbers have no official per-section "
     "source; palegis.us indexes unconsolidated statutes by act",
     "N.Y. Penal Law": "nysenate.gov answered HTTP 403 to scripted requests; its Open "
-    "Legislation API needs a key",
+    f"Legislation API needs a key, and {NY_OPENLEG_KEY_ENV} was unset in this run",
     "N.Y. Judiciary Law": "as N.Y. Penal Law",
     "N.Y. Family Ct Act": "as N.Y. Penal Law",
     "N.Y. Comp. Codes R. & Regs.": "the official NYCRR is online through Thomson Reuters "
@@ -192,6 +232,27 @@ class SourceChanged(Exception):
     pass
 
 
+class RateLimitExhausted(SourceUnavailable):
+    """The host's quota is spent for this run; its uncached checks aren't run."""
+
+
+class RateLimited(Exception):
+    """HTTP 429; wait is the seconds the server asked for, if it said."""
+
+    def __init__(self, url, wait=None):
+        super().__init__(f"{url}: HTTP 429")
+        self.wait = wait
+
+
+def _retry_after(headers, body):
+    """Seconds to wait from a 429's Retry-After header or CourtListener's message."""
+    value = (headers or {}).get("Retry-After")
+    if value and value.strip().isdigit():
+        return int(value)
+    m = re.search(rb"available in (\d+) seconds?", body or b"")
+    return int(m.group(1)) if m else None
+
+
 @dataclasses.dataclass
 class Fetcher:
     """Fetches sources once, caches them, and pins each by SHA-256 in a lock file."""
@@ -208,16 +269,20 @@ class Fetcher:
         default_factory=dict
     )  # key -> sha256 it was pinned at
     _last: dict = dataclasses.field(default_factory=dict)  # host -> last request time
+    max_wait: float = RATE_LIMIT_MAX_WAIT
+    exhausted: set = dataclasses.field(default_factory=set)  # hosts out of quota
 
     def _path(self, key):
         return self.cache / hashlib.sha256(key.encode()).hexdigest()[:32]
 
-    def get(self, url, follow=True, *, key=None, headers=None, data=None):
+    def get(self, url, follow=True, *, key=None, headers=None, data=None, query=None):
         """(status, body) for url, with redirects followed or not.
 
         Without follow, the body is the redirect's Location (empty if none). key names
         the request in the cache and the lock when it isn't a plain GET of url (a byte
-        range, a form post); it defaults to url.
+        range, a form post); it defaults to url. query holds secret query parameters
+        (an API key): they're added to the request only, never to the cache key, the
+        lock, the cached metadata or an error message.
         """
         key = key or url
         host = urllib.parse.urlsplit(url).hostname
@@ -233,7 +298,7 @@ class Fetcher:
         elif self.offline:
             raise SourceUnavailable(f"not cached (offline): {key}")
         else:
-            status, body, location = self._open(url, follow, headers, data)
+            status, body, location = self._open(url, follow, headers, data, query)
             meta = {
                 "url": url,
                 "retrieved": datetime.date.today().isoformat(),
@@ -243,6 +308,10 @@ class Fetcher:
                 meta["location"] = location
             if not follow:
                 body = (location or "").encode()
+            if status >= 500:
+                # A server error says nothing about the source: neither cached nor
+                # pinned, so the next run asks again.
+                return status, body
             self.cache.mkdir(parents=True, exist_ok=True)
             path.write_bytes(body)
             meta_path.write_text(json.dumps(meta))
@@ -265,7 +334,48 @@ class Fetcher:
         self.used[key] = pinned
         return meta["status"], body
 
-    def _open(self, url, follow, headers, data):
+    def _open(self, url, follow, headers, data, query=None):
+        """One request, retried after an HTTP 429 as the server asks."""
+        host = urllib.parse.urlsplit(url).hostname
+        if host in self.exhausted:
+            raise RateLimitExhausted(f"{host}: rate limit reached earlier in this run")
+        target = url
+        if query:
+            target += ("&" if "?" in url else "?") + urllib.parse.urlencode(query)
+        delay = 15
+        for attempt in range(RATE_LIMIT_RETRIES + 1):
+            try:
+                try:
+                    result = self._open_once(target, follow, headers, data)
+                except SourceUnavailable:
+                    if not query:
+                        raise
+                    # The message names the URL with the secret in it: drop both.
+                    raise SourceUnavailable(f"{url}: unreachable") from None
+                if result[0] != 429:
+                    return result
+                wait = None
+            except RateLimited as e:
+                wait = e.wait
+            if attempt == RATE_LIMIT_RETRIES:
+                break
+            wait = wait if wait is not None else delay
+            delay *= 2
+            if wait > self.max_wait:
+                self.exhausted.add(host)
+                print(
+                    f"verify_statutes: {host}: HTTP 429 asks for {wait} s; "
+                    "no more requests to it this run",
+                    file=sys.stderr,
+                )
+                raise RateLimitExhausted(f"{host}: HTTP 429, {wait} s wait")
+            print(
+                f"verify_statutes: {host}: HTTP 429, waiting {wait} s", file=sys.stderr
+            )
+            time.sleep(wait)
+        raise SourceUnavailable(f"{url}: HTTP 429 after {RATE_LIMIT_RETRIES} retries")
+
+    def _open_once(self, url, follow, headers, data):
         if self.opener:
             if headers or data:
                 return self.opener(url, follow, headers=headers, data=data)
@@ -308,6 +418,8 @@ def _urlopen(url, follow, headers=None, data=None, context=None):
         with opener.open(req, timeout=300) as r:
             return r.status, r.read(), r.headers.get("Location")
     except urllib.error.HTTPError as e:
+        if e.code == 429:
+            raise RateLimited(url, _retry_after(e.headers, e.read())) from None
         return e.code, e.read() if follow else b"", e.headers.get("Location")
     except urllib.error.URLError as e:
         raise SourceUnavailable(f"{url}: {e.reason}") from e
@@ -550,6 +662,60 @@ class Sources:
             return parse_la_toc(body.decode("utf-8", "replace"))
 
         return self._once(("la", title), build)
+
+    # CourtListener REST API v4: an opinion's court, by opinion -> cluster -> docket.
+    # None when COURTLISTENER_API_TOKEN is unset (the check isn't run).
+    def cl_court(self, opinion):
+        token = os.environ.get(COURTLISTENER_TOKEN_ENV)
+        if not token:
+            return None
+        headers = {"Authorization": f"Token {token}"}
+
+        def get(url):
+            if not url.startswith(COURTLISTENER_API):
+                raise SourceUnavailable(f"not a CourtListener API URL: {url}")
+            status, body = self.f.get(url, headers=headers)
+            if status != 200:
+                raise SourceUnavailable(f"{url}: HTTP {status}")
+            return json.loads(body)
+
+        cluster = get(f"{COURTLISTENER_API}opinions/{int(opinion)}/?fields=cluster")
+        docket = get(f"{cluster['cluster']}?fields=docket")
+        court_id = get(f"{docket['docket']}?fields=court_id")["court_id"]
+        return self._once(
+            ("cl-court", court_id),
+            lambda: get(
+                f"{COURTLISTENER_API}courts/{court_id}/"
+                "?fields=id,full_name,jurisdiction"
+            ),
+        )
+
+    # NY Open Legislation API v3: one section of a consolidated law. None when
+    # NY_OPENLEG_API_KEY is unset (the check isn't run).
+    def ny_law_doc(self, law, location):
+        key = os.environ.get(NY_OPENLEG_KEY_ENV)
+        if not key:
+            return None
+        url = f"{NY_OPENLEG_API}{law}/{urllib.parse.quote(location)}"
+        status, body = self.f.get(url, query={"key": key})
+        try:
+            doc = json.loads(body)
+        except ValueError:
+            doc = {}
+        return url, status, doc
+
+
+def cl_court_jurisdiction(court):
+    """The jurisdiction a CourtListener court sits in, as the vectors name it."""
+    kind = court.get("jurisdiction")
+    if kind in CL_FEDERAL:
+        return "United States"
+    if kind in CL_STATE:
+        name = court.get("full_name") or ""
+        for state in sorted(US_STATES, key=len, reverse=True):
+            if re.search(rf"\b{state}\b", name):
+                return state
+    return None
 
 
 def parse_uscode_mods(body):
@@ -1027,6 +1193,39 @@ def code_and_form_checks(sources, vector, cite, existence=None):
         if court and court == jurisdiction:
             form_ok = f"cited by a court in {court} (CAP case metadata)"
             form_source = "cap-case-metadata"
+    cited_by = ""
+    if (
+        form_ok is None
+        and src.get("corpus", "").startswith("courtlistener")
+        and src.get("opinion")
+    ):
+        why_not = f"{COURTLISTENER_TOKEN_ENV} is unset"
+        try:
+            cl = sources.cl_court(src["opinion"])
+        except RateLimitExhausted:
+            cl, why_not = None, "CourtListener's rate limit was reached"
+        except SourceUnavailable as e:
+            cl = None
+            cited_by = f"; citing court not found: {e}"
+        if cl is None and not cited_by:
+            out.append(
+                Check(
+                    "form",
+                    "not-run",
+                    f"citing court not checked: {why_not}",
+                    source="courtlistener-api",
+                )
+            )
+        elif cl is not None:
+            where = cl_court_jurisdiction(cl)
+            name = f"{cl.get('full_name')} (`{cl.get('id')}`)"
+            if where and where == jurisdiction:
+                form_ok = f"cited by {name}, a court in {where} (CourtListener API)"
+                form_source = "courtlistener-api"
+            else:
+                cited_by = f"; cited by {name}" + (
+                    f", a court in {where}" if where else ""
+                )
     if form_ok:
         out.append(Check("form", "pass", form_ok, source=form_source))
     else:
@@ -1034,7 +1233,7 @@ def code_and_form_checks(sources, vector, cite, existence=None):
             Check(
                 "form",
                 "none",
-                f"`{written}` read as `{code}`",
+                f"`{written}` read as `{code}`{cited_by}",
                 human=("form", f"`{written}` means `{code}` ({jurisdiction})"),
             )
         )
@@ -1565,6 +1764,36 @@ def exists_more(sources, code, groups):
     return None
 
 
+def exists_ny(sources, code, sec):
+    """NY Open Legislation API: the section's law document."""
+    src = "ny-openleg"
+    location = sec.upper()
+    found = sources.ny_law_doc(NY_LAWS[code], location)
+    if found is None:
+        why = NO_SOURCE.get(code, "")
+        if why.startswith("as "):
+            why = NO_SOURCE[why[3:]]
+        return Check(
+            "existence",
+            "not-run",
+            f"not checked: {NY_OPENLEG_KEY_ENV} is unset",
+            src,
+            human=("existence", f"`{code}`: {why}"),
+        )
+    url, status, doc = found
+    result = doc.get("result") or {}
+    if status == 404:
+        return Check(
+            "existence", "fail", f"{url}: HTTP 404 ({doc.get('message')})", src
+        )
+    if status != 200 or not doc.get("success"):
+        return Check("existence", "none", f"{url}: HTTP {status}, no answer either way")
+    if result.get("docType") == "SECTION" and result.get("locationId") == location:
+        title = result.get("title") or ""
+        return Check("existence", "pass", f"{url} ({title})", src)
+    return Check("existence", "fail", f"{url} isn't a section document", src)
+
+
 def existence_check(sources, cite):
     code = cite.get("reporter_normalized") or ""
     groups = cite.get("groups") or {}
@@ -1590,6 +1819,8 @@ def existence_check(sources, cite):
             return exists_ussg(sources, groups)
         if code == "U.S. Const.":
             return exists_us_const(sources, groups, md)
+        if code in NY_LAWS:
+            return exists_ny(sources, code, groups.get("section", ""))
         state = exists_state(sources, code, groups) or exists_more(
             sources, code, groups
         )
@@ -1626,7 +1857,7 @@ def verdict(checks):
     failed = [c for c in checks if c.result == "fail"]
     if failed:
         return "contradicted:" + "; ".join(f"{c.claim}: {c.detail}" for c in failed)
-    open_ = [c for c in checks if c.result == "none"]
+    open_ = [c for c in checks if c.result in ("none", "not-run")]
     if open_:
         claims = sorted({c.claim for c in open_})
         return "unverifiable:" + ", ".join(claims)
@@ -1717,6 +1948,25 @@ def markdown(results, used, changed=None):
     lines += [f"- `{r['id']}`: {r['verdict'].split(':', 1)[1]}" for r in bad] or [
         "None."
     ]
+    not_run = collections.defaultdict(list)
+    for r in results:
+        for c in r["checks"]:
+            if c["result"] == "not-run":
+                not_run[c["detail"]].append(r["id"])
+    if not_run:
+        lines += [
+            "",
+            "## Checks not run",
+            "",
+            (
+                "Checks against a keyed source that didn't run: its key wasn't in the "
+                "environment, or its rate limit ran out. A rerun with the keys set (the "
+                "operator's mise env) runs them and reuses what's cached."
+            ),
+            "",
+        ]
+        for detail, ids in sorted(not_run.items()):
+            lines.append(f"- {detail}: {len(ids)}")
     lines += ["", "## What needs a person", ""]
     for group, title in HUMAN_GROUPS:
         items = human.get(group)
