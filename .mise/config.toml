@@ -7,6 +7,8 @@ rust = "stable"
 
 [settings.age]
 identity_files = ["~/.config/mise/age.lokkju.txt"]
+# CI has no identity: skip values it can't decrypt instead of failing the env.
+strict = false
 
 [env]
 # age-encrypted for the operator's identity; read by the statute verifier
