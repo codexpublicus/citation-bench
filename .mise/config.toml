@@ -5,6 +5,14 @@ python = "3.13"
 uv = "0.9.21"
 rust = "stable"
 
+[settings.age]
+identity_files = ["~/.config/mise/age.lokkju.txt"]
+# CI has no identity: skip values it can't decrypt instead of failing the env.
+strict = false
+
 [env]
+# age-encrypted for the operator's identity; read by the statute verifier
+COURTLISTENER_API_TOKEN = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3ckhnbWxpTitGMTVpRU9YRVRJTGtMTzNrWk8xR2VaOVNKNnVMWVZ3aG1ZCi9IcHpkQ0hkeXlwSjc1cDdjTzhrK3ExL1p2RHVjN21vckttN3FRNnd0TjAKLS0tIGk5RjdMOEp0TUNDQVphNG9QNi92Qm0yd1MvWlJwTDJzaVI3YnNaNVhIL1UK9YoVV4JSSiqLnSaQP8ptXRIvxPxzWrpGg0GeQNo6NCLCI+m/Oifw6OptCw/5JyfBpsHd/eitr57ojm/+FECw5CiCAhruldjs" }
+NY_OPENLEG_API_KEY = { age = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5MlI0WEVQcGNQVjJvRmhyRkJTU28xUmh3K0lkK1BYZnhkaVRrSmZ0L0RFCnNsV0Q3VHo5UlVKaTl1RHQ0Y2M3alBnWW9JTHpFTjZIaW1zUXFsTGhYMkEKLS0tIGFXWkcwa0FIYkNmbisyUmE1NG43UjJZUFhLaUFpR2daUUxsL08rWUQyUGcKKFC++MBg4KXIOwyLrhry+HOYG3m5GBcA/l5+2zW/ap9i0DxQhZwDZY3Qp/z04xjaFm9bH9ETCWCtWrYQDp9BzQ" }
 # One build dir for every adapter, so tasks run the binary they just built.
 CARGO_TARGET_DIR = "{{config_root}}/target"
