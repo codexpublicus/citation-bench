@@ -1,0 +1,14 @@
+{
+  "name": "curated",
+  "description": "Hand-curated vectors: each input is an excerpt of a real opinion, and each expected value was read against that opinion and the cited cases' records by a person. Owner rulings decide what the answer is; no engine's output is the reference. See README.md.",
+  "corpora": [
+    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py)",
+    "Harvard Caselaw Access Project bulk volumes (static.case.law), casebody.opinions[].text and case metadata"
+  ],
+  "selected": "2026-10-18",
+  "provenance": {
+    "status": "hand-checked",
+    "note": "Each expected value was read by hand against its excerpt and the cited cases' CAP records when the set was added (#32, owner ruling D50 of 2026-10-18). A vector whose own provenance says otherwise overrides this. Not yet verified by the maintainer."
+  },
+  "protocol": 2
+}

@@ -5,6 +5,13 @@ cap-slugs/find/mass_app_div_numbered/0
 cap-slugs/find/mass_app_div_numbered/1
 cap-slugs/find/ohio_neutral/0
 cap-slugs/find/ohio_neutral/1
+curated/find/consecutive_runs_own_year/0
+curated/find/nameless_parallel_run/0
+curated/find/ohio_state_variation/0
+curated/find/runs_split_at_semicolon/0
+curated/resolve/id_as_case_name/0
+curated/resolve/id_as_case_name/1
+curated/resolve/id_as_case_name/2
 divergences/find/beyond_search_window/0
 divergences/find/closing_year/0
 divergences/find/closing_year_then_and/0
@@ -36,6 +43,7 @@ divergences/find/section_pin_forms/9
 divergences/find/short_name_after_semicolon/0
 divergences/find/subsequent_history/0
 divergences/find/subsequent_history/1
+divergences/find/year_before_volume/0
 divergences/resolve/reference_after_parallel/0
 divergences/resolve/reference_after_parallel/1
 divergences/resolve/reference_after_parallel/2
@@ -52,6 +60,7 @@ divergences/resolve/supra_after_parallel/1
 divergences/resolve/supra_after_parallel/2
 divergences/resolve/supra_after_parallel/3
 divergences/resolve/supra_after_short_name/0
+eyecite-2.7.8/find/test_markup_plaintiff_and_antecedent_guesses/21
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/0
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/1
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/2

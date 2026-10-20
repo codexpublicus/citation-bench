@@ -54,6 +54,7 @@ or commercial tool can be benchmarked without sharing any code.
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
 | `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
+| `vectors/curated/` | Hand-curated vectors from real opinions, each checked against the opinion and the cited cases' records; no engine's output is the reference ([README](vectors/curated/README.md)) |
 | `vectors/divergences/` | Inputs where citare deliberately differs from eyecite ([README](vectors/divergences/README.md)) |
 | `vectors/statutes/` | Statute and court-rule citations by jurisdiction and form, from real opinions ([README](vectors/statutes/README.md)) |
 | `vectors/statutes-proposed/` | Unreviewed statute, rule, constitution and regulation vectors for the forms `vectors/statutes` lacks ([README](vectors/statutes-proposed/README.md)) |
@@ -84,6 +85,8 @@ mise run bench:statutes eyecite     # the statute set, the same way
 mise run bench:statutes citare
 mise run report:statutes            # per-kind statute metrics for both engines, in reports/statutes/
 mise run check                # lint and unit tests
+mise run bench:curated eyecite      # the hand-curated set, the same way as the divergence set
+mise run bench:curated citare
 ```
 
 Compare two runs, of different engines or of two versions of one engine, on the same
@@ -100,6 +103,26 @@ The diff matches citations by type, volume, reporter and page (by span for id., 
 references), lists the ones each run found alone, and the fields that changed on the ones
 both found: spans, pin cite, parties, court, year, normalized reporter and so on. Inputs
 without expected answers are run and saved but not scored, so the same works on a corpus.
+
+### Which citare gets benchmarked
+
+`adapters/citare/Cargo.toml` names citare by its git URL on `main`, and the committed
+`adapters/citare/Cargo.lock` pins the exact commit. That commit is what `bench:citare`
+builds by default, and the adapter reports it in every run's `engine` field. To move it,
+run `cargo update --manifest-path adapters/citare/Cargo.toml -p citare-core -p
+citare-data-build`, check that `mise run bench:citare` still passes against
+`baselines/citare.known-failures`, and commit the lock in its own PR. I don't put a `rev`
+in `Cargo.toml`; the lock already pins the commit, and a second copy of it would only
+drift.
+
+`CITARE_PATH=../citare` builds a local checkout instead. `build:citare` patches every
+citare crate with the checkout in a copy of the adapter under `target/`, so the
+committed lock never changes, and it fails if cargo leaves any of those patches unused,
+if the build compiled anything other than the checkout's `citare-core`, or if the
+adapter reports a different version or commit. citare's own CI uses this path: it checks
+out citation-bench at the commit in citare's `.github/citation-bench-ref` and runs
+`bench:citare` with `CITARE_PATH` set to the citare commit under test, so the lock here
+never decides what citare's CI scores.
 
 ### Corpus
 
