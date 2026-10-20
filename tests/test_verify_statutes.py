@@ -8,6 +8,14 @@ import zipfile
 import pytest
 import verify_statutes as vs
 
+
+@pytest.fixture(autouse=True)
+def no_api_keys(monkeypatch):
+    """The operator's env may hold the keys; tests set them only where they need them."""
+    monkeypatch.delenv(vs.COURTLISTENER_TOKEN_ENV, raising=False)
+    monkeypatch.delenv(vs.NY_OPENLEG_KEY_ENV, raising=False)
+
+
 USCODE_MODS = """<?xml version="1.0"?>
 <mods xmlns="http://www.loc.gov/mods/v3">
  <relatedItem type="constituent" ID="id-USCODE-2024-title28-chap1-sec1">
@@ -725,3 +733,192 @@ def test_refused_sources_stay_with_a_person(tmp_path):
     for code in ("Okla. Stat.", "Ohio Const.", "Mich. Ct. R.", "Pa. R. Civ. P."):
         c = existence({}, {"section": "1", "rule": "1", "article": "I"}, code, tmp_path)
         assert c.result == "none" and "robots.txt" in c.detail
+
+
+# --- keyed APIs: CourtListener and NY Open Legislation ---------------------------------
+
+CL = vs.COURTLISTENER_API
+NY_KEY = "test-ny-key-0123456789"
+CL_TOKEN = "test-cl-token-0123456789"
+
+
+def keyed_pages(court):
+    p = pages()
+    p.update(
+        {
+            f"{CL}opinions/1/?fields=cluster": (
+                200,
+                json.dumps({"cluster": f"{CL}clusters/7/"}),
+                None,
+            ),
+            f"{CL}clusters/7/?fields=docket": (
+                200,
+                json.dumps({"docket": f"{CL}dockets/9/"}),
+                None,
+            ),
+            f"{CL}dockets/9/?fields=court_id": (
+                200,
+                json.dumps({"court_id": court["id"]}),
+                None,
+            ),
+            f"{CL}courts/{court['id']}/?fields=id,full_name,jurisdiction": (
+                200,
+                json.dumps(court),
+                None,
+            ),
+            f"{vs.NY_OPENLEG_API}PEN/70.06?key={NY_KEY}": (
+                200,
+                json.dumps(
+                    {
+                        "success": True,
+                        "result": {
+                            "lawId": "PEN",
+                            "locationId": "70.06",
+                            "docType": "SECTION",
+                            "title": "Sentence of imprisonment for second felony "
+                            "offender",
+                        },
+                    }
+                ),
+                None,
+            ),
+            f"{vs.NY_OPENLEG_API}PEN/70.99?key={NY_KEY}": (
+                404,
+                json.dumps(
+                    {
+                        "success": False,
+                        "message": "The requested law document was not found",
+                    }
+                ),
+                None,
+            ),
+        }
+    )
+    return p
+
+
+def ny_vector(section="70.06"):
+    text = f"Penal Law § {section}."
+    return vector(
+        "ny",
+        text,
+        [0, len(text) - 1],
+        {"reporter": "Penal Law", "section": section, "subject": "Penal"},
+        "N.Y. Penal Law",
+        "New York",
+    )
+
+
+NY_COURT = {
+    "id": "nyappdiv",
+    "full_name": "Appellate Division of the Supreme Court of the State of New York",
+    "jurisdiction": "SA",
+}
+
+
+def test_keyed_apis_verify_court_and_section(tmp_path, monkeypatch):
+    monkeypatch.setenv(vs.COURTLISTENER_TOKEN_ENV, CL_TOKEN)
+    monkeypatch.setenv(vs.NY_OPENLEG_KEY_ENV, NY_KEY)
+    calls = []
+    plain = fake_opener(keyed_pages(NY_COURT))
+
+    def opener(url, follow, headers=None, data=None):
+        calls.append((url, headers))
+        return plain(url, follow, headers=headers, data=data)
+
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=opener)
+    vectors = [ny_vector(), {**ny_vector("70.99"), "id": "t/find/ny_missing"}]
+    results = {
+        r["id"].split("/")[-1]: r for r in vs.run([write_set(tmp_path, vectors)], f)
+    }
+    assert results["ny"]["verdict"] == (
+        f"verified-by-source:courtlistener-api+ny-openleg+reporters-db@"
+        f"{vs.REPORTERS_DB_TAG}"
+    )
+    assert results["ny_missing"]["verdict"].startswith(
+        "contradicted:existence: " + vs.NY_OPENLEG_API + "PEN/70.99: HTTP 404"
+    )
+    # The token goes in a header and the key in the query string of the request only.
+    assert all(h == {"Authorization": f"Token {CL_TOKEN}"} for u, h in calls if CL in u)
+    # Neither the lock, the cache, the verdicts nor the report holds either secret.
+    md = vs.markdown(list(results.values()), f.used)
+    written = [json.dumps(f.used), json.dumps(list(results.values())), md]
+    written += [p.read_bytes().decode(errors="replace") for p in f.cache.iterdir()]
+    for blob in written:
+        assert NY_KEY not in blob and CL_TOKEN not in blob
+    assert f"{vs.NY_OPENLEG_API}PEN/70.06" in f.used
+
+
+def test_citing_court_elsewhere_stays_with_a_person(tmp_path, monkeypatch):
+    monkeypatch.setenv(vs.COURTLISTENER_TOKEN_ENV, CL_TOKEN)
+    court = {"id": "ca8", "full_name": "Court of Appeals for the Eighth Circuit"}
+    f = vs.Fetcher(
+        tmp_path / "cache",
+        {},
+        opener=fake_opener(keyed_pages({**court, "jurisdiction": "F"})),
+    )
+    (r,) = vs.run([write_set(tmp_path, [ny_vector()])], f)
+    form = [c for c in r["checks"] if c["claim"] == "form"]
+    assert [c["result"] for c in form] == ["none"]
+    assert (
+        "cited by Court of Appeals for the Eighth Circuit (`ca8`)"
+        in (form[0]["detail"])
+    )
+    # The NY key is unset here: the section check is recorded as not run.
+    ex = next(c for c in r["checks"] if c["claim"] == "existence")
+    assert ex["result"] == "not-run" and vs.NY_OPENLEG_KEY_ENV in ex["detail"]
+
+
+def test_without_keys_the_checks_are_not_run(tmp_path):
+    opener = fake_opener(keyed_pages(NY_COURT))
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=opener)
+    (r,) = vs.run([write_set(tmp_path, [ny_vector()])], f)
+    assert r["verdict"] == "unverifiable:existence, form"
+    assert not [u for u in opener.calls if CL in u or vs.NY_OPENLEG_API in u]
+    not_run = [c["detail"] for c in r["checks"] if c["result"] == "not-run"]
+    assert len(not_run) == 2
+    md = vs.markdown([r], f.used)
+    assert "## Checks not run" in md
+    assert f"citing court not checked: {vs.COURTLISTENER_TOKEN_ENV} is unset: 1" in md
+
+
+def test_court_jurisdiction():
+    def j(name, kind="S"):
+        return vs.cl_court_jurisdiction({"full_name": name, "jurisdiction": kind})
+
+    assert j("Supreme Court of West Virginia") == "West Virginia"
+    assert j("Supreme Court of Virginia") == "Virginia"
+    assert j("Court of Appeals of Arkansas", "SA") == "Arkansas"
+    assert j("District Court, N.D. Georgia", "FD") == "United States"
+    assert j("Court of Appeals for the Armed Forces", "MA") is None
+
+
+def test_rate_limit_backs_off_and_retries(tmp_path, monkeypatch):
+    waits = []
+    monkeypatch.setattr(vs.time, "sleep", waits.append)
+    answers = [(429, b"", None), (429, b"", None), (200, b"ok", None)]
+
+    def opener(url, follow):
+        return answers.pop(0)
+
+    f = vs.Fetcher(tmp_path, {}, opener=opener)
+    assert f.get("https://x/limited") == (200, b"ok")
+    assert waits == [15, 30]
+    assert vs._retry_after({}, b"Expected available in 49 seconds.") == 49
+    assert vs._retry_after({"Retry-After": "7"}, b"") == 7
+
+    def always(url, follow):
+        return 429, b"", None
+
+    with pytest.raises(vs.SourceUnavailable, match="429"):
+        vs.Fetcher(tmp_path / "b", {}, opener=always).get("https://x/never")
+
+
+def test_secret_query_stays_out_of_errors(tmp_path):
+    def down(url, follow):
+        raise vs.SourceUnavailable(f"{url}: connection refused")
+
+    f = vs.Fetcher(tmp_path, {}, opener=down)
+    with pytest.raises(vs.SourceUnavailable) as e:
+        f.get("https://x/api", query={"key": NY_KEY})
+    assert NY_KEY not in str(e.value) and e.value.__cause__ is None
