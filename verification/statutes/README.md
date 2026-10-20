@@ -68,7 +68,10 @@ are recorded as `not-run`, the vector stays `unverifiable`, and the report lists
 checks not run; nothing fails. A key goes into the request only: the cache, the lock,
 the verdicts, the report and error messages hold the URL without it. An HTTP 429 is
 retried after the wait the server names (`Retry-After`, or CourtListener's "available
-in N seconds"), or after 15, 30, 60 seconds and so on, six times at most.
+in N seconds"), or after 15, 30, 60 seconds and so on, six times at most. A wait over
+two minutes (CourtListener's hourly quota asks for about 20) ends requests to that
+host for the run: its uncached checks are recorded as `not-run`, and the next run
+picks up from the cache. A 5xx answer is neither cached nor pinned.
 
 ## Sources
 

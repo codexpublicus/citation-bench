@@ -401,7 +401,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:existence",
   "checks": [
    {
     "claim": "span",
@@ -426,13 +426,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`OCGA` read as `Ga. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`OCGA` means `Ga. Code Ann.` (Georgia)"
-    ]
+    "result": "pass",
+    "detail": "cited by Court of Appeals of Georgia (`gactapp`), a court in Georgia (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -452,7 +449,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:existence",
   "checks": [
    {
     "claim": "span",
@@ -470,13 +467,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`OCGA` read as `Ga. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`OCGA` means `Ga. Code Ann.` (Georgia)"
-    ]
+    "result": "pass",
+    "detail": "cited by Supreme Court of Georgia (`ga`), a court in Georgia (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -522,7 +516,7 @@
    {
     "claim": "form",
     "result": "none",
-    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`",
+    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`; cited by Court of Appeals for the Eleventh Circuit (`ca11`), a court in United States",
     "source": "",
     "human": [
      "form",
@@ -566,7 +560,7 @@
    {
     "claim": "form",
     "result": "none",
-    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`",
+    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`; cited by District Court, N.D. Georgia (`gand`), a court in United States",
     "source": "",
     "human": [
      "form",
@@ -591,7 +585,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ariz. Rev. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:azleg+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -616,13 +610,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`A.R.S.` read as `Ariz. Rev. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`A.R.S.` means `Ariz. Rev. Stat.` (Arizona)"
-    ]
+    "result": "pass",
+    "detail": "cited by Court of Appeals of Arizona (`arizctapp`), a court in Arizona (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -639,7 +630,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ariz. Rev. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:azleg+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -664,13 +655,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`A.R.S.` read as `Ariz. Rev. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`A.R.S.` means `Ariz. Rev. Stat.` (Arizona)"
-    ]
+    "result": "pass",
+    "detail": "cited by Court of Appeals of Arizona (`arizctapp`), a court in Arizona (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -732,7 +720,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Haw. Rev. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+hawaii-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -750,13 +738,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`HRS` read as `Haw. Rev. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`HRS` means `Haw. Rev. Stat.` (Hawaii)"
-    ]
+    "result": "pass",
+    "detail": "cited by Hawaii Supreme Court (`haw`), a court in Hawaii (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -984,7 +969,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.D. Cent. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+nd-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1009,13 +994,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`N.D.C.C.` read as `N.D. Cent. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`N.D.C.C.` means `N.D. Cent. Code` (North Dakota)"
-    ]
+    "result": "pass",
+    "detail": "cited by North Dakota Supreme Court (`nd`), a court in North Dakota (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1050,6 +1032,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`T.C.A.` read as `Tenn. Code Ann.`",
     "source": "",
@@ -1076,7 +1065,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Tenn. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:existence",
   "checks": [
    {
     "claim": "span",
@@ -1101,13 +1090,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`T.C.A.` read as `Tenn. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`T.C.A.` means `Tenn. Code Ann.` (Tennessee)"
-    ]
+    "result": "pass",
+    "detail": "cited by Court of Appeals of Tennessee (`tennctapp`), a court in Tennessee (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1127,7 +1113,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1145,13 +1131,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Pa.C.S.` read as `Pa. Cons. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`Pa.C.S.` means `Pa. Cons. Stat.` (Pennsylvania)"
-    ]
+    "result": "pass",
+    "detail": "cited by Supreme Court of Pennsylvania (`pa`), a court in Pennsylvania (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1168,7 +1151,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1186,13 +1169,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Pa.C.S.` read as `Pa. Cons. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`Pa.C.S.` means `Pa. Cons. Stat.` (Pennsylvania)"
-    ]
+    "result": "pass",
+    "detail": "cited by Commonwealth Court of Pennsylvania (`pacommwct`), a court in Pennsylvania (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1209,7 +1189,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1234,13 +1214,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Pa.C.S.A.` read as `Pa. Cons. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`Pa.C.S.A.` means `Pa. Cons. Stat.` (Pennsylvania)"
-    ]
+    "result": "pass",
+    "detail": "cited by Superior Court of Pennsylvania (`pasuperct`), a court in Pennsylvania (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1309,7 +1286,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Stat. Ann.",
-  "verdict": "unverifiable:code, existence, form",
+  "verdict": "unverifiable:code, existence",
   "checks": [
    {
     "claim": "span",
@@ -1337,13 +1314,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`P.S.` read as `Pa. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`P.S.` means `Pa. Stat. Ann.` (Pennsylvania)"
-    ]
+    "result": "pass",
+    "detail": "cited by Commonwealth Court of Pennsylvania (`pacommwct`), a court in Pennsylvania (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1544,7 +1518,7 @@
    {
     "claim": "form",
     "result": "none",
-    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`",
+    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`; cited by District Court, D. Maine (`med`), a court in United States",
     "source": "",
     "human": [
      "form",
@@ -1566,7 +1540,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Me. Rev. Stat. Ann.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+maine-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1591,13 +1565,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`M.R.S.A.` means `Me. Rev. Stat. Ann.` (Maine)"
-    ]
+    "result": "pass",
+    "detail": "cited by Supreme Judicial Court of Maine (`me`), a court in Maine (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1804,6 +1775,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`O.S.` read as `Okla. Stat.`",
     "source": "",
@@ -1830,7 +1808,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Penal Law",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1848,23 +1826,17 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Penal Law` read as `N.Y. Penal Law`",
-    "source": "",
-    "human": [
-     "form",
-     "`Penal Law` means `N.Y. Penal Law` (New York)"
-    ]
+    "result": "pass",
+    "detail": "cited by Criminal Court of the City of New York (`nycrimct`), a court in New York (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Penal Law`: nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key"
-    ]
+    "result": "pass",
+    "detail": "https://legislation.nysenate.gov/api/3/laws/PEN/180.05 (Commercial bribe receiving in the second degree)",
+    "source": "ny-openleg",
+    "human": []
    }
   ]
  },
@@ -1874,7 +1846,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Penal Law",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1892,23 +1864,17 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Penal Law` read as `N.Y. Penal Law`",
-    "source": "",
-    "human": [
-     "form",
-     "`Penal Law` means `N.Y. Penal Law` (New York)"
-    ]
+    "result": "pass",
+    "detail": "cited by Appellate Division of the Supreme Court of the State of New York (`nyappdiv`), a court in New York (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Penal Law`: nysenate.gov answered HTTP 403 to scripted requests; its Open Legislation API needs a key"
-    ]
+    "result": "pass",
+    "detail": "https://legislation.nysenate.gov/api/3/laws/PEN/70.06 (Sentence of imprisonment for second felony offender)",
+    "source": "ny-openleg",
+    "human": []
    }
   ]
  },
@@ -1918,7 +1884,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Judiciary Law",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap+cap-case-metadata+ny-openleg+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "excerpt",
@@ -1950,13 +1916,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as N.Y. Penal Law",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Judiciary Law`: as N.Y. Penal Law"
-    ]
+    "result": "pass",
+    "detail": "https://legislation.nysenate.gov/api/3/laws/JUD/468-A (Biennial registration of attorneys)",
+    "source": "ny-openleg",
+    "human": []
    }
   ]
  },
@@ -1966,7 +1929,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Family Ct Act",
-  "verdict": "unverifiable:code, existence, form",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -1987,23 +1950,17 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Family Ct Act` read as `N.Y. Family Ct Act`",
-    "source": "",
-    "human": [
-     "form",
-     "`Family Ct Act` means `N.Y. Family Ct Act` (New York)"
-    ]
+    "result": "pass",
+    "detail": "cited by New York City Family Court (`nycfamct`), a court in New York (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as N.Y. Penal Law",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Family Ct Act`: as N.Y. Penal Law"
-    ]
+    "result": "pass",
+    "detail": "https://legislation.nysenate.gov/api/3/laws/FCT/352.2 (Order of disposition)",
+    "source": "ny-openleg",
+    "human": []
    }
   ]
  },
@@ -2013,7 +1970,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Family Ct Act",
-  "verdict": "unverifiable:code, existence, form",
+  "verdict": "unverifiable:code",
   "checks": [
    {
     "claim": "span",
@@ -2034,23 +1991,17 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Family Ct Act` read as `N.Y. Family Ct Act`",
-    "source": "",
-    "human": [
-     "form",
-     "`Family Ct Act` means `N.Y. Family Ct Act` (New York)"
-    ]
+    "result": "pass",
+    "detail": "cited by New York City Family Court (`nycfamct`), a court in New York (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "as N.Y. Penal Law",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Family Ct Act`: as N.Y. Penal Law"
-    ]
+    "result": "pass",
+    "detail": "https://legislation.nysenate.gov/api/3/laws/FCT/1033-B (Initial appearance; procedures)",
+    "source": "ny-openleg",
+    "human": []
    }
   ]
  },
@@ -2060,7 +2011,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Pen. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2078,13 +2029,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Pen. Code` read as `Cal. Pen. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`Pen. Code` means `Cal. Pen. Code` (California)"
-    ]
+    "result": "pass",
+    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -2146,7 +2094,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2164,13 +2112,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Code Civ. Proc.` read as `Cal. Civ. Proc. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`Code Civ. Proc.` means `Cal. Civ. Proc. Code` (California)"
-    ]
+    "result": "pass",
+    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -2187,7 +2132,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2205,13 +2150,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Code Civ. Proc.` read as `Cal. Civ. Proc. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`Code Civ. Proc.` means `Cal. Civ. Proc. Code` (California)"
-    ]
+    "result": "pass",
+    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -2273,7 +2215,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Evid. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2291,13 +2233,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`Evid. Code` read as `Cal. Evid. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`Evid. Code` means `Cal. Evid. Code` (California)"
-    ]
+    "result": "pass",
+    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
+    "source": "courtlistener-api",
+    "human": []
    },
    {
     "claim": "existence",
@@ -2647,6 +2586,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`G. L.` read as `Mass. Gen. Laws`",
     "source": "",
@@ -2684,6 +2630,13 @@
     "result": "pass",
     "detail": "reporters-db `Mass. Gen. Laws`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
@@ -2791,6 +2744,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`NMSA` read as `N.M. Stat. Ann.`",
     "source": "",
@@ -2849,6 +2809,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`NMSA` read as `N.M. Stat. Ann.`",
     "source": "",
@@ -2897,6 +2864,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`",
     "source": "",
@@ -2934,6 +2908,13 @@
     "result": "pass",
     "detail": "reporters-db `Mich. Comp. Laws`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
@@ -3103,6 +3084,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`A.C.A.` read as `Ark. Code Ann.`",
     "source": "",
@@ -3154,6 +3142,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`A.C.A.` read as `Ark. Code Ann.`",
     "source": "",
@@ -3194,6 +3189,13 @@
     "result": "pass",
     "detail": "reporters-db `La. Stat. Ann.`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
@@ -3242,6 +3244,13 @@
     "result": "pass",
     "detail": "reporters-db `La. Stat. Ann.`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
@@ -3297,6 +3306,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`G.L.` read as `R.I. Gen. Laws`",
     "source": "",
@@ -3348,6 +3364,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`G.L.` read as `R.I. Gen. Laws`",
     "source": "",
@@ -3389,6 +3412,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`West Virginia Code` read as `W. Va. Code`",
     "source": "",
@@ -3426,6 +3456,13 @@
     "result": "pass",
     "detail": "reporters-db `W. Va. Code`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
@@ -4245,6 +4282,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`MCR` read as `Mich. Ct. R.`",
     "source": "",
@@ -4581,6 +4625,13 @@
    },
    {
     "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
+    "human": []
+   },
+   {
+    "claim": "form",
     "result": "none",
     "detail": "`NYCRR` read as `N.Y. Comp. Codes R. & Regs.`",
     "source": "",
@@ -4628,6 +4679,13 @@
     "result": "pass",
     "detail": "reporters-db `N.J. Admin. Code`",
     "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "not-run",
+    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "source": "courtlistener-api",
     "human": []
    },
    {
