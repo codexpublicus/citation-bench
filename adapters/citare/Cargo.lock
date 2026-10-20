@@ -69,8 +69,8 @@ dependencies = [
 
 [[package]]
 name = "citare-core"
-version = "0.6.0"
-source = "git+https://github.com/codexpublicus/citare?branch=main#f68d227476b2280adad17f37543cbee420a42be2"
+version = "0.7.1"
+source = "git+https://github.com/codexpublicus/citare?branch=main#1a296a9017c22b4681030c8742a2fd7b757bea1a"
 dependencies = [
  "aho-corasick",
  "citare-data-build",
@@ -87,8 +87,8 @@ dependencies = [
 
 [[package]]
 name = "citare-data-build"
-version = "0.6.0"
-source = "git+https://github.com/codexpublicus/citare?branch=main#f68d227476b2280adad17f37543cbee420a42be2"
+version = "0.7.1"
+source = "git+https://github.com/codexpublicus/citare?branch=main#1a296a9017c22b4681030c8742a2fd7b757bea1a"
 dependencies = [
  "regex",
  "regex-syntax",
