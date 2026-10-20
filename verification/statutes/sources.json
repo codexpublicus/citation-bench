@@ -480,6 +480,12 @@
   "sha256": "3ac7ae8f74e40edcda6ab40aa6f97f08dacf0942fd59065b21949a7daa90292a",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/clusters/1072657/?fields=docket": {
+  "bytes": 70,
+  "retrieved": "2026-10-20",
+  "sha256": "297875a810e4d30c09e430d5e91431b4a4ba81ea905fd5c692e0cf0de15d1a70",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/clusters/1194895/?fields=docket": {
   "bytes": 70,
   "retrieved": "2026-10-20",
@@ -496,6 +502,12 @@
   "bytes": 71,
   "retrieved": "2026-10-20",
   "sha256": "b4f577c635a9f56aae92923199387486810541fa603f41f5b25eafbeacad2d7c",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/clusters/1460811/?fields=docket": {
+  "bytes": 71,
+  "retrieved": "2026-10-20",
+  "sha256": "16eca8b94b4f2bca0bf339f5fa8b113bd40d0b3f98767c8b35b94a3fb90088d4",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/clusters/1463254/?fields=docket": {
@@ -520,6 +532,12 @@
   "bytes": 71,
   "retrieved": "2026-10-20",
   "sha256": "bccce020dce38f2dfd9c326d3054e35494ec8a61a84b1b00255ea828c8aefd50",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/clusters/2135107/?fields=docket": {
+  "bytes": 71,
+  "retrieved": "2026-10-20",
+  "sha256": "dabe697fd9fe4fda57370c1e3148e72d0d8a16fa4d8043dc324ff702106a1a13",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/clusters/2149269/?fields=docket": {
@@ -556,6 +574,18 @@
   "bytes": 71,
   "retrieved": "2026-10-20",
   "sha256": "19b7d8adf965df62a33458096932a4d814e3fd7d52ee568ab0dba510328f66e8",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/clusters/2502448/?fields=docket": {
+  "bytes": 71,
+  "retrieved": "2026-10-20",
+  "sha256": "f6865314718e454c23d66e90877dfecb57bdee94c3bb9e9f091798974cbd903f",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/clusters/2570257/?fields=docket": {
+  "bytes": 71,
+  "retrieved": "2026-10-20",
+  "sha256": "12abe8d715e9e70e620778b006b4bc4d7ae4638ff45330ce41aafebd576c4b50",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/clusters/2626767/?fields=docket": {
@@ -624,6 +654,12 @@
   "sha256": "2bed5713f6c58a9696e2912d7d8301841ff9d97b3abe36d2cabba84bc4e20e90",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/clusters/6596983/?fields=docket": {
+  "bytes": 72,
+  "retrieved": "2026-10-20",
+  "sha256": "f1a66342978cba684870549a90633ef6712abea442e59d07f316c92194b2e6d0",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/clusters/78542/?fields=docket": {
   "bytes": 70,
   "retrieved": "2026-10-20",
@@ -672,6 +708,18 @@
   "sha256": "fa99a90f7d6e05fd4bd3e1c1d6efda435c7ecbd3fb0f17fb3cdf0eb7747bf1ff",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/courts/mass/?fields=id,full_name,jurisdiction": {
+  "bytes": 83,
+  "retrieved": "2026-10-20",
+  "sha256": "2e007494aac106af27ae292780123ce71e42a2942427d5847752db5ac953bb5b",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/courts/massappct/?fields=id,full_name,jurisdiction": {
+  "bytes": 80,
+  "retrieved": "2026-10-20",
+  "sha256": "afc8542a077d7a8a409b6ac3a9cff840c57d144cacdb123e3e1b9a454cad922b",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/courts/me/?fields=id,full_name,jurisdiction": {
   "bytes": 76,
   "retrieved": "2026-10-20",
@@ -684,10 +732,22 @@
   "sha256": "7f42a4b3e17830290aff4f6b17b293d2fd9da166fb97178a96d1d8417fa114c6",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/courts/mied/?fields=id,full_name,jurisdiction": {
+  "bytes": 77,
+  "retrieved": "2026-10-20",
+  "sha256": "45d82da393e3b8aa65f78150700ef37a65fa4e6eed1fd78100123bfb7c556d50",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/courts/nd/?fields=id,full_name,jurisdiction": {
   "bytes": 71,
   "retrieved": "2026-10-20",
   "sha256": "25bc93b93f36adbe88ea5da58b5fee12387f7f5b3a416124ed2395eb9cb41750",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/courts/nmctapp/?fields=id,full_name,jurisdiction": {
+  "bytes": 78,
+  "retrieved": "2026-10-20",
+  "sha256": "b62f2d8030138bfa8e510c442c82543aeda7314bd1e494f3d978c851db7ca17b",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/courts/nyappdiv/?fields=id,full_name,jurisdiction": {
@@ -706,6 +766,12 @@
   "bytes": 90,
   "retrieved": "2026-10-20",
   "sha256": "1a6eb22b7d4d617d0c3d4f52bc601880a39f0b8e89ee46ac03a6c2d5f6430904",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/courts/okla/?fields=id,full_name,jurisdiction": {
+  "bytes": 72,
+  "retrieved": "2026-10-20",
+  "sha256": "7aa8f3f96415e99da44a9eef3e87646129abdd2bc7d6d4b0c4680e604bb4b285",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/courts/pa/?fields=id,full_name,jurisdiction": {
@@ -732,6 +798,12 @@
   "sha256": "2c30dbafa6b06f5f9581b27f81c006ce070a045f8e990aae8182bd52cb03d9c9",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/dockets/1024599/?fields=court_id": {
+  "bytes": 19,
+  "retrieved": "2026-10-20",
+  "sha256": "940865efa1dd0527f910bcb5aac55859793e29815b05b81fb3d90d4c369c5935",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/dockets/1027904/?fields=court_id": {
   "bytes": 17,
   "retrieved": "2026-10-20",
@@ -744,6 +816,12 @@
   "sha256": "a591899cfe460ecbe6d25bf3535b7a05836970119187be83d89a7a7964fdd5ae",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/dockets/1604835/?fields=court_id": {
+  "bytes": 19,
+  "retrieved": "2026-10-20",
+  "sha256": "b8233b6e3570bc55607e496c786d6b9a5e99bb9003a3c3437d0d2591625a33ee",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/dockets/16110473/?fields=court_id": {
   "bytes": 17,
   "retrieved": "2026-10-20",
@@ -754,6 +832,12 @@
   "bytes": 24,
   "retrieved": "2026-10-20",
   "sha256": "17008e1e8cdf0199769cf11dbb8c53550feea7bdc20595e460b5bd582f91e013",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/dockets/1961778/?fields=court_id": {
+  "bytes": 19,
+  "retrieved": "2026-10-20",
+  "sha256": "7b5192a9d31873da5865dbcb94c843f965ccd1b35cc1d14c875a4b4c28dfc7f1",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/dockets/1963000/?fields=court_id": {
@@ -798,10 +882,22 @@
   "sha256": "dff5ab199b6885e6938667c1e007616afd5a44e8bcfe83bfcb224495873cfd42",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/dockets/232989/?fields=court_id": {
+  "bytes": 24,
+  "retrieved": "2026-10-20",
+  "sha256": "6ce974ba6bc70f63f0f851b1b7ddc590c5dd84dc585104fbaceb29a59891ac71",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/dockets/2368221/?fields=court_id": {
   "bytes": 19,
   "retrieved": "2026-10-20",
   "sha256": "4cf10a25e1d79545c5ce7cc1d7f69390178280efaebfd9b64580044c6c9598c9",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/dockets/2436058/?fields=court_id": {
+  "bytes": 22,
+  "retrieved": "2026-10-20",
+  "sha256": "28fdfbcc45a1467b3924f39cd3ae78cd42ff64abc9045518257f60a2112bb9ed",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/dockets/2533617/?fields=court_id": {
@@ -858,6 +954,18 @@
   "sha256": "f455fbb75e5add9e65d76c9826de6d9b3033543d43a7b8b27c151ae00195a9b9",
   "status": 200
  },
+ "https://www.courtlistener.com/api/rest/v4/dockets/63518200/?fields=court_id": {
+  "bytes": 24,
+  "retrieved": "2026-10-20",
+  "sha256": "ee8ccae1b10d90ba25daf280eae9d0071866eb274ea3f347d0000ebbd2df76f3",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/dockets/63527189/?fields=court_id": {
+  "bytes": 22,
+  "retrieved": "2026-10-20",
+  "sha256": "28fdfbcc45a1467b3924f39cd3ae78cd42ff64abc9045518257f60a2112bb9ed",
+  "status": 200
+ },
  "https://www.courtlistener.com/api/rest/v4/dockets/8217234/?fields=court_id": {
   "bytes": 24,
   "retrieved": "2026-10-20",
@@ -868,6 +976,12 @@
   "bytes": 18,
   "retrieved": "2026-10-20",
   "sha256": "4d4e4427df6d8bec41df486d5dcdf9ae21347bd7e6f05dae7a6b4165f43bae64",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/1072657/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "fc0251c13087fae2268568677241ba6ed34f892f741499d45916755c09e3fcb7",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/opinions/1194895/?fields=cluster": {
@@ -886,6 +1000,12 @@
   "bytes": 73,
   "retrieved": "2026-10-20",
   "sha256": "fd8478244994b624450e3a26fb91b10fc0c7d495bc1bfb1a7bf66725ac8972e4",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/1460811/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "1245976254e33a069e8646f0ac6696dc99e696716524d670914aec73d426a5c4",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/opinions/1463254/?fields=cluster": {
@@ -910,6 +1030,12 @@
   "bytes": 73,
   "retrieved": "2026-10-20",
   "sha256": "44d4bf721ef2eea4ee3a3f6734a5a17dd875d84fed14e4af576410733b6be897",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/2135107/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "ea487c76ee4ccb9590807fd04f22e6b215a86762250dba680ff3b4cf14ba0474",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/opinions/2149269/?fields=cluster": {
@@ -946,6 +1072,18 @@
   "bytes": 73,
   "retrieved": "2026-10-20",
   "sha256": "a7f9b298710c3ee609a2afb72feb4e615cb63c949487cfffb63f1c1f98c7ddb1",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/2502448/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "8d5d9ba8c94df26dc0807cd547f92ec9316403978ceb545748e881f0f24473b4",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/2570257/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "b1d57eba7fccb3d9505715e45f54ccc56e79e5cfce8dc8fa7d43239a4cce7b55",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/opinions/2626767/?fields=cluster": {
@@ -1012,6 +1150,12 @@
   "bytes": 73,
   "retrieved": "2026-10-20",
   "sha256": "08274813119775f5026626bd5aff04d2297c820d6d45d56215cf13bafcca83fc",
+  "status": 200
+ },
+ "https://www.courtlistener.com/api/rest/v4/opinions/6472086/?fields=cluster": {
+  "bytes": 73,
+  "retrieved": "2026-10-20",
+  "sha256": "89e5fdf559d4091d42cc8da7e6a0b375fab2492497aa1d6e84cf7c993dfad1c4",
   "status": 200
  },
  "https://www.courtlistener.com/api/rest/v4/opinions/78542/?fields=cluster": {

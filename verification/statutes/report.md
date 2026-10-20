@@ -4,9 +4,9 @@ Written by `bench/verify_statutes.py` (`mise run verify:statutes`). A verdict do
 
 | Set | Vectors | Verified by source | Contradicted | Unverifiable |
 |---|---:|---:|---:|---:|
-| statutes | 78 | 43 | 2 | 33 |
+| statutes | 78 | 45 | 2 | 31 |
 | statutes-proposed | 36 | 21 | 0 | 15 |
-| **all** | 114 | 64 | 2 | 48 |
+| **all** | 114 | 66 | 2 | 46 |
 
 ## Contradicted
 
@@ -17,7 +17,7 @@ Written by `bench/verify_statutes.py` (`mise run verify:statutes`). A verdict do
 
 Checks against a keyed source that didn't run: its key wasn't in the environment, or its rate limit ran out. A rerun with the keys set (the operator's mise env) runs them and reuses what's cached.
 
-- citing court not checked: CourtListener's rate limit was reached: 19
+- citing court not checked: CourtListener's rate limit was reached: 12
 
 ## What needs a person
 
@@ -27,17 +27,12 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 - `G.L.` means `R.I. Gen. Laws` (Rhode Island): 2 (`ri_gl_1956/0`, `ri_gl_1956/1`)
 - `La.Rev.Stat.` means `La. Stat. Ann.` (Louisiana): 2 (`la_rev_stat/0`, `la_rev_stat/1`)
 - `M.C.L.A.` means `Mich. Comp. Laws` (Michigan): 2 (`mich_mcl/0`, `mich_mcl/1`)
-- `NMSA` means `N.M. Stat. Ann.` (New Mexico): 2 (`nm_nmsa/0`, `nm_nmsa/1`)
 - `O.C.G.A.` means `Ga. Code Ann.` (Georgia): 2 (`ga_o_c_g_a/0`, `ga_o_c_g_a/1`)
 - `West Virginia Code` means `W. Va. Code` (West Virginia): 2 (`wva_code/0`, `wva_code/1`)
-- `G. L.` means `Mass. Gen. Laws` (Massachusetts): 1 (`mass_g_l_c/0`)
-- `G.L.` means `Mass. Gen. Laws` (Massachusetts): 1 (`mass_g_l_c/1`)
 - `M.R.S.A.` means `Me. Rev. Stat. Ann.` (Maine): 1 (`me_mrsa/0`)
 - `MCR` means `Mich. Ct. R.` (Michigan): 1 (`mich_ct_r/0`)
 - `N.J.A.C.` means `N.J. Admin. Code` (New Jersey): 1 (`njac/0`)
 - `NYCRR` means `N.Y. Comp. Codes R. & Regs.` (New York): 1 (`nycrr/0`)
-- `O.S.` means `Okla. Stat.` (Oklahoma): 1 (`okla_os/1`)
-- `T.C.A.` means `Tenn. Code Ann.` (Tennessee): 1 (`tenn_tca/0`)
 
 ### Code abbreviations not in reporters-db or the conventions
 
@@ -101,7 +96,7 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | `statutes/find/nc_gs/1` | hand-checked | verified-by-source:ncleg+reporters-db@v3.2.67 |
 | `statutes/find/nd_ndcc/0` | hand-checked | verified-by-source:cap+cap-case-metadata+nd-legislature+reporters-db@v3.2.67 |
 | `statutes/find/nd_ndcc/1` | hand-checked | verified-by-source:courtlistener-api+nd-legislature+reporters-db@v3.2.67 |
-| `statutes/find/tenn_tca/0` | hand-checked | unverifiable:existence, form |
+| `statutes/find/tenn_tca/0` | hand-checked | unverifiable:existence |
 | `statutes/find/tenn_tca/1` | hand-checked | unverifiable:existence |
 | `statutes/find/pa_cs/0` | hand-checked | verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67 |
 | `statutes/find/pa_cs/1` | hand-checked | verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67 |
@@ -116,7 +111,7 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | `statutes/find/vt_vsa/0` | hand-checked | contradicted:existence: § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117) |
 | `statutes/find/vt_vsa/1` | hand-checked | verified-by-source:cap+cap-case-metadata+reporters-db@v3.2.67+vermont-legislature |
 | `statutes/find/okla_os/0` | hand-checked | unverifiable:existence, span |
-| `statutes/find/okla_os/1` | hand-checked | unverifiable:existence, form, span |
+| `statutes/find/okla_os/1` | hand-checked | unverifiable:existence, span |
 | `statutes/find/ny_penal_law/0` | hand-checked | verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67 |
 | `statutes/find/ny_penal_law/1` | hand-checked | verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67 |
 | `statutes/find/ny_judiciary_law/0` | hand-checked | verified-by-source:cap+cap-case-metadata+ny-openleg+reporters-db@v3.2.67 |
@@ -135,11 +130,11 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | `statutes/find/tex_no_space/1` | hand-checked | verified-by-source:reporters-db@v3.2.67+texas-legislative-council |
 | `statutes/find/tex_penal_code_ann/0` | hand-checked | verified-by-source:reporters-db@v3.2.67+texas-legislative-council |
 | `statutes/find/tex_penal_code_ann/1` | hand-checked | verified-by-source:reporters-db@v3.2.67+texas-legislative-council |
-| `statutes/find/mass_g_l_c/0` | hand-checked | unverifiable:form |
-| `statutes/find/mass_g_l_c/1` | hand-checked | unverifiable:form |
+| `statutes/find/mass_g_l_c/0` | hand-checked | verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67 |
+| `statutes/find/mass_g_l_c/1` | hand-checked | verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67 |
 | `statutes/find/mass_gen_laws_ch/0` | hand-checked | verified-by-source:ma-legislature+reporters-db@v3.2.67 |
 | `statutes/find/nm_nmsa/0` | hand-checked | contradicted:existence: no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do |
-| `statutes/find/nm_nmsa/1` | hand-checked | unverifiable:form, span |
+| `statutes/find/nm_nmsa/1` | hand-checked | unverifiable:span |
 | `statutes/find/mich_mcl/0` | hand-checked | unverifiable:form |
 | `statutes/find/mich_mcl/1` | hand-checked | unverifiable:form |
 | `statutes/find/ala_code_1975/0` | hand-checked | unverifiable:span |
@@ -278,19 +273,24 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.cga.ct.gov/current/pub/title_17a.htm | 2026-10-18 | 8587 | `ac748e06c3c7fa8b` |
 | https://www.cga.ct.gov/current/pub/title_52.htm | 2026-10-18 | 15085 | `872b09649dd03518` |
 | https://www.cga.ct.gov/current/pub/title_53a.htm | 2026-10-18 | 6164 | `3ac7ae8f74e40edc` |
+| https://www.courtlistener.com/api/rest/v4/clusters/1072657/?fields=docket | 2026-10-20 | 70 | `297875a810e4d30c` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1194895/?fields=docket | 2026-10-20 | 70 | `69cd195c76a0a0e5` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1255323/?fields=docket | 2026-10-20 | 71 | `469fb248bbb535f5` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1401377/?fields=docket | 2026-10-20 | 71 | `b4f577c635a9f56a` |
+| https://www.courtlistener.com/api/rest/v4/clusters/1460811/?fields=docket | 2026-10-20 | 71 | `16eca8b94b4f2bca` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1463254/?fields=docket | 2026-10-20 | 71 | `b23e6fb0e84e8924` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1469130/?fields=docket | 2026-10-20 | 71 | `b934b23c0439c60d` |
 | https://www.courtlistener.com/api/rest/v4/clusters/1503218/?fields=docket | 2026-10-20 | 70 | `a64dd115cae0e133` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2113659/?fields=docket | 2026-10-20 | 71 | `bccce020dce38f2d` |
+| https://www.courtlistener.com/api/rest/v4/clusters/2135107/?fields=docket | 2026-10-20 | 71 | `dabe697fd9fe4fda` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2149269/?fields=docket | 2026-10-20 | 71 | `785c1efbd3adff79` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2275138/?fields=docket | 2026-10-20 | 71 | `d6c3645f03a1f4a6` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2278575/?fields=docket | 2026-10-20 | 71 | `dfaa236777758705` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2321051/?fields=docket | 2026-10-20 | 71 | `c19e2a2dd394634a` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2398329/?fields=docket | 2026-10-20 | 71 | `b3be8976b57affe7` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2500776/?fields=docket | 2026-10-20 | 71 | `19b7d8adf965df62` |
+| https://www.courtlistener.com/api/rest/v4/clusters/2502448/?fields=docket | 2026-10-20 | 71 | `f6865314718e454c` |
+| https://www.courtlistener.com/api/rest/v4/clusters/2570257/?fields=docket | 2026-10-20 | 71 | `12abe8d715e9e70e` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2626767/?fields=docket | 2026-10-20 | 71 | `37f6e30c904e0031` |
 | https://www.courtlistener.com/api/rest/v4/clusters/2644498/?fields=docket | 2026-10-20 | 69 | `8b8d6d0ae05a5895` |
 | https://www.courtlistener.com/api/rest/v4/clusters/4566113/?fields=docket | 2026-10-20 | 71 | `0b9b3bcb2cd223b2` |
@@ -302,6 +302,7 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.courtlistener.com/api/rest/v4/clusters/6356479/?fields=docket | 2026-10-20 | 72 | `0562c45f51637fa5` |
 | https://www.courtlistener.com/api/rest/v4/clusters/6356874/?fields=docket | 2026-10-20 | 72 | `a70cc47b0f7b881b` |
 | https://www.courtlistener.com/api/rest/v4/clusters/6588192/?fields=docket | 2026-10-20 | 72 | `2bed5713f6c58a96` |
+| https://www.courtlistener.com/api/rest/v4/clusters/6596983/?fields=docket | 2026-10-20 | 72 | `f1a66342978cba68` |
 | https://www.courtlistener.com/api/rest/v4/clusters/78542/?fields=docket | 2026-10-20 | 70 | `2b10d4f0a10a64d0` |
 | https://www.courtlistener.com/api/rest/v4/courts/arizctapp/?fields=id,full_name,jurisdiction | 2026-10-20 | 80 | `b6f7bd9d27dbdd49` |
 | https://www.courtlistener.com/api/rest/v4/courts/ca11/?fields=id,full_name,jurisdiction | 2026-10-20 | 88 | `eae80b60136d383b` |
@@ -310,20 +311,28 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.courtlistener.com/api/rest/v4/courts/gactapp/?fields=id,full_name,jurisdiction | 2026-10-20 | 78 | `3e59cee42c22f851` |
 | https://www.courtlistener.com/api/rest/v4/courts/gand/?fields=id,full_name,jurisdiction | 2026-10-20 | 76 | `71319e14167d14e1` |
 | https://www.courtlistener.com/api/rest/v4/courts/haw/?fields=id,full_name,jurisdiction | 2026-10-20 | 66 | `fa99a90f7d6e05fd` |
+| https://www.courtlistener.com/api/rest/v4/courts/mass/?fields=id,full_name,jurisdiction | 2026-10-20 | 83 | `2e007494aac106af` |
+| https://www.courtlistener.com/api/rest/v4/courts/massappct/?fields=id,full_name,jurisdiction | 2026-10-20 | 80 | `afc8542a077d7a8a` |
 | https://www.courtlistener.com/api/rest/v4/courts/me/?fields=id,full_name,jurisdiction | 2026-10-20 | 76 | `156a59cbf6d71444` |
 | https://www.courtlistener.com/api/rest/v4/courts/med/?fields=id,full_name,jurisdiction | 2026-10-20 | 71 | `7f42a4b3e1783029` |
+| https://www.courtlistener.com/api/rest/v4/courts/mied/?fields=id,full_name,jurisdiction | 2026-10-20 | 77 | `45d82da393e3b8aa` |
 | https://www.courtlistener.com/api/rest/v4/courts/nd/?fields=id,full_name,jurisdiction | 2026-10-20 | 71 | `25bc93b93f36adbe` |
+| https://www.courtlistener.com/api/rest/v4/courts/nmctapp/?fields=id,full_name,jurisdiction | 2026-10-20 | 78 | `b62f2d8030138bfa` |
 | https://www.courtlistener.com/api/rest/v4/courts/nyappdiv/?fields=id,full_name,jurisdiction | 2026-10-20 | 116 | `d259d9068ce26339` |
 | https://www.courtlistener.com/api/rest/v4/courts/nycfamct/?fields=id,full_name,jurisdiction | 2026-10-20 | 78 | `48d3351593e1334e` |
 | https://www.courtlistener.com/api/rest/v4/courts/nycrimct/?fields=id,full_name,jurisdiction | 2026-10-20 | 90 | `1a6eb22b7d4d617d` |
+| https://www.courtlistener.com/api/rest/v4/courts/okla/?fields=id,full_name,jurisdiction | 2026-10-20 | 72 | `7aa8f3f96415e99d` |
 | https://www.courtlistener.com/api/rest/v4/courts/pa/?fields=id,full_name,jurisdiction | 2026-10-20 | 74 | `6dc9e2b81959b520` |
 | https://www.courtlistener.com/api/rest/v4/courts/pacommwct/?fields=id,full_name,jurisdiction | 2026-10-20 | 87 | `f857dbe4bbc894aa` |
 | https://www.courtlistener.com/api/rest/v4/courts/pasuperct/?fields=id,full_name,jurisdiction | 2026-10-20 | 83 | `c83ac545e1b8882e` |
 | https://www.courtlistener.com/api/rest/v4/courts/tennctapp/?fields=id,full_name,jurisdiction | 2026-10-20 | 82 | `2c30dbafa6b06f5f` |
+| https://www.courtlistener.com/api/rest/v4/dockets/1024599/?fields=court_id | 2026-10-20 | 19 | `940865efa1dd0527` |
 | https://www.courtlistener.com/api/rest/v4/dockets/1027904/?fields=court_id | 2026-10-20 | 17 | `0a850ee7113a06cc` |
 | https://www.courtlistener.com/api/rest/v4/dockets/1557513/?fields=court_id | 2026-10-20 | 17 | `a591899cfe460ecb` |
+| https://www.courtlistener.com/api/rest/v4/dockets/1604835/?fields=court_id | 2026-10-20 | 19 | `b8233b6e3570bc55` |
 | https://www.courtlistener.com/api/rest/v4/dockets/16110473/?fields=court_id | 2026-10-20 | 17 | `68340829a4e0761e` |
 | https://www.courtlistener.com/api/rest/v4/dockets/1620886/?fields=court_id | 2026-10-20 | 24 | `17008e1e8cdf0199` |
+| https://www.courtlistener.com/api/rest/v4/dockets/1961778/?fields=court_id | 2026-10-20 | 19 | `7b5192a9d31873da` |
 | https://www.courtlistener.com/api/rest/v4/dockets/1963000/?fields=court_id | 2026-10-20 | 23 | `af5baa898846ad77` |
 | https://www.courtlistener.com/api/rest/v4/dockets/2017813/?fields=court_id | 2026-10-20 | 23 | `af5baa898846ad77` |
 | https://www.courtlistener.com/api/rest/v4/dockets/213462/?fields=court_id | 2026-10-20 | 19 | `77566a103cc259b2` |
@@ -331,7 +340,9 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.courtlistener.com/api/rest/v4/dockets/2165307/?fields=court_id | 2026-10-20 | 23 | `af5baa898846ad77` |
 | https://www.courtlistener.com/api/rest/v4/dockets/2191147/?fields=court_id | 2026-10-20 | 24 | `17008e1e8cdf0199` |
 | https://www.courtlistener.com/api/rest/v4/dockets/2243691/?fields=court_id | 2026-10-20 | 22 | `dff5ab199b6885e6` |
+| https://www.courtlistener.com/api/rest/v4/dockets/232989/?fields=court_id | 2026-10-20 | 24 | `6ce974ba6bc70f63` |
 | https://www.courtlistener.com/api/rest/v4/dockets/2368221/?fields=court_id | 2026-10-20 | 19 | `4cf10a25e1d79545` |
+| https://www.courtlistener.com/api/rest/v4/dockets/2436058/?fields=court_id | 2026-10-20 | 22 | `28fdfbcc45a1467b` |
 | https://www.courtlistener.com/api/rest/v4/dockets/2533617/?fields=court_id | 2026-10-20 | 24 | `b7c2a3432ff2f58c` |
 | https://www.courtlistener.com/api/rest/v4/dockets/43247/?fields=court_id | 2026-10-20 | 18 | `7649947645f15f8b` |
 | https://www.courtlistener.com/api/rest/v4/dockets/524321/?fields=court_id | 2026-10-20 | 24 | `b7c2a3432ff2f58c` |
@@ -341,21 +352,28 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.courtlistener.com/api/rest/v4/dockets/63006078/?fields=court_id | 2026-10-20 | 23 | `a59f2308805ca993` |
 | https://www.courtlistener.com/api/rest/v4/dockets/63006735/?fields=court_id | 2026-10-20 | 23 | `a59f2308805ca993` |
 | https://www.courtlistener.com/api/rest/v4/dockets/63007130/?fields=court_id | 2026-10-20 | 23 | `f455fbb75e5add9e` |
+| https://www.courtlistener.com/api/rest/v4/dockets/63518200/?fields=court_id | 2026-10-20 | 24 | `ee8ccae1b10d90ba` |
+| https://www.courtlistener.com/api/rest/v4/dockets/63527189/?fields=court_id | 2026-10-20 | 22 | `28fdfbcc45a1467b` |
 | https://www.courtlistener.com/api/rest/v4/dockets/8217234/?fields=court_id | 2026-10-20 | 24 | `6094d139c64f7195` |
 | https://www.courtlistener.com/api/rest/v4/dockets/993380/?fields=court_id | 2026-10-20 | 18 | `4d4e4427df6d8bec` |
+| https://www.courtlistener.com/api/rest/v4/opinions/1072657/?fields=cluster | 2026-10-20 | 73 | `fc0251c13087fae2` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1194895/?fields=cluster | 2026-10-20 | 73 | `e0facb8eb8f85240` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1255323/?fields=cluster | 2026-10-20 | 73 | `6d7ce20d4cb46ce3` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1401377/?fields=cluster | 2026-10-20 | 73 | `fd8478244994b624` |
+| https://www.courtlistener.com/api/rest/v4/opinions/1460811/?fields=cluster | 2026-10-20 | 73 | `1245976254e33a06` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1463254/?fields=cluster | 2026-10-20 | 73 | `4fdd44e1bdaf8d30` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1469130/?fields=cluster | 2026-10-20 | 73 | `0780cf37af9816d3` |
 | https://www.courtlistener.com/api/rest/v4/opinions/1503218/?fields=cluster | 2026-10-20 | 73 | `ab48c58b3be3db1b` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2113659/?fields=cluster | 2026-10-20 | 73 | `44d4bf721ef2eea4` |
+| https://www.courtlistener.com/api/rest/v4/opinions/2135107/?fields=cluster | 2026-10-20 | 73 | `ea487c76ee4ccb95` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2149269/?fields=cluster | 2026-10-20 | 73 | `98c81426dc3163f2` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2275138/?fields=cluster | 2026-10-20 | 73 | `9cf3b13011f634c1` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2278575/?fields=cluster | 2026-10-20 | 73 | `a671a438c477e3fc` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2321051/?fields=cluster | 2026-10-20 | 73 | `bd79437629a46233` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2398329/?fields=cluster | 2026-10-20 | 73 | `22119140ab2e19cf` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2500776/?fields=cluster | 2026-10-20 | 73 | `a7f9b298710c3ee6` |
+| https://www.courtlistener.com/api/rest/v4/opinions/2502448/?fields=cluster | 2026-10-20 | 73 | `8d5d9ba8c94df26d` |
+| https://www.courtlistener.com/api/rest/v4/opinions/2570257/?fields=cluster | 2026-10-20 | 73 | `b1d57eba7fccb3d9` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2626767/?fields=cluster | 2026-10-20 | 73 | `25c17ffd58de4bd5` |
 | https://www.courtlistener.com/api/rest/v4/opinions/2644498/?fields=cluster | 2026-10-20 | 73 | `c963af1d66fbfdec` |
 | https://www.courtlistener.com/api/rest/v4/opinions/4343366/?fields=cluster | 2026-10-20 | 73 | `0897d287bdb3238e` |
@@ -367,6 +385,7 @@ Checks against a keyed source that didn't run: its key wasn't in the environment
 | https://www.courtlistener.com/api/rest/v4/opinions/6225195/?fields=cluster | 2026-10-20 | 73 | `dd3599a134065059` |
 | https://www.courtlistener.com/api/rest/v4/opinions/6225590/?fields=cluster | 2026-10-20 | 73 | `724b11d0ff15badb` |
 | https://www.courtlistener.com/api/rest/v4/opinions/6462542/?fields=cluster | 2026-10-20 | 73 | `08274813119775f5` |
+| https://www.courtlistener.com/api/rest/v4/opinions/6472086/?fields=cluster | 2026-10-20 | 73 | `89e5fdf559d4091d` |
 | https://www.courtlistener.com/api/rest/v4/opinions/78542/?fields=cluster | 2026-10-20 | 71 | `bf4dfa4d4963d2e0` |
 | https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-25.json | 2026-10-18 | 1688966 | `75578ae09f3bca7e` |
 | https://www.ecfr.gov/api/versioner/v1/structure/2026-10-01/title-26.json | 2026-10-18 | 2022515 | `3b460699588bae45` |

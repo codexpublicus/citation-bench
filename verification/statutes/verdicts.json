@@ -1014,7 +1014,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Tenn. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "unverifiable:existence",
   "checks": [
    {
     "claim": "span",
@@ -1032,20 +1032,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by Court of Appeals of Tennessee (`tennctapp`), a court in Tennessee (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`T.C.A.` read as `Tenn. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`T.C.A.` means `Tenn. Code Ann.` (Tennessee)"
-    ]
    },
    {
     "claim": "existence",
@@ -1747,7 +1737,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Okla. Stat.",
-  "verdict": "unverifiable:existence, form, span",
+  "verdict": "unverifiable:existence, span",
   "checks": [
    {
     "claim": "span",
@@ -1775,20 +1765,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by Supreme Court of Oklahoma (`okla`), a court in Oklahoma (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`O.S.` read as `Okla. Stat.`",
-    "source": "",
-    "human": [
-     "form",
-     "`O.S.` means `Okla. Stat.` (Oklahoma)"
-    ]
    },
    {
     "claim": "existence",
@@ -2561,7 +2541,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Mass. Gen. Laws",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2586,20 +2566,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by Massachusetts Appeals Court (`massappct`), a court in Massachusetts (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`G. L.` read as `Mass. Gen. Laws`",
-    "source": "",
-    "human": [
-     "form",
-     "`G. L.` means `Mass. Gen. Laws` (Massachusetts)"
-    ]
    },
    {
     "claim": "existence",
@@ -2616,7 +2586,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Mass. Gen. Laws",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2634,20 +2604,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by Massachusetts Supreme Judicial Court (`mass`), a court in Massachusetts (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`G.L.` read as `Mass. Gen. Laws`",
-    "source": "",
-    "human": [
-     "form",
-     "`G.L.` means `Mass. Gen. Laws` (Massachusetts)"
-    ]
    },
    {
     "claim": "existence",
@@ -2744,20 +2704,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by New Mexico Court of Appeals (`nmctapp`), a court in New Mexico (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`NMSA` read as `N.M. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`NMSA` means `N.M. Stat. Ann.` (New Mexico)"
-    ]
    },
    {
     "claim": "existence",
@@ -2774,7 +2724,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.M. Stat. Ann.",
-  "verdict": "unverifiable:form, span",
+  "verdict": "unverifiable:span",
   "checks": [
    {
     "claim": "span",
@@ -2809,20 +2759,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
+    "result": "pass",
+    "detail": "cited by New Mexico Court of Appeals (`nmctapp`), a court in New Mexico (CourtListener API)",
     "source": "courtlistener-api",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`NMSA` read as `N.M. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`NMSA` means `N.M. Stat. Ann.` (New Mexico)"
-    ]
    },
    {
     "claim": "existence",
@@ -2864,15 +2804,8 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
-    "human": []
-   },
-   {
-    "claim": "form",
     "result": "none",
-    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`",
+    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`; cited by District Court, E.D. Michigan (`mied`), a court in United States",
     "source": "",
     "human": [
      "form",
