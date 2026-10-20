@@ -29,7 +29,16 @@ or commercial tool can be benchmarked without sharing any code.
    A third set, `vectors/statutes/`, holds statute and court-rule citations by
    jurisdiction and form, taken from real opinions with hand-checked answers
    ([README](vectors/statutes/README.md)). It is scored on its own too (`bench:statutes`),
-   with the same two baselines.
+   with the same two baselines. `bench/statutes.py` breaks it down by kind of law (federal
+   statute, state statute, regulation, guideline, court rule, constitution), with precision, recall
+   and F1 per engine (`mise run report:statutes`). `vectors/statutes-proposed/` holds
+   unreviewed vectors for the forms the set lacks, scored apart and never as a reference
+   ([README](vectors/statutes-proposed/README.md)).
+
+   Every set records where its expected answers came from (`provenance` in
+   `SOURCE.json`; [protocol](docs/protocol.md#vector-provenance)). Only human-checked
+   vectors are a reference. eyecite's output isn't ground truth, and agreement between
+   engines is reported as agreement, apart from the scores.
 
 2. **Corpus comparison**: run engines over real opinions and report where they agree, how
    fast they run, and which citations and fields differ. No hand-made answers needed. The
@@ -48,6 +57,7 @@ or commercial tool can be benchmarked without sharing any code.
 | `vectors/curated/` | Hand-curated vectors from real opinions, each checked against the opinion and the cited cases' records; no engine's output is the reference ([README](vectors/curated/README.md)) |
 | `vectors/divergences/` | Inputs where citare deliberately differs from eyecite ([README](vectors/divergences/README.md)) |
 | `vectors/statutes/` | Statute and court-rule citations by jurisdiction and form, from real opinions ([README](vectors/statutes/README.md)) |
+| `vectors/statutes-proposed/` | Unreviewed statute, rule, constitution and regulation vectors for the forms `vectors/statutes` lacks ([README](vectors/statutes-proposed/README.md)) |
 | `baselines/` | Known failures per engine: `citare.known-failures`, and `eyecite.known-differences` for the divergence and statute sets |
 | `tools/export_eyecite.py` | Regenerates `vectors/eyecite-*` from an eyecite release's tests (`tools/_capture_<kind>.py`) |
 | `corpora/` | Corpus manifests: URL, sha256, row count and provenance of each pinned file |
@@ -57,7 +67,8 @@ or commercial tool can be benchmarked without sharing any code.
 | `bench/run.py` | Sends vectors to an adapter, scores the replies, prints a report; `--save` keeps the run |
 | `bench/diff.py` | Compares two saved runs: citations gained, lost and changed per input |
 | `bench/baseline.py` | Stores eyecite's runs in `baselines/eyecite/` by key, and restores them |
-| `bench/report.py` | An engine's report: vector scores, corpus speed, diffs against eyecite and an earlier version |
+| `bench/report.py` | An engine's report: vector scores, statute metrics, corpus speed, diffs against eyecite and an earlier version |
+| `bench/statutes.py` | Statute and court-rule metrics from saved runs: precision, recall and F1 per kind of law, field accuracy, agreement between engines |
 | `baselines/` | citare's known failures, and the stored eyecite runs |
 | `tests/` | Unit tests for the scorer, the diff and the corpus conversion (`mise run check`) |
 
@@ -72,6 +83,7 @@ mise run bench:divergences eyecite  # the divergence set; fails only outside its
 mise run bench:divergences citare
 mise run bench:statutes eyecite     # the statute set, the same way
 mise run bench:statutes citare
+mise run report:statutes            # per-kind statute metrics for both engines, in reports/statutes/
 mise run check                # lint and unit tests
 mise run bench:curated eyecite      # the hand-curated set, the same way as the divergence set
 mise run bench:curated citare
@@ -169,8 +181,8 @@ eyecite newer than the adapter's pin.
 scores per request kind, the known-failures ratchet, corpus speed, and the corpus diffs
 against eyecite (from its stored run, or a live one on a key miss) and against an
 earlier citare (`--previous DIR` with that run's `vectors.json` and
-`corpus-<size>pct.json`). citare's CI posts it on every PR and attaches it to every
-release.
+`corpus-<size>pct.json`), and the statute metrics from `report:statutes`. citare's CI
+posts it on every PR and attaches it to every release.
 
 Any other engine:
 

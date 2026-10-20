@@ -1,0 +1,13 @@
+{
+  "name": "statutes-proposed",
+  "description": "Proposed statute, court-rule, constitution and regulation vectors for forms vectors/statutes covers thinly or not at all. Expected citations were written by hand from the opinion text and have not been reviewed; they are scored by bench/statutes.py apart from the reference set and are not gated. See README.md.",
+  "corpora": [
+    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py)"
+  ],
+  "selected": "2026-10-17",
+  "provenance": {
+    "status": "proposed",
+    "note": "Drafted by hand from each excerpt, not from an engine's output; needs human review before it moves into vectors/statutes."
+  },
+  "protocol": 2
+}

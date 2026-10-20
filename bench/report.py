@@ -5,10 +5,13 @@ Usage:
   uv run bench/report.py --vectors V.json --vectors-base V0.json \\
       --corpus C.json --corpus-base C0.json --out DIR \\
       [--previous-vectors PV.json --previous-corpus PC.json | --previous-note TEXT] \\
-      [--known-failures FILE] [--link URL]
+      [--known-failures FILE] [--link URL] \\
+      [--statute-vectors DIR ... --statute-runs RUN ...]
 
 Every input is a run saved by bench/run.py --save (or restored by bench/baseline.py).
-The base runs are eyecite's; the previous runs are the engine's last release. DIR gets:
+The base runs are eyecite's; the previous runs are the engine's last release. With
+--statute-runs (each engine's runs over the --statute-vectors sets), the report also has
+bench/statutes.py's precision, recall and F1 per kind of law. DIR gets:
 
 - bench-report.md: scores per request kind, corpus timing, the ratchet against
   --known-failures, and each diff in full (bench/diff.py's report, capped as usual)
@@ -30,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import diff
+import statutes
 from run import KINDS
 
 COMMENT_LIMIT = 60000  # GitHub refuses comments over 65,536 characters
@@ -108,6 +112,14 @@ class Report:
         self.link = args.link
         self.ratchet = (
             ratchet(self.vectors, args.known_failures) if args.known_failures else None
+        )
+        self.statutes = (
+            statutes.analyse(
+                statutes.load_sets(args.statute_vectors or statutes.DEFAULT_SETS),
+                statutes.load_runs(args.statute_runs),
+            )
+            if args.statute_runs
+            else None
         )
         self.diffs = {}  # name -> (base run, candidate run, rows, totals)
         self.diffs["eyecite"] = self.compare(self.corpus_base, self.corpus)
@@ -251,6 +263,12 @@ class Report:
         ]
         if not self.prev_corpus and self.previous_note:
             lines += ["", self.previous_note]
+        if self.statutes:
+            misses = 0 if caps is not None else 10
+            lines += [
+                "",
+                statutes.markdown(self.statutes, "###", misses=misses).strip(),
+            ]
         lines += [
             "",
             (
@@ -299,6 +317,8 @@ class Report:
         }
         if self.ratchet is not None:
             out["ratchet"] = {"regressions": self.ratchet[0], "fixed": self.ratchet[1]}
+        if self.statutes:
+            out["statutes"] = statutes.summary(self.statutes)
         if "previous" in self.diffs:
             prev = self.diffs["previous"][3]
             out["previous"] = {
@@ -332,6 +352,17 @@ class Report:
                 f"(eyecite {num(e['ms_per_kb'])}), cold start {num(s['cold_start_s'])} s"
             ),
         ]
+        if self.statutes and "reference" in self.statutes["groups"]:
+            ref = self.statutes["groups"]["reference"]
+            f1s = []
+            for engine, r in ref["engines"].items():
+                t = statutes.total(r["kinds"])
+                f1 = statutes.prf(t["fields_right"], t["reported"], t["expected"])[2]
+                f1s.append(f"{engine} {num(f1, '{:.1%}')}")
+            lines.append(
+                f"- Statutes and court rules ({ref['vectors']} reference vectors, "
+                "fields right): F1 " + ", ".join(f1s)
+            )
         if "previous" in s:
             p = s["previous"]
             lines.append(
@@ -354,6 +385,18 @@ def main(argv=None):
     )
     ap.add_argument("--known-failures", type=Path)
     ap.add_argument("--link", help="where the full report and runs are")
+    ap.add_argument(
+        "--statute-vectors",
+        type=Path,
+        action="append",
+        help="a statute vector set (default: vectors/statutes, vectors/statutes-proposed)",
+    )
+    ap.add_argument(
+        "--statute-runs",
+        type=Path,
+        nargs="+",
+        help="each engine's runs over the statute vector sets",
+    )
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args(argv)
 

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#MISE description="Statute and court-rule metrics: precision, recall and F1 per kind of law, per engine"
+#MISE alias="report:statutes"
+#USAGE arg "[engines]" var=#true help="eyecite, citare or both (default)" {
+#USAGE   choices "eyecite" "citare"
+#USAGE }
+#USAGE flag "--out <dir>" default="reports/statutes" help="report directory"
+# Runs each engine over vectors/statutes (the reference set) and vectors/statutes-proposed
+# (unreviewed), saves the runs, and scores them with bench/statutes.py. Nothing here
+# gates: bench:statutes does that for the reference set.
+# CITARE_PATH=../citare benches a local checkout instead of the locked git commit.
+set -euo pipefail
+out="${usage_out:-reports/statutes}"
+read -r -a engines <<<"${usage_engines:-eyecite citare}"
+sets=(statutes statutes-proposed)
+runs="results/statutes"
+mkdir -p "$runs" "$out"
+saved=()
+for engine in "${engines[@]}"; do
+  case "$engine" in
+    eyecite)
+      adapter="uv run -q --script adapters/eyecite/adapter.py"
+      label="eyecite-$(uv run -q bench/baseline.py version)"
+      ;;
+    citare)
+      mise run build-citare
+      adapter=target/release/citare-bench-adapter
+      label="${CITARE_LABEL:-citare-$(target/release/citare-bench-adapter <<<'{"protocol":2,"kind":"find","id":"citation-bench/probe","input":{"text":"","format":"plain","clean_steps":[]},"options":{}}' |
+        uv run -q python -c 'import json, sys; print(json.load(sys.stdin)["engine"]["commit"][:7])')}"
+      ;;
+    *) echo "report:statutes: unknown engine $engine" >&2; exit 2 ;;
+  esac
+  for set in "${sets[@]}"; do
+    # bench/run.py exits 1 when a vector fails; the report shows which.
+    uv run -q bench/run.py --adapter "$adapter" --vectors "vectors/$set" --label "$label" \
+      --save "$runs/$engine-$set.json" >/dev/null || [[ $? -eq 1 ]]
+    saved+=("$runs/$engine-$set.json")
+  done
+done
+uv run -q bench/statutes.py "${sets[@]/#/--vectors=vectors/}" "${saved[@]}" \
+  --misses 20 --md "$out/report.md" --json "$out/summary.json"
+echo "wrote $out/report.md and $out/summary.json"

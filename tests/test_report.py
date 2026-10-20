@@ -123,3 +123,61 @@ def test_comment_drops_diff_tables_when_too_long(tmp_path, monkeypatch):
     assert len(comment) <= 1500 and "<details>" not in comment
     assert "no earlier release" in comment
     assert "<details>" in (out / "bench-report.md").read_text()
+
+
+def test_report_includes_statute_metrics(tmp_path):
+    law = {
+        "type": "full_law",
+        "span": [4, 29],
+        "groups": {"reporter": "General Statutes", "section": "52-577"},
+        "reporter_normalized": "Conn. Gen. Stat.",
+        "metadata": {"jurisdiction": "Connecticut"},
+    }
+    sets = tmp_path / "statutes"
+    sets.mkdir()
+    (sets / "SOURCE.json").write_text(
+        json.dumps({"name": "statutes", "provenance": {"status": "hand-checked"}})
+    )
+    (sets / "find.jsonl").write_text(
+        json.dumps(
+            {
+                "id": "s/1",
+                "kind": "find",
+                "source": {"corpus": "x"},
+                "input": {"text": "See General Statutes § 52-577.", "format": "plain"},
+                "expected": {"citations": [law]},
+            }
+        )
+        + "\n"
+    )
+    citare = run(tmp_path / "sc.json", "citare-x", [item("s/1", {"citations": [law]})])
+    eyecite = run(tmp_path / "se.json", "eyecite-9", [item("s/1", {"citations": []})])
+    paths = [
+        run(tmp_path / "v.json", "c", []),
+        run(tmp_path / "v0.json", "e", []),
+        run(tmp_path / "c.json", "c", []),
+        run(tmp_path / "c0.json", "e", []),
+    ]
+    out = tmp_path / "out"
+    report.main(
+        [
+            *("--vectors", str(paths[0]), "--vectors-base", str(paths[1])),
+            *("--corpus", str(paths[2]), "--corpus-base", str(paths[3])),
+            *("--statute-vectors", str(sets)),
+            *("--statute-runs", str(citare), str(eyecite)),
+            *("--out", str(out)),
+        ]
+    )
+    md = (out / "bench-report.md").read_text()
+    assert "### Statute and court-rule citations" in md
+    assert "| **all** | `citare-x` | 1 | 1 | 100.0% | 100.0% | 100.0% | 1 |" in md
+    assert "This is agreement, not accuracy" in md
+    assert "### Statute and court-rule citations" in (out / "comment.md").read_text()
+    summary = json.loads((out / "summary.json").read_text())
+    ref = summary["statutes"]["groups"]["reference"]["engines"]
+    assert ref["eyecite-9"]["all"]["found"] == 0
+    headline = (out / "headline.md").read_text()
+    assert (
+        "Statutes and court rules (1 reference vectors, fields right): F1" in headline
+    )
+    assert "citare-x 100.0%" in headline

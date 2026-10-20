@@ -136,11 +136,63 @@ Each citation is described by [`schema/citation.schema.json`](../schema/citation
 | `reporter_normalized` | The canonical reporter abbreviation, e.g. `U. S.` becomes `U.S.` (resource citations only). |
 | `year` | Integer year, or null. |
 | `cap_slug` | Case citations, optional: the [Caselaw Access Project](https://case.law)'s slug for the reporter series the cited volume is in, so that `static.case.law/<cap_slug>/<volume>` is that volume; null when CAP has no such series. `2019-Ohio-1234` is null (CAP's `ohio` is the Ohio Reports, volumes 1 to 20), `100 Ct. Cl. 123` from the federal Court of Claims is `us-ct-cl`. An engine without CAP data leaves it out. Scored only where an expected citation has it. |
-| `metadata` | String values only. The bench scores `pin_cite`, `court`, `plaintiff`, `defendant`, `antecedent_guess`, `parenthetical`, `extra`, `year`, `month`, `day`, `publisher` and `volume`. Other keys are allowed and not scored. |
+| `metadata` | String values only. The bench scores `pin_cite`, `court`, `plaintiff`, `defendant`, `antecedent_guess`, `parenthetical`, `extra`, `year`, `month`, `day`, `publisher` and `volume`. Other keys are allowed and not scored. For a `full_law` citation, `jurisdiction` names the jurisdiction whose law it is (`Connecticut`, `United States`); `bench/run.py` doesn't score it, and `bench/statutes.py` reports it per field. |
 
 Citations come in document order. Expected citations leave out `span` and `full_span`
 when their source has no trustworthy offsets (eyecite's factory-built test citations);
 the scorer only checks the fields an expected citation has.
+
+## Statute and court-rule citations
+
+A statute, regulation, court rule or constitution is a `full_law` citation. Its parts are
+groups, named as reporters-db's laws data names them where it has the code: `reporter`
+(as written), `section`, `title`, `chapter` and `subject`, `volume` and `page` for a
+session law or register (`88 Stat. 829`), `title` for a public law number (`Pub. L. No.
+93-233`). `reporter_normalized` is the code's standard abbreviation whatever the spelling
+(`Conn. Gen. Stat.` for `General Statutes`), and `metadata.jurisdiction` its
+jurisdiction.
+
+The maintainer accepted these conventions on 2026-10-18 for the forms reporters-db
+doesn't settle:
+
+- A court rule's number is the `rule` group (`Fed.R.Civ.P. 12(b)(6)`: rule `12`, pin
+  cite `(b)(6)`), and `reporter_normalized` is the Bluebook abbreviation (`Fed. R. Civ.
+  P.`, `Mich. Ct. R.` for `MCR`).
+- A constitution has `article`, `amendment` and `section` groups (`U.S. Const. art. I, §
+  8`), each as written, with a clause as the pin cite (`cl. 3`).
+- `Fed. Reg.` normalizes to `Fed. Reg.` as written, not reporters-db's `FR`.
+- `U.S.C.A.` normalizes to `U.S.C.`.
+- A range stays whole in `section` (`21 U.S.C. §§ 801-904`: section `801-904`).
+- `et seq.` is the pin cite.
+- The U.S. Sentencing Guidelines (`U.S.S.G.`) are their own kind of law, a guideline, not
+  a regulation.
+
+`vectors/statutes-proposed` follows them. Its vectors are still `proposed` until each is
+reviewed: settling the conventions doesn't make the answers checked.
+
+`bench/statutes.py` scores law citations per kind of law (federal statute, state
+statute, regulation, guideline, court rule, constitution): precision, recall and F1 for
+finding them at the right place, and for getting the code and every part right. See its
+docstring.
+
+## Vector provenance
+
+A vector's `provenance.status` says where its expected answer came from, and so whether
+it can serve as a reference:
+
+| Status | Meaning | Reference? |
+|---|---|---|
+| `verified` | Reviewed by the maintainer against the input | yes |
+| `hand-checked` | Read by hand against the input when it was added; not yet verified | yes, until verified or corrected |
+| `proposed` | Drafted and waiting for review | no |
+| `engine-output` | Copied from an engine's output (`engine` names it) | no |
+| `engine-tests` | Exported from an engine's own test suite (`engine` names it) | no |
+
+A vector without `provenance` takes its set's, from the `provenance` in the set's
+`SOURCE.json`; a set without one is unrecorded. `bench/statutes.py` scores only `verified`
+and `hand-checked` vectors as the reference and reports every other status in a table of
+its own. An engine's output is never ground truth, the reference engine's included:
+agreement between two engines is reported as agreement, apart from the scores.
 
 ## Running an adapter
 
