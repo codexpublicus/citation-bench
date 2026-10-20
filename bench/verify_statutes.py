@@ -164,6 +164,9 @@ CRAWL_DELAY = {
 # HTTP 429: wait (Retry-After, or the seconds CourtListener's message names, or a
 # doubling delay from 15 seconds) and try again, this many times.
 RATE_LIMIT_RETRIES = 6
+# A wait longer than this (CourtListener's hourly quota asks for about 20 minutes)
+# ends requests to that host for the run: its uncached checks are recorded as not run.
+RATE_LIMIT_MAX_WAIT = 120
 
 # Keyed APIs. Each key comes from the environment only (the operator's mise env
 # decrypts it from .mise/config.toml); with it unset the check is recorded as not run.
@@ -229,6 +232,10 @@ class SourceChanged(Exception):
     pass
 
 
+class RateLimitExhausted(SourceUnavailable):
+    """The host's quota is spent for this run; its uncached checks aren't run."""
+
+
 class RateLimited(Exception):
     """HTTP 429; wait is the seconds the server asked for, if it said."""
 
@@ -262,6 +269,8 @@ class Fetcher:
         default_factory=dict
     )  # key -> sha256 it was pinned at
     _last: dict = dataclasses.field(default_factory=dict)  # host -> last request time
+    max_wait: float = RATE_LIMIT_MAX_WAIT
+    exhausted: set = dataclasses.field(default_factory=set)  # hosts out of quota
 
     def _path(self, key):
         return self.cache / hashlib.sha256(key.encode()).hexdigest()[:32]
@@ -299,6 +308,10 @@ class Fetcher:
                 meta["location"] = location
             if not follow:
                 body = (location or "").encode()
+            if status >= 500:
+                # A server error says nothing about the source: neither cached nor
+                # pinned, so the next run asks again.
+                return status, body
             self.cache.mkdir(parents=True, exist_ok=True)
             path.write_bytes(body)
             meta_path.write_text(json.dumps(meta))
@@ -323,6 +336,9 @@ class Fetcher:
 
     def _open(self, url, follow, headers, data, query=None):
         """One request, retried after an HTTP 429 as the server asks."""
+        host = urllib.parse.urlsplit(url).hostname
+        if host in self.exhausted:
+            raise RateLimitExhausted(f"{host}: rate limit reached earlier in this run")
         target = url
         if query:
             target += ("&" if "?" in url else "?") + urllib.parse.urlencode(query)
@@ -345,7 +361,14 @@ class Fetcher:
                 break
             wait = wait if wait is not None else delay
             delay *= 2
-            host = urllib.parse.urlsplit(url).hostname
+            if wait > self.max_wait:
+                self.exhausted.add(host)
+                print(
+                    f"verify_statutes: {host}: HTTP 429 asks for {wait} s; "
+                    "no more requests to it this run",
+                    file=sys.stderr,
+                )
+                raise RateLimitExhausted(f"{host}: HTTP 429, {wait} s wait")
             print(
                 f"verify_statutes: {host}: HTTP 429, waiting {wait} s", file=sys.stderr
             )
@@ -1176,8 +1199,11 @@ def code_and_form_checks(sources, vector, cite, existence=None):
         and src.get("corpus", "").startswith("courtlistener")
         and src.get("opinion")
     ):
+        why_not = f"{COURTLISTENER_TOKEN_ENV} is unset"
         try:
             cl = sources.cl_court(src["opinion"])
+        except RateLimitExhausted:
+            cl, why_not = None, "CourtListener's rate limit was reached"
         except SourceUnavailable as e:
             cl = None
             cited_by = f"; citing court not found: {e}"
@@ -1186,7 +1212,7 @@ def code_and_form_checks(sources, vector, cite, existence=None):
                 Check(
                     "form",
                     "not-run",
-                    f"citing court not checked: {COURTLISTENER_TOKEN_ENV} is unset",
+                    f"citing court not checked: {why_not}",
                     source="courtlistener-api",
                 )
             )
@@ -1933,8 +1959,9 @@ def markdown(results, used, changed=None):
             "## Checks not run",
             "",
             (
-                "A keyed source whose key wasn't in the environment. Run with the key "
-                "set (the operator's mise env) to run them."
+                "Checks against a keyed source that didn't run: its key wasn't in the "
+                "environment, or its rate limit ran out. A rerun with the keys set (the "
+                "operator's mise env) runs them and reuses what's cached."
             ),
             "",
         ]

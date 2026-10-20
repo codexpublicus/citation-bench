@@ -922,3 +922,29 @@ def test_secret_query_stays_out_of_errors(tmp_path):
     with pytest.raises(vs.SourceUnavailable) as e:
         f.get("https://x/api", query={"key": NY_KEY})
     assert NY_KEY not in str(e.value) and e.value.__cause__ is None
+
+
+def test_a_long_rate_limit_wait_ends_the_host_for_the_run(tmp_path, monkeypatch):
+    monkeypatch.setattr(vs.time, "sleep", lambda s: pytest.fail("waited"))
+    calls = []
+
+    def quota(*args, **kwargs):
+        calls.append(args[0])
+        raise vs.RateLimited(args[0], 1377)
+
+    monkeypatch.setattr(vs, "_urlopen", quota)
+    f = vs.Fetcher(tmp_path, {})
+    with pytest.raises(vs.RateLimitExhausted):
+        f.get("https://cl.example/a")
+    with pytest.raises(vs.RateLimitExhausted):
+        f.get("https://cl.example/b")
+    assert f.exhausted == {"cl.example"}
+    assert calls == ["https://cl.example/a"]  # /b never went out
+
+
+def test_server_errors_are_not_cached(tmp_path):
+    answers = [(502, b"bad gateway", None), (200, b"ok", None)]
+    f = vs.Fetcher(tmp_path, {}, opener=lambda url, follow: answers.pop(0))
+    assert f.get("https://x/flaky") == (502, b"bad gateway")
+    assert "https://x/flaky" not in f.used
+    assert f.get("https://x/flaky") == (200, b"ok")
