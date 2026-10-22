@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#MISE description="citare's benchmark report: vectors and corpus, against eyecite's stored runs and an earlier citare"
+#MISE description="citare's benchmark report: vectors and eyecite's comparison sample, against eyecite's stored runs and an earlier citare"
 #MISE alias="report:citare"
-#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent corpus" {
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file of eyecite's comparison sample" {
 #USAGE   choices "1" "10"
 #USAGE }
 #USAGE flag "--previous <dir>" help="an earlier citare's saved runs: vectors.json and corpus-<size>pct.json"
@@ -26,7 +26,7 @@ uv run -q bench/baseline.py restore --or-run "$tier" "$runs/eyecite-$tier.json"
 if [[ ! -f results/vectors/citare.json ]]; then
   mise run bench:citare --save results/vectors/citare.json ${CITARE_LABEL:+--label "$CITARE_LABEL"} || true
 fi
-mise run corpus:run citare --size "$size"
+mise run corpus:run citare --corpus eyecite-sample --size "$size"
 # Statute and court-rule metrics: both engines over vectors/statutes and
 # vectors/statutes-proposed. The sets are small, so eyecite runs live.
 mise run report:statutes --out "$runs/statutes"
