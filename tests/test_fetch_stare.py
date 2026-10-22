@@ -204,3 +204,36 @@ def test_pinned_corpus():
     assert all(len(c["sha256"]) == 64 for c in m["cases"])
     assert len({c["id"] for c in m["cases"]}) == len(m["cases"])
     assert {c["source"] for c in m["cases"]} == {"cap", "cl"}
+
+
+def test_check_vectors(site, tmp_path):
+    stare = fetch_stare.Stare(VERSION, tmp_path)
+    entry = fetch_stare.cap_entry("a2d", "10", {"page": "5", "ref": "0005-01"})
+    data = stare.case(entry)
+    source = {
+        "corpus": "stare-pub",
+        "source": "cap",
+        "slug": "a2d",
+        "volume": "10",
+        "page": "5",
+        "case": "0005-01",
+        **fetch_stare.case_urls(entry),
+        "sha256": fetch_stare.sha256(data),
+        "offset": 4,
+    }
+    good = {"id": "v/0", "source": source, "input": {"text": "1 U.S. 1"}}
+    moved = {
+        "id": "v/1",
+        "source": {**source, "offset": 5},
+        "input": {"text": "1 U.S. 1"},
+    }
+    one = {"id": "v/2", "source": {**source, "opinion": "1", "offset": 0}}
+    one["input"] = {"text": "Dissent."}
+    other = {"id": "v/3", "source": {"corpus": "courtlistener-10pct"}, "input": {}}
+    d = tmp_path / "vectors"
+    d.mkdir()
+    lines = [json.dumps(v) for v in (good, moved, one, other)]
+    (d / "find.jsonl").write_text("\n".join(lines) + "\n")
+    checked, problems = fetch_stare.check_vectors([d], stare.case)
+    assert checked == 3
+    assert problems == ["v/1: the input isn't at offset 5"]

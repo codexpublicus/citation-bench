@@ -3,6 +3,9 @@
 Usage:
   uv run tools/fetch_stare.py [--out DIR]          fetch the pinned sample, verify, convert
   uv run tools/fetch_stare.py name                 print the pinned corpus's name
+  uv run tools/fetch_stare.py check-vectors [DIR ...]
+                                                    check every vector taken from stare.pub
+                                                    against the text stare.pub serves
   uv run tools/fetch_stare.py build [--version V] [--seed S] [--volumes N] [--cap N] [--cl N]
                                                     draw a new sample and pin it in corpora/
 
@@ -432,6 +435,58 @@ def convert(pinned, out_dir, fetch_case):
     return n
 
 
+def source_case(source):
+    """The case a vector's stare.pub source names, as fetch_case takes it."""
+    if source["source"] == "cl":
+        return {"source": "cl", "ref": source["ref"]}
+    folder = source["data"].rsplit("/", 1)[1].removesuffix(".zip")
+    return {
+        "source": "cap",
+        "slug": source["slug"],
+        "folder": folder,
+        "case": source["case"],
+    }
+
+
+def source_text(source, record):
+    if "opinion" in source:
+        return record["casebody"]["opinions"][int(source["opinion"])]["text"]
+    return case_text(record)
+
+
+def check_vector(vector, fetch_case):
+    """None if a vector's stare.pub source still holds its input, else what's wrong."""
+    source = vector["source"]
+    data = fetch_case(source_case(source))
+    if sha256(data) != source["sha256"]:
+        return "stare.pub serves different bytes for the case"
+    if "offset" not in source:
+        return None
+    text = source_text(source, json.loads(data))
+    start = source["offset"]
+    want = vector["input"]["text"]
+    if text[start : start + len(want)] != want:
+        return f"the input isn't at offset {start}"
+    return None
+
+
+def check_vectors(dirs, fetch_case):
+    """(checked, problems) over every vector whose source is stare.pub."""
+    checked, problems = 0, []
+    for d in dirs:
+        for path in sorted(Path(d).glob("*.jsonl")):
+            for line in path.read_text(encoding="utf-8").splitlines():
+                vector = json.loads(line)
+                source = vector.get("source") or {}
+                if source.get("corpus") != "stare-pub":
+                    continue
+                checked += 1
+                problem = check_vector(vector, fetch_case)
+                if problem:
+                    problems.append(f"{vector['id']}: {problem}")
+    return checked, problems
+
+
 def fetch(args):
     pinned = json.loads(manifest_path(args.version).read_text())
     stare = Stare(pinned["index_version"])
@@ -456,9 +511,20 @@ def main(argv=None):
     b.add_argument("--cap", type=int, default=CAP_CASES)
     b.add_argument("--cl", type=int, default=CL_RECORDS)
     sub.add_parser("name", help="print the pinned corpus's name")
+    c = sub.add_parser("check-vectors", help="check vectors against stare.pub's text")
+    c.add_argument("dirs", nargs="*", type=Path)
     ap.add_argument("--version", default=VERSION, help="the pinned corpus to fetch")
     ap.add_argument("--out", type=Path, help="output directory")
     args = ap.parse_args(argv)
+    if args.command == "check-vectors":
+        dirs = args.dirs or sorted(
+            p for p in (ROOT / "vectors").iterdir() if p.is_dir()
+        )
+        checked, problems = check_vectors(dirs, Stare(args.version).case)
+        for problem in problems:
+            print(problem, file=sys.stderr)
+        print(f"{checked} vectors from stare.pub, {len(problems)} that don't match")
+        return 1 if problems else 0
     if args.command == "name":
         print(corpus_name(args.version))
         return 0
