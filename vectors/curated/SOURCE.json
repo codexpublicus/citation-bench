@@ -2,8 +2,8 @@
   "name": "curated",
   "description": "Hand-curated vectors: each input is an excerpt of a real opinion, and each expected value was read against that opinion and the cited cases' records by a person. Owner rulings decide what the answer is; no engine's output is the reference. See README.md.",
   "corpora": [
-    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py)",
-    "Harvard Caselaw Access Project bulk volumes (static.case.law), casebody.opinions[].text and case metadata"
+    "stare.pub: Caselaw Access Project case files from data.stare.pub/cap/<slug>/<volume>.zip (CC0 1.0), casebody.opinions[].text and case metadata",
+    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py), for the vectors README.md lists as staying on it"
   ],
   "selected": "2026-10-18",
   "provenance": {

@@ -135,7 +135,7 @@ Each citation is described by [`schema/citation.schema.json`](../schema/citation
 | `groups` | The citation's parts as found: `volume`, `reporter`, `page`, or for statutes `chapter`, `section` and so on. Leave out anything absent; never send null or a blank placeholder such as `___`. |
 | `reporter_normalized` | The canonical reporter abbreviation, e.g. `U. S.` becomes `U.S.` (resource citations only). |
 | `year` | Integer year, or null. |
-| `cap_slug` | Case citations, optional: the [Caselaw Access Project](https://case.law)'s slug for the reporter series the cited volume is in, so that `static.case.law/<cap_slug>/<volume>` is that volume; null when CAP has no such series. `2019-Ohio-1234` is null (CAP's `ohio` is the Ohio Reports, volumes 1 to 20), `100 Ct. Cl. 123` from the federal Court of Claims is `us-ct-cl`. An engine without CAP data leaves it out. Scored only where an expected citation has it. |
+| `cap_slug` | Case citations, optional: the [Caselaw Access Project](https://case.law)'s slug for the reporter series the cited volume is in, so that `data.stare.pub/cap/<cap_slug>/<volume>.zip` is that volume as [stare.pub](https://stare.pub) serves it (the same slug as CAP's own `static.case.law/<cap_slug>/<volume>`); null when CAP has no such series. `2019-Ohio-1234` is null (CAP's `ohio` is the Ohio Reports, volumes 1 to 20), `100 Ct. Cl. 123` from the federal Court of Claims is `us-ct-cl`. An engine without CAP data leaves it out. Scored only where an expected citation has it. |
 | `metadata` | String values only. The bench scores `pin_cite`, `court`, `plaintiff`, `defendant`, `antecedent_guess`, `parenthetical`, `extra`, `year`, `month`, `day`, `publisher` and `volume`. Other keys are allowed and not scored. For a `full_law` citation, `jurisdiction` names the jurisdiction whose law it is (`Connecticut`, `United States`); `bench/run.py` doesn't score it, and `bench/statutes.py` reports it per field. |
 
 Citations come in document order. Expected citations leave out `span` and `full_span`
@@ -193,6 +193,37 @@ A vector without `provenance` takes its set's, from the `provenance` in the set'
 and `hand-checked` vectors as the reference and reports every other status in a table of
 its own. An engine's output is never ground truth, the reference engine's included:
 agreement between two engines is reported as agreement, apart from the scores.
+
+## Vector sources
+
+A vector's `source` says where its input text came from, so it can be checked again. The
+opinion text is [stare.pub](https://stare.pub)'s, and `source.corpus` is `stare-pub`:
+
+| `source.source` | Fields | The text `offset` indexes |
+|---|---|---|
+| `cap` | `slug`, `volume`, `page`, `case`; `url` the case page (`https://stare.pub/c/<slug>/<volume>/<page>/`), `data` the volume zip on `data.stare.pub/cap/` and `member` the case's JSON in it | `casebody.opinions[].text` joined with blank lines, or the one opinion `opinion` names |
+| `cl` | `ref` (`<cluster>/<hash>`); `url` the record, `https://data.stare.pub/cl/c/<cluster>/<hash>.json.gz` | the same, from the record |
+
+`sha256` is the hash of the case's JSON as stare.pub serves it (gunzipped, for a
+CourtListener record), and `courtlistener_opinion` the CourtListener opinion id an
+excerpt was first taken from, when it was. An input written from a case's metadata
+rather than its text has `fields` in place of `offset`. The case page is the permanent
+address stare.pub gives every case; until case pages ship, `data` and `member` are where
+a CAP case's text is. `uv run tools/fetch_stare.py check-vectors` checks every vector
+taken from stare.pub against the text stare.pub serves: the case's sha256 and the input
+at its offset.
+
+stare.pub names the terms of each source in the files themselves: CAP's case files are
+CC0 1.0, the terms CAP published them under, and each CourtListener record carries the
+Public Domain Mark 1.0 that CourtListener puts on its bulk data (`license`) and credits
+CourtListener (Free Law Project) and the export it came from (`attribution`).
+
+A vector whose excerpt doesn't appear verbatim in any case stare.pub serves keeps the
+source it was made from:
+`courtlistener-10pct`, an opinion of eyecite's comparison sample (`opinion` is the
+CourtListener opinion id, `offset` indexes its text after the clean steps `html` and
+`inline_whitespace`). Its set's README says why, and `stare_pub` names the same decision
+on stare.pub where stare.pub has it.
 
 ## Running an adapter
 

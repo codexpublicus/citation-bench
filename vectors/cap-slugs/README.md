@@ -2,9 +2,9 @@
 
 Case citations whose reporter name the Caselaw Access Project (CAP) files under more than one
 series, each with the CAP slug the cited volume is filed under (`cap_slug`, docs/protocol.md):
-`static.case.law/<cap_slug>/<volume>` is the book. An engine that maps citations to CAP gets
-these wrong in ways that `groups` and `reporter_normalized` don't show, since every series here
-is written with the same letters.
+`data.stare.pub/cap/<cap_slug>/<volume>.zip` is the book, as stare.pub serves it. An engine
+that maps citations to CAP gets these wrong in ways that `groups` and `reporter_normalized`
+don't show, since every series here is written with the same letters.
 
 ```bash
 mise run bench:cap-slugs eyecite   # fails only on vectors not in baselines/eyecite.known-differences
@@ -41,14 +41,26 @@ vectors, whose expected `cap_slug` is null.
 
 ## Provenance
 
-`source` names the corpus, the opinion and the character offset of the excerpt, as in
-`vectors/statutes`:
+The text comes from [stare.pub](https://stare.pub). `source` names the case there and the
+character offset of the excerpt in it, as docs/protocol.md ("Vector sources") defines:
+`corpus` `stare-pub`, `source` `cap`, the case's `slug`, `volume`, `page` and `case`, its
+case page as `url`, and the volume zip and member that hold its JSON as `data` and
+`member`; `offset` indexes `casebody.opinions[].text` joined with blank lines, and
+`sha256` pins the JSON. stare.pub publishes the CAP case files under CC0 1.0, the terms
+CAP published them under. `tools/fetch_stare.py check-vectors` checks every offset
+against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<volume>/<page>/`)
+is the permanent address stare.pub gives each case; until case pages ship, `data` and
+`member` are where the text is.
 
-- `courtlistener-10pct`: `opinion` is the CourtListener opinion id; `offset` indexes the text
-  after the clean steps `html` and `inline_whitespace` that `tools/fetch_corpus.py` asks for.
-- `cap`: `reporter`, `volume` and `case` name the CAP case file
-  (`static.case.law/<reporter>/<volume>`, `json/<case>.json`); `offset` indexes
-  `casebody.opinions[].text` joined with blank lines.
-- `cap-metadata`: no opinion in either corpus cites the numbered `Mass. App. Div.` series, so
-  its two inputs are written from the cited case's own CAP record: `name_abbreviation`, the
-  official citation in `citations`, and the year of `decision_date`.
+No opinion in either corpus cites the numbered `Mass. App. Div.` series, so its two
+inputs are written from the cited case's own CAP record, as stare.pub serves it:
+`name_abbreviation`, the official citation in `citations`, and the year of
+`decision_date` (`source.fields`); they have no `offset`.
+
+Three vectors were first taken from the CourtListener ten-percent sample. `ohio_reports/0`'s
+excerpt appears verbatim in the CAP case stare.pub serves for the same decision, at a new
+offset; `courtlistener_opinion` keeps the opinion id. Two stay on the CourtListener sample
+(`corpus` `courtlistener-10pct`, `opinion` the CourtListener opinion id, `offset` into
+its text after the clean steps `html` and `inline_whitespace`):
+
+- stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `ohio_neutral/0`, `ohio_neutral/1`.
