@@ -57,6 +57,35 @@
     "ms_per_kb": 12.5367,
     "cold_start_s": 0.3819
   },
+  "stare-pub": {
+    "key": "1b57133c6c68d5688d58345dae5fd64a69c19fbb5f8455fb18b810d1e2610ee5",
+    "version": "2.7.8",
+    "runner": "homelab",
+    "files": {
+      "adapters/eyecite/adapter.py": "7061f6247d250b0cad9c13aa40d34d3ac16463b1bb9d4592163e02edd9585635",
+      "adapters/eyecite/serialize.py": "2b2a9344761ed2ff23aa53e6e07af006de5cd8c5eaa64cbcdd3b6aadbda005f2",
+      "bench/run.py": "2be4160e5c3ac81b984898bc55c48ef833a8d9f6492ddea74aff2cf47ce5c1b0",
+      "corpora/stare-pub-v2026.10.22.json": "fb1702957ad4da1c1daa752ac3565342102bacde7430759ea71e8257f43d9542",
+      "tools/fetch_stare.py": "49af2033f77e74c7cbd08b21c52bbb08cd421804e9d1f15de2e641dfbf1f4373"
+    },
+    "run": "stare-pub.json.gz",
+    "sha256": "7d44d8bacc43b6fac793f1b45ba053c15a720ea3977cff8c2fc8493aa20d79b2",
+    "bench_commit": "3ff9223f43f6db081acc23406017b4b64a8f20d0",
+    "started": "2026-10-22T23:28:23+00:00",
+    "host": {
+      "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+      "machine": "x86_64",
+      "python": "3.13.16"
+    },
+    "inputs": 1000,
+    "passed": 0,
+    "scored": 0,
+    "errors": 2,
+    "citations": 20686,
+    "ms_per_input": 64.4134,
+    "ms_per_kb": 6.1604,
+    "cold_start_s": 13.6365
+  },
   "vectors": {
     "key": "32980cf5beeb03c2a3d139f1c324b0a60d97fe3259ea5750bb03c149c607132c",
     "version": "2.7.8",
