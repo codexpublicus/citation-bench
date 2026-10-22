@@ -243,5 +243,6 @@ case's address and checksum.
 eyecite's comparison sample comes from Free Law Project's CourtListener bulk data at
 storage.courtlistener.com, the files eyecite's own benchmark downloads. They are
 downloaded at run time and not stored in this repository; `corpora/courtlistener-*.json`
-records where each came from and its checksum. A few vectors still cite an opinion of
-that sample that stare.pub doesn't serve; their READMEs say which and why.
+records where each came from and its checksum. A vector whose excerpt doesn't appear
+verbatim in the text stare.pub serves still cites the CourtListener opinion it came from;
+each set's README says which and why.

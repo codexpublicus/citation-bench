@@ -19,14 +19,14 @@ the six vectors [#32](https://github.com/codexpublicus/citation-bench/issues/32)
 
 | Vector | Provenance | What it checks | Source |
 |---|---|---|---|
-| `find/ohio_reports/0` | hand-checked | `5 Ohio 187` is the Ohio Reports (reporter `Ohio`, normalized `Ohio`, `cap_slug` `ohio`): Putnam v. Valentine (Ohio 1831), CAP `ohio/5/cases/0170-01.json` | Lincoln County v. Fish, 38 Wash. 105 (1905), CAP `wash/38/cases/0105-01.json` |
-| `find/ohio_state_variation/0` | hand-checked | `127 Ohio 545` is the Ohio State Reports, read through `Ohio` as an inferred abbreviation (variation) of `Ohio St.`: reporter `Ohio` as written, normalized `Ohio St.`, `cap_slug` `ohio-st`. Troop A Riding Academy v. Miller (1934), CAP `ohio-st/127/cases/0545-01.json` | CourtListener [1612618](https://www.courtlistener.com/opinion/1612618/) |
-| `find/nameless_parallel_run/0` | hand-checked | #32 row 1 (Flaksa): the three certiorari citations share one full span and the year 1968, and take no case name | CourtListener [1706597](https://www.courtlistener.com/opinion/1706597/) |
-| `find/consecutive_runs_own_year/0` | hand-checked | #32 row 2 (Elchibegoff): two nameless runs in a row, the first 1946 and the second 1947 | CourtListener [1447928](https://www.courtlistener.com/opinion/1447928/) |
-| `find/runs_split_at_semicolon/0` | proposed | #32 row 3 (Pope): two runs split at the semicolon; only the second has a year, 1978 | CourtListener [433585](https://www.courtlistener.com/opinion/433585/) |
+| `find/ohio_reports/0` | hand-checked | `5 Ohio 187` is the Ohio Reports (reporter `Ohio`, normalized `Ohio`, `cap_slug` `ohio`): Putnam v. Valentine (Ohio 1831), CAP `ohio/5/cases/0170-01.json` | Lincoln County v. Fish, 38 Wash. 105 (1905), stare.pub CAP `wash/38/105` |
+| `find/ohio_state_variation/0` | hand-checked | `127 Ohio 545` is the Ohio State Reports, read through `Ohio` as an inferred abbreviation (variation) of `Ohio St.`: reporter `Ohio` as written, normalized `Ohio St.`, `cap_slug` `ohio-st`. Troop A Riding Academy v. Miller (1934), CAP `ohio-st/127/cases/0545-01.json` | stare.pub CAP `wis-2d/32/464` (CourtListener 1612618) |
+| `find/nameless_parallel_run/0` | hand-checked | #32 row 1 (Flaksa): the three certiorari citations share one full span and the year 1968, and take no case name | stare.pub CAP `so2d/585/842` (CourtListener 1706597) |
+| `find/consecutive_runs_own_year/0` | hand-checked | #32 row 2 (Elchibegoff): two nameless runs in a row, the first 1946 and the second 1947 | stare.pub CAP `f-supp/355/29` (CourtListener 1447928) |
+| `find/runs_split_at_semicolon/0` | proposed | #32 row 3 (Pope): two runs split at the semicolon; only the second has a year, 1978 | stare.pub CAP `f2d/731/440` (CourtListener 433585) |
 | `resolve/id_as_case_name/0` | hand-checked | #32 row 4 (Murray): `Id., (1990), 52 Ohio St.3d 155` resolves with In re Murray: `[0, 1, 0, 0, 2]` | CourtListener [3759943](https://www.courtlistener.com/opinion/3759943/) |
 | `resolve/id_as_case_name/1` | hand-checked | #32 row 5 (Grain Cleaner): `Id., 34 Hun, 91` is the General Term's decision, apart from the Court of Appeals': `[0, 1, 2, 2]` | CourtListener [5509821](https://www.courtlistener.com/opinion/5509821/) |
-| `resolve/id_as_case_name/2` | hand-checked | #32 row 6 (First National Benefit Society): `Id., 9 Cir., 152 F.2d 298` is the second decision of that name: `[0, 1, 1, 2]` | CourtListener [225404](https://www.courtlistener.com/opinion/225404/) |
+| `resolve/id_as_case_name/2` | hand-checked | #32 row 6 (First National Benefit Society): `Id., 9 Cir., 152 F.2d 298` is the second decision of that name: `[0, 1, 1, 2]` | stare.pub CAP `f2d/183/191` (CourtListener 225404) |
 
 Each vector's `source.note` names the CAP record of every case it relies on, so the reading
 can be checked again from the record.
@@ -108,22 +108,33 @@ parallel citation is its own resource, so `110 N. Y. 83` and `17 N. E. 671` are 
 
 ## Provenance
 
-`source` names the corpus, the opinion and the character offset of the excerpt, as in
-`vectors/statutes`, plus a `url` to open it:
+The text comes from [stare.pub](https://stare.pub). `source` names the case there and the
+character offset of the excerpt in it, as docs/protocol.md ("Vector sources") defines:
+`corpus` `stare-pub`, `source` `cap`, the case's `slug`, `volume`, `page` and `case`, its
+case page as `url`, and the volume zip and member that hold its JSON as `data` and
+`member`; `offset` indexes `casebody.opinions[].text` joined with blank lines, and
+`sha256` pins the JSON. stare.pub publishes the CAP case files under CC0 1.0, the terms
+CAP published them under. `tools/fetch_stare.py check-vectors` checks every offset
+against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<volume>/<page>/`)
+is the permanent address stare.pub gives each case; until case pages ship, `data` and
+`member` are where the text is.
 
-- `courtlistener-10pct`: `opinion` is the CourtListener opinion id; `offset` indexes the text
-  after the clean steps `html` and `inline_whitespace` that `tools/fetch_corpus.py` asks for,
-  as citare's `clean` command produces it.
-- `cap`: `reporter`, `volume` and `case` name the CAP case file
-  (`static.case.law/<reporter>/<volume>`, `cases/<case>.json`); `offset` indexes
-  `casebody.opinions[].text` joined with blank lines.
+Five vectors were first taken from the CourtListener ten-percent sample; their
+`courtlistener_opinion` keeps the opinion id. In each, the excerpt appears verbatim in
+the CAP case stare.pub serves for the same decision, at a new offset. Two stay on the
+CourtListener sample (`corpus` `courtlistener-10pct`, `opinion` the CourtListener
+opinion id, `offset` into its text after the clean steps `html` and `inline_whitespace`,
+as citare's `clean` command produces it):
+
+- CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `resolve/id_as_case_name/0`.
+- not yet checked: CourtListener's API quota ran out before the decision's citations were looked up: `resolve/id_as_case_name/1`.
 
 The set's provenance is in `SOURCE.json`; a vector's own `provenance` overrides it, as
 [#28](https://github.com/codexpublicus/citation-bench/pull/28) defines the field.
 
 ## Adding a vector
 
-Take the excerpt from the opinion as above, check every expected value against it and the
+Take the excerpt from the text stare.pub serves, as above, check every expected value against it and the
 cited cases' records, and cite those records in `source.note`. Mark a vector `proposed`, with
 the reason in its `provenance.note`, when any value can't be checked. Then run `mise run
 bench:curated <engine> -- --update-known-failures` for each engine and say in the PR why
