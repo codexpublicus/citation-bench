@@ -71,18 +71,17 @@ against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<vol
 is the permanent address stare.pub gives each case; until case pages ship, `data` and
 `member` are where the text is.
 
-Of the 56 vectors first taken from the CourtListener ten-percent sample, 12 have an
+Of the 56 vectors first taken from the CourtListener ten-percent sample, 22 have an
 excerpt that appears verbatim in the CAP case stare.pub serves for the same decision, and
 point there now, at a new offset, with `courtlistener_opinion` keeping the opinion id.
 `haw_hrs/1`'s excerpt appears twice in that case; its offset is the occurrence nearer the
-one it had. The other 44 stay on the CourtListener sample (`corpus`
+one it had. The other 34 stay on the CourtListener sample (`corpus`
 `courtlistener-10pct`, `opinion` the CourtListener opinion id, `offset` into its text
 after the clean steps `html` and `inline_whitespace` that `tools/fetch_corpus.py` asks
 for, as citare's `clean` command produces it):
 
-- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `ariz_ars/1`, `ark_aca/0`, `cal_pen_code/0`, `cfr/0`, `ga_o_c_g_a/1`, `ga_ocga/0`, `la_rev_stat/1`, `mass_g_l_c/1`, `me_mrsa/0`, `me_mrsa/1`, `nc_gs/1`, `nm_nmsa/1`, `okla_os/1`, `pa_cs/1`, `pa_ps/0`, `ri_gl_1956/0`, `ri_gl_1956/1`, `tex_no_space/1`, `usc/0`, `wis_stat_caps/0`, `wva_code/0`, `wva_code/1`.
+- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `ariz_ars/1`, `ark_aca/0`, `cal_civ_code/0`, `cal_pen_code/0`, `cfr/0`, `conn_gen_stat/1`, `ga_o_c_g_a/1`, `ga_ocga/0`, `la_rev_stat/1`, `mass_g_l_c/1`, `me_mrsa/0`, `me_mrsa/1`, `nc_gs/1`, `nm_nmsa/1`, `okla_os/1`, `pa_cs/1`, `pa_ps/0`, `ri_gl_1956/0`, `ri_gl_1956/1`, `tex_no_space/1`, `usc/0`, `usc/1`, `wis_stat_caps/0`, `wva_code/0`, `wva_code/1`. `cal_civ_code/0`'s opinion is the Ninth Circuit's order amending its opinion at 687 F.3d 1132, which stare.pub doesn't hold; its cluster isn't in CourtListener's 2026-09-30 export, so its counterpart, the amended opinion CAP prints at 697 F.3d 777, was found by case name rather than by citation.
 - CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `ark_aca/1`, `cfr/1`, `la_rev_stat/0`, `pa_csa/0`, `tenn_tca/0`, `tex_penal_code_ann/0`, `tex_penal_code_ann/1`, `tex_small_caps/0`, `tex_small_caps/1`.
-- not yet checked: CourtListener's API quota ran out before the decision's citations were looked up: `ala_code_1975/1`, `cal_civ_code/0`, `conn_gen_stat/1`, `ga_o_c_g_a/0`, `mass_g_l_c/0`, `nm_nmsa/0`, `ny_family_ct_act/0`, `ny_family_ct_act/1`, `ny_penal_law/0`, `ny_penal_law/1`, `pa_cs/0`, `tenn_tca/1`, `usc/1`.
 
 ## Coverage
 

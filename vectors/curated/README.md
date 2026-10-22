@@ -119,15 +119,14 @@ against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<vol
 is the permanent address stare.pub gives each case; until case pages ship, `data` and
 `member` are where the text is.
 
-Five vectors were first taken from the CourtListener ten-percent sample; their
-`courtlistener_opinion` keeps the opinion id. In each, the excerpt appears verbatim in
-the CAP case stare.pub serves for the same decision, at a new offset. Two stay on the
-CourtListener sample (`corpus` `courtlistener-10pct`, `opinion` the CourtListener
-opinion id, `offset` into its text after the clean steps `html` and `inline_whitespace`,
-as citare's `clean` command produces it):
+Five vectors were first taken from the CourtListener ten-percent sample. In four, the
+excerpt appears verbatim in the CAP case stare.pub serves for the same decision, and they
+point there now, at a new offset, with `courtlistener_opinion` keeping the opinion id.
+One stays on the CourtListener sample (`corpus` `courtlistener-10pct`, `opinion` the
+CourtListener opinion id, `offset` into its text after the clean steps `html` and
+`inline_whitespace`, as citare's `clean` command produces it):
 
 - CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `resolve/id_as_case_name/0`.
-- not yet checked: CourtListener's API quota ran out before the decision's citations were looked up: `resolve/id_as_case_name/1`.
 
 The set's provenance is in `SOURCE.json`; a vector's own `provenance` overrides it, as
 [#28](https://github.com/codexpublicus/citation-bench/pull/28) defines the field.

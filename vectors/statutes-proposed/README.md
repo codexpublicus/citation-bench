@@ -103,15 +103,24 @@ against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<vol
 is the permanent address stare.pub gives each case; until case pages ship, `data` and
 `member` are where the text is.
 
-Five of the 36 point at stare.pub that way, each at a new offset, with
+Nine of the 36 point at a CAP case that way, each at a new offset, with
 `courtlistener_opinion` keeping the CourtListener opinion id: `fed_r_evid/0`,
-`state_const/1`, `treas_reg/1`, `pub_l/0` and `usc_et_seq/0`. The other 31 stay on the
-CourtListener sample (`corpus` `courtlistener-10pct`):
+`njac/0`, `nycrr/0`, `pub_l/0`, `state_const/1`, `treas_reg/1`, `us_const/1`,
+`usc_et_seq/0` and `usc_et_seq/1`. Two point at a CourtListener record stare.pub serves,
+which `source` names with `source` `cl`, the record's `ref` (`<cluster>/<hash>`), its
+`url` and the `sha256` of its JSON; stare.pub states each record's terms in its own
+`license` (Public Domain Mark 1.0) and `attribution` (CourtListener, Free Law Project,
+export 2026-09-30). `fed_r_crim_p/0` is on its own opinion's record. `usc_range/0`'s
+opinion is in a cluster the 2026-09-30 export doesn't have; the opinion cites itself as
+`2022 OK 30`, and the record at that citation, cluster 8242608, holds three copies of the
+same opinion, each with the excerpt verbatim, so its offset is the occurrence nearest the
+one it had. The other 25 stay on the CourtListener sample (`corpus`
+`courtlistener-10pct`):
 
-- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `fed_r_app_p/0`, `fed_r_app_p/1`, `fed_r_civ_p/0`, `fed_r_civ_p/1`, `fed_reg/0`, `pa_r_civ_p/0`, `pub_l/1`, `stat/0`, `state_const/2`, `us_const/0`, `us_const/2`, `us_const/3`, `usc_range/1`, `ussg/0`.
+- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `fed_r_app_p/0`, `fed_r_app_p/1`, `fed_r_civ_p/0`, `fed_r_civ_p/1`, `fed_r_crim_p/1`, `fed_reg/0`, `fed_reg/1`, `pa_r_civ_p/0`, `pub_l/1`, `stat/0`, `state_const/2`, `treas_reg/0`, `us_const/0`, `us_const/2`, `us_const/3`, `usc_range/1`, `ussg/0`, `ussg/1`.
 - stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `fed_r_evid/1`, `stat/1`.
 - CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `state_const/0`, `tex_r_p/0`, `tex_r_p/1`.
-- not yet checked: CourtListener's API quota ran out before the decision's citations were looked up: `fed_r_civ_p/2`, `fed_r_crim_p/0`, `fed_r_crim_p/1`, `fed_reg/1`, `mich_ct_r/0`, `njac/0`, `nycrr/0`, `treas_reg/0`, `us_const/1`, `usc_et_seq/1`, `usc_range/0`, `ussg/1`.
+- the opinion's cluster isn't in CourtListener's 2026-09-30 export, so no citation of it leads into stare.pub's index: `fed_r_civ_p/2`, `mich_ct_r/0`.
 
 ## Not covered yet
 

@@ -63,5 +63,4 @@ offset; `courtlistener_opinion` keeps the opinion id. Two stay on the CourtListe
 (`corpus` `courtlistener-10pct`, `opinion` the CourtListener opinion id, `offset` into
 its text after the clean steps `html` and `inline_whitespace`):
 
-- stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `ohio_neutral/1`.
-- not yet checked: CourtListener's API quota ran out before the decision's citations were looked up: `ohio_neutral/0`.
+- stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `ohio_neutral/0`, `ohio_neutral/1`.
