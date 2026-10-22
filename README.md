@@ -180,14 +180,16 @@ opinion and restarts the adapter for the rest.
 ### Stored eyecite runs
 
 eyecite's answers to a fixed set of inputs only change when eyecite or the harness
-changes, so its runs over the vectors and both files of eyecite's comparison sample are
-committed in
-`baselines/eyecite/` and reused while their key holds. The stare.pub sample has no stored
-run yet; `corpus:run eyecite` runs it live. A tier's key is a sha256 over
+changes, so its runs over the vectors (tier `vectors`), the stare.pub sample
+(`stare-pub`) and both files of eyecite's comparison sample (`corpus-1pct`,
+`corpus-10pct`) are committed in `baselines/eyecite/` and reused while their key holds.
+`corpus:run eyecite` still runs eyecite live. A tier's key is a sha256 over
 the eyecite version the adapter pins, the CI runner class the runs are timed on
 (`RUNNER` in `bench/baseline.py`), and the bytes of the files that decide the run: the
-eyecite adapter, `bench/run.py`, and either the vector set or the corpus manifest and
-`tools/fetch_corpus.py`. `MANIFEST.json` lists each key's files and hashes beside
+eyecite adapter, `bench/run.py`, and either the vector set, or the stare.pub sample's
+manifest (`corpora/stare-pub-<version>.json`) and `tools/fetch_stare.py`, or the
+comparison sample's manifest and `tools/fetch_corpus.py`. Pinning a new stare.pub
+sample makes the `stare-pub` tier stale. `MANIFEST.json` lists each key's files and hashes beside
 the run's headline numbers, so a refresh reads as a diff of that file in review; the
 runs themselves are gzipped responses and timings, without the input text.
 
@@ -206,12 +208,16 @@ eyecite newer than the adapter's pin.
 ### Engine reports
 
 `mise run report:citare --size 1` writes citare's report to `reports/citare/`: vector
-scores per request kind, the known-failures ratchet, corpus speed on eyecite's comparison
-sample, and the corpus diffs
-against eyecite (from its stored run, or a live one on a key miss) and against an
-earlier citare (`--previous DIR` with that run's `vectors.json` and
-`corpus-<size>pct.json`), and the statute metrics from `report:statutes`. citare's CI
-posts it on every PR and attaches it to every release.
+scores per request kind, the known-failures ratchet, the statute metrics from
+`report:statutes`, and citare's speed, agreement and diffs on two corpora, each against
+eyecite (from its stored run, or a live one on a key miss) and against an earlier citare.
+The stare.pub sample is the primary score. eyecite's comparison sample (`--size` picks
+the file) follows in a table of its own, labelled as the secondary score, with its own
+`comparison` block in `summary.json` and its own `vs-eyecite-sample.csv`.
+`--previous DIR` takes the earlier run's `vectors.json`, `stare-pub-<version>.json` and
+`corpus-<size>pct.json`, using whichever are there; an earlier citare saved before the
+stare.pub sample is compared on the comparison sample only, and the report says so.
+citare's CI posts it on every PR and attaches it to every release.
 
 Any other engine:
 

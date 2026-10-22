@@ -1,31 +1,36 @@
 #!/usr/bin/env bash
-#MISE description="citare's benchmark report: vectors and eyecite's comparison sample, against eyecite's stored runs and an earlier citare"
+#MISE description="citare's benchmark report: vectors, the stare.pub corpus and eyecite's comparison sample, against eyecite's stored runs and an earlier citare"
 #MISE alias="report:citare"
-#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file of eyecite's comparison sample" {
+#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file of eyecite's comparison sample, the secondary corpus" {
 #USAGE   choices "1" "10"
 #USAGE }
-#USAGE flag "--previous <dir>" help="an earlier citare's saved runs: vectors.json and corpus-<size>pct.json"
+#USAGE flag "--previous <dir>" help="an earlier citare's saved runs: vectors.json, stare-pub-<version>.json and corpus-<size>pct.json, any of which may be missing"
 #USAGE flag "--previous-note <text>" help="shown when there is no earlier run to compare"
 #USAGE flag "--link <url>" help="where the full report and runs will be"
 #USAGE flag "--out <dir>" default="reports/citare" help="report directory"
 # CITARE_PATH=../citare reports on a checkout; CITARE_LABEL names the run (default: its
-# commit). eyecite's runs come from baselines/eyecite/ when their key matches and are run
-# live otherwise. The citare vectors run is results/vectors/citare.json when CI's gate
-# already made it (mise run bench:citare --save ...), and is made here if not. The
-# report includes the statute metrics from report:statutes.
+# commit). The primary corpus is the stare.pub sample (results/stare-pub-<version>/);
+# eyecite's comparison sample (results/corpus-<size>pct/) is reported after it as a
+# secondary score. eyecite's runs come from baselines/eyecite/ when their key matches
+# and are run live otherwise. The citare vectors run is results/vectors/citare.json when
+# CI's gate already made it (mise run bench:citare --save ...), and is made here if not.
+# The report includes the statute metrics from report:statutes.
 set -euo pipefail
 size="${usage_size:-1}"
 tier="corpus-${size}pct"
+stare="$(uv run -q tools/fetch_stare.py name)"
 out="${usage_out:-reports/citare}"
 runs="results/report"
 mkdir -p "$runs"
 
 uv run -q bench/baseline.py restore --or-run vectors "$runs/eyecite-vectors.json"
+uv run -q bench/baseline.py restore --or-run stare-pub "$runs/eyecite-$stare.json"
 uv run -q bench/baseline.py restore --or-run "$tier" "$runs/eyecite-$tier.json"
 
 if [[ ! -f results/vectors/citare.json ]]; then
   mise run bench:citare --save results/vectors/citare.json ${CITARE_LABEL:+--label "$CITARE_LABEL"} || true
 fi
+mise run corpus:run citare --corpus stare-pub
 mise run corpus:run citare --corpus eyecite-sample --size "$size"
 # Statute and court-rule metrics: both engines over vectors/statutes and
 # vectors/statutes-proposed. The sets are small, so eyecite runs live.
@@ -33,14 +38,23 @@ mise run report:statutes --out "$runs/statutes"
 
 args=(
   --vectors results/vectors/citare.json --vectors-base "$runs/eyecite-vectors.json"
-  --corpus "results/$tier/citare.json" --corpus-base "$runs/eyecite-$tier.json"
+  --corpus "results/$stare/citare.json" --corpus-base "$runs/eyecite-$stare.json"
+  --comparison "results/$tier/citare.json" --comparison-base "$runs/eyecite-$tier.json"
   --known-failures baselines/citare.known-failures --out "$out"
   --statute-runs results/statutes/eyecite-statutes.json results/statutes/eyecite-statutes-proposed.json
   results/statutes/citare-statutes.json results/statutes/citare-statutes-proposed.json
 )
 prev="${usage_previous:-}"
+found=0
+if [[ -n "$prev" && -f "$prev/$stare.json" ]]; then
+  args+=(--previous-corpus "$prev/$stare.json")
+  found=1
+fi
 if [[ -n "$prev" && -f "$prev/$tier.json" ]]; then
-  args+=(--previous-corpus "$prev/$tier.json")
+  args+=(--previous-comparison "$prev/$tier.json")
+  found=1
+fi
+if [[ $found -eq 1 ]]; then
   [[ -f "$prev/vectors.json" ]] && args+=(--previous-vectors "$prev/vectors.json")
 elif [[ -n "${usage_previous_note:-}" ]]; then
   args+=(--previous-note "$usage_previous_note")
