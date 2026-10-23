@@ -19,8 +19,19 @@ Speaks protocol version 2 (docs/protocol.md): request kinds find, resolve and an
 
 import json
 import logging
+import os
 import sys
 from pathlib import Path
+
+# eyecite 2.7.8 picks between two tokens that match the same span by the iteration
+# order of a set of extractors hashed by their repr, so its output depends on the
+# string hash seed: "86 T.C. at 561" is a short cite under PYTHONHASHSEED=1 and a full
+# cite under 0 or 2. Pinning the seed keeps every run, stored ones included, the same.
+# The seed is fixed at interpreter start, so restart under it when it isn't set.
+HASH_SEED = "0"
+if os.environ.get("PYTHONHASHSEED") != HASH_SEED:
+    os.environ["PYTHONHASHSEED"] = HASH_SEED
+    os.execv(sys.executable, [sys.executable, *sys.argv])
 
 sys.path.insert(0, str(Path(__file__).parent))
 

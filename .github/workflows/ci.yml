@@ -18,6 +18,8 @@ env:
   MISE_TRUSTED_CONFIG_PATHS: ${{ github.workspace }}
   # No job here builds citare, and the homelab pods start empty every time.
   MISE_DISABLE_TOOLS: rust
+  # eyecite's output depends on the string hash seed; the adapter pins it as well.
+  PYTHONHASHSEED: "0"
 
 jobs:
   check:
