@@ -17,8 +17,12 @@ bytes of every file that decides the run:
 
 - every tier: adapters/eyecite/*.py and bench/run.py
 - vectors: the vector set's *.jsonl (vectors/eyecite-<version>/)
-- corpus-1pct, corpus-10pct: the corpus manifest (corpora/*.json, which pins the
-  download by sha256) and tools/fetch_corpus.py, which turns it into requests
+- stare-pub: the stare.pub sample's manifest (corpora/stare-pub-<version>.json, the
+  version tools/fetch_stare.py pins, which pins every case by sha256) and
+  tools/fetch_stare.py, which turns it into requests
+- corpus-1pct, corpus-10pct: eyecite's comparison sample's manifest
+  (corpora/courtlistener-*.json, which pins the download by sha256) and
+  tools/fetch_corpus.py, which turns it into requests
 
 The key also covers RUNNER, the CI runner class the runs are timed on, since engines'
 CI reports its own ms/KB beside eyecite's; changing it makes every tier stale.
@@ -41,7 +45,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 
+import fetch_stare
 from run import SAVE_FORMAT, compare, load_vectors
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -51,7 +57,8 @@ BASELINE_FORMAT = "citation-bench-baseline/1"
 ADAPTER = ROOT / "adapters" / "eyecite"
 COMMON = ("adapters/eyecite/*.py", "bench/run.py")
 CORPUS_SIZES = ("1", "10")
-TIERS = ("vectors", *(f"corpus-{s}pct" for s in CORPUS_SIZES))
+STARE = "stare-pub"  # the stare.pub sample, at the version tools/fetch_stare.py pins
+TIERS = ("vectors", STARE, *(f"corpus-{s}pct" for s in CORPUS_SIZES))
 MISS = 3  # restore's exit code when the stored run doesn't match the current key
 EYECITE = "uv run -q --script adapters/eyecite/adapter.py"
 TIMEOUT = "900"  # seconds on one input before the adapter is restarted
@@ -74,10 +81,17 @@ def corpus_size(tier):
     return tier.removeprefix("corpus-").removesuffix("pct")
 
 
+def stare_name():
+    """The pinned stare.pub sample's name, e.g. stare-pub-v2026.10.22."""
+    return fetch_stare.corpus_name(fetch_stare.VERSION)
+
+
 def tier_patterns(tier):
     if tier == "vectors":
         own = (f"{vectors_dir().relative_to(ROOT)}/*.jsonl",)
-    elif tier.startswith("corpus-"):
+    elif tier == STARE:
+        own = (f"corpora/{stare_name()}.json", "tools/fetch_stare.py")
+    elif tier in TIERS:
         own = (
             f"corpora/courtlistener-{corpus_size(tier)}pct.json",
             "tools/fetch_corpus.py",
@@ -139,6 +153,13 @@ def tier_path(tier):
     """Where a tier's requests are, fetching the corpus first if it isn't cached."""
     if tier == "vectors":
         return vectors_dir()
+    if tier == STARE:
+        path = ROOT / ".cache" / "corpora" / stare_name()
+        if not (path / "find.jsonl").exists():
+            subprocess.run(
+                [sys.executable, str(ROOT / "tools" / "fetch_stare.py")], check=True
+            )
+        return path
     size = corpus_size(tier)
     path = ROOT / ".cache" / "corpora" / f"courtlistener-{size}pct"
     if not (path / "find.jsonl").exists():
