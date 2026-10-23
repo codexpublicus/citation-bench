@@ -71,7 +71,8 @@ def test_report_files(tmp_path):
     )
     prev = run(tmp_path / "p.json", "v0.1.0", [item("o", {"citations": []})])
     known = tmp_path / "known"
-    known.write_text("b\nc\n")
+    # "elsewhere" is from a set this run didn't score, so it is neither.
+    known.write_text("a\nb\nstatutes/find/elsewhere/0\n")
     out = tmp_path / "out"
     assert (
         report.main(
@@ -94,7 +95,7 @@ def test_report_files(tmp_path):
     assert "+0 gained, −1 lost" in md and "+1 gained, −0 lost" in md
     assert md.endswith("https://example.test/run\n")
     summary = json.loads((out / "summary.json").read_text())
-    assert summary["ratchet"] == {"regressions": [], "fixed": ["c"]}
+    assert summary["ratchet"] == {"regressions": [], "fixed": ["a"]}
     assert summary["previous"]["gained"] == 1
     assert "50.0% agreement with eyecite-9" in (out / "headline.md").read_text()
     assert (out / "comment.md").read_text() == md
