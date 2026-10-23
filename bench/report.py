@@ -77,7 +77,13 @@ def failing(run):
 
 
 def ratchet(run, known_failures):
-    known = set(Path(known_failures).read_text().split())
+    """(regressions, newly passing) against a known-failures list.
+
+    The list also covers vector sets this run didn't score (curated, statutes and
+    the rest), and those entries are neither passing nor failing here.
+    """
+    ran = {i["id"] for i in run["inputs"]}
+    known = set(Path(known_failures).read_text().split()) & ran
     fails = failing(run)
     return sorted(fails - known), sorted(known - fails)
 

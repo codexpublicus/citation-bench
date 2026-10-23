@@ -191,7 +191,12 @@ manifest (`corpora/stare-pub-<version>.json`) and `tools/fetch_stare.py`, or the
 comparison sample's manifest and `tools/fetch_corpus.py`. Pinning a new stare.pub
 sample makes the `stare-pub` tier stale. `MANIFEST.json` lists each key's files and hashes beside
 the run's headline numbers, so a refresh reads as a diff of that file in review; the
-runs themselves are gzipped responses and timings, without the input text.
+runs themselves are gzipped responses and timings, without the input text. eyecite
+2.7.8's output depends on Python's string hash seed: it picks between two tokens over
+the same span in set order, and `86 T.C. at 561` is a short cite under one seed and a
+full cite under another. The adapter always runs under `PYTHONHASHSEED=0`, restarting
+itself under it when started with any other seed, and a rerun of a tier gives the same
+responses.
 
 ```bash
 mise run baseline:check                        # fails if a stored run's key has changed
