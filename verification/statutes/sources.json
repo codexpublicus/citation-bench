@@ -18,15 +18,15 @@
   "status": 200
  },
  "https://code.wvlegislature.gov/31-1-15/": {
-  "bytes": 40139,
-  "retrieved": "2026-10-18",
-  "sha256": "8491d2872b4f8df385beebbd5ed37c5115974f637bbb72f5a377355eff09a2c6",
+  "bytes": 40138,
+  "retrieved": "2026-10-25",
+  "sha256": "a330883a08ad0e57e882b0cdaeb2590b84e89e76567f7999b3a1906d6cc4cce9",
   "status": 200
  },
  "https://code.wvlegislature.gov/56-6-31/": {
-  "bytes": 44556,
-  "retrieved": "2026-10-18",
-  "sha256": "693677696d02e65536270587ad2e2d20e99ba5f737365a2457b17b566b1028c5",
+  "bytes": 44555,
+  "retrieved": "2026-10-25",
+  "sha256": "de51f1c249887328d82d89dec3f1bbb66e8766e39c53f943b709221f79509675",
   "status": 200
  },
  "https://data.capitol.hawaii.gov/hrscurrent/": {
@@ -201,6 +201,12 @@
   "bytes": 39635,
   "retrieved": "2026-10-25",
   "sha256": "38c4c5ba24f44b207538e2d757d8228e6837325e24a91657155ebd3e88e58d23",
+  "status": 200
+ },
+ "https://data.stare.pub/cap/f-supp-3d/388.zip#json/0109-01.json": {
+  "bytes": 112344,
+  "retrieved": "2026-10-25",
+  "sha256": "7e86cdd22ee2b8968bef5bf176acdb354b9adf8115704bdeea23551210e40179",
   "status": 200
  },
  "https://data.stare.pub/cap/f-supp/393.zip#json/0553-01.json": {
@@ -537,61 +543,61 @@
  "https://legislature.vermont.gov/statutes/chapter/24/081": {
   "bytes": 58549,
   "retrieved": "2026-10-25",
-  "sha256": "817360a5ac725111109d8de19fcc844a150748d4491a0ecc1c676d29ec1d5f60",
+  "sha256": "276195269b183f45d9ab9586a39f3d79bec004e429b1b21ad3821e5ab9d7fa7b",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/chapter/24/115": {
   "bytes": 58428,
   "retrieved": "2026-10-25",
-  "sha256": "a974cc321b9a6b1cfa392f68b72928aa1d889a456a016b5fbef7eddd170db7e0",
+  "sha256": "502954ad246e784750cafad1dedfce284809a32a5383b9d8926fc3fb5240a423",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/chapter/24/117": {
   "bytes": 79850,
   "retrieved": "2026-10-25",
-  "sha256": "e1b287b5d3cf9666b3ab2e9aa1eba73f67f2f85dd76ff8deb5aec261e8c25066",
+  "sha256": "767ac15c93e987575683c79a1d969931a3f10db444c7441b3636d0b3831cf251",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/chapter/24/118": {
   "bytes": 59150,
   "retrieved": "2026-10-25",
-  "sha256": "d6112b5e6defd62eac9836c03d89a25db97c05f36ca6a370a2542d1dd97c45c3",
+  "sha256": "4dffdcd0ad2bf3d27163b36674978af678b33f1c441622a848d6a78e99d7e57e",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/chapter/24/120": {
   "bytes": 65646,
   "retrieved": "2026-10-25",
-  "sha256": "adb88e9f936030b016d032b1a219be582208542e7015df317198f19bbbc36df7",
+  "sha256": "71a997cdb7df2f70c5abc51415fb0d8a3046f719504becaa3decf00d5d345a43",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/chapter/24/126": {
   "bytes": 60305,
   "retrieved": "2026-10-25",
-  "sha256": "51a99311eeded3521e032e9f46b43d8bf4a18ed9be5b8deddd7fccac3a1398c1",
+  "sha256": "244fa2ab254f0e9282fcf372c95e1f164400a9f5dd9d1901843d1070488f1ba5",
   "status": 200
  },
  "https://legislature.vermont.gov/statutes/title/24": {
   "bytes": 75304,
   "retrieved": "2026-10-25",
-  "sha256": "97a3807228db8f073cddbb119a6f728336c4048ac6059aa10822acb13762ace4",
+  "sha256": "82c24e63c5dd4e5ae2286305cc4b8353e5a3cca577df9f321dcf20421483e359",
   "status": 200
  },
  "https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15": {
-  "bytes": 81354,
-  "retrieved": "2026-10-18",
-  "sha256": "5a90d3adfaf50c3e929ccf08a21ee484f2a6dcbd3d85f011b8b4cb0bbb2ebe8d",
+  "bytes": 81109,
+  "retrieved": "2026-10-25",
+  "sha256": "a046ab440b8051adec51f29d1bab11533ae4b407796483b7d0caa1266ea73254",
   "status": 200
  },
  "https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A": {
-  "bytes": 73446,
-  "retrieved": "2026-10-18",
-  "sha256": "1162013886cfdf9bc03f8167ef7d1a50742ac72fe904ebdddad0840d393863a7",
+  "bytes": 73201,
+  "retrieved": "2026-10-25",
+  "sha256": "3518bb4bbab82c6cff7b00819d1ddac0bf535a0a98f88f465dd3b79d5d6f20bc",
   "status": 200
  },
  "https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E": {
-  "bytes": 74745,
-  "retrieved": "2026-10-18",
-  "sha256": "77fac6d4742f81c4933c34e75e10e5a064e02ef65cb5e812185056edd9fa2699",
+  "bytes": 74500,
+  "retrieved": "2026-10-25",
+  "sha256": "9324bef56ac02060f322953ee02fd5edee23960c453d908a76a7b1e61036d71a",
   "status": 200
  },
  "https://ndlegis.gov/cencode/t19c03-4.pdf": {
@@ -960,14 +966,14 @@
  },
  "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520": {
   "bytes": 27577,
-  "retrieved": "2026-10-18",
-  "sha256": "f24ef7b214570fd27e8260a135d901a1441431c5a43460bd4f5547a62c81c3d0",
+  "retrieved": "2026-10-25",
+  "sha256": "b68fa89fb87f0b7ba9e058429180505eef4500ab702a078508b3fabfebf743bf",
   "status": 200
  },
  "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013": {
   "bytes": 31460,
-  "retrieved": "2026-10-18",
-  "sha256": "780369394425a4a69943fd7277856053d4a4551be6906483365b729b127c1ebe",
+  "retrieved": "2026-10-25",
+  "sha256": "fe61305851fe33fddb4b5fd90a012ebf7c7729b3ec743f2f40e60b82a06ddfd1",
   "status": 200
  },
  "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_1/GS_1-420.html": {
@@ -1032,8 +1038,8 @@
  },
  "https://www.ussc.gov/guidelines/2025-guidelines-manual": {
   "bytes": 171898,
-  "retrieved": "2026-10-18",
-  "sha256": "f9698d73ca5945f2541ebcf6df6383e9ae5e96da122891d90d80c0c822926f1e",
+  "retrieved": "2026-10-25",
+  "sha256": "5473950aa8ee546724da7a26f714ae8d1b40175cecca2d2bb0e219d017285fdf",
   "status": 200
  }
 }
