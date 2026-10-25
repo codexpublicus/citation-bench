@@ -1080,6 +1080,8 @@ class Rulings:
       holding it, for the `codes` listed
     - `existence`: the section of `vector` exists or existed as cited. Only a ruling
       with `overrides` naming the machine check's result replaces a failed check
+    - `excerpt`: `vector`'s excerpt was corrected by hand, and why. It settles no check
+      and is kept as the record of the correction
     """
 
     def __init__(self, data=None):

@@ -56,12 +56,17 @@ its detail and `owner-ruling-<decision>` as its source; a vector whose other cla
 passed is `verified-by-source`, the ruling among its sources. The form ruling is looked up
 before CourtListener's API, so a ruled form spends no quota. An existence ruling replaces
 a failed check only when it says `"overrides": "fail"`, as `vt_vsa/0`'s does (the section
-was repealed after the events, which the current-code check can't know). Each ruling
-lists the vectors it was made for; the test suite checks that they exist.
+was repealed after the events, which the current-code check can't know). An excerpt
+ruling (`excerpt`: `vector`'s excerpt was corrected, and why) settles no check; it records
+the basis for a vector whose text was changed by hand. Each ruling lists the vectors it
+was made for; the test suite checks that they exist.
 
 The maintainer reviewed the 48 vectors the 2026-10-18 run left open and answered them on
-2026-10-25 (A63): every one is verified now but `conn_gen_stat/1`, whose `10 -236b` is
-not decided, and those 47 have `provenance.status` `verified`.
+2026-10-25 (A63): every one is verified now but `conn_gen_stat/1`, whose `10 -236b` was
+left open, and those 47 have `provenance.status` `verified`. The maintainer settled
+`conn_gen_stat/1` the same day (D116): the space is in no original (the court's PDF and
+CAP's text both print `§ 10-236b(f)`), so its excerpt was taken again from stare.pub's
+CAP text and it is verified too.
 
 The checks were tried against seventeen wrong vectors (a section, rule, page, public law,
 clause or year that doesn't exist, one per source); all seventeen came out

@@ -227,7 +227,7 @@
   "Fed. Reg.": {
    "jurisdiction": "United States",
    "name": "Federal Register",
-   "basis": "2026-10-18 conventions",
+   "basis": "2026-10-18 conventions, kept by ruling (D116)",
    "reporters_db": "FR",
    "aliases": [
     {
@@ -242,7 +242,7 @@
      "source": "reporters-db v3.2.67"
     }
    ],
-   "note": "reporters-db keys it `FR` (with `Fed. Reg.` as a variation); the 2026-10-18 conventions chose `Fed. Reg.`"
+   "note": "reporters-db keys it `FR` (with `Fed. Reg.` as a variation); the 2026-10-18 conventions chose `Fed. Reg.`, and the maintainer kept it as the identifier, with `FR` as its alias, when D114 would have made it `FR` (D116, 2026-10-25)"
   },
   "Fla. Stat.": {
    "jurisdiction": "Florida",

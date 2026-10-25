@@ -338,27 +338,24 @@
  {
   "id": "statutes/find/conn_gen_stat/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:cga+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
     "detail": "",
     "source": "",
     "human": []
-   },
-   {
-    "claim": "span",
-    "result": "none",
-    "detail": "section '10 -236b' has whitespace in it",
-    "source": "",
-    "human": [
-     "span",
-     "whitespace inside a section (`10 -236b`)"
-    ]
    },
    {
     "claim": "metadata",

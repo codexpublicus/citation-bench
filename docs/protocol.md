@@ -194,8 +194,8 @@ memory of the Bluebook's tables, not checked against the book, and say so (`sour
 `memory`); `confirmed_by` names a public source where one confirms the pattern.
 `tests/test_law_codes.py` fails when a vector names a code with no entry. `Pa. Stat.
 Ann.` keeps its name by ruling (A63). `Fed. Reg.`, from the 2026-10-18 conventions, is
-the one code whose identifier the rule would now make reporters-db's `FR`; it stays
-until the maintainer rules on it.
+the one code whose identifier the rule would make reporters-db's `FR`; it stays `Fed.
+Reg.` by ruling (D116, 2026-10-25), with `FR` recorded as its reporters-db alias.
 
 The maintainer accepted these conventions on 2026-10-18 for the forms reporters-db
 doesn't settle:
@@ -205,7 +205,8 @@ doesn't settle:
   P.`, `Mich. Ct. R.` for `MCR`).
 - A constitution has `article`, `amendment` and `section` groups (`U.S. Const. art. I, §
   8`), each as written, with a clause as the pin cite (`cl. 3`).
-- `Fed. Reg.` normalizes to `Fed. Reg.` as written, not reporters-db's `FR`.
+- `Fed. Reg.` normalizes to `Fed. Reg.` as written, not reporters-db's `FR` (kept by
+  ruling D116; `FR` is its alias in `data/law-codes.json`).
 - `U.S.C.A.` normalizes to `U.S.C.`.
 - A range stays whole in `section` (`21 U.S.C. §§ 801-904`: section `801-904`).
 - `et seq.` is the pin cite.

@@ -6,6 +6,13 @@
    "basis": "owner-ruled 2026-10-25 (A63)",
    "question": "The statute review packet for citation-bench#30: 46 one-line answers on existence, written forms, code abbreviations and span patterns, plus the two contradicted vectors",
    "answer": "Accept the packet's answer sheet. Conn. Practice Book is one code; N.Y. Family Ct Act keeps New York's own style; Pa. Stat. Ann. for P.S.; \"(Rev. to year)\" and \"(1969 Reenactment)\" stay inside the span and are not recorded as year; conn_gen_stat/1's \"10 -236b\" is not decided and stays unverified; the two Attorney General opinion vectors (ark_aca/1, la_rev_stat/0) stay, and the README says the set includes citations as courts and state attorneys general write them. vt_vsa/0 is accepted as is; nm_nmsa/0 is fixed by re-taking its excerpt from the same opinion."
+  },
+  "D116": {
+   "date": "2026-10-25",
+   "by": "owner",
+   "basis": "owner-ruled 2026-10-25 (D116)",
+   "question": "conn_gen_stat/1's section `10 -236b`, left open by A63; and whether `Fed. Reg.` stays the identifier now that D114 makes reporters-db's key the identifier",
+   "answer": "The space in `§ 10 -236b(f)` is in no original: the court's PDF (D. Conn. 3:17-cv-01885, ECF 85 p. 27, GovInfo USCOURTS-ctd-3_17-cv-01885-2.pdf) prints `Conn. Gen. Stat. § 10-236b(f).` and CAP's text for 388 F. Supp. 3d 109 has `§ 10-236b(f)`; it came from eyecite's clean step `html` joining CAP markup text nodes. Correct the excerpt to the court's text, re-taken from stare.pub's CAP text for the same case, with section `10-236b` and pin cite `(f)`, and verify it. Messy-input cases belong in a separate, labelled set. `Fed. Reg.` stays the identifier, with reporters-db's `FR` as its alias in data/law-codes.json."
   }
  },
  "rulings": [
@@ -405,6 +412,12 @@
    "vector": "statutes/find/vt_vsa/0",
    "answer": "24 V.S.A. § 4407 existed and was repealed (chapter 117 lists §§ 4404a-4409 as repealed by 2003, No. 115 (Adj. Sess.), § 119), as the opinion says; the vector is accepted as is",
    "overrides": "fail"
+  },
+  {
+   "decision": "D116",
+   "claim": "excerpt",
+   "vector": "statutes/find/conn_gen_stat/1",
+   "answer": "the excerpt is the court's text, `Conn. Gen. Stat. § 10-236b(f)`, as the court's PDF (ECF 85 p. 27) and CAP's text print it; the CourtListener sample's `10 -236b` was a cleaning artifact"
   }
  ]
 }

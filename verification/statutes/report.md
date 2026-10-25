@@ -4,9 +4,9 @@ Written by `bench/verify_statutes.py` (`mise run verify:statutes`). A verdict do
 
 | Set | Vectors | Verified by source | Contradicted | Unverifiable |
 |---|---:|---:|---:|---:|
-| statutes | 93 | 92 | 0 | 1 |
+| statutes | 93 | 93 | 0 | 0 |
 | statutes-proposed | 21 | 21 | 0 | 0 |
-| **all** | 114 | 113 | 0 | 1 |
+| **all** | 114 | 114 | 0 | 0 |
 
 ## Contradicted
 
@@ -20,10 +20,6 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 
 ## What needs a person
 
-### Span judgments
-
-- whitespace inside a section (`10 -236b`): 1 (`conn_gen_stat/1`)
-
 ## Verdicts
 
 | Vector | Provenance | Verdict |
@@ -35,7 +31,7 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | `statutes/find/conn_practice_book/0` | verified | verified-by-source:cap-case-metadata+ct-judicial+owner-ruling-A63+stare-pub-cap |
 | `statutes/find/conn_practice_book/1` | verified | verified-by-source:cap-case-metadata+ct-judicial+owner-ruling-A63+stare-pub-cap |
 | `statutes/find/conn_gen_stat/0` | hand-checked | verified-by-source:cga+reporters-db@v3.2.67+stare-pub-cap |
-| `statutes/find/conn_gen_stat/1` | hand-checked | unverifiable:span |
+| `statutes/find/conn_gen_stat/1` | verified | verified-by-source:cga+reporters-db@v3.2.67+stare-pub-cap |
 | `statutes/find/ga_ocga/0` | verified | verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67 |
 | `statutes/find/ga_ocga/1` | verified | verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap |
 | `statutes/find/ga_o_c_g_a/0` | verified | verified-by-source:owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap |
@@ -143,6 +139,24 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | `statutes-proposed/find/usc_range/0` | proposed | verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67+stare-pub-cl |
 | `statutes-proposed/find/usc_range/1` | proposed | verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67 |
 
+## Sources changed since they were pinned
+
+- https://code.wvlegislature.gov/31-1-15/: was `8491d2872b4f8df3`, now `a330883a08ad0e57`
+- https://code.wvlegislature.gov/56-6-31/: was `693677696d02e655`, now `de51f1c249887328`
+- https://legislature.vermont.gov/statutes/chapter/24/081: was `817360a5ac725111`, now `276195269b183f45`
+- https://legislature.vermont.gov/statutes/chapter/24/115: was `a974cc321b9a6b1c`, now `502954ad246e7847`
+- https://legislature.vermont.gov/statutes/chapter/24/117: was `e1b287b5d3cf9666`, now `767ac15c93e98757`
+- https://legislature.vermont.gov/statutes/chapter/24/118: was `d6112b5e6defd62e`, now `4dffdcd0ad2bf3d2`
+- https://legislature.vermont.gov/statutes/chapter/24/120: was `adb88e9f936030b0`, now `71a997cdb7df2f70`
+- https://legislature.vermont.gov/statutes/chapter/24/126: was `51a99311eeded352`, now `244fa2ab254f0e92`
+- https://legislature.vermont.gov/statutes/title/24: was `97a3807228db8f07`, now `82c24e63c5dd4e5a`
+- https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15: was `5a90d3adfaf50c3e`, now `a046ab440b8051ad`
+- https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A: was `1162013886cfdf9b`, now `3518bb4bbab82c6c`
+- https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E: was `77fac6d4742f81c4`, now `9324bef56ac02060`
+- https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520: was `f24ef7b214570fd2`, now `b68fa89fb87f0b7b`
+- https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013: was `780369394425a4a6`, now `fe61305851fe33fd`
+- https://www.ussc.gov/guidelines/2025-guidelines-manual: was `f9698d73ca5945f2`, now `5473950aa8ee5467`
+
 ## Sources used
 
 | URL | Retrieved | Bytes | SHA-256 |
@@ -150,8 +164,8 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | http://certificates.godaddy.com/repository/gdig2.crt | 2026-10-18 | 1236 | `973a41276ffd01e0` |
 | https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2212-2-7%22%7D | 2026-10-18 | 130 | `e32c7b902b235c0d` |
 | https://alison.legislature.state.al.us/graphql?query=query%28%24displayId%3A+String%21%29%7BcodesOfAlabama%28where%3A%7Btype%3A%7Beq%3ASection%7D%2CdisplayId%3A%7Beq%3A%24displayId%7D%7D%29%7Bdata%7BdisplayId+title%7D%7D%7D&variables=%7B%22displayId%22%3A+%2225-5-1%22%7D | 2026-10-18 | 99 | `2676e795d9084d21` |
-| https://code.wvlegislature.gov/31-1-15/ | 2026-10-18 | 40139 | `8491d2872b4f8df3` |
-| https://code.wvlegislature.gov/56-6-31/ | 2026-10-18 | 44556 | `693677696d02e655` |
+| https://code.wvlegislature.gov/31-1-15/ | 2026-10-25 | 40138 | `a330883a08ad0e57` |
+| https://code.wvlegislature.gov/56-6-31/ | 2026-10-25 | 44555 | `de51f1c249887328` |
 | https://data.capitol.hawaii.gov/hrscurrent/ | 2026-10-18 | 2128 | `212f935aa1e4edc4` |
 | https://data.capitol.hawaii.gov/hrscurrent/Vol05_Ch0261-0319/HRS0291E/HRS_0291E-0021.htm | 2026-10-18 | 9152 | `466db453566c270b` |
 | https://data.capitol.hawaii.gov/hrscurrent/Vol14_Ch0701-0853/HRS0707/HRS_0707-0721.htm | 2026-10-18 | 3938 | `8e2f6ee014d15e3a` |
@@ -181,6 +195,7 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | https://data.stare.pub/cap/f-supp-2d/130.zip#json/0450-01.json | 2026-10-25 | 459811 | `24fb22f82574d7f7` |
 | https://data.stare.pub/cap/f-supp-2d/333.zip#json/1344-01.json | 2026-10-25 | 32310 | `53436c4a0a821d51` |
 | https://data.stare.pub/cap/f-supp-2d/60.zip#json/0566-01.json | 2026-10-25 | 39635 | `38c4c5ba24f44b20` |
+| https://data.stare.pub/cap/f-supp-3d/388.zip#json/0109-01.json | 2026-10-25 | 112344 | `7e86cdd22ee2b896` |
 | https://data.stare.pub/cap/f-supp/393.zip#json/0553-01.json | 2026-10-25 | 31579 | `050163bb07b4807a` |
 | https://data.stare.pub/cap/f-supp/407.zip#json/1326-01.json | 2026-10-25 | 79306 | `0eba02b3a2a58719` |
 | https://data.stare.pub/cap/f-supp/508.zip#json/0078-01.json | 2026-10-25 | 27936 | `c10e021ba469a3fb` |
@@ -236,16 +251,16 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | https://legislature.maine.gov/statutes/11/title11sec1-203.html | 2026-10-18 | 9232 | `22009510bb98d7e1` |
 | https://legislature.maine.gov/statutes/15/title15sec2115-A.html | 2026-10-18 | 18779 | `3c8209a1c9993b3e` |
 | https://legislature.maine.gov/statutes/19-A/title19-Asec1653.html | 2026-10-18 | 80149 | `ea2010ffd24c776a` |
-| https://legislature.vermont.gov/statutes/chapter/24/081 | 2026-10-25 | 58549 | `817360a5ac725111` |
-| https://legislature.vermont.gov/statutes/chapter/24/115 | 2026-10-25 | 58428 | `a974cc321b9a6b1c` |
-| https://legislature.vermont.gov/statutes/chapter/24/117 | 2026-10-25 | 79850 | `e1b287b5d3cf9666` |
-| https://legislature.vermont.gov/statutes/chapter/24/118 | 2026-10-25 | 59150 | `d6112b5e6defd62e` |
-| https://legislature.vermont.gov/statutes/chapter/24/120 | 2026-10-25 | 65646 | `adb88e9f936030b0` |
-| https://legislature.vermont.gov/statutes/chapter/24/126 | 2026-10-25 | 60305 | `51a99311eeded352` |
-| https://legislature.vermont.gov/statutes/title/24 | 2026-10-25 | 75304 | `97a3807228db8f07` |
-| https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15 | 2026-10-18 | 81354 | `5a90d3adfaf50c3e` |
-| https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A | 2026-10-18 | 73446 | `1162013886cfdf9b` |
-| https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E | 2026-10-18 | 74745 | `77fac6d4742f81c4` |
+| https://legislature.vermont.gov/statutes/chapter/24/081 | 2026-10-25 | 58549 | `276195269b183f45` |
+| https://legislature.vermont.gov/statutes/chapter/24/115 | 2026-10-25 | 58428 | `502954ad246e7847` |
+| https://legislature.vermont.gov/statutes/chapter/24/117 | 2026-10-25 | 79850 | `767ac15c93e98757` |
+| https://legislature.vermont.gov/statutes/chapter/24/118 | 2026-10-25 | 59150 | `4dffdcd0ad2bf3d2` |
+| https://legislature.vermont.gov/statutes/chapter/24/120 | 2026-10-25 | 65646 | `71a997cdb7df2f70` |
+| https://legislature.vermont.gov/statutes/chapter/24/126 | 2026-10-25 | 60305 | `244fa2ab254f0e92` |
+| https://legislature.vermont.gov/statutes/title/24 | 2026-10-25 | 75304 | `82c24e63c5dd4e5a` |
+| https://malegislature.gov/Laws/GeneralLaws/Chapter184/Section15 | 2026-10-25 | 81109 | `a046ab440b8051ad` |
+| https://malegislature.gov/Laws/GeneralLaws/Chapter260/Section2A | 2026-10-25 | 73201 | `3518bb4bbab82c6c` |
+| https://malegislature.gov/Laws/GeneralLaws/Chapter278/Section33E | 2026-10-25 | 74500 | `9324bef56ac02060` |
 | https://ndlegis.gov/cencode/t19c03-4.pdf | 2026-10-18 | 83496 | `584d85a6b29cf7ae` |
 | https://ndlegis.gov/cencode/t23c06.pdf | 2026-10-18 | 127283 | `efd9e918efaa462f` |
 | https://nmonesource.com/nmos/c/en/5916/1/document.do | 2026-10-18 | 7413964 | `06d371e024550ba7` |
@@ -306,8 +321,8 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent | 2026-10-18 | 86685 | `44f615e83ad19ae8` |
 | https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 13 | 2026-10-18 | 1824663 | `995c2a07f03978f9` |
 | https://www.legis.la.gov/legis/Laws_Toc.aspx?folder=75&level=Parent#postback=TITLE 9 | 2026-10-18 | 2060003 | `795446a94dc6d4fd` |
-| https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520 | 2026-10-18 | 27577 | `f24ef7b214570fd2` |
-| https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013 | 2026-10-18 | 31460 | `780369394425a4a6` |
+| https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-257-520 | 2026-10-25 | 27577 | `b68fa89fb87f0b7b` |
+| https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-600-6013 | 2026-10-25 | 31460 | `fe61305851fe33fd` |
 | https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_1/GS_1-420.html | 2026-10-18 | 1734 | `004307100b711558` |
 | https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-544.5.html | 2026-10-18 | 12761 | `e694c4d396c95c6c` |
 | https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-910.html | 2026-10-18 | 3076 | `b407dd706f6b83ab` |
@@ -318,4 +333,4 @@ Claims no machine source settles, answered once per form, code, span pattern or 
 | https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=75&div=0&chapter=15&section=43&subsctn=0&iFrame=true | 2026-10-18 | 17059 | `347644ee5fc0f7da` |
 | https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf | 2026-10-18 | 1910974 | `28d0d6236d84e174` |
 | https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf | 2026-10-18 | 1760656 | `bd9d874a40e3fdd9` |
-| https://www.ussc.gov/guidelines/2025-guidelines-manual | 2026-10-18 | 171898 | `f9698d73ca5945f2` |
+| https://www.ussc.gov/guidelines/2025-guidelines-manual | 2026-10-25 | 171898 | `5473950aa8ee5467` |
