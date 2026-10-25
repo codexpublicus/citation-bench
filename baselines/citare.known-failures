@@ -1,7 +1,4 @@
 cap-slugs/find/ct_cl_wv/2
-curated/find/nameless_parallel_run/0
-curated/find/runs_split_at_semicolon/0
-divergences/find/subsequent_history/1
 eyecite-2.7.8/find/test_markup_plaintiff_and_antecedent_guesses/21
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/0
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/1
@@ -11,6 +8,8 @@ eyecite-2.7.8/find/test_nominative_reporter_overlaps/4
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/5
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/6
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/7
+eyecite-2.7.8/find/test_reference_extraction_from_markup/0
+eyecite-2.7.8/find/test_reference_filtering/0
 statutes/find/ariz_ars/1
 statutes/find/conn_general_statutes_revision/1
 statutes/find/fed_r_app_p/0
