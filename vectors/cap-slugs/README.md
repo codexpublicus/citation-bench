@@ -20,9 +20,10 @@ mise run bench:cap-slugs citare    # fails only on vectors not in baselines/cita
 | `mass_app_div_annual` | 2 | `mass-app-div-annual`: the Massachusetts Appellate Division's annual series, volume = year (1980-2015) |
 | `mass_app_div_numbered` | 2 | `mass-app-div`: its numbered series, vols 1-15 (1936-1950) |
 
-`ct_cl_wv/2` cites a 1977 decision. Both courts of claims sat in 1977, so the year doesn't say
-which one a bare `11 Ct. Cl. 150 (1977)` is; the reporter does (the federal volume 11 is from
-1875), and an engine that goes by the year alone picks wrong.
+`ct_cl_wv/2` cites `11 Ct. Cl. 150 (1977)`, a decision CAP dates 1976-07-19; its `year` is
+1977, as printed (docs/protocol.md, Case citation conventions). Both courts of claims sat in
+1976 and 1977, so the year doesn't say which one it is; the reporter does (the federal volume
+11 is from 1875), and an engine that goes by the year alone picks wrong.
 
 ## What a vector expects
 
@@ -55,7 +56,14 @@ is the permanent address stare.pub gives each case; until case pages ship, `data
 No opinion in either corpus cites the numbered `Mass. App. Div.` series, so its two
 inputs are written from the cited case's own CAP record, as stare.pub serves it:
 `name_abbreviation`, the official citation in `citations`, and the year of
-`decision_date` (`source.fields`); they have no `offset`.
+`decision_date` (`source.fields`); they have no `offset`. Because no court wrote them, their
+`provenance` has `ground_truth: false`: they are scored here like any other vector but are not
+ground truth for a dataset of citations in opinion text (docs/protocol.md, Vector provenance).
+
+The maintainer verified all twelve vectors in
+[#45](https://github.com/codexpublicus/citation-bench/issues/45) (2026-10-25); each carries
+that in its own `provenance` (`verified`). `ohio_reports/0`'s `20 Ohio 119` is Ash v. Marlow,
+which CAP files at its reprint's page 101 (`ohio/20/0101-01`).
 
 Three vectors were first taken from the CourtListener ten-percent sample. `ohio_reports/0`'s
 excerpt appears verbatim in the CAP case stare.pub serves for the same decision, at a new
