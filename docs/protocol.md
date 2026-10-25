@@ -148,9 +148,25 @@ A statute, regulation, court rule or constitution is a `full_law` citation. Its 
 groups, named as reporters-db's laws data names them where it has the code: `reporter`
 (as written), `section`, `title`, `chapter` and `subject`, `volume` and `page` for a
 session law or register (`88 Stat. 829`), `title` for a public law number (`Pub. L. No.
-93-233`). `reporter_normalized` is the code's standard abbreviation whatever the spelling
-(`Conn. Gen. Stat.` for `General Statutes`), and `metadata.jurisdiction` its
-jurisdiction.
+93-233`). `reporter_normalized` names the code whatever the spelling (`Conn. Gen. Stat.`
+for `General Statutes`), and `metadata.jurisdiction` its jurisdiction.
+
+`reporter_normalized` is an identifier, not a style choice (owner ruling D114,
+2026-10-25). It is reporters-db's key where reporters-db's laws data has one for the
+code (`Ga. Code Ann.`, `La. Stat. Ann.`), or the code matches one of its patterns
+(`N.Y. Penal Law`, `Cal. Civ. Proc. Code`); otherwise it is the form the jurisdiction's
+own courts use (`N.Y. Family Ct Act`, `Conn. Practice Book`). Every code the vectors
+name has an entry in [`data/law-codes.json`](../data/law-codes.json) with its
+jurisdiction, its Bluebook form as an alias, and reporters-db's key as an alias where the
+identifier differs from it (`Pa. Stat. Ann.` keeps its name, with `Pa. Stat. and Cons.
+Stat. Ann.` and the Bluebook's `Pa. Stat. Ann. tit. N, § x (West)` recorded), so a tool
+can show or match either. Each Bluebook alias says where it comes from: most are from
+memory of the Bluebook's tables, not checked against the book, and say so (`source`
+`memory`); `confirmed_by` names a public source where one confirms the pattern.
+`tests/test_law_codes.py` fails when a vector names a code with no entry. `Pa. Stat.
+Ann.` keeps its name by ruling (A63). `Fed. Reg.`, from the 2026-10-18 conventions, is
+the one code whose identifier the rule would now make reporters-db's `FR`; it stays
+until the maintainer rules on it.
 
 The maintainer accepted these conventions on 2026-10-18 for the forms reporters-db
 doesn't settle:

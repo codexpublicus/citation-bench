@@ -56,6 +56,7 @@ or commercial tool can be benchmarked without sharing any code.
 | Path | Contents |
 |---|---|
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
+| `data/law-codes.json` | Every law code the vectors name: its identifier (`reporter_normalized`), jurisdiction, Bluebook form and reporters-db key as aliases (docs/protocol.md, "Statute and court-rule citations") |
 | `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
 | `vectors/curated/` | Hand-curated vectors from real opinions, each checked against the opinion and the cited cases' records; no engine's output is the reference ([README](vectors/curated/README.md)) |
