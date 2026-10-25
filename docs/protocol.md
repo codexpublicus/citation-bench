@@ -142,6 +142,35 @@ Citations come in document order. Expected citations leave out `span` and `full_
 when their source has no trustworthy offsets (eyecite's factory-built test citations);
 the scorer only checks the fields an expected citation has.
 
+## Case citation conventions
+
+The maintainer accepted these conventions on 2026-10-25, in the review of the case vectors
+([#45](https://github.com/codexpublicus/citation-bench/issues/45)), for the readings the
+field definitions above leave open:
+
+- **A parallel run's full span.** When a run of parallel citations ends in a year
+  parenthetical, every citation in it has the whole run as its `full_span`, from the run's
+  start (its case name, or its first citation when it has no name) to the parenthetical's
+  end: `392 U.S. 928, 88 S.Ct. 2287, 20 L.Ed.2d 1387 (1968)`. When the run has no closing
+  year, each citation's `full_span` runs from the run's start to that citation's own end:
+  in `Riding Academy v. Miller (1934), 127 Ohio 545, 189 N. E. 647,` the first citation's
+  full span ends after `545` and the second's after `647`.
+- **The year as printed.** `year` is the year the input prints for the citation, not the
+  cited decision's date: `11 Ct. Cl. 150 (1977)` has year 1977 although CAP dates the
+  decision 1976-07-19, and a citation printed without a year has none, even when the
+  decision's year is known. The decision date is in the cited case's record.
+- **`Id.` before a full citation.** An `Id.` followed directly by a full citation (`Id.,
+  9 Cir., 152 F.2d 298`) is an `id` citation of its own, and a `resolve` vector groups it
+  with the full citation that follows it, not with the authority cited before it.
+- **Inputs written from case metadata.** An input written from a case's own record rather
+  than taken from an opinion (`source.fields`, under Vector sources) can be verified like
+  any other vector, but it is not ground truth for a dataset of citations found in opinion
+  text: its `provenance` has `ground_truth: false` (Vector provenance).
+
+A second first page printed like a pin cite (`436 U.S. 929, 949`, where 949 is another
+order) has no reading in this protocol yet; the vector that has one stays `proposed` until
+it does.
+
 ## Statute and court-rule citations
 
 A statute, regulation, court rule or constitution is a `full_law` citation. Its parts are
@@ -209,6 +238,13 @@ A vector without `provenance` takes its set's, from the `provenance` in the set'
 and `hand-checked` vectors as the reference and reports every other status in a table of
 its own. An engine's output is never ground truth, the reference engine's included:
 agreement between two engines is reported as agreement, apart from the scores.
+
+`provenance.ground_truth: false` marks a vector that is checked and scored as its status
+says but is not ground truth for a dataset of citations found in opinion text, such as
+stare-builder's tier 0, because its input wasn't taken from an opinion. The two
+`cap-slugs` `mass_app_div_numbered` vectors have it: no opinion in either corpus cites
+that series, so their inputs are written from the cited cases' CAP records. Without the
+field, the status alone decides.
 
 `bench/verify_statutes.py` (`mise run verify:statutes`) checks the statute vectors' parts
 against official sources (the U.S. Code, eCFR, the Statutes at Large, the Federal Register,

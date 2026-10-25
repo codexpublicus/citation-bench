@@ -3,9 +3,11 @@
 Hand-made vectors whose expected answers a person read against the opinion they come from
 and the cited cases' own records. No engine's output is the reference here, eyecite's
 included: where a ruling or the source text and an engine disagree, the vector follows the
-ruling and the text. The set records its provenance in `SOURCE.json` (`hand-checked`); a
-vector that couldn't be checked in full says so in its own `provenance` (`proposed`), with
-the reason.
+ruling and the text. The set records its provenance in `SOURCE.json` (`hand-checked`); the
+maintainer verified seven of the eight in
+[#45](https://github.com/codexpublicus/citation-bench/issues/45) (2026-10-25), and each of
+those says so in its own `provenance` (`verified`). A vector that couldn't be checked in
+full says so in its own `provenance` (`proposed`), with the reason.
 
 ```bash
 mise run bench:curated eyecite   # fails only on vectors not in baselines/eyecite.known-differences
@@ -19,14 +21,14 @@ the six vectors [#32](https://github.com/codexpublicus/citation-bench/issues/32)
 
 | Vector | Provenance | What it checks | Source |
 |---|---|---|---|
-| `find/ohio_reports/0` | hand-checked | `5 Ohio 187` is the Ohio Reports (reporter `Ohio`, normalized `Ohio`, `cap_slug` `ohio`): Putnam v. Valentine (Ohio 1831), CAP `ohio/5/cases/0170-01.json` | Lincoln County v. Fish, 38 Wash. 105 (1905), stare.pub CAP `wash/38/105` |
-| `find/ohio_state_variation/0` | hand-checked | `127 Ohio 545` is the Ohio State Reports, read through `Ohio` as an inferred abbreviation (variation) of `Ohio St.`: reporter `Ohio` as written, normalized `Ohio St.`, `cap_slug` `ohio-st`. Troop A Riding Academy v. Miller (1934), CAP `ohio-st/127/cases/0545-01.json` | stare.pub CAP `wis-2d/32/464` (CourtListener 1612618) |
-| `find/nameless_parallel_run/0` | hand-checked | #32 row 1 (Flaksa): the three certiorari citations share one full span and the year 1968, and take no case name | stare.pub CAP `so2d/585/842` (CourtListener 1706597) |
-| `find/consecutive_runs_own_year/0` | hand-checked | #32 row 2 (Elchibegoff): two nameless runs in a row, the first 1946 and the second 1947 | stare.pub CAP `f-supp/355/29` (CourtListener 1447928) |
+| `find/ohio_reports/0` | verified | `5 Ohio 187` is the Ohio Reports (reporter `Ohio`, normalized `Ohio`, `cap_slug` `ohio`): Putnam v. Valentine (Ohio 1831), CAP `ohio/5/cases/0170-01.json` | Lincoln County v. Fish, 38 Wash. 105 (1905), stare.pub CAP `wash/38/105` |
+| `find/ohio_state_variation/0` | verified | `127 Ohio 545` is the Ohio State Reports, read through `Ohio` as an inferred abbreviation (variation) of `Ohio St.`: reporter `Ohio` as written, normalized `Ohio St.`, `cap_slug` `ohio-st`. Troop A Riding Academy v. Miller (1934), CAP `ohio-st/127/cases/0545-01.json` | stare.pub CAP `wis-2d/32/464` (CourtListener 1612618) |
+| `find/nameless_parallel_run/0` | verified | #32 row 1 (Flaksa): the three certiorari citations share one full span and the year 1968, and take no case name | stare.pub CAP `so2d/585/842` (CourtListener 1706597) |
+| `find/consecutive_runs_own_year/0` | verified | #32 row 2 (Elchibegoff): two nameless runs in a row, the first 1946 and the second 1947 | stare.pub CAP `f-supp/355/29` (CourtListener 1447928) |
 | `find/runs_split_at_semicolon/0` | proposed | #32 row 3 (Pope): two runs split at the semicolon; only the second has a year, 1978 | stare.pub CAP `f2d/731/440` (CourtListener 433585) |
-| `resolve/id_as_case_name/0` | hand-checked | #32 row 4 (Murray): `Id., (1990), 52 Ohio St.3d 155` resolves with In re Murray: `[0, 1, 0, 0, 2]` | CourtListener [3759943](https://www.courtlistener.com/opinion/3759943/) |
-| `resolve/id_as_case_name/1` | hand-checked | #32 row 5 (Grain Cleaner): `Id., 34 Hun, 91` is the General Term's decision, apart from the Court of Appeals': `[0, 1, 2, 2]` | CourtListener [5509821](https://www.courtlistener.com/opinion/5509821/) |
-| `resolve/id_as_case_name/2` | hand-checked | #32 row 6 (First National Benefit Society): `Id., 9 Cir., 152 F.2d 298` is the second decision of that name: `[0, 1, 1, 2]` | stare.pub CAP `f2d/183/191` (CourtListener 225404) |
+| `resolve/id_as_case_name/0` | verified | #32 row 4 (Murray): `Id., (1990), 52 Ohio St.3d 155` resolves with In re Murray: `[0, 1, 0, 0, 2]` | CourtListener [3759943](https://www.courtlistener.com/opinion/3759943/) |
+| `resolve/id_as_case_name/1` | verified | #32 row 5 (Grain Cleaner): `Id., 34 Hun, 91` is the General Term's decision, apart from the Court of Appeals': `[0, 1, 2, 2]` | CourtListener [5509821](https://www.courtlistener.com/opinion/5509821/) |
+| `resolve/id_as_case_name/2` | verified | #32 row 6 (First National Benefit Society): `Id., 9 Cir., 152 F.2d 298` is the second decision of that name: `[0, 1, 1, 2]` | stare.pub CAP `f2d/183/191` (CourtListener 225404) |
 
 Each vector's `source.note` names the CAP record of every case it relies on, so the reading
 can be checked again from the record.
@@ -37,9 +39,9 @@ I took each excerpt from the opinion's text, as described under Provenance, and 
 every span from the excerpt rather than copying an engine's. Every cited volume and page was
 looked up in CAP's `CasesMetadata.json` for that volume: the case name, the court and the
 decision date gave the year of each run and which decision an id. citation names. `34 Hun
-91`, which CAP doesn't have, is CourtListener's [Throop Grain Cleaner Co. v.
-Smith](https://www.courtlistener.com/opinion/6262891/throop-grain-cleaner-co-v-smith/),
-41 N.Y. Sup. Ct. 91 (1884); Hun's volume 34 is the series' volume 41.
+91` is Throop Grain Cleaner Co. v. Smith, 41 N.Y. Sup. Ct. 91 (General Term, 1884): CAP
+files it as `ny-sup-ct/41/0091-01`, since Hun's volume 34 is the series' volume 41, and
+CourtListener has it as [6262891](https://www.courtlistener.com/opinion/6262891/throop-grain-cleaner-co-v-smith/).
 
 The check changed four things from what #32 quoted, which was citare's output on its own
 copy of each input:
@@ -62,7 +64,8 @@ copy of each input:
 `runs_split_at_semicolon/0` stays `proposed`. Its second run cites two orders in each
 reporter (`436 U.S. 929, 949`, `98 S.Ct. 2828, 2856`, `56 L.Ed.2d 774, 792`): page 949 is
 twenty pages past a one-paragraph order denying certiorari, so it is a second order, not a
-pin cite. The protocol has no way to say that, so `pin_cite` holds the second page as both
+pin cite. The owner review in #45 confirmed it: 436 U.S. 949 is codefendant Williamson's
+own denial of certiorari (CAP `us/436/0949-05`, 1978-06-05). The protocol has no way to say that, so `pin_cite` holds the second page as both
 engines read it. The runs and their years are checked; the pin cites are not a reading I
 can stand behind.
 
@@ -97,7 +100,9 @@ eyecite's definitions, which the earlier sets use too: `metadata.court` is the c
 parenthetical, or `scotus` for a reporter that is federal and has "Supreme" in its name
 (`U.S.`, `S. Ct.`, not `L. Ed.`); `metadata.extra` is the text between a citation and its
 parenthetical. A citation in a parallel run without a name of its own takes the run's full
-span, from the run's first citation to its year, as citare#84 and #32 define it. `cap_slug`
+span, from the run's first citation to its year, as citare#84 and #32 define it; in a run
+with no year, each citation's full span runs from the run's start to its own end
+(docs/protocol.md, Case citation conventions). `cap_slug`
 is given only on the two Ohio citations.
 
 `resolve` vectors score the citation types and the partition, nothing else
