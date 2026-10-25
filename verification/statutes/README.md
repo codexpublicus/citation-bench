@@ -11,6 +11,11 @@ writes three files here:
 - `sources.json`: every source the run read, with its URL, retrieval date, size and
   SHA-256
 
+and reads one the maintainer writes:
+
+- `rulings.json`: the maintainer's answers to what no machine source settles, each under
+  the decision it came from and that decision's basis (`owner-ruled 2026-10-25 (A63)`)
+
 The sources themselves are cached under `.cache/statute-sources/` (gitignored, about
 235 MB: U.S. Code metadata, California's 32 MB bulk-data prefix and the PDFs). A later run refuses a cached copy whose
 hash differs from `sources.json`; a source that changed upstream is used as it is now,
@@ -25,13 +30,38 @@ verifier; `tests/test_verify_statutes.py` tests it on small fixtures with no net
 | span, judgment | `Ala. Code 1975, § 12-2-7` | Text in the span that no field holds (`1975,`) and whitespace inside a number (`10 -236b`) go to a person, grouped by pattern |
 | metadata as written | pin cite `(a)` | The pin cite follows the span; the year, parenthetical and publisher are in the text after it |
 | code | `N.C. Gen. Stat.`, North Carolina | reporters-db's laws data has the code for that jurisdiction (its `$law_subject` patterns cover `N.Y. Penal Law`, `Cal. Pen. Code`, `Tex. Penal Code Ann.`), or the 2026-10-18 conventions name it |
-| form | `G.S.` means `N.C. Gen. Stat.` | The written form is the code's own abbreviation; or the official page cites the section in that form (ncleg.gov writes `G.S. 163-122`); or the citing court sits in the code's jurisdiction (CAP case metadata for a CAP excerpt; CourtListener's API for a CourtListener excerpt, with a key) |
+| form | `G.S.` means `N.C. Gen. Stat.` | The written form is the code's own abbreviation; or the official page cites the section in that form (ncleg.gov writes `G.S. 163-122`); or the citing court sits in the code's jurisdiction (the case metadata stare.pub serves for the excerpt's case, or for the same decision when the excerpt is from the CourtListener sample; CourtListener's API, with a key, when stare.pub doesn't serve the decision) |
 | existence | § 163-122 exists | The official source for the code holds the section, rule, article and section, clause, page or public law, and a year agrees with it |
-| excerpt | CAP vectors | The input is the opinion's text at the recorded offset |
+| excerpt | stare.pub vectors | stare.pub serves the bytes the vector pins (`sha256`), and the input is the opinion's text at the recorded offset |
 
 A vector is `verified-by-source:<sources>` when every claim passed, `contradicted:<what>`
 when any failed, and `unverifiable:<claims>` when none failed and some had no machine
 check. A verdict never changes a vector's provenance.
+
+A vector's `source.corpus` has to be `stare-pub` or `courtlistener-10pct`
+(docs/protocol.md, "Vector sources"), and a stare.pub source `cap` or `cl`; any other
+stops the run with an error rather than skipping the excerpt and citing-court checks.
+`tests/test_verify_statutes.py` checks that every statute vector in the repo gets them.
+A CourtListener-sample excerpt has no excerpt check: its text is the sample's after clean
+steps, and `tools/fetch_corpus.py` verifies the sample's files by sha256.
+
+## Rulings
+
+`rulings.json` holds the maintainer's answers, one per written form (`form`: `written`
+means `code`), code (`code`: the standard abbreviation of `jurisdiction`'s code), span
+pattern (`span`: text matching `pattern`, digits as `#`, belongs inside the span with no
+field holding it, for the `codes` listed) or vector (`existence`: the section of `vector`
+exists or existed as cited). A check a ruling answers passes, with the ruling's basis in
+its detail and `owner-ruling-<decision>` as its source; a vector whose other claims all
+passed is `verified-by-source`, the ruling among its sources. The form ruling is looked up
+before CourtListener's API, so a ruled form spends no quota. An existence ruling replaces
+a failed check only when it says `"overrides": "fail"`, as `vt_vsa/0`'s does (the section
+was repealed after the events, which the current-code check can't know). Each ruling
+lists the vectors it was made for; the test suite checks that they exist.
+
+The maintainer reviewed the 48 vectors the 2026-10-18 run left open and answered them on
+2026-10-25 (A63): every one is verified now but `conn_gen_stat/1`, whose `10 -236b` is
+not decided, and those 47 have `provenance.status` `verified`.
 
 The checks were tried against seventeen wrong vectors (a section, rule, page, public law,
 clause or year that doesn't exist, one per source); all seventeen came out
@@ -86,7 +116,7 @@ Access as found on 2026-10-18. None needs a key or an account except the two abo
 | Guidelines Manual 2025, contents | U.S. Sentencing Commission (`ussc.gov/guidelines/2025-guidelines-manual`) | `U.S.S.G.` sections | One HTML page listing every section |
 | The Constitution of the United States, H. Doc. 110-50 | GPO, GovInfo (`CDOC-110hdoc50`) | U.S. Const. articles, sections and amendments, and clause pin cites (GPO numbers the clauses) | One text page |
 | reporters-db `laws.json` at `v3.2.67` | Free Law Project, maintained by hand on GitHub | The normalized code and its jurisdiction | JSON; the repository's license is BSD-2-Clause |
-| Case files | Caselaw Access Project (`static.case.law/<reporter>/<vol>/cases/<case>.json`) | The excerpt and its offset; the citing court's jurisdiction | Static JSON |
+| Case files as stare.pub serves them | Caselaw Access Project case JSON in `data.stare.pub/cap/<slug>/<vol>.zip`, and CourtListener records at `data.stare.pub/cl/c/<cluster>/<hash>.json.gz` (`tools/fetch_stare.py` reads one zip member by HTTP range requests and caches it under `.cache/stare/`) | The excerpt and its offset; the citing court's jurisdiction (`jurisdiction.name_long`) | Static JSON; each case pinned by the sha256 in the vector and in `sources.json` under `<zip>#<member>` or the record's URL |
 | Official state code pages | Arizona (azleg.gov), North Carolina (ncleg.gov), Maine (legislature.maine.gov), Texas Legislative Council (tcss.legis.texas.gov, chapter pages), Michigan (legislature.mi.gov), Rhode Island (rilegislature.gov), West Virginia (code.wvlegislature.gov), Wisconsin (docs.legis.wisconsin.gov), Massachusetts (malegislature.gov), Pennsylvania consolidated statutes (palegis.us) | That the section exists in the state's code | One HTML page per section (Texas: per chapter), addressed from the citation; the page has to hold the section's heading, and a 404 is a contradiction |
 | California codes, leginfo bulk data (`pubinfo_2025.zip`) | California Legislative Counsel (`downloads.leginfo.legislature.ca.gov`) | Cal. Pen., Civ. Proc., Evid. and Civ. Code sections (active rows of `LAW_SECTION_TBL`) | A 1.2 GB zip of the session's data, rewritten weekly. The script fetches only its first 32 MB with an HTTP range request (`LAW_SECTION_TBL.dat` sits near the start) and pins that prefix under `<url>#bytes=0-33554431`. No key; the readme (`pubinfo_Readme.pdf`) documents the tables |
 | Connecticut General Statutes | Connecticut General Assembly (`cga.ct.gov/current/pub/`) | Conn. Gen. Stat. sections | The title page gives each chapter's section range; the chapter page has to hold `Sec. <n>.`. The server sends its certificate without the GoDaddy intermediate, which is why it "didn't answer" before: the script fetches that intermediate from the URL the certificate names (`certificates.godaddy.com/repository/gdig2.crt`, pinned too) and verifies the chain as usual. robots.txt disallows only scripts and media directories |

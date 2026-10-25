@@ -295,6 +295,8 @@ def test_fetcher_caches_and_pins(tmp_path):
     assert f.get("https://x/a") == (200, b"hello")
     assert f.changed == {"https://x/a": "0" * 64}
     assert f.used["https://x/a"]["sha256"] == hashlib.sha256(b"hello").hexdigest()
+    # A second read in the same run is checked against the new pin, not the old one.
+    assert f.get("https://x/a") == (200, b"hello")
 
 
 def test_fetcher_offline_without_cache(tmp_path):
@@ -948,3 +950,243 @@ def test_server_errors_are_not_cached(tmp_path):
     assert f.get("https://x/flaky") == (502, b"bad gateway")
     assert "https://x/flaky" not in f.used
     assert f.get("https://x/flaky") == (200, b"ok")
+
+
+# --- stare.pub sources and the maintainer's rulings ------------------------------------
+
+STARE_TEXT = "Under G.S. § 163-122, the board decides."
+
+
+def stare_record(text=STARE_TEXT, jurisdiction="North Carolina"):
+    return json.dumps(
+        {
+            "casebody": {"opinions": [{"text": text}]},
+            "jurisdiction": {"name_long": jurisdiction},
+        }
+    ).encode()
+
+
+def stare_vector(body, vid="stare", corpus="stare-pub", **source):
+    v = vector(
+        vid,
+        "G.S. § 163-122",
+        [0, 14],
+        {"reporter": "G.S.", "section": "163-122"},
+        "N.C. Gen. Stat.",
+        "North Carolina",
+    )
+    v["source"] = {
+        "corpus": corpus,
+        "source": "cap",
+        "slug": "nc",
+        "volume": "1",
+        "page": "2",
+        "case": "0002-01",
+        "data": "https://data.stare.pub/cap/nc/1.zip",
+        "member": "json/0002-01.json",
+        "sha256": hashlib.sha256(body).hexdigest(),
+        "offset": 6,
+        **source,
+    }
+    return v
+
+
+def nc_pages_without_the_section_form():
+    # The official page doesn't write `G.S. 163-122`, so only a citing court settles it.
+    p = pages()
+    p[
+        "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_163/"
+        "GS_163-122.html"
+    ] = (200, "<h1>§ 163-122. Unaffiliated candidates.</h1>", None)
+    return p
+
+
+def test_unknown_source_corpus_stops_the_run(tmp_path):
+    # The source format before stare.pub (corpus `cap`, `reporter`) would otherwise
+    # skip the excerpt and citing-court checks without a word.
+    v = stare_vector(stare_record())
+    v["source"] = {"corpus": "cap", "reporter": "nc", "volume": "1", "case": "x"}
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=fake_opener(pages()))
+    with pytest.raises(ValueError, match="unknown source corpus 'cap'"):
+        vs.run([write_set(tmp_path, [v])], f)
+    v["source"] = {"corpus": "stare-pub", "source": "static"}
+    with pytest.raises(ValueError, match="neither cap nor cl"):
+        vs.verify_vector(vs.Sources(f), v)
+
+
+def test_every_vector_in_the_repo_gets_its_source_checks():
+    """Each statute vector's source is one the checks know, and every stare.pub vector
+    gets an excerpt check and a citing-court lookup: none is skipped."""
+    asked = []
+
+    def stare(entry):
+        asked.append(entry)
+        raise vs.SourceUnavailable("no network in tests")
+
+    f = vs.Fetcher(
+        vs.ROOT / ".cache" / "none", {}, offline=True, opener=fake_opener({})
+    )
+    sources = vs.Sources(f, stare=stare)
+    stare_pub = 0
+    for vid, (v, _set, _status) in vs.load_sets(vs.DEFAULT_SETS).items():
+        corpus, _src, case = vs.vector_source(v)
+        if corpus != vs.STARE_PUB:
+            assert corpus == vs.COURTLISTENER_SAMPLE, vid
+            continue
+        stare_pub += 1
+        assert case is not None, vid
+        checks = vs.excerpt_check(sources, v)
+        assert [c.claim for c in checks] == ["excerpt"], vid
+    assert stare_pub > 50
+    assert len(asked) == stare_pub
+
+
+def test_stare_pub_excerpt_and_citing_court(tmp_path):
+    body = stare_record()
+    good = stare_vector(body)
+    moved = {**stare_vector(body, "moved"), "id": "t/find/moved"}
+    moved["source"]["offset"] = 7
+    repinned = {**stare_vector(body, "repinned"), "id": "t/find/repinned"}
+    repinned["source"]["sha256"] = "0" * 64
+    f = vs.Fetcher(
+        tmp_path / "cache", {}, opener=fake_opener(nc_pages_without_the_section_form())
+    )
+    results = {
+        r["id"].split("/")[-1]: r
+        for r in vs.run(
+            [write_set(tmp_path, [good, moved, repinned])], f, stare=lambda e: body
+        )
+    }
+    assert results["stare"]["verdict"] == (
+        f"verified-by-source:cap-case-metadata+ncleg+reporters-db@{vs.REPORTERS_DB_TAG}"
+        "+stare-pub-cap"
+    )
+    assert "input differs from" in results["moved"]["verdict"]
+    assert "different bytes from the sha256 pinned" in results["repinned"]["verdict"]
+    # The case is pinned in the lock like any other source.
+    assert f.used["https://data.stare.pub/cap/nc/1.zip#json/0002-01.json"][
+        "sha256"
+    ] == (hashlib.sha256(body).hexdigest())
+
+
+def test_same_decision_on_stare_pub_settles_the_court_before_the_api(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setenv(vs.COURTLISTENER_TOKEN_ENV, CL_TOKEN)
+    body = stare_record()
+    case = stare_vector(body)["source"]
+    v = vector(
+        "cl",
+        "G.S. § 163-122",
+        [0, 14],
+        {"reporter": "G.S.", "section": "163-122"},
+        "N.C. Gen. Stat.",
+        "North Carolina",
+    )
+    v["source"]["stare_pub"] = {k: case[k] for k in case if k not in ("offset",)}
+    opener = fake_opener(nc_pages_without_the_section_form())
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=opener)
+    (r,) = vs.run([write_set(tmp_path, [v])], f, stare=lambda e: body)
+    form = next(c for c in r["checks"] if c["claim"] == "form")
+    assert form["result"] == "pass" and "for the same decision" in form["detail"]
+    assert not [u for u in opener.calls if CL in u]
+    assert not [c for c in r["checks"] if c["claim"] == "excerpt"]
+
+
+RULINGS = {
+    "decisions": {"A1": {"basis": "owner-ruled 2026-10-25 (A1)"}},
+    "rulings": [
+        {
+            "decision": "A1",
+            "claim": "form",
+            "written": "Penal Law",
+            "code": "N.Y. Penal Law",
+        },
+        {
+            "decision": "A1",
+            "claim": "code",
+            "code": "Conn. Practice Book",
+            "jurisdiction": "Connecticut",
+            "answer": "Practice Book",
+        },
+        {
+            "decision": "A1",
+            "claim": "span",
+            "pattern": "####,",
+            "codes": ["Ala. Code"],
+            "answer": "inside",
+        },
+        {
+            "decision": "A1",
+            "claim": "existence",
+            "vector": "t/find/ny",
+            "answer": "exists",
+        },
+        {
+            "decision": "A1",
+            "claim": "existence",
+            "vector": "t/find/old",
+            "answer": "existed",
+        },
+        {
+            "decision": "A1",
+            "claim": "existence",
+            "vector": "t/find/repealed",
+            "answer": "existed",
+            "overrides": "fail",
+        },
+    ],
+}
+
+
+def test_a_ruled_form_spends_no_api_quota(tmp_path, monkeypatch):
+    monkeypatch.setenv(vs.COURTLISTENER_TOKEN_ENV, CL_TOKEN)
+    opener = fake_opener(keyed_pages(NY_COURT))
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=opener)
+    (r,) = vs.run([write_set(tmp_path, [ny_vector()])], f, rulings=vs.Rulings(RULINGS))
+    form = next(c for c in r["checks"] if c["claim"] == "form")
+    assert form["result"] == "pass" and form["source"] == "owner-ruling-A1"
+    assert form["detail"].startswith("owner-ruled 2026-10-25 (A1)")
+    assert not [u for u in opener.calls if CL in u]
+    # The NY key is unset, but the ruling on this vector settles the section.
+    ex = next(c for c in r["checks"] if c["claim"] == "existence")
+    assert ex["result"] == "pass" and "not-run" in ex["detail"]
+    assert r["verdict"].startswith("verified-by-source:owner-ruling-A1")
+
+
+def test_code_and_span_rulings_match_only_what_they_name():
+    rulings = vs.Rulings(RULINGS)
+    ala = {
+        "type": "full_law",
+        "span": [0, 24],
+        "groups": {"reporter": "Ala. Code", "section": "12-2-7"},
+        "reporter_normalized": "Ala. Code",
+        "metadata": {"jurisdiction": "Alabama"},
+    }
+    text = "Ala. Code 1975, § 12-2-7."
+    spans = vs.span_checks(text, ala, rulings)
+    assert [c.result for c in spans] == ["pass", "pass"]
+    assert spans[1].source == "owner-ruling-A1"
+    other = {**ala, "reporter_normalized": "N.M. Stat. Ann."}
+    assert [c.result for c in vs.span_checks(text, other, rulings)] == ["pass", "none"]
+    assert rulings.find("code", code="Conn. Practice Book", jurisdiction="Connecticut")
+    assert not rulings.find("code", code="Conn. Practice Book", jurisdiction="Ohio")
+
+
+def test_an_existence_ruling_replaces_a_failure_only_when_it_says_so(tmp_path):
+    f = vs.Fetcher(tmp_path / "cache", {}, opener=fake_opener({}))
+    sources = vs.Sources(f, rulings=vs.Rulings(RULINGS))
+    failed = vs.Check("existence", "fail", "no § 4407 in chapter 117", "vt")
+    old = vs.ruled_existence(sources, {"id": "t/find/old"}, failed)
+    assert old is failed
+    repealed = vs.ruled_existence(sources, {"id": "t/find/repealed"}, failed)
+    assert repealed.result == "pass" and "no § 4407 in chapter 117" in repealed.detail
+
+
+def test_the_repo_rulings_name_vectors_that_exist():
+    rulings = json.loads(vs.RULINGS.read_text())
+    ids = set(vs.load_sets(vs.DEFAULT_SETS))
+    for r in rulings["rulings"]:
+        assert r["decision"] in rulings["decisions"], r
+        for vid in r.get("vectors", []) + ([r["vector"]] if "vector" in r else []):
+            assert vid in ids, vid

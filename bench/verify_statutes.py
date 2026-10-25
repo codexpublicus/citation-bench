@@ -19,11 +19,18 @@ and checks each one it can without a person:
 - code: reporter_normalized is a code reporters-db's laws data has for that
   jurisdiction, or one the maintainer's conventions name (docs/protocol.md)
 - form: the code as written means that code. Machine evidence is a written form that
-  is the code's own abbreviation, or (for a CAP excerpt) a citing court in the code's
-  jurisdiction
+  is the code's own abbreviation, or a citing court in the code's jurisdiction (the case
+  metadata stare.pub serves, or CourtListener's API for an opinion it doesn't serve)
 - existence: the section (rule, article, page, public law) exists in the official
   source for that code, and a year agrees with it
-- excerpt: for a CAP excerpt, the input is the opinion's text at the recorded offset
+- excerpt: for a stare.pub excerpt, the case is the one the vector pins (sha256) and the
+  input is its text at the recorded offset
+
+A claim no machine source settles can be settled by a maintainer's ruling, recorded in
+verification/statutes/rulings.json: one answer per written form, code, span pattern or
+vector, each with its basis (`owner-ruled 2026-10-25 (A63)`). A ruled check passes with
+the ruling as its source; it is checked before CourtListener's API, so a ruled form
+spends no quota.
 
 Each vector gets one verdict:
 
@@ -64,7 +71,9 @@ import zlib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 
+import fetch_stare
 from statutes import law_kind, load_sets
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,6 +81,12 @@ DEFAULT_SETS = (ROOT / "vectors" / "statutes", ROOT / "vectors" / "statutes-prop
 CACHE = ROOT / ".cache" / "statute-sources"
 OUT = ROOT / "verification" / "statutes"
 LOCK = OUT / "sources.json"
+RULINGS = OUT / "rulings.json"
+# The corpora a vector's text can come from (docs/protocol.md, "Vector sources"). A
+# vector from anywhere else stops the run: its excerpt and citing-court checks would
+# otherwise be skipped without a word.
+STARE_PUB = "stare-pub"
+COURTLISTENER_SAMPLE = "courtlistener-10pct"
 USER_AGENT = (
     "Mozilla/5.0 (compatible; citation-bench statute verifier; "
     "+https://github.com/codexpublicus/citation-bench)"
@@ -316,7 +331,8 @@ class Fetcher:
             path.write_bytes(body)
             meta_path.write_text(json.dumps(meta))
         digest = hashlib.sha256(body).hexdigest()
-        pinned = self.lock.get(key)
+        # A source repinned earlier in this run is checked against its new pin.
+        pinned = self.used.get(key) if key in self.changed else self.lock.get(key)
         if pinned and pinned["sha256"] != digest:
             if cached:
                 raise SourceChanged(
@@ -441,10 +457,13 @@ MODS = "{http://www.loc.gov/mods/v3}"
 class Sources:
     """Lookups against each official source, parsed once per run."""
 
-    def __init__(self, fetcher):
+    def __init__(self, fetcher, stare=None, rulings=None):
         self.f = fetcher
         self._memo = {}
         self.page_texts = {}  # url -> visible text of an official page that held a section
+        # stare.pub's case files: callable(case entry) -> bytes, as fetch_stare.Stare.case
+        self._stare = stare
+        self.rulings = rulings or Rulings()
 
     def _once(self, key, build):
         if key not in self._memo:
@@ -524,13 +543,41 @@ class Sources:
 
         return self._once("constitution", build)
 
-    # Caselaw Access Project case metadata and text
-    def cap_case(self, reporter, volume, case):
-        url = f"https://static.case.law/{reporter}/{volume}/cases/{case}.json"
-        status, body = self.f.get(url)
-        if status != 200:
-            raise SourceUnavailable(f"{url}: HTTP {status}")
-        return url, json.loads(body)
+    # stare.pub: a CAP case or a CourtListener record, the JSON stare.pub serves, which
+    # has to be the bytes the vector pins (its source's sha256).
+    def stare_case(self, src):
+        """(address, record, sha256 matches the vector's pin) for a stare.pub source."""
+        entry = fetch_stare.source_case(src)
+        key = src.get("url") if src.get("source") == "cl" else None
+        key = key or f"{src['data']}#{src['member']}"
+        if key not in self._memo:
+            self._memo[key] = self._stare_bytes(entry)
+        body = self._memo[key]
+        digest = hashlib.sha256(body).hexdigest()
+        self.f.used[key] = {
+            "bytes": len(body),
+            "retrieved": datetime.date.today().isoformat(),
+            "sha256": digest,
+            "status": 200,
+        }
+        return key, json.loads(body), digest == src.get("sha256")
+
+    def _stare_bytes(self, entry):
+        if self._stare is None:
+            stare = fetch_stare.Stare(fetch_stare.VERSION, cache=self.f.cache.parent)
+            if self.f.offline:
+                cached = stare.cache / (
+                    f"cap/{entry['slug']}/{entry['folder']}/{entry['case']}.json"
+                    if entry["source"] == "cap"
+                    else f"cl/{entry['ref']}.json"
+                )
+                if not cached.exists():
+                    raise SourceUnavailable(f"not cached (offline): {entry}")
+            self._stare = stare.case
+        try:
+            return self._stare(entry)
+        except (OSError, KeyError, SystemExit) as e:
+            raise SourceUnavailable(f"stare.pub {entry}: {e}") from e
 
     def page(self, url):
         return self.f.get(url)
@@ -1022,7 +1069,67 @@ def canonical(form):
     return re.sub(r"(ann|a)$", "", s) if len(s) > 3 else s
 
 
-def span_checks(text, cite):
+class Rulings:
+    """A maintainer's answers to what no machine source settles (rulings.json).
+
+    Each ruling answers one claim, once for every vector it matches:
+
+    - `form`: `written` (as written) means `code`
+    - `code`: `code` is the standard abbreviation of `jurisdiction`'s code
+    - `span`: text matching `pattern` (digits as #) belongs inside the span with no field
+      holding it, for the `codes` listed
+    - `existence`: the section of `vector` exists or existed as cited. Only a ruling
+      with `overrides` naming the machine check's result replaces a failed check
+    """
+
+    def __init__(self, data=None):
+        data = data or {}
+        self.decisions = data.get("decisions") or {}
+        self.items = data.get("rulings") or []
+
+    @classmethod
+    def load(cls, path):
+        path = Path(path)
+        return cls(json.loads(path.read_text()) if path.exists() else None)
+
+    def basis(self, ruling):
+        return self.decisions[ruling["decision"]]["basis"]
+
+    def source(self, ruling):
+        return f"owner-ruling-{ruling['decision']}"
+
+    def check(self, claim, ruling, what):
+        return Check(
+            claim,
+            "pass",
+            f"{self.basis(ruling)}: {what}",
+            source=self.source(ruling),
+        )
+
+    def find(self, claim, **match):
+        for r in self.items:
+            if r["claim"] != claim:
+                continue
+            if claim == "form" and (
+                canonical(r["written"]) != canonical(match["written"])
+                or r["code"] != match["code"]
+            ):
+                continue
+            if claim == "code" and (
+                r["code"] != match["code"] or r["jurisdiction"] != match["jurisdiction"]
+            ):
+                continue
+            if claim == "span" and (
+                r["pattern"] != match["pattern"] or match["code"] not in r["codes"]
+            ):
+                continue
+            if claim == "existence" and r["vector"] != match["vector"]:
+                continue
+            return r
+        return None
+
+
+def span_checks(text, cite, rulings=None):
     """Mechanical checks of the span and the as-written fields against the input."""
     out = []
     start, end = cite["span"]
@@ -1054,14 +1161,26 @@ def span_checks(text, cite):
     leftover = [t for t in leftover if t.strip(",;")]
     if leftover:
         pattern = re.sub(r"\d", "#", " ".join(leftover))
-        out.append(
-            Check(
-                "span",
-                "none",
-                f"text in the span no field holds: {' '.join(leftover)!r}",
-                human=("span", f"in-span text not in any field: `{pattern}`"),
-            )
+        ruling = (rulings or Rulings()).find(
+            "span", pattern=pattern, code=cite.get("reporter_normalized") or ""
         )
+        if ruling:
+            out.append(
+                rulings.check(
+                    "span",
+                    ruling,
+                    f"{' '.join(leftover)!r} belongs in the span, no field holds it",
+                )
+            )
+        else:
+            out.append(
+                Check(
+                    "span",
+                    "none",
+                    f"text in the span no field holds: {' '.join(leftover)!r}",
+                    human=("span", f"in-span text not in any field: `{pattern}`"),
+                )
+            )
     for k, v in groups.items():
         if k in NUMBERED and re.search(r"\s", v):
             out.append(
@@ -1126,7 +1245,18 @@ def code_and_form_checks(sources, vector, cite, existence=None):
             CONVENTION_CODES[code],
             "the 2026-10-18 conventions (docs/protocol.md)",
         )
-    if entry is None:
+    ruling = (
+        sources.rulings.find("code", code=code, jurisdiction=jurisdiction)
+        if entry is None
+        else None
+    )
+    if ruling:
+        out.append(
+            sources.rulings.check(
+                "code", ruling, f"`{code}` is {jurisdiction}'s {ruling['answer']}"
+            )
+        )
+    elif entry is None:
         out.append(
             Check(
                 "code",
@@ -1182,21 +1312,40 @@ def code_and_form_checks(sources, vector, cite, existence=None):
         ):
             form_ok = f"the official page cites the section as `{written} {section}`"
             form_source = existence.source
-    court = None
-    src = vector.get("source") or {}
-    if form_ok is None and src.get("corpus") == "cap":
-        try:
-            _url, case = sources.cap_case(src["reporter"], src["volume"], src["case"])
-            court = (case.get("jurisdiction") or {}).get("name_long")
-        except SourceUnavailable:
-            court = None
-        if court and court == jurisdiction:
-            form_ok = f"cited by a court in {court} (CAP case metadata)"
-            form_source = "cap-case-metadata"
+    corpus, src, case_src = vector_source(vector)
     cited_by = ""
+    court = None
+    if form_ok is None and case_src is not None:
+        try:
+            _url, case, pinned = sources.stare_case(case_src)
+        except SourceUnavailable as e:
+            case, pinned = None, False
+            cited_by = f"; citing court not found: {e}"
+        court = pinned and (case.get("jurisdiction") or {}).get("name_long")
+        how = (
+            "CAP case metadata"
+            if case_src["source"] == "cap"
+            else "CourtListener's record as stare.pub serves it"
+        )
+        if case_src is not src:
+            how += ", for the same decision"
+        if court and court == jurisdiction:
+            form_ok = f"cited by a court in {court} ({how})"
+            form_source = (
+                "cap-case-metadata" if case_src["source"] == "cap" else "stare-pub-cl"
+            )
+        elif court:
+            cited_by = f"; cited by a court in {court} ({how})"
+    ruling = None
+    if form_ok is None and written:
+        ruling = sources.rulings.find("form", written=written, code=code)
+    if ruling:
+        form_ok = f"{sources.rulings.basis(ruling)}: `{written}` means `{code}`"
+        form_source = sources.rulings.source(ruling)
     if (
         form_ok is None
-        and src.get("corpus", "").startswith("courtlistener")
+        and not court
+        and corpus == COURTLISTENER_SAMPLE
         and src.get("opinion")
     ):
         why_not = f"{COURTLISTENER_TOKEN_ENV} is unset"
@@ -1240,24 +1389,63 @@ def code_and_form_checks(sources, vector, cite, existence=None):
     return out
 
 
-def excerpt_check(sources, vector):
+def vector_source(vector):
+    """(corpus, source, the stare.pub case for its citing court or None).
+
+    A stare.pub vector's case is its own; a CourtListener-sample vector whose decision
+    stare.pub also serves (`stare_pub`) names that case. Any other corpus, or a stare.pub
+    source that is neither `cap` nor `cl`, is an error, not a skipped check.
+    """
     src = vector.get("source") or {}
-    if src.get("corpus") != "cap":
+    corpus = src.get("corpus")
+    if corpus == STARE_PUB:
+        if src.get("source") not in ("cap", "cl"):
+            raise ValueError(
+                f"{vector.get('id')}: stare.pub source {src.get('source')!r} is "
+                "neither cap nor cl"
+            )
+        return corpus, src, src
+    if corpus == COURTLISTENER_SAMPLE:
+        other = src.get("stare_pub")
+        return corpus, src, other if other and "sha256" in other else None
+    raise ValueError(
+        f"{vector.get('id')}: unknown source corpus {corpus!r}; the excerpt and "
+        "citing-court checks know stare-pub and courtlistener-10pct"
+    )
+
+
+def excerpt_check(sources, vector):
+    """The input against the text stare.pub serves for the pinned case.
+
+    A CourtListener-sample excerpt has no check here: its text is the sample's, after
+    clean steps, and `tools/fetch_corpus.py` verifies the sample's files by sha256.
+    """
+    corpus, src, _case = vector_source(vector)
+    if corpus != STARE_PUB:
         return []
     try:
-        url, case = sources.cap_case(src["reporter"], src["volume"], src["case"])
+        url, case, pinned = sources.stare_case(src)
     except SourceUnavailable as e:
         return [Check("excerpt", "none", str(e))]
-    ops = case["casebody"]["opinions"]
-    if "opinion" in src:
-        full = ops[int(src["opinion"])]["text"]
-    else:
-        full = "\n\n".join(o["text"] for o in ops)
+    if not pinned:
+        return [
+            Check(
+                "excerpt",
+                "fail",
+                f"{url}: stare.pub serves different bytes from the sha256 pinned",
+            )
+        ]
+    full = fetch_stare.source_text(src, case)
     text = vector["input"]["text"]
     off = src["offset"]
     if full[off : off + len(text)] == text:
         return [
-            Check("excerpt", "pass", "input is the opinion text at the offset", "cap")
+            Check(
+                "excerpt",
+                "pass",
+                "input is the opinion text at the offset",
+                "stare-pub-" + src["source"],
+            )
         ]
     return [Check("excerpt", "fail", f"input differs from {url} at offset {off}")]
 
@@ -1840,16 +2028,31 @@ def existence_check(sources, cite):
 # --- verdicts -----------------------------------------------------------------------
 
 
+def ruled_existence(sources, vector, existence):
+    """A machine check replaced by the maintainer's ruling on that vector, if any."""
+    if existence.result == "pass":
+        return existence
+    ruling = sources.rulings.find("existence", vector=vector["id"])
+    if ruling is None:
+        return existence
+    if existence.result == "fail" and ruling.get("overrides") != "fail":
+        return existence
+    what = ruling["answer"]
+    if existence.detail:
+        what += f" (machine check: {existence.result}, {existence.detail})"
+    return sources.rulings.check("existence", ruling, what)
+
+
 def verify_vector(sources, vector):
     checks = excerpt_check(sources, vector)
     text = vector["input"]["text"]
     for cite in vector["expected"]["citations"]:
         if cite.get("type") != "full_law":
             continue
-        checks += span_checks(text, cite)
+        checks += span_checks(text, cite, sources.rulings)
         existence = existence_check(sources, cite)
         checks += code_and_form_checks(sources, vector, cite, existence)
-        checks.append(existence)
+        checks.append(ruled_existence(sources, vector, existence))
     return checks
 
 
@@ -1865,8 +2068,8 @@ def verdict(checks):
     return "verified-by-source:" + "+".join(sources)
 
 
-def run(dirs, fetcher):
-    sources = Sources(fetcher)
+def run(dirs, fetcher, rulings=None, stare=None):
+    sources = Sources(fetcher, stare=stare, rulings=rulings)
     results = []
     for vid, (vector, set_name, status) in load_sets(dirs).items():
         cites = [
@@ -1948,6 +2151,27 @@ def markdown(results, used, changed=None):
     lines += [f"- `{r['id']}`: {r['verdict'].split(':', 1)[1]}" for r in bad] or [
         "None."
     ]
+    ruled = collections.defaultdict(lambda: collections.defaultdict(set))
+    for r in results:
+        for c in r["checks"]:
+            if c["source"].startswith("owner-ruling-") and c["result"] == "pass":
+                basis = c["detail"].split(": ", 1)[0]
+                ruled[basis][c["claim"]].add(r["id"])
+    if ruled:
+        lines += [
+            "",
+            "## Settled by the maintainer's rulings",
+            "",
+            (
+                "Claims no machine source settles, answered once per form, code, span "
+                "pattern or vector in `verification/statutes/rulings.json`."
+            ),
+            "",
+        ]
+        for basis, claims in sorted(ruled.items()):
+            vectors = set().union(*claims.values())
+            parts = ", ".join(f"{k} {len(v)}" for k, v in sorted(claims.items()))
+            lines.append(f"- {basis}: {len(vectors)} vectors ({parts})")
     not_run = collections.defaultdict(list)
     for r in results:
         for c in r["checks"]:
@@ -2009,6 +2233,7 @@ def main(argv=None):
         "--refresh", action="store_true", help="refetch and repin every source"
     )
     ap.add_argument("--lock", type=Path, default=LOCK)
+    ap.add_argument("--rulings", type=Path, default=RULINGS)
     ap.add_argument("--cache", type=Path, default=CACHE)
     ap.add_argument("--json", type=Path, default=OUT / "verdicts.json")
     ap.add_argument("--md", type=Path, default=OUT / "report.md")
@@ -2016,7 +2241,9 @@ def main(argv=None):
     lock = json.loads(args.lock.read_text()) if args.lock.exists() else {}
     fetcher = Fetcher(args.cache, lock, offline=args.offline, refresh=args.refresh)
     try:
-        results = run(args.vectors or DEFAULT_SETS, fetcher)
+        results = run(
+            args.vectors or DEFAULT_SETS, fetcher, rulings=Rulings.load(args.rulings)
+        )
     except SourceChanged as e:
         print(f"verify_statutes: {e}", file=sys.stderr)
         return 2
