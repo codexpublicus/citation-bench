@@ -60,14 +60,28 @@ sentences, as described above, and the maintainer has not yet verified them
 (docs/protocol.md, "Vector provenance"). `bench/statutes.py` treats them as the reference
 until then.
 
-`source` names the corpus, the opinion and the character offset of the excerpt:
+The text comes from [stare.pub](https://stare.pub). `source` names the case there and the
+character offset of the excerpt in it, as docs/protocol.md ("Vector sources") defines:
+`corpus` `stare-pub`, `source` `cap`, the case's `slug`, `volume`, `page` and `case`, its
+case page as `url`, and the volume zip and member that hold its JSON as `data` and
+`member`; `offset` indexes `casebody.opinions[].text` joined with blank lines, or the one opinion `opinion` names, and
+`sha256` pins the JSON. stare.pub publishes the CAP case files under CC0 1.0, the terms
+CAP published them under. `tools/fetch_stare.py check-vectors` checks every offset
+against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<volume>/<page>/`)
+is the permanent address stare.pub gives each case; until case pages ship, `data` and
+`member` are where the text is.
 
-- `courtlistener-10pct`: `opinion` is the CourtListener opinion id; `offset` indexes the text
-  after the clean steps `html` and `inline_whitespace` that `tools/fetch_corpus.py` asks for,
-  as citare's `clean` command produces it.
-- `cap`: `reporter`, `volume` and `case` name the CAP case file
-  (`static.case.law/<reporter>/<volume>`, `json/<case>.json`); `offset` indexes
-  `casebody.opinions[].text` joined with blank lines, or the one opinion `opinion` names.
+Of the 56 vectors first taken from the CourtListener ten-percent sample, 22 have an
+excerpt that appears verbatim in the CAP case stare.pub serves for the same decision, and
+point there now, at a new offset, with `courtlistener_opinion` keeping the opinion id.
+`haw_hrs/1`'s excerpt appears twice in that case; its offset is the occurrence nearer the
+one it had. The other 34 stay on the CourtListener sample (`corpus`
+`courtlistener-10pct`, `opinion` the CourtListener opinion id, `offset` into its text
+after the clean steps `html` and `inline_whitespace` that `tools/fetch_corpus.py` asks
+for, as citare's `clean` command produces it):
+
+- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `ariz_ars/1`, `ark_aca/0`, `cal_civ_code/0`, `cal_pen_code/0`, `cfr/0`, `conn_gen_stat/1`, `ga_o_c_g_a/1`, `ga_ocga/0`, `la_rev_stat/1`, `mass_g_l_c/1`, `me_mrsa/0`, `me_mrsa/1`, `nc_gs/1`, `nm_nmsa/1`, `okla_os/1`, `pa_cs/1`, `pa_ps/0`, `ri_gl_1956/0`, `ri_gl_1956/1`, `tex_no_space/1`, `usc/0`, `usc/1`, `wis_stat_caps/0`, `wva_code/0`, `wva_code/1`. `cal_civ_code/0`'s opinion is the Ninth Circuit's order amending its opinion at 687 F.3d 1132, which stare.pub doesn't hold; its cluster isn't in CourtListener's 2026-09-30 export, so its counterpart, the amended opinion CAP prints at 697 F.3d 777, was found by case name rather than by citation.
+- CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `ark_aca/1`, `cfr/1`, `la_rev_stat/0`, `pa_csa/0`, `tenn_tca/0`, `tex_penal_code_ann/0`, `tex_penal_code_ann/1`, `tex_small_caps/0`, `tex_small_caps/1`.
 
 ## Coverage
 

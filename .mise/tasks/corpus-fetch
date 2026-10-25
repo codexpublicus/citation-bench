@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-#MISE description="Download the pinned CourtListener sample and convert it to find requests"
+#MISE description="Download a pinned corpus, verify it and convert it to find requests: stare.pub's sample (default) or eyecite's comparison sample"
 #MISE alias="corpus:fetch"
-#USAGE flag "--size <size>" default="1" help="1 or 10: the one-percent or ten-percent file" {
+#USAGE flag "--corpus <corpus>" default="stare-pub" help="stare-pub: CAP cases and CourtListener records from stare.pub; eyecite-sample: eyecite's comparison sample of CourtListener opinions" {
+#USAGE   choices "stare-pub" "eyecite-sample"
+#USAGE }
+#USAGE flag "--size <size>" default="1" help="eyecite-sample only, 1 or 10: the one-percent or ten-percent file" {
 #USAGE   choices "1" "10"
 #USAGE }
 set -euo pipefail
-uv run -q tools/fetch_corpus.py --size "${usage_size:-1}"
+case "${usage_corpus:-stare-pub}" in
+  stare-pub) uv run -q tools/fetch_stare.py ;;
+  eyecite-sample) uv run -q tools/fetch_corpus.py --size "${usage_size:-1}" ;;
+esac

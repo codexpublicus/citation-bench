@@ -28,6 +28,8 @@ def repo(tmp_path, monkeypatch):
         "adapters/eyecite/serialize.py": "",
         "bench/run.py": "",
         "tools/fetch_corpus.py": "",
+        "tools/fetch_stare.py": "",
+        f"corpora/{baseline.stare_name()}.json": "{}",
         "corpora/courtlistener-1pct.json": "{}",
         "corpora/courtlistener-10pct.json": "{}",
         "vectors/eyecite-9.9.9/find.jsonl": "".join(
@@ -72,6 +74,19 @@ def test_corpus_key_ignores_the_vectors(repo):
     assert key == baseline.compute_key(baseline.key_inputs("corpus-1pct"))
     (repo / "corpora/courtlistener-1pct.json").write_text('{"sha256": "x"}')
     assert key != baseline.compute_key(baseline.key_inputs("corpus-1pct"))
+
+
+def test_stare_key_follows_its_manifest_and_fetcher(repo):
+    assert baseline.tier_patterns("stare-pub")[-2:] == (
+        f"corpora/{baseline.stare_name()}.json",
+        "tools/fetch_stare.py",
+    )
+    key = baseline.compute_key(baseline.key_inputs("stare-pub"))
+    (repo / "corpora/courtlistener-1pct.json").write_text('{"sha256": "x"}')
+    (repo / "tools/fetch_corpus.py").write_text("# changed\n")
+    assert key == baseline.compute_key(baseline.key_inputs("stare-pub"))
+    (repo / "tools/fetch_stare.py").write_text("# changed\n")
+    assert key != baseline.compute_key(baseline.key_inputs("stare-pub"))
 
 
 def test_save_then_restore_round_trips(repo, tmp_path):
@@ -121,7 +136,11 @@ def test_check_and_stale(repo, tmp_path, capsys):
     assert baseline.main(["check", "vectors"]) == 0
     capsys.readouterr()
     baseline.main(["stale"])
-    assert capsys.readouterr().out.split() == ["corpus-1pct", "corpus-10pct"]
+    assert capsys.readouterr().out.split() == [
+        "stare-pub",
+        "corpus-1pct",
+        "corpus-10pct",
+    ]
 
 
 def test_save_refuses_another_engine_or_other_inputs(repo, tmp_path):

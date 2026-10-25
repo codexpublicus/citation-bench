@@ -2,7 +2,8 @@
   "name": "statutes-proposed",
   "description": "Proposed statute, court-rule, constitution and regulation vectors for forms vectors/statutes covers thinly or not at all. Expected citations were written by hand from the opinion text and have not been reviewed; they are scored by bench/statutes.py apart from the reference set and are not gated. See README.md.",
   "corpora": [
-    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py)"
+    "stare.pub: Caselaw Access Project case files from data.stare.pub/cap/<slug>/<volume>.zip (CC0 1.0), casebody.opinions[].text",
+    "courtlistener-10pct (corpora/courtlistener-10pct.json, prepared by tools/fetch_corpus.py), for the vectors README.md lists as staying on it"
   ],
   "selected": "2026-10-17",
   "provenance": {

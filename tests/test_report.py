@@ -71,7 +71,8 @@ def test_report_files(tmp_path):
     )
     prev = run(tmp_path / "p.json", "v0.1.0", [item("o", {"citations": []})])
     known = tmp_path / "known"
-    known.write_text("b\nc\n")
+    # "elsewhere" is from a set this run didn't score, so it is neither.
+    known.write_text("a\nb\nstatutes/find/elsewhere/0\n")
     out = tmp_path / "out"
     assert (
         report.main(
@@ -94,7 +95,7 @@ def test_report_files(tmp_path):
     assert "+0 gained, −1 lost" in md and "+1 gained, −0 lost" in md
     assert md.endswith("https://example.test/run\n")
     summary = json.loads((out / "summary.json").read_text())
-    assert summary["ratchet"] == {"regressions": [], "fixed": ["c"]}
+    assert summary["ratchet"] == {"regressions": [], "fixed": ["a"]}
     assert summary["previous"]["gained"] == 1
     assert "50.0% agreement with eyecite-9" in (out / "headline.md").read_text()
     assert (out / "comment.md").read_text() == md
@@ -181,3 +182,63 @@ def test_report_includes_statute_metrics(tmp_path):
         "Statutes and court rules (1 reference vectors, fields right): F1" in headline
     )
     assert "citare-x 100.0%" in headline
+
+
+def test_comparison_sample_is_a_labelled_secondary(tmp_path):
+    def corpus(name, label, volumes, **meta):
+        inputs = [item("o", {"citations": [cite(v) for v in volumes]})]
+        path = run(tmp_path / f"{name}-{label}.json", label, inputs, **meta)
+        data = json.loads(path.read_text())
+        data["meta"]["source"] = {"name": name}
+        path.write_text(json.dumps(data))
+        return path
+
+    stare, sample = "stare-pub-v2026.10.22", "courtlistener-1pct"
+    paths = [
+        run(tmp_path / "v.json", "citare-x", [item("a", {}, "find", [])]),
+        run(tmp_path / "v0.json", "eyecite-9", [item("a", {}, "find", [])]),
+        corpus(stare, "citare-x", ["1"]),
+        corpus(stare, "eyecite-9", ["1"], cached={"key": "a" * 64}),
+        corpus(sample, "citare-x", ["1", "2"]),
+        corpus(sample, "eyecite-9", ["1"], cached={"key": "b" * 64}),
+        corpus(sample, "v0.1.0", ["3"]),
+    ]
+    out = tmp_path / "out"
+    report.main(
+        [
+            *("--vectors", str(paths[0]), "--vectors-base", str(paths[1])),
+            *("--corpus", str(paths[2]), "--corpus-base", str(paths[3])),
+            *("--comparison", str(paths[4]), "--comparison-base", str(paths[5])),
+            *("--previous-comparison", str(paths[6]), "--out", str(out)),
+            *("--previous-note", "never shown: a previous run exists"),
+        ]
+    )
+    md = (out / "bench-report.md").read_text()
+    primary, secondary = md.split("**Secondary: eyecite's comparison sample**")
+    assert f"| {stare}: citations | 1 | 1 |  |" in primary
+    assert "| agreement with eyecite | 100.0% |  |  |" in primary
+    assert f"(`{sample}`, 1 opinions)" in secondary
+    assert f"| {sample}: citations | 2 | 1 | 1 |" in secondary
+    assert "| agreement with eyecite | 50.0% |  | 0.0% |" in secondary
+    assert f"eyecite on `{stare}`: the stored run (key `aaaaaaaaaaaa`)" in md
+    assert f"eyecite on `{sample}`: the stored run (key `bbbbbbbbbbbb`)" in md
+    assert f"`v0.1.0` has no saved run on `{stare}`" in md
+    assert "never shown" not in md
+    assert f"on <code>{sample}</code>" in md
+    summary = json.loads((out / "summary.json").read_text())
+    assert summary["corpus"] == stare and "previous" not in summary
+    comparison = summary["comparison"]
+    assert comparison["name"] == "eyecite's comparison sample"
+    assert comparison["corpus"] == sample and comparison["eyecite"]["gained"] == 1
+    assert comparison["previous"]["label"] == "v0.1.0"
+    headline = (out / "headline.md").read_text()
+    assert f"- {stare} (1 opinions): 100.0% agreement" in headline
+    assert (
+        f"- Secondary, eyecite's comparison sample ({sample}, 1 opinions)" in headline
+    )
+    assert f"- Against v0.1.0 on {sample}:" in headline
+    assert {p.name for p in out.glob("*.csv")} == {
+        "vs-eyecite.csv",
+        "vs-eyecite-sample.csv",
+        "vs-previous-sample.csv",
+    }
