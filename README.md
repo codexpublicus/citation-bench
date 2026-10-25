@@ -56,6 +56,7 @@ or commercial tool can be benchmarked without sharing any code.
 | Path | Contents |
 |---|---|
 | `docs/protocol.md` | The adapter protocol, and how citations are represented |
+| `data/law-codes.json` | Every law code the vectors name: its identifier (`reporter_normalized`), jurisdiction, Bluebook form and reporters-db key as aliases (docs/protocol.md, "Statute and court-rule citations") |
 | `schema/` | JSON Schemas for vectors, requests, responses and citations |
 | `vectors/` | Conformance vectors, one directory per source and version |
 | `vectors/curated/` | Hand-curated vectors from real opinions, each checked against the opinion and the cited cases' records; no engine's output is the reference ([README](vectors/curated/README.md)) |
@@ -74,6 +75,7 @@ or commercial tool can be benchmarked without sharing any code.
 | `bench/baseline.py` | Stores eyecite's runs in `baselines/eyecite/` by key, and restores them |
 | `bench/report.py` | An engine's report: vector scores, statute metrics, corpus speed, diffs against eyecite and an earlier version |
 | `bench/statutes.py` | Statute and court-rule metrics from saved runs: precision, recall and F1 per kind of law, field accuracy, agreement between engines |
+| `bench/verify_statutes.py` | Checks the statute vectors' parts against official sources and lists what needs a person ([`verification/statutes/`](verification/statutes/README.md)) |
 | `baselines/` | citare's known failures, and the stored eyecite runs |
 | `tests/` | Unit tests for the scorer, the diff and the corpus conversion (`mise run check`) |
 

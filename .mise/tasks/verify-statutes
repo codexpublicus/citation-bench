@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#MISE description="Check the statute vectors' parts against official sources (fetches them; network)"
+#MISE alias="verify:statutes"
+#USAGE flag "--offline" help="use the cached sources only"
+#USAGE flag "--refresh" help="refetch every source and repin it"
+# Fetches the official sources bench/verify_statutes.py uses into .cache/statute-sources/
+# (gitignored), records each one's URL, date and SHA-256 in
+# verification/statutes/sources.json, and writes verdicts.json and report.md there.
+# Nothing in CI runs this; tests/test_verify_statutes.py covers the checks offline.
+set -euo pipefail
+args=()
+[[ "${usage_offline:-false}" == "true" ]] && args+=(--offline)
+[[ "${usage_refresh:-false}" == "true" ]] && args+=(--refresh)
+uv run -q bench/verify_statutes.py "${args[@]}"

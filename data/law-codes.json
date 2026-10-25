@@ -1,0 +1,890 @@
+{
+ "description": "The law codes the vectors' reporter_normalized names, with the aliases tools can show or match. reporter_normalized is an identifier: reporters-db's key where reporters-db has one for the code, otherwise the form the jurisdiction's own courts use (owner ruling D114, 2026-10-25; docs/protocol.md, \"Statute and court-rule citations\"). Every code records its Bluebook form as an alias, and reporters-db's key as an alias where the identifier differs from it.",
+ "sources": {
+  "memory": "The Bluebook (21st ed.), table T1 and rules 11 and 12.9.3, as remembered: not checked against the book. `confirmed_by` names a public source that confirms the pattern where one was found",
+  "reporters-db v3.2.67": "https://github.com/freelawproject/reporters-db/blob/v3.2.67/reporters_db/data/laws.json"
+ },
+ "codes": {
+  "Ala. Code": {
+   "jurisdiction": "Alabama",
+   "name": "Code of Alabama, 1975",
+   "basis": "reporters-db key",
+   "reporters_db": "Ala. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ala. Code",
+     "pattern": "Ala. Code § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ariz. Rev. Stat.": {
+   "jurisdiction": "Arizona",
+   "name": "Arizona Revised Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Ariz. Rev. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ariz. Rev. Stat. Ann.",
+     "pattern": "Ariz. Rev. Stat. Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ariz. Rev. Stat. Ann.": {
+   "jurisdiction": "Arizona",
+   "name": "Arizona Revised Statutes Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Ariz. Rev. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ariz. Rev. Stat. Ann.",
+     "pattern": "Ariz. Rev. Stat. Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ark. Code Ann.": {
+   "jurisdiction": "Arkansas",
+   "name": "Arkansas Code of 1987 Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Ark. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ark. Code Ann.",
+     "pattern": "Ark. Code Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "C.F.R.": {
+   "jurisdiction": "United States",
+   "name": "Code of Federal Regulations",
+   "basis": "reporters-db key",
+   "reporters_db": "C.F.R.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "C.F.R.",
+     "pattern": "<title> C.F.R. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Cal. Civ. Code": {
+   "jurisdiction": "California",
+   "name": "California Civ. Code",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Cal. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Cal. Civ. Code",
+     "pattern": "Cal. Civ. Code § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Cal. $law_subject Code` pattern of its `Cal. Code` key"
+  },
+  "Cal. Civ. Proc. Code": {
+   "jurisdiction": "California",
+   "name": "California Civ. Proc. Code",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Cal. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Cal. Civ. Proc. Code",
+     "pattern": "Cal. Civ. Proc. Code § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Cal. $law_subject Code` pattern of its `Cal. Code` key"
+  },
+  "Cal. Evid. Code": {
+   "jurisdiction": "California",
+   "name": "California Evid. Code",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Cal. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Cal. Evid. Code",
+     "pattern": "Cal. Evid. Code § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Cal. $law_subject Code` pattern of its `Cal. Code` key"
+  },
+  "Cal. Pen. Code": {
+   "jurisdiction": "California",
+   "name": "California Penal Code",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Cal. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Cal. Penal Code",
+     "pattern": "Cal. Penal Code § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Cal. $law_subject Code` pattern of its `Cal. Code` key; the Bluebook spells the subject out (`Penal`)"
+  },
+  "Conn. Gen. Stat.": {
+   "jurisdiction": "Connecticut",
+   "name": "General Statutes of Connecticut",
+   "basis": "reporters-db key",
+   "reporters_db": "Conn. Gen. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Conn. Gen. Stat.",
+     "pattern": "Conn. Gen. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Conn. Practice Book": {
+   "jurisdiction": "Connecticut",
+   "name": "Connecticut Practice Book (Superior Court and appellate rules)",
+   "basis": "the jurisdiction's courts' form (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Conn. Practice Book",
+     "pattern": "Conn. Practice Book § <section> (<year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "Bluebook form not confirmed: the Bluebook may cite the appellate part as `Conn. R. App. P.` and the Superior Court part as `Conn. Super. Ct. R.`; reporters-db has no Connecticut court-rules key"
+  },
+  "Fed. R. App. P.": {
+   "jurisdiction": "United States",
+   "name": "Federal Rules of Appellate Procedure",
+   "basis": "Bluebook rule 12.9.3 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fed. R. App. P.",
+     "pattern": "Fed. R. App. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Fed. R. Civ. P.": {
+   "jurisdiction": "United States",
+   "name": "Federal Rules of Civil Procedure",
+   "basis": "2026-10-18 conventions",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fed. R. Civ. P.",
+     "pattern": "Fed. R. Civ. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Fed. R. Crim. P.": {
+   "jurisdiction": "United States",
+   "name": "Federal Rules of Criminal Procedure",
+   "basis": "Bluebook rule 12.9.3 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fed. R. Crim. P.",
+     "pattern": "Fed. R. Crim. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Fed. R. Evid.": {
+   "jurisdiction": "United States",
+   "name": "Federal Rules of Evidence",
+   "basis": "Bluebook rule 12.9.3 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fed. R. Evid.",
+     "pattern": "Fed. R. Evid. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Fed. Reg.": {
+   "jurisdiction": "United States",
+   "name": "Federal Register",
+   "basis": "2026-10-18 conventions",
+   "reporters_db": "FR",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fed. Reg.",
+     "pattern": "<volume> Fed. Reg. <page> (<date>)",
+     "source": "memory"
+    },
+    {
+     "kind": "reporters-db",
+     "form": "FR",
+     "source": "reporters-db v3.2.67"
+    }
+   ],
+   "note": "reporters-db keys it `FR` (with `Fed. Reg.` as a variation); the 2026-10-18 conventions chose `Fed. Reg.`"
+  },
+  "Fla. Stat.": {
+   "jurisdiction": "Florida",
+   "name": "Florida Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Fla. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Fla. Stat.",
+     "pattern": "Fla. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ga. Code Ann.": {
+   "jurisdiction": "Georgia",
+   "name": "Official Code of Georgia Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Ga. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ga. Code Ann.",
+     "pattern": "Ga. Code Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Haw. Rev. Stat.": {
+   "jurisdiction": "Hawaii",
+   "name": "Hawaii Revised Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Haw. Rev. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Haw. Rev. Stat.",
+     "pattern": "Haw. Rev. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Haw. Sess. Laws": {
+   "jurisdiction": "Hawaii",
+   "name": "Session Laws of Hawaii",
+   "basis": "reporters-db key",
+   "reporters_db": "Haw. Sess. Laws",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Haw. Sess. Laws",
+     "pattern": "<year> Haw. Sess. Laws <page>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ind. Const.": {
+   "jurisdiction": "Indiana",
+   "name": "Constitution of the State of Indiana",
+   "basis": "Bluebook rule 11 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ind. Const.",
+     "pattern": "Ind. Const. art. <article>, § <section>",
+     "source": "memory",
+     "confirmed_by": "https://lib.law.uw.edu/bluebook101/citationexamples"
+    }
+   ]
+  },
+  "Kan. Stat. Ann.": {
+   "jurisdiction": "Kansas",
+   "name": "Kansas Statutes Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Kan. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Kan. Stat. Ann.",
+     "pattern": "Kan. Stat. Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "La. Stat. Ann.": {
+   "jurisdiction": "Louisiana",
+   "name": "Louisiana Revised Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "La. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "La. Stat. Ann.",
+     "pattern": "La. Stat. Ann. § <title>:<section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Mass. Gen. Laws": {
+   "jurisdiction": "Massachusetts",
+   "name": "General Laws of Massachusetts",
+   "basis": "reporters-db key",
+   "reporters_db": "Mass. Gen. Laws",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Mass. Gen. Laws",
+     "pattern": "Mass. Gen. Laws ch. <chapter>, § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Me. Rev. Stat. Ann.": {
+   "jurisdiction": "Maine",
+   "name": "Maine Revised Statutes Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Me. Rev. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Me. Rev. Stat. Ann.",
+     "pattern": "Me. Rev. Stat. Ann. tit. <title>, § <section> (<year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "Bluebook form from memory of the 20th edition; the 21st may write `Me. Stat. tit. <title>, § <section>` (reporters-db also has `Me. Stat.`)"
+  },
+  "Mich. Comp. Laws": {
+   "jurisdiction": "Michigan",
+   "name": "Michigan Compiled Laws",
+   "basis": "reporters-db key",
+   "reporters_db": "Mich. Comp. Laws",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Mich. Comp. Laws",
+     "pattern": "Mich. Comp. Laws § <section> (<year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "`M.C.L.A.` (the annotated edition, reporters-db `Mich. Comp. Laws Ann.`) normalizes here (A63)"
+  },
+  "Mich. Ct. R.": {
+   "jurisdiction": "Michigan",
+   "name": "Michigan Court Rules",
+   "basis": "2026-10-18 conventions",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Mich. Ct. R.",
+     "pattern": "Mich. Ct. R. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.C. Gen. Stat.": {
+   "jurisdiction": "North Carolina",
+   "name": "General Statutes of North Carolina",
+   "basis": "reporters-db key",
+   "reporters_db": "N.C. Gen. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.C. Gen. Stat.",
+     "pattern": "N.C. Gen. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.D. Cent. Code": {
+   "jurisdiction": "North Dakota",
+   "name": "North Dakota Century Code",
+   "basis": "reporters-db key",
+   "reporters_db": "N.D. Cent. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.D. Cent. Code",
+     "pattern": "N.D. Cent. Code § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.J. Admin. Code": {
+   "jurisdiction": "New Jersey",
+   "name": "New Jersey Administrative Code",
+   "basis": "reporters-db key",
+   "reporters_db": "N.J. Admin. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.J. Admin. Code",
+     "pattern": "N.J. Admin. Code § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.M. Const.": {
+   "jurisdiction": "New Mexico",
+   "name": "Constitution of New Mexico",
+   "basis": "Bluebook rule 11 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.M. Const.",
+     "pattern": "N.M. Const. art. <article>, § <section>",
+     "source": "memory",
+     "confirmed_by": "https://lib.law.uw.edu/bluebook101/citationexamples"
+    }
+   ]
+  },
+  "N.M. Stat. Ann.": {
+   "jurisdiction": "New Mexico",
+   "name": "New Mexico Statutes Annotated 1978",
+   "basis": "reporters-db key",
+   "reporters_db": "N.M. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.M. Stat. Ann.",
+     "pattern": "N.M. Stat. Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.Y. Comp. Codes R. & Regs.": {
+   "jurisdiction": "New York",
+   "name": "Official Compilation of Codes, Rules and Regulations of the State of New York",
+   "basis": "reporters-db key",
+   "reporters_db": "N.Y. Comp. Codes R. & Regs.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.Y. Comp. Codes R. & Regs.",
+     "pattern": "N.Y. Comp. Codes R. & Regs. tit. <title>, § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.Y. Family Ct Act": {
+   "jurisdiction": "New York",
+   "name": "Family Court Act",
+   "basis": "the jurisdiction's courts' form (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.Y. Fam. Ct. Act",
+     "pattern": "N.Y. Fam. Ct. Act § <section> (McKinney <year>)",
+     "source": "memory",
+     "confirmed_by": "https://lawlibrary.blogs.pace.edu/?p=2554"
+    }
+   ],
+   "note": "New York's own style writes `Family Ct Act`; the Pace guide confirms the `N.Y. <code> §` pattern, not this abbreviation; reporters-db's `N.Y. $law_subject Law` pattern doesn't match an Act"
+  },
+  "N.Y. Gen. Bus. Law": {
+   "jurisdiction": "New York",
+   "name": "General Business Law",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "N.Y. Law",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.Y. Gen. Bus. Law",
+     "pattern": "N.Y. Gen. Bus. Law § <section> (McKinney <year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "N.Y. Judiciary Law": {
+   "jurisdiction": "New York",
+   "name": "Judiciary Law",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "N.Y. Law",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.Y. Jud. Law",
+     "pattern": "N.Y. Jud. Law § <section> (McKinney <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `N.Y. $law_subject Law` pattern; the Bluebook abbreviates the subject (`Jud.`)"
+  },
+  "N.Y. Penal Law": {
+   "jurisdiction": "New York",
+   "name": "Penal Law",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "N.Y. Law",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "N.Y. Penal Law",
+     "pattern": "N.Y. Penal Law § <section> (McKinney <year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Ohio Const.": {
+   "jurisdiction": "Ohio",
+   "name": "Constitution of the State of Ohio",
+   "basis": "Bluebook rule 11 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ohio Const.",
+     "pattern": "Ohio Const. art. <article>, § <section>",
+     "source": "memory",
+     "confirmed_by": "https://lib.law.uw.edu/bluebook101/citationexamples"
+    }
+   ]
+  },
+  "Ohio Rev. Code Ann.": {
+   "jurisdiction": "Ohio",
+   "name": "Ohio Revised Code Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Ohio Rev. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Ohio Rev. Code Ann.",
+     "pattern": "Ohio Rev. Code Ann. § <section> (West <year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Okla. Stat.": {
+   "jurisdiction": "Oklahoma",
+   "name": "Oklahoma Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Okla. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Okla. Stat.",
+     "pattern": "Okla. Stat. tit. <title>, § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Pa. Cons. Stat.": {
+   "jurisdiction": "Pennsylvania",
+   "name": "Pennsylvania Consolidated Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Pa. Cons. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Pa. Cons. Stat.",
+     "pattern": "<title> Pa. Cons. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Pa. R. Civ. P.": {
+   "jurisdiction": "Pennsylvania",
+   "name": "Pennsylvania Rules of Civil Procedure (231 Pa. Code)",
+   "basis": "Bluebook T1 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Pa. R. Civ. P.",
+     "pattern": "Pa. R. Civ. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Pa. Stat. Ann.": {
+   "jurisdiction": "Pennsylvania",
+   "name": "Purdon's Pennsylvania Statutes (unconsolidated)",
+   "basis": "A63: kept apart from `Pa. Cons. Stat.`",
+   "reporters_db": "Pa. Stat. and Cons. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Pa. Stat. Ann.",
+     "pattern": "Pa. Stat. Ann. tit. <title>, § <section> (West <year>)",
+     "source": "memory",
+     "confirmed_by": "https://www.jenkinslaw.org/blog/2015/04/23/pennsylvania-statute-citations-explained"
+    },
+    {
+     "kind": "reporters-db",
+     "form": "Pa. Stat. and Cons. Stat. Ann.",
+     "source": "reporters-db v3.2.67"
+    }
+   ],
+   "note": "reporters-db's `Pa. Stat. and Cons. Stat. Ann.` is the later title of the same West set and also names the consolidated statutes"
+  },
+  "Pub. L.": {
+   "jurisdiction": "United States",
+   "name": "Public Law",
+   "basis": "reporters-db key",
+   "reporters_db": "Pub. L.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Pub. L. No.",
+     "pattern": "Pub. L. No. <congress>-<number>, <volume> Stat. <page> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "R.I. Gen. Laws": {
+   "jurisdiction": "Rhode Island",
+   "name": "General Laws of Rhode Island",
+   "basis": "reporters-db key",
+   "reporters_db": "R.I. Gen. Laws",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "R.I. Gen. Laws",
+     "pattern": "R.I. Gen. Laws § <section> (<year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "Bluebook pattern from memory: `R.I. Gen. Laws § <title>-<chapter>-<section>`, without a title in front"
+  },
+  "Stat.": {
+   "jurisdiction": "United States",
+   "name": "United States Statutes at Large",
+   "basis": "reporters-db key",
+   "reporters_db": "Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Stat.",
+     "pattern": "<volume> Stat. <page> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Tenn. Code Ann.": {
+   "jurisdiction": "Tennessee",
+   "name": "Tennessee Code Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Tenn. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tenn. Code Ann.",
+     "pattern": "Tenn. Code Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Tex. Fam. Code Ann.": {
+   "jurisdiction": "Texas",
+   "name": "Texas Fam. Code Annotated",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Tex. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tex. Fam. Code Ann.",
+     "pattern": "Tex. Fam. Code Ann. § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Tex. $law_subject Code Ann.` pattern of its `Tex. Code Ann.` key"
+  },
+  "Tex. Penal Code Ann.": {
+   "jurisdiction": "Texas",
+   "name": "Texas Penal Code Annotated",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Tex. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tex. Penal Code Ann.",
+     "pattern": "Tex. Penal Code Ann. § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Tex. $law_subject Code Ann.` pattern of its `Tex. Code Ann.` key"
+  },
+  "Tex. Prop. Code Ann.": {
+   "jurisdiction": "Texas",
+   "name": "Texas Prop. Code Annotated",
+   "basis": "reporters-db pattern",
+   "reporters_db": null,
+   "reporters_db_pattern": "Tex. Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tex. Prop. Code Ann.",
+     "pattern": "Tex. Prop. Code Ann. § <section> (West <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "reporters-db matches it with the `Tex. $law_subject Code Ann.` pattern of its `Tex. Code Ann.` key"
+  },
+  "Tex. R. App. P.": {
+   "jurisdiction": "Texas",
+   "name": "Texas Rules of Appellate Procedure",
+   "basis": "Bluebook T1 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tex. R. App. P.",
+     "pattern": "Tex. R. App. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Tex. R. Civ. P.": {
+   "jurisdiction": "Texas",
+   "name": "Texas Rules of Civil Procedure",
+   "basis": "Bluebook T1 (A63)",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Tex. R. Civ. P.",
+     "pattern": "Tex. R. Civ. P. <rule>",
+     "source": "memory"
+    }
+   ]
+  },
+  "Treas. Reg.": {
+   "jurisdiction": "United States",
+   "name": "Treasury Regulations (26 C.F.R.)",
+   "basis": "reporters-db key",
+   "reporters_db": "Treas. Reg.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Treas. Reg.",
+     "pattern": "Treas. Reg. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "U.S. Const.": {
+   "jurisdiction": "United States",
+   "name": "Constitution of the United States",
+   "basis": "2026-10-18 conventions",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "U.S. Const.",
+     "pattern": "U.S. Const. art. <article>, § <section>, cl. <clause>",
+     "source": "memory"
+    }
+   ]
+  },
+  "U.S.C.": {
+   "jurisdiction": "United States",
+   "name": "United States Code",
+   "basis": "reporters-db key",
+   "reporters_db": "U.S.C.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "U.S.C.",
+     "pattern": "<title> U.S.C. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "U.S.S.G.": {
+   "jurisdiction": "United States",
+   "name": "United States Sentencing Guidelines Manual",
+   "basis": "2026-10-18 conventions",
+   "reporters_db": null,
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "U.S.S.G.",
+     "pattern": "U.S. Sent'g Guidelines Manual § <section> (U.S. Sent'g Comm'n <year>)",
+     "source": "memory"
+    }
+   ],
+   "note": "Bluebook 21st form from memory; courts and earlier editions write `U.S.S.G. § <section>`"
+  },
+  "Utah Code Ann.": {
+   "jurisdiction": "Utah",
+   "name": "Utah Code Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Utah Code Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Utah Code Ann.",
+     "pattern": "Utah Code Ann. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Vt. Stat. Ann.": {
+   "jurisdiction": "Vermont",
+   "name": "Vermont Statutes Annotated",
+   "basis": "reporters-db key",
+   "reporters_db": "Vt. Stat. Ann.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Vt. Stat. Ann.",
+     "pattern": "Vt. Stat. Ann. tit. <title>, § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "W. Va. Code": {
+   "jurisdiction": "West Virginia",
+   "name": "West Virginia Code",
+   "basis": "reporters-db key",
+   "reporters_db": "W. Va. Code",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "W. Va. Code",
+     "pattern": "W. Va. Code § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  },
+  "Wis. Stat.": {
+   "jurisdiction": "Wisconsin",
+   "name": "Wisconsin Statutes",
+   "basis": "reporters-db key",
+   "reporters_db": "Wis. Stat.",
+   "aliases": [
+    {
+     "kind": "bluebook",
+     "form": "Wis. Stat.",
+     "pattern": "Wis. Stat. § <section> (<year>)",
+     "source": "memory"
+    }
+   ]
+  }
+ }
+}

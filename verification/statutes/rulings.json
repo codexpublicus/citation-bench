@@ -1,0 +1,410 @@
+{
+ "decisions": {
+  "A63": {
+   "date": "2026-10-25",
+   "by": "owner",
+   "basis": "owner-ruled 2026-10-25 (A63)",
+   "question": "The statute review packet for citation-bench#30: 46 one-line answers on existence, written forms, code abbreviations and span patterns, plus the two contradicted vectors",
+   "answer": "Accept the packet's answer sheet. Conn. Practice Book is one code; N.Y. Family Ct Act keeps New York's own style; Pa. Stat. Ann. for P.S.; \"(Rev. to year)\" and \"(1969 Reenactment)\" stay inside the span and are not recorded as year; conn_gen_stat/1's \"10 -236b\" is not decided and stays unverified; the two Attorney General opinion vectors (ark_aca/1, la_rev_stat/0) stay, and the README says the set includes citations as courts and state attorneys general write them. vt_vsa/0 is accepted as is; nm_nmsa/0 is fixed by re-taking its excerpt from the same opinion."
+  }
+ },
+ "rulings": [
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "O.C.G.A.",
+   "code": "Ga. Code Ann.",
+   "answer": "`O.C.G.A.` means `Ga. Code Ann.`",
+   "vectors": [
+    "statutes/find/ga_o_c_g_a/0",
+    "statutes/find/ga_o_c_g_a/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "A.C.A.",
+   "code": "Ark. Code Ann.",
+   "answer": "`A.C.A.` means `Ark. Code Ann.`",
+   "vectors": [
+    "statutes/find/ark_aca/0",
+    "statutes/find/ark_aca/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "G.L.",
+   "code": "R.I. Gen. Laws",
+   "answer": "`G.L.` means `R.I. Gen. Laws`",
+   "vectors": [
+    "statutes/find/ri_gl_1956/0",
+    "statutes/find/ri_gl_1956/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "La.Rev.Stat.",
+   "code": "La. Stat. Ann.",
+   "answer": "`La.Rev.Stat.` means `La. Stat. Ann.`",
+   "vectors": [
+    "statutes/find/la_rev_stat/0",
+    "statutes/find/la_rev_stat/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "M.C.L.A.",
+   "code": "Mich. Comp. Laws",
+   "answer": "`M.C.L.A.` (Michigan Compiled Laws Annotated) normalizes to `Mich. Comp. Laws`",
+   "vectors": [
+    "statutes/find/mich_mcl/0",
+    "statutes/find/mich_mcl/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "West Virginia Code",
+   "code": "W. Va. Code",
+   "answer": "`West Virginia Code` means `W. Va. Code`",
+   "vectors": [
+    "statutes/find/wva_code/0",
+    "statutes/find/wva_code/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "M.R.S.A.",
+   "code": "Me. Rev. Stat. Ann.",
+   "answer": "`M.R.S.A.` means `Me. Rev. Stat. Ann.`",
+   "vectors": [
+    "statutes/find/me_mrsa/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "MCR",
+   "code": "Mich. Ct. R.",
+   "answer": "`MCR` means `Mich. Ct. R.`",
+   "vectors": [
+    "statutes/find/mich_ct_r/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "N.J.A.C.",
+   "code": "N.J. Admin. Code",
+   "answer": "`N.J.A.C.` means `N.J. Admin. Code`",
+   "vectors": [
+    "statutes/find/njac/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "form",
+   "written": "NYCRR",
+   "code": "N.Y. Comp. Codes R. & Regs.",
+   "answer": "`NYCRR` means `N.Y. Comp. Codes R. & Regs.`",
+   "vectors": [
+    "statutes/find/nycrr/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Conn. Practice Book",
+   "jurisdiction": "Connecticut",
+   "answer": "Practice Book, one code for the whole book as Connecticut's courts cite it",
+   "vectors": [
+    "statutes/find/conn_practice_book/0",
+    "statutes/find/conn_practice_book/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "N.Y. Family Ct Act",
+   "jurisdiction": "New York",
+   "answer": "Family Court Act, in New York's own style (as `N.Y. Judiciary Law`)",
+   "vectors": [
+    "statutes/find/ny_family_ct_act/0",
+    "statutes/find/ny_family_ct_act/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Pa. Stat. Ann.",
+   "jurisdiction": "Pennsylvania",
+   "answer": "Purdon's Pennsylvania Statutes (`P.S.`), kept apart from `Pa. Cons. Stat.`",
+   "vectors": [
+    "statutes/find/pa_ps/0",
+    "statutes/find/pa_ps/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Fed. R. Evid.",
+   "jurisdiction": "United States",
+   "answer": "Federal Rules of Evidence",
+   "vectors": [
+    "statutes/find/fed_r_evid/0",
+    "statutes/find/fed_r_evid/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Fed. R. Crim. P.",
+   "jurisdiction": "United States",
+   "answer": "Federal Rules of Criminal Procedure",
+   "vectors": [
+    "statutes/find/fed_r_crim_p/0",
+    "statutes/find/fed_r_crim_p/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Fed. R. App. P.",
+   "jurisdiction": "United States",
+   "answer": "Federal Rules of Appellate Procedure",
+   "vectors": [
+    "statutes/find/fed_r_app_p/0",
+    "statutes/find/fed_r_app_p/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Tex. R. Civ. P.",
+   "jurisdiction": "Texas",
+   "answer": "Texas Rules of Civil Procedure",
+   "vectors": [
+    "statutes/find/tex_r_p/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Tex. R. App. P.",
+   "jurisdiction": "Texas",
+   "answer": "Texas Rules of Appellate Procedure",
+   "vectors": [
+    "statutes/find/tex_r_p/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Pa. R. Civ. P.",
+   "jurisdiction": "Pennsylvania",
+   "answer": "Pennsylvania Rules of Civil Procedure",
+   "vectors": [
+    "statutes/find/pa_r_civ_p/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Ohio Const.",
+   "jurisdiction": "Ohio",
+   "answer": "Constitution",
+   "vectors": [
+    "statutes/find/state_const/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "Ind. Const.",
+   "jurisdiction": "Indiana",
+   "answer": "Constitution",
+   "vectors": [
+    "statutes/find/state_const/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "code",
+   "code": "N.M. Const.",
+   "jurisdiction": "New Mexico",
+   "answer": "Constitution",
+   "vectors": [
+    "statutes/find/state_const/2"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "span",
+   "pattern": "####,",
+   "codes": [
+    "Ala. Code",
+    "N.M. Stat. Ann.",
+    "R.I. Gen. Laws"
+   ],
+   "answer": "the code's edition year and its comma (`Ala. Code 1975,`, `NMSA 1978,`, `G.L. 1956,`) are part of the code's name, inside the span, no field",
+   "vectors": [
+    "statutes/find/ala_code_1975/0",
+    "statutes/find/ala_code_1975/1",
+    "statutes/find/nm_nmsa/0",
+    "statutes/find/nm_nmsa/1",
+    "statutes/find/ri_gl_1956/0"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "span",
+   "pattern": "####",
+   "codes": [
+    "Okla. Stat."
+   ],
+   "answer": "the edition year between `O.S.` and `§` (`84 O.S. 2001 § 176`) is inside the span, no field",
+   "vectors": [
+    "statutes/find/okla_os/0",
+    "statutes/find/okla_os/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "span",
+   "pattern": "(Rev. to ####)",
+   "codes": [
+    "Conn. Gen. Stat."
+   ],
+   "answer": "`(Rev. to year)` names the revision of the General Statutes; inside the span, not recorded as year",
+   "vectors": [
+    "statutes/find/conn_general_statutes_revision/0",
+    "statutes/find/conn_general_statutes_revision/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "span",
+   "pattern": "#### (#### Reenactment)",
+   "codes": [
+    "R.I. Gen. Laws"
+   ],
+   "answer": "`1956 (1969 Reenactment)` is the reenactment volume; inside the span, not recorded as year",
+   "vectors": [
+    "statutes/find/ri_gl_1956/1"
+   ]
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ga_ocga/0",
+   "answer": "O.C.G.A. § 40-6-392 (chemical tests; (a)(3) the independent test) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ga_ocga/1",
+   "answer": "O.C.G.A. § 17-8-57 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ga_o_c_g_a/0",
+   "answer": "O.C.G.A. § 13-11-1 (Georgia Prompt Pay Act, short title) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ga_o_c_g_a/1",
+   "answer": "O.C.G.A. § 36-11-1 (presentment of claims against counties) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/tenn_tca/0",
+   "answer": "T.C.A. § 37-1-304 (Juvenile Post-Commitment Procedures Act) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/tenn_tca/1",
+   "answer": "T.C.A. § 16-11-114 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ark_aca/0",
+   "answer": "A.C.A. § 4-9-203 (UCC attachment) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/ark_aca/1",
+   "answer": "A.C.A. § 22-5-801 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/okla_os/0",
+   "answer": "84 O.S. § 176 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/okla_os/1",
+   "answer": "43 O.S. § 134 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/pa_ps/0",
+   "answer": "26 P.S. § 1-705 existed when cited (Eminent Domain Code of 1964, repealed 2006)"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/pa_ps/1",
+   "answer": "35 P.S. § 780-113 exists, with (a)(12)"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/njac/0",
+   "answer": "N.J.A.C. 10:129A-3.4 existed in 1997 (chapter since replaced by N.J.A.C. 3A:10)"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/nycrr/0",
+   "answer": "22 NYCRR 806.9 existed as cited in 2007"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/mich_ct_r/0",
+   "answer": "MCR 3.101 (garnishment) exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/state_const/0",
+   "answer": "Ohio Const. art. I, § 11 exists"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/pa_r_civ_p/0",
+   "answer": "Pa. R. Civ. P. 1035.2 exists, with (2)"
+  },
+  {
+   "decision": "A63",
+   "claim": "existence",
+   "vector": "statutes/find/vt_vsa/0",
+   "answer": "24 V.S.A. § 4407 existed and was repealed (chapter 117 lists §§ 4404a-4409 as repealed by 2003, No. 115 (Adj. Sess.), § 119), as the opinion says; the vector is accepted as is",
+   "overrides": "fail"
+  }
+ ]
+}
