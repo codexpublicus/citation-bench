@@ -9,7 +9,7 @@
   "provenance": {
     "status": "hand-checked",
     "drafted_from": "citare's output with the state-code forms (citare#69)",
-    "note": "Each expected citation was read by hand against its sentence when the set was added (#24), and three were corrected (README.md). Not yet verified by the maintainer."
+    "note": "Each expected citation was read by hand against its sentence when the set was added (#24), and three were corrected (README.md). A vector with its own provenance `verified` was reviewed by the maintainer (A63, 2026-10-25, verification/statutes/rulings.json); the rest are not yet verified."
   },
   "protocol": 2
 }

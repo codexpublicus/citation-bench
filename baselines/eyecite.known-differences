@@ -130,6 +130,12 @@ statutes/find/conn_general_statutes_revision/0
 statutes/find/conn_general_statutes_revision/1
 statutes/find/conn_practice_book/0
 statutes/find/conn_practice_book/1
+statutes/find/fed_r_app_p/0
+statutes/find/fed_r_app_p/1
+statutes/find/fed_r_crim_p/0
+statutes/find/fed_r_crim_p/1
+statutes/find/fed_r_evid/0
+statutes/find/fed_r_evid/1
 statutes/find/ga_o_c_g_a/0
 statutes/find/ga_o_c_g_a/1
 statutes/find/ga_ocga/0
@@ -145,6 +151,7 @@ statutes/find/me_mrs/0
 statutes/find/me_mrs/1
 statutes/find/me_mrsa/0
 statutes/find/me_mrsa/1
+statutes/find/mich_ct_r/0
 statutes/find/mich_mcl/0
 statutes/find/mich_mcl/1
 statutes/find/nc_gs/0
@@ -153,6 +160,7 @@ statutes/find/nc_ncgs/0
 statutes/find/nc_ncgs/1
 statutes/find/nd_ndcc/0
 statutes/find/nd_ndcc/1
+statutes/find/njac/0
 statutes/find/nm_nmsa/0
 statutes/find/nm_nmsa/1
 statutes/find/ny_family_ct_act/0
@@ -160,6 +168,7 @@ statutes/find/ny_family_ct_act/1
 statutes/find/ny_judiciary_law/0
 statutes/find/ny_penal_law/0
 statutes/find/ny_penal_law/1
+statutes/find/nycrr/0
 statutes/find/okla_os/0
 statutes/find/okla_os/1
 statutes/find/pa_cs/0
@@ -168,14 +177,20 @@ statutes/find/pa_csa/0
 statutes/find/pa_csa/1
 statutes/find/pa_ps/0
 statutes/find/pa_ps/1
+statutes/find/pa_r_civ_p/0
 statutes/find/ri_gl_1956/0
 statutes/find/ri_gl_1956/1
+statutes/find/state_const/0
+statutes/find/state_const/1
+statutes/find/state_const/2
 statutes/find/tenn_tca/0
 statutes/find/tenn_tca/1
 statutes/find/tex_no_space/0
 statutes/find/tex_no_space/1
 statutes/find/tex_penal_code_ann/0
 statutes/find/tex_penal_code_ann/1
+statutes/find/tex_r_p/0
+statutes/find/tex_r_p/1
 statutes/find/tex_small_caps/0
 statutes/find/tex_small_caps/1
 statutes/find/vt_vsa/0

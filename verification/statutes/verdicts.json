@@ -5,13 +5,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+cga+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -50,13 +50,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+cga+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+cga+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -92,16 +92,16 @@
  {
   "id": "statutes/find/conn_general_statutes_revision/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:cap-case-metadata+cga+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -113,13 +113,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '(Rev. to 1997)'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `(Rev. to ####)`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '(Rev. to 1997)' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "code",
@@ -147,16 +144,16 @@
  {
   "id": "statutes/find/conn_general_statutes_revision/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:cap-case-metadata+cga+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -168,13 +165,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '(Rev. to 2005)'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `(Rev. to ####)`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '(Rev. to 2005)' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "metadata",
@@ -209,16 +203,16 @@
  {
   "id": "statutes/find/conn_practice_book/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "court rule",
   "code": "Conn. Practice Book",
-  "verdict": "unverifiable:code",
+  "verdict": "verified-by-source:cap-case-metadata+ct-judicial+owner-ruling-A63+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -230,13 +224,10 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`Conn. Practice Book` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Conn. Practice Book` (Connecticut): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Conn. Practice Book` is Connecticut's Practice Book, one code for the whole book as Connecticut's courts cite it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
@@ -257,16 +248,16 @@
  {
   "id": "statutes/find/conn_practice_book/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "court rule",
   "code": "Conn. Practice Book",
-  "verdict": "unverifiable:code",
+  "verdict": "verified-by-source:cap-case-metadata+ct-judicial+owner-ruling-A63+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -278,13 +269,10 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`Conn. Practice Book` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Conn. Practice Book` (Connecticut): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Conn. Practice Book` is Connecticut's Practice Book, one code for the whole book as Connecticut's courts cite it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
@@ -308,8 +296,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Conn. Gen. Stat.",
-  "verdict": "verified-by-source:cga+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cga+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -398,10 +393,10 @@
  {
   "id": "statutes/find/ga_ocga/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -427,30 +422,34 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Court of Appeals of Georgia (`gactapp`), a court in Georgia (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Georgia (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Georgia's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): O.C.G.A. § 40-6-392 (chemical tests; (a)(3) the independent test) exists (machine check: none, Georgia's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/ga_ocga/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -468,30 +467,34 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Supreme Court of Georgia (`ga`), a court in Georgia (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Georgia (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Georgia's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): O.C.G.A. § 17-8-57 exists (machine check: none, Georgia's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/ga_o_c_g_a/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -515,33 +518,27 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`; cited by Court of Appeals for the Eleventh Circuit (`ca11`), a court in United States",
-    "source": "",
-    "human": [
-     "form",
-     "`O.C.G.A.` means `Ga. Code Ann.` (Georgia)"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `O.C.G.A.` means `Ga. Code Ann.`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Georgia's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): O.C.G.A. § 13-11-1 (Georgia Prompt Pay Act, short title) exists (machine check: none, Georgia's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/ga_o_c_g_a/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ga. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -559,23 +556,17 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`O.C.G.A.` read as `Ga. Code Ann.`; cited by District Court, N.D. Georgia (`gand`), a court in United States",
-    "source": "",
-    "human": [
-     "form",
-     "`O.C.G.A.` means `Ga. Code Ann.` (Georgia)"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `O.C.G.A.` means `Ga. Code Ann.`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Georgia's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ga. Code Ann.`: Georgia's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): O.C.G.A. § 36-11-1 (presentment of claims against counties) exists (machine check: none, Georgia's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
@@ -585,8 +576,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ariz. Rev. Stat.",
-  "verdict": "verified-by-source:azleg+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:azleg+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -611,8 +609,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Court of Appeals of Arizona (`arizctapp`), a court in Arizona (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Arizona (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -630,7 +628,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Ariz. Rev. Stat.",
-  "verdict": "verified-by-source:azleg+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:azleg+cap-case-metadata+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -656,8 +654,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Court of Appeals of Arizona (`arizctapp`), a court in Arizona (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Arizona (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -675,13 +673,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Haw. Rev. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+hawaii-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+hawaii-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -720,8 +718,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Haw. Rev. Stat.",
-  "verdict": "verified-by-source:courtlistener-api+hawaii-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+hawaii-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -739,8 +744,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Hawaii Supreme Court (`haw`), a court in Hawaii (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Hawaii (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -758,13 +763,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.C. Gen. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ncleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -803,13 +808,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.C. Gen. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+ncleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ncleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -848,8 +853,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.C. Gen. Stat.",
-  "verdict": "verified-by-source:ncleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ncleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -924,13 +936,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.D. Cent. Code",
-  "verdict": "verified-by-source:cap+cap-case-metadata+nd-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+nd-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -969,8 +981,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.D. Cent. Code",
-  "verdict": "verified-by-source:courtlistener-api+nd-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+nd-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -995,8 +1014,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by North Dakota Supreme Court (`nd`), a court in North Dakota (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in North Dakota (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1011,10 +1030,10 @@
  {
   "id": "statutes/find/tenn_tca/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Tenn. Code Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:courtlistener-api+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1039,24 +1058,28 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Tennessee's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Tenn. Code Ann.`: Tennessee's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): T.C.A. § 37-1-304 (Juvenile Post-Commitment Procedures Act) exists (machine check: none, Tennessee's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/tenn_tca/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Tenn. Code Ann.",
-  "verdict": "unverifiable:existence",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1081,19 +1104,16 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Court of Appeals of Tennessee (`tennctapp`), a court in Tennessee (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Tennessee (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Tennessee's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Tenn. Code Ann.`: Tennessee's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): T.C.A. § 16-11-114 exists (machine check: none, Tennessee's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
@@ -1103,8 +1123,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+pa-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1122,8 +1149,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Supreme Court of Pennsylvania (`pa`), a court in Pennsylvania (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Pennsylvania (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1141,7 +1168,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "verified-by-source:courtlistener-api+pa-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+pa-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1160,8 +1187,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Commonwealth Court of Pennsylvania (`pacommwct`), a court in Pennsylvania (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Pennsylvania (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1224,13 +1251,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Pa. Cons. Stat.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+pa-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+pa-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1273,10 +1300,10 @@
  {
   "id": "statutes/find/pa_ps/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Pa. Stat. Ann.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63",
   "checks": [
    {
     "claim": "span",
@@ -1294,46 +1321,40 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`Pa. Stat. Ann.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Pa. Stat. Ann.` (Pennsylvania): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Pa. Stat. Ann.` is Pennsylvania's Purdon's Pennsylvania Statutes (`P.S.`), kept apart from `Pa. Cons. Stat.`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Commonwealth Court of Pennsylvania (`pacommwct`), a court in Pennsylvania (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Pennsylvania (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act",
-    "source": "",
-    "human": [
-     "existence",
-     "`Pa. Stat. Ann.`: Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 26 P.S. § 1-705 existed when cited (Eminent Domain Code of 1964, repealed 2006) (machine check: none, Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/pa_ps/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Pa. Stat. Ann.",
-  "verdict": "unverifiable:code, existence",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1352,13 +1373,10 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`Pa. Stat. Ann.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Pa. Stat. Ann.` (Pennsylvania): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Pa. Stat. Ann.` is Pennsylvania's Purdon's Pennsylvania Statutes (`P.S.`), kept apart from `Pa. Cons. Stat.`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
@@ -1369,13 +1387,10 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act",
-    "source": "",
-    "human": [
-     "existence",
-     "`Pa. Stat. Ann.`: Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 35 P.S. § 780-113 exists, with (a)(12) (machine check: none, Purdon's title and section numbers have no official per-section source; palegis.us indexes unconsolidated statutes by act)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
@@ -1385,13 +1400,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Me. Rev. Stat. Ann.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+maine-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+maine-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1437,13 +1452,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Me. Rev. Stat. Ann.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+maine-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+maine-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1486,10 +1501,10 @@
  {
   "id": "statutes/find/me_mrsa/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Me. Rev. Stat. Ann.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:maine-legislature+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1507,13 +1522,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`M.R.S.A.` read as `Me. Rev. Stat. Ann.`; cited by District Court, D. Maine (`med`), a court in United States",
-    "source": "",
-    "human": [
-     "form",
-     "`M.R.S.A.` means `Me. Rev. Stat. Ann.` (Maine)"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `M.R.S.A.` means `Me. Rev. Stat. Ann.`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "existence",
@@ -1530,7 +1542,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Me. Rev. Stat. Ann.",
-  "verdict": "verified-by-source:courtlistener-api+maine-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+maine-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1556,8 +1568,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Supreme Judicial Court of Maine (`me`), a court in Maine (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Maine (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1572,16 +1584,16 @@
  {
   "id": "statutes/find/vt_vsa/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Vt. Stat. Ann.",
-  "verdict": "contradicted:existence: § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117)",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1614,9 +1626,9 @@
    },
    {
     "claim": "existence",
-    "result": "fail",
-    "detail": "§ 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117)",
-    "source": "vermont-legislature",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 24 V.S.A. § 4407 existed and was repealed (chapter 117 lists §§ 4404a-4409 as repealed by 2003, No. 115 (Adj. Sess.), § 119), as the opinion says; the vector is accepted as is (machine check: fail, § 4407 falls inside chapter 117's sections but isn't one (https://legislature.vermont.gov/statutes/chapter/24/117))",
+    "source": "owner-ruling-A63",
     "human": []
    }
   ]
@@ -1627,13 +1639,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Vt. Stat. Ann.",
-  "verdict": "verified-by-source:cap+cap-case-metadata+reporters-db@v3.2.67+vermont-legislature",
+  "verdict": "verified-by-source:cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap+vermont-legislature",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1676,16 +1688,16 @@
  {
   "id": "statutes/find/okla_os/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Okla. Stat.",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1697,13 +1709,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '2001'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '2001' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "code",
@@ -1721,23 +1730,20 @@
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler",
-    "source": "",
-    "human": [
-     "existence",
-     "`Okla. Stat.`: the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 84 O.S. § 176 exists (machine check: none, the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/okla_os/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Okla. Stat.",
-  "verdict": "unverifiable:existence, span",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -1748,13 +1754,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1991'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1991' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "code",
@@ -1766,19 +1769,16 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Supreme Court of Oklahoma (`okla`), a court in Oklahoma (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Oklahoma (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "none",
-    "detail": "the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler",
-    "source": "",
-    "human": [
-     "existence",
-     "`Okla. Stat.`: the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 43 O.S. § 134 exists (machine check: none, the robots.txt of both oscn.net and oklegislature.gov disallows every path to every crawler)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
@@ -1788,8 +1788,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Penal Law",
-  "verdict": "verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ny-openleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1807,8 +1814,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Criminal Court of the City of New York (`nycrimct`), a court in New York (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1826,8 +1833,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Penal Law",
-  "verdict": "verified-by-source:courtlistener-api+ny-openleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ny-openleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1845,8 +1859,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Appellate Division of the Supreme Court of the State of New York (`nyappdiv`), a court in New York (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1864,13 +1878,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "N.Y. Judiciary Law",
-  "verdict": "verified-by-source:cap+cap-case-metadata+ny-openleg+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ny-openleg+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -1906,11 +1920,18 @@
  {
   "id": "statutes/find/ny_family_ct_act/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "N.Y. Family Ct Act",
-  "verdict": "unverifiable:code",
+  "verdict": "verified-by-source:cap-case-metadata+ny-openleg+owner-ruling-A63+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1920,19 +1941,16 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`N.Y. Family Ct Act` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`N.Y. Family Ct Act` (New York): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `N.Y. Family Ct Act` is New York's Family Court Act, in New York's own style (as `N.Y. Judiciary Law`)",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by New York City Family Court (`nycfamct`), a court in New York (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1947,11 +1965,18 @@
  {
   "id": "statutes/find/ny_family_ct_act/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "N.Y. Family Ct Act",
-  "verdict": "unverifiable:code",
+  "verdict": "verified-by-source:cap-case-metadata+ny-openleg+owner-ruling-A63+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -1961,19 +1986,16 @@
    },
    {
     "claim": "code",
-    "result": "none",
-    "detail": "`N.Y. Family Ct Act` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`N.Y. Family Ct Act` (New York): is this the code's standard abbreviation?"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `N.Y. Family Ct Act` is New York's Family Court Act, in New York's own style (as `N.Y. Judiciary Law`)",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by New York City Family Court (`nycfamct`), a court in New York (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -1991,7 +2013,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Pen. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2010,8 +2032,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in California (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2029,13 +2051,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Pen. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -2074,8 +2096,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2093,8 +2122,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in California (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2112,8 +2141,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Civ. Proc. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2131,8 +2167,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in California (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2150,13 +2186,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Evid. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap+cap-case-metadata+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -2195,8 +2231,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Cal. Evid. Code",
-  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+courtlistener-api+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ca-leginfo-pubinfo-2025+cap-case-metadata+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2214,8 +2257,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by California Court of Appeal (`calctapp`), a court in California (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in California (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2361,13 +2404,13 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Tex. Fam. Code Ann.",
-  "verdict": "verified-by-source:cap+reporters-db@v3.2.67+texas-legislative-council",
+  "verdict": "verified-by-source:reporters-db@v3.2.67+stare-pub-cap+texas-legislative-council",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -2541,8 +2584,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Mass. Gen. Laws",
-  "verdict": "verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ma-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2567,8 +2617,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Massachusetts Appeals Court (`massappct`), a court in Massachusetts (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Massachusetts (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2586,7 +2636,7 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Mass. Gen. Laws",
-  "verdict": "verified-by-source:courtlistener-api+ma-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:cap-case-metadata+ma-legislature+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2605,8 +2655,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by Massachusetts Supreme Judicial Court (`mass`), a court in Massachusetts (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in Massachusetts (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2624,8 +2674,15 @@
   "provenance": "hand-checked",
   "kind": "state statute",
   "code": "Mass. Gen. Laws",
-  "verdict": "verified-by-source:ma-legislature+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ma-legislature+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2666,11 +2723,18 @@
  {
   "id": "statutes/find/nm_nmsa/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "N.M. Stat. Ann.",
-  "verdict": "contradicted:existence: no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do",
+  "verdict": "verified-by-source:cap-case-metadata+nmcc-nmonesource+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2680,13 +2744,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1978,'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####,`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1978,' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "metadata",
@@ -2705,14 +2766,14 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by New Mexico Court of Appeals (`nmctapp`), a court in New Mexico (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New Mexico (CAP case metadata)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
     "claim": "existence",
-    "result": "fail",
-    "detail": "no § 32A-I-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do",
+    "result": "pass",
+    "detail": "§ 32A-4-29 in https://nmonesource.com/nmos/nmsa-unanno/en/18532/1/document.do",
     "source": "nmcc-nmonesource",
     "human": []
    }
@@ -2721,10 +2782,10 @@
  {
   "id": "statutes/find/nm_nmsa/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "N.M. Stat. Ann.",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:cap-case-metadata+nmcc-nmonesource+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -2735,13 +2796,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1978,'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####,`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1978,' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "metadata",
@@ -2760,8 +2818,8 @@
    {
     "claim": "form",
     "result": "pass",
-    "detail": "cited by New Mexico Court of Appeals (`nmctapp`), a court in New Mexico (CourtListener API)",
-    "source": "courtlistener-api",
+    "detail": "cited by a court in New Mexico (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
    },
    {
@@ -2776,11 +2834,18 @@
  {
   "id": "statutes/find/mich_mcl/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Mich. Comp. Laws",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:mi-legislature+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2804,13 +2869,10 @@
    },
    {
     "claim": "form",
-    "result": "none",
-    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`; cited by District Court, E.D. Michigan (`mied`), a court in United States",
-    "source": "",
-    "human": [
-     "form",
-     "`M.C.L.A.` means `Mich. Comp. Laws` (Michigan)"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `M.C.L.A.` means `Mich. Comp. Laws`",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "existence",
@@ -2824,11 +2886,18 @@
  {
   "id": "statutes/find/mich_mcl/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Mich. Comp. Laws",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:mi-legislature+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2845,20 +2914,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `M.C.L.A.` means `Mich. Comp. Laws`",
+    "source": "owner-ruling-A63",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`M.C.L.A.` read as `Mich. Comp. Laws`",
-    "source": "",
-    "human": [
-     "form",
-     "`M.C.L.A.` means `Mich. Comp. Laws` (Michigan)"
-    ]
    },
    {
     "claim": "existence",
@@ -2872,16 +2931,16 @@
  {
   "id": "statutes/find/ala_code_1975/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ala. Code",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:alison+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
    {
     "claim": "excerpt",
     "result": "pass",
     "detail": "input is the opinion text at the offset",
-    "source": "cap",
+    "source": "stare-pub-cap",
     "human": []
    },
    {
@@ -2893,13 +2952,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1975,'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####,`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1975,' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "metadata",
@@ -2934,11 +2990,18 @@
  {
   "id": "statutes/find/ala_code_1975/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ala. Code",
-  "verdict": "unverifiable:span",
+  "verdict": "verified-by-source:alison+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -2948,13 +3011,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1975,'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####,`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1975,' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "metadata",
@@ -2989,10 +3049,10 @@
  {
   "id": "statutes/find/ark_aca/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ark. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -3017,40 +3077,27 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `A.C.A.` means `Ark. Code Ann.`",
+    "source": "owner-ruling-A63",
     "human": []
    },
    {
-    "claim": "form",
-    "result": "none",
-    "detail": "`A.C.A.` read as `Ark. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`A.C.A.` means `Ark. Code Ann.` (Arkansas)"
-    ]
-   },
-   {
     "claim": "existence",
-    "result": "none",
-    "detail": "Arkansas's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ark. Code Ann.`: Arkansas's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): A.C.A. § 4-9-203 (UCC attachment) exists (machine check: none, Arkansas's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/ark_aca/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "Ark. Code Ann.",
-  "verdict": "unverifiable:existence, form",
+  "verdict": "verified-by-source:owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -3075,40 +3122,27 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `A.C.A.` means `Ark. Code Ann.`",
+    "source": "owner-ruling-A63",
     "human": []
    },
    {
-    "claim": "form",
-    "result": "none",
-    "detail": "`A.C.A.` read as `Ark. Code Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`A.C.A.` means `Ark. Code Ann.` (Arkansas)"
-    ]
-   },
-   {
     "claim": "existence",
-    "result": "none",
-    "detail": "Arkansas's official code is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ark. Code Ann.`: Arkansas's official code is online through LexisNexis; not used"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): A.C.A. § 22-5-801 exists (machine check: none, Arkansas's official code is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
    }
   ]
  },
  {
   "id": "statutes/find/la_rev_stat/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "La. Stat. Ann.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:la-legislature+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -3126,20 +3160,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `La.Rev.Stat.` means `La. Stat. Ann.`",
+    "source": "owner-ruling-A63",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`La.Rev.Stat.` read as `La. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`La.Rev.Stat.` means `La. Stat. Ann.` (Louisiana)"
-    ]
    },
    {
     "claim": "existence",
@@ -3153,10 +3177,10 @@
  {
   "id": "statutes/find/la_rev_stat/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "La. Stat. Ann.",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:la-legislature+owner-ruling-A63+reporters-db@v3.2.67",
   "checks": [
    {
     "claim": "span",
@@ -3181,20 +3205,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `La.Rev.Stat.` means `La. Stat. Ann.`",
+    "source": "owner-ruling-A63",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`La.Rev.Stat.` read as `La. Stat. Ann.`",
-    "source": "",
-    "human": [
-     "form",
-     "`La.Rev.Stat.` means `La. Stat. Ann.` (Louisiana)"
-    ]
    },
    {
     "claim": "existence",
@@ -3208,10 +3222,10 @@
  {
   "id": "statutes/find/ri_gl_1956/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "R.I. Gen. Laws",
-  "verdict": "unverifiable:form, span",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+ri-legislature",
   "checks": [
    {
     "claim": "span",
@@ -3222,13 +3236,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1956,'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `####,`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1956,' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "code",
@@ -3239,20 +3250,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "cited by a court in Rhode Island (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`G.L.` read as `R.I. Gen. Laws`",
-    "source": "",
-    "human": [
-     "form",
-     "`G.L.` means `R.I. Gen. Laws` (Rhode Island)"
-    ]
    },
    {
     "claim": "existence",
@@ -3266,10 +3267,10 @@
  {
   "id": "statutes/find/ri_gl_1956/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "R.I. Gen. Laws",
-  "verdict": "unverifiable:form, span",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+ri-legislature",
   "checks": [
    {
     "claim": "span",
@@ -3280,13 +3281,10 @@
    },
    {
     "claim": "span",
-    "result": "none",
-    "detail": "text in the span no field holds: '1956 (1969 Reenactment)'",
-    "source": "",
-    "human": [
-     "span",
-     "in-span text not in any field: `#### (#### Reenactment)`"
-    ]
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): '1956 (1969 Reenactment)' belongs in the span, no field holds it",
+    "source": "owner-ruling-A63",
+    "human": []
    },
    {
     "claim": "code",
@@ -3297,20 +3295,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "cited by a court in Rhode Island (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`G.L.` read as `R.I. Gen. Laws`",
-    "source": "",
-    "human": [
-     "form",
-     "`G.L.` means `R.I. Gen. Laws` (Rhode Island)"
-    ]
    },
    {
     "claim": "existence",
@@ -3324,10 +3312,10 @@
  {
   "id": "statutes/find/wva_code/0",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "W. Va. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:owner-ruling-A63+reporters-db@v3.2.67+wv-legislature",
   "checks": [
    {
     "claim": "span",
@@ -3345,20 +3333,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `West Virginia Code` means `W. Va. Code`",
+    "source": "owner-ruling-A63",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`West Virginia Code` read as `W. Va. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`West Virginia Code` means `W. Va. Code` (West Virginia)"
-    ]
    },
    {
     "claim": "existence",
@@ -3372,10 +3350,10 @@
  {
   "id": "statutes/find/wva_code/1",
   "set": "statutes",
-  "provenance": "hand-checked",
+  "provenance": "verified",
   "kind": "state statute",
   "code": "W. Va. Code",
-  "verdict": "unverifiable:form",
+  "verdict": "verified-by-source:cap-case-metadata+reporters-db@v3.2.67+wv-legislature",
   "checks": [
    {
     "claim": "span",
@@ -3393,20 +3371,10 @@
    },
    {
     "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
+    "result": "pass",
+    "detail": "cited by a court in West Virginia (CAP case metadata, for the same decision)",
+    "source": "cap-case-metadata",
     "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`West Virginia Code` read as `W. Va. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`West Virginia Code` means `W. Va. Code` (West Virginia)"
-    ]
    },
    {
     "claim": "existence",
@@ -3636,6 +3604,667 @@
   ]
  },
  {
+  "id": "statutes/find/fed_r_evid/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. Evid.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63+stare-pub-cap",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. Evid.` is United States's Federal Rules of Evidence",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Evidence, Rule 801",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/fed_r_evid/1",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. Evid.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. Evid.` is United States's Federal Rules of Evidence",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Evidence, Rule 801",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/fed_r_crim_p/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. Crim. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63+stare-pub-cl",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cl",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. Crim. P.` is United States's Federal Rules of Criminal Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Criminal Procedure, Rule 8",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/fed_r_crim_p/1",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. Crim. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. Crim. P.` is United States's Federal Rules of Criminal Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Criminal Procedure, Rule 33",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/fed_r_app_p/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. App. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. App. P.` is United States's Federal Rules of Appellate Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Appellate Procedure, Rule 34",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/fed_r_app_p/1",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Fed. R. App. P.",
+  "verdict": "verified-by-source:govinfo-uscode-2024+owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Fed. R. App. P.` is United States's Federal Rules of Appellate Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "Federal Rules Of Appellate Procedure, Rule 4",
+    "source": "govinfo-uscode-2024",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_r_p/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Tex. R. Civ. P.",
+  "verdict": "verified-by-source:owner-ruling-A63+txcourts",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Tex. R. Civ. P.` is Texas's Texas Rules of Civil Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "rule 185 in https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf",
+    "source": "txcourts",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/tex_r_p/1",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Tex. R. App. P.",
+  "verdict": "verified-by-source:owner-ruling-A63+txcourts",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Tex. R. App. P.` is Texas's Texas Rules of Appellate Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "rule 25.2 in https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf",
+    "source": "txcourts",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/pa_r_civ_p/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Pa. R. Civ. P.",
+  "verdict": "verified-by-source:owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Pa. R. Civ. P.` is Pennsylvania's Pennsylvania Rules of Civil Procedure",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): Pa. R. Civ. P. 1035.2 exists, with (2) (machine check: none, pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler)",
+    "source": "owner-ruling-A63",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/mich_ct_r/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "court rule",
+  "code": "Mich. Ct. R.",
+  "verdict": "verified-by-source:owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `MCR` means `Mich. Ct. R.`",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): MCR 3.101 (garnishment) exists (machine check: none, courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler)",
+    "source": "owner-ruling-A63",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/state_const/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "constitution",
+  "code": "Ohio Const.",
+  "verdict": "verified-by-source:owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Ohio Const.` is Ohio's Constitution",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): Ohio Const. art. I, § 11 exists (machine check: none, codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler)",
+    "source": "owner-ruling-A63",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/state_const/1",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "constitution",
+  "code": "Ind. Const.",
+  "verdict": "verified-by-source:iga-constitution+owner-ruling-A63+stare-pub-cap",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `Ind. Const.` is Indiana's Constitution",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "art. 1, § 18",
+    "source": "iga-constitution",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/state_const/2",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "constitution",
+  "code": "N.M. Const.",
+  "verdict": "verified-by-source:nmcc-nmonesource+owner-ruling-A63",
+  "checks": [
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): `N.M. Const.` is New Mexico's Constitution",
+    "source": "owner-ruling-A63",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "the written form is the code's abbreviation",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "art. II, § 10",
+    "source": "nmcc-nmonesource",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/nycrr/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "regulation",
+  "code": "N.Y. Comp. Codes R. & Regs.",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.Y. Comp. Codes R. & Regs.`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in New York (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): 22 NYCRR 806.9 existed as cited in 2007 (machine check: none, the official NYCRR is online through Thomson Reuters Westlaw; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
+   }
+  ]
+ },
+ {
+  "id": "statutes/find/njac/0",
+  "set": "statutes",
+  "provenance": "verified",
+  "kind": "regulation",
+  "code": "N.J. Admin. Code",
+  "verdict": "verified-by-source:cap-case-metadata+owner-ruling-A63+reporters-db@v3.2.67+stare-pub-cap",
+  "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
+   {
+    "claim": "span",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "metadata",
+    "result": "pass",
+    "detail": "",
+    "source": "",
+    "human": []
+   },
+   {
+    "claim": "code",
+    "result": "pass",
+    "detail": "reporters-db `N.J. Admin. Code`",
+    "source": "reporters-db@v3.2.67",
+    "human": []
+   },
+   {
+    "claim": "form",
+    "result": "pass",
+    "detail": "cited by a court in New Jersey (CAP case metadata)",
+    "source": "cap-case-metadata",
+    "human": []
+   },
+   {
+    "claim": "existence",
+    "result": "pass",
+    "detail": "owner-ruled 2026-10-25 (A63): N.J.A.C. 10:129A-3.4 existed in 1997 (chapter since replaced by N.J.A.C. 3A:10) (machine check: none, the N.J.A.C. is online through LexisNexis; not used)",
+    "source": "owner-ruling-A63",
+    "human": []
+   }
+  ]
+ },
+ {
   "id": "statutes-proposed/find/fed_r_civ_p/0",
   "set": "statutes-proposed",
   "provenance": "proposed",
@@ -3771,478 +4400,6 @@
   ]
  },
  {
-  "id": "statutes-proposed/find/fed_r_evid/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. Evid.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. Evid.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. Evid.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Evidence, Rule 801",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/fed_r_evid/1",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. Evid.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. Evid.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. Evid.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Evidence, Rule 801",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/fed_r_crim_p/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. Crim. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. Crim. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. Crim. P.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Criminal Procedure, Rule 8",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/fed_r_crim_p/1",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. Crim. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. Crim. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. Crim. P.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Criminal Procedure, Rule 33",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/fed_r_app_p/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. App. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. App. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. App. P.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Appellate Procedure, Rule 34",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/fed_r_app_p/1",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Fed. R. App. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Fed. R. App. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Fed. R. App. P.` (United States): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "Federal Rules Of Appellate Procedure, Rule 4",
-    "source": "govinfo-uscode-2024",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/tex_r_p/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Tex. R. Civ. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Tex. R. Civ. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Tex. R. Civ. P.` (Texas): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "rule 185 in https://www.txcourts.gov/media/1463426/texas-rules-of-civil-procedure.pdf",
-    "source": "txcourts",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/tex_r_p/1",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Tex. R. App. P.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Tex. R. App. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Tex. R. App. P.` (Texas): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "rule 25.2 in https://www.txcourts.gov/media/1463134/texas-rules-of-appellate-procedure-02062026.pdf",
-    "source": "txcourts",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/pa_r_civ_p/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Pa. R. Civ. P.",
-  "verdict": "unverifiable:code, existence",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Pa. R. Civ. P.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Pa. R. Civ. P.` (Pennsylvania): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "none",
-    "detail": "pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler",
-    "source": "",
-    "human": [
-     "existence",
-     "`Pa. R. Civ. P.`: pacodeandbulletin.gov, which publishes the rules (231 Pa. Code), has a robots.txt that disallows every path to every crawler"
-    ]
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/mich_ct_r/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "court rule",
-  "code": "Mich. Ct. R.",
-  "verdict": "unverifiable:existence, form",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "pass",
-    "detail": "the 2026-10-18 conventions (docs/protocol.md)",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`MCR` read as `Mich. Ct. R.`",
-    "source": "",
-    "human": [
-     "form",
-     "`MCR` means `Mich. Ct. R.` (Michigan)"
-    ]
-   },
-   {
-    "claim": "existence",
-    "result": "none",
-    "detail": "courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler",
-    "source": "",
-    "human": [
-     "existence",
-     "`Mich. Ct. R.`: courts.michigan.gov, which publishes the rules, has a robots.txt that disallows every path to every crawler"
-    ]
-   }
-  ]
- },
- {
   "id": "statutes-proposed/find/us_const/0",
   "set": "statutes-proposed",
   "provenance": "proposed",
@@ -4286,8 +4443,15 @@
   "provenance": "proposed",
   "kind": "constitution",
   "code": "U.S. Const.",
-  "verdict": "verified-by-source:gpo-constitution",
+  "verdict": "verified-by-source:gpo-constitution+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -4409,241 +4573,6 @@
   ]
  },
  {
-  "id": "statutes-proposed/find/state_const/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "constitution",
-  "code": "Ohio Const.",
-  "verdict": "unverifiable:code, existence",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Ohio Const.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Ohio Const.` (Ohio): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "none",
-    "detail": "codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler",
-    "source": "",
-    "human": [
-     "existence",
-     "`Ohio Const.`: codes.ohio.gov, the only official text, has a robots.txt that disallows every path to every crawler"
-    ]
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/state_const/1",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "constitution",
-  "code": "Ind. Const.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`Ind. Const.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`Ind. Const.` (Indiana): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "art. 1, § 18",
-    "source": "iga-constitution",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/state_const/2",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "constitution",
-  "code": "N.M. Const.",
-  "verdict": "unverifiable:code",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "none",
-    "detail": "`N.M. Const.` is in neither reporters-db's laws nor the conventions",
-    "source": "",
-    "human": [
-     "code",
-     "`N.M. Const.` (New Mexico): is this the code's standard abbreviation?"
-    ]
-   },
-   {
-    "claim": "form",
-    "result": "pass",
-    "detail": "the written form is the code's abbreviation",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "existence",
-    "result": "pass",
-    "detail": "art. II, § 10",
-    "source": "nmcc-nmonesource",
-    "human": []
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/nycrr/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "regulation",
-  "code": "N.Y. Comp. Codes R. & Regs.",
-  "verdict": "unverifiable:existence, form",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "pass",
-    "detail": "reporters-db `N.Y. Comp. Codes R. & Regs.`",
-    "source": "reporters-db@v3.2.67",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`NYCRR` read as `N.Y. Comp. Codes R. & Regs.`",
-    "source": "",
-    "human": [
-     "form",
-     "`NYCRR` means `N.Y. Comp. Codes R. & Regs.` (New York)"
-    ]
-   },
-   {
-    "claim": "existence",
-    "result": "none",
-    "detail": "the official NYCRR is online through Thomson Reuters Westlaw; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.Y. Comp. Codes R. & Regs.`: the official NYCRR is online through Thomson Reuters Westlaw; not used"
-    ]
-   }
-  ]
- },
- {
-  "id": "statutes-proposed/find/njac/0",
-  "set": "statutes-proposed",
-  "provenance": "proposed",
-  "kind": "regulation",
-  "code": "N.J. Admin. Code",
-  "verdict": "unverifiable:existence, form",
-  "checks": [
-   {
-    "claim": "span",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "metadata",
-    "result": "pass",
-    "detail": "",
-    "source": "",
-    "human": []
-   },
-   {
-    "claim": "code",
-    "result": "pass",
-    "detail": "reporters-db `N.J. Admin. Code`",
-    "source": "reporters-db@v3.2.67",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "not-run",
-    "detail": "citing court not checked: CourtListener's rate limit was reached",
-    "source": "courtlistener-api",
-    "human": []
-   },
-   {
-    "claim": "form",
-    "result": "none",
-    "detail": "`N.J.A.C.` read as `N.J. Admin. Code`",
-    "source": "",
-    "human": [
-     "form",
-     "`N.J.A.C.` means `N.J. Admin. Code` (New Jersey)"
-    ]
-   },
-   {
-    "claim": "existence",
-    "result": "none",
-    "detail": "the N.J.A.C. is online through LexisNexis; not used",
-    "source": "",
-    "human": [
-     "existence",
-     "`N.J. Admin. Code`: the N.J.A.C. is online through LexisNexis; not used"
-    ]
-   }
-  ]
- },
- {
   "id": "statutes-proposed/find/treas_reg/0",
   "set": "statutes-proposed",
   "provenance": "proposed",
@@ -4694,8 +4623,15 @@
   "provenance": "proposed",
   "kind": "regulation",
   "code": "Treas. Reg.",
-  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:ecfr-2026-10-01+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -4995,8 +4931,15 @@
   "provenance": "proposed",
   "kind": "federal statute",
   "code": "Pub. L.",
-  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:govinfo-statute+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -5071,8 +5014,15 @@
   "provenance": "proposed",
   "kind": "federal statute",
   "code": "U.S.C.",
-  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -5116,8 +5066,15 @@
   "provenance": "proposed",
   "kind": "federal statute",
   "code": "U.S.C.",
-  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67+stare-pub-cap",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cap",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",
@@ -5161,8 +5118,15 @@
   "provenance": "proposed",
   "kind": "federal statute",
   "code": "U.S.C.",
-  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67",
+  "verdict": "verified-by-source:govinfo-uscode-2024+reporters-db@v3.2.67+stare-pub-cl",
   "checks": [
+   {
+    "claim": "excerpt",
+    "result": "pass",
+    "detail": "input is the opinion text at the offset",
+    "source": "stare-pub-cl",
+    "human": []
+   },
    {
     "claim": "span",
     "result": "pass",

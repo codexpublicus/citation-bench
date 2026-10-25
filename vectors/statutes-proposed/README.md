@@ -1,12 +1,16 @@
 # Proposed statute vectors
 
 Statute, court-rule, constitution, regulation and sentencing-guideline citations for the forms
-[`vectors/statutes`](../statutes/README.md) covers thinly or not at all (#22): federal
-court rules, state court rules besides Connecticut's Practice Book, the U.S. and state
-constitutions, state administrative codes, `Treas. Reg.`, `U.S.S.G.`, `Fed. Reg.`, `Stat.`,
-`Pub. L.`, `et seq.` and section ranges.
+[`vectors/statutes`](../statutes/README.md) covers thinly or not at all (#22): the
+Federal Rules of Civil Procedure, the U.S. Constitution, `Treas. Reg.`, `U.S.S.G.`, `Fed.
+Reg.`, `Stat.`, `Pub. L.`, `et seq.` and section ranges. The other federal rules, the
+state court rules and constitutions and the state administrative codes drafted here were
+reviewed and are in `vectors/statutes` now.
 
-**None of these has been reviewed.** Each expected citation was written by hand from its
+**None of these has been reviewed.** The fifteen the maintainer reviewed on 2026-10-25
+(A63: federal rules of evidence, criminal and appellate procedure, Texas's and
+Pennsylvania's rules, `MCR`, the three state constitutions, `NYCRR` and `N.J.A.C.`) moved
+into `vectors/statutes` with provenance `verified`. Each expected citation was written by hand from its
 excerpt, not taken from an engine's output, and every vector has `provenance.status`
 `proposed` (docs/protocol.md, "Vector provenance"). Until a vector is reviewed it is not a
 reference: `bench/statutes.py` scores this set in a table of its own, and no baseline
@@ -56,25 +60,10 @@ parts; "bare `§`" means an unknown citation for the section sign and no law cit
 | `fed_r_civ_p/0` | court rule | `Fed.R.Civ.P. 52` | `Fed. R. Civ. P.`; rule `52` | none | none |
 | `fed_r_civ_p/1` | court rule | `Fed.R.Civ.P. 12` | `Fed. R. Civ. P.`; rule `12` | none | none |
 | `fed_r_civ_p/2` | court rule | `Fed. R. Civ. P. 60` | `Fed. R. Civ. P.`; rule `60` | none | none |
-| `fed_r_evid/0` | court rule | `Fed.R.Evid. 801` | `Fed. R. Evid.`; rule `801` | none | none |
-| `fed_r_evid/1` | court rule | `Fed. R. Evid. 801` | `Fed. R. Evid.`; rule `801` | none | none |
-| `fed_r_crim_p/0` | court rule | `Fed.R.Crim.P. 8` | `Fed. R. Crim. P.`; rule `8` | none | none |
-| `fed_r_crim_p/1` | court rule | `Fed.R.Crim.P. 33` | `Fed. R. Crim. P.`; rule `33` | none | none |
-| `fed_r_app_p/0` | court rule | `Fed. R. App. P. 34` | `Fed. R. App. P.`; rule `34` | none | none |
-| `fed_r_app_p/1` | court rule | `Fed. R. App. P. 4` | `Fed. R. App. P.`; rule `4` | none | none |
-| `tex_r_p/0` | court rule | `Tex. R. Civ. P. 185` | `Tex. R. Civ. P.`; rule `185` | none | none |
-| `tex_r_p/1` | court rule | `Tex. R. App. P. 25.2` | `Tex. R. App. P.`; rule `25.2` | none | none |
-| `pa_r_civ_p/0` | court rule | `Pa. R.Civ.P. 1035.2` | `Pa. R. Civ. P.`; rule `1035.2` | none | none |
-| `mich_ct_r/0` | court rule | `MCR 3.101` | `Mich. Ct. R.`; rule `3.101` | none | none |
 | `us_const/0` | constitution | `U.S. Const. amend. VIII` | `U.S. Const.`; amendment `VIII` | none | none |
 | `us_const/1` | constitution | `U.S. Const., amend. XIV` | `U.S. Const.`; amendment `XIV` | none | none |
 | `us_const/2` | constitution | `U.S. Const. art. I, § 8` | `U.S. Const.`; article `I`, section `8` | bare `§` | bare `§` |
 | `us_const/3` | constitution | `U.S. Const. Art. I, § 8` | `U.S. Const.`; article `I`, section `8` | bare `§` | bare `§` |
-| `state_const/0` | constitution | `Ohio Const. art. I, § 11` | `Ohio Const.`; article `I`, section `11` | bare `§` | bare `§` |
-| `state_const/1` | constitution | `Ind. Const. Art. 1 § 18` | `Ind. Const.`; article `1`, section `18` | bare `§` | bare `§` |
-| `state_const/2` | constitution | `N.M.Const., Art. II, § 10` | `N.M. Const.`; article `II`, section `10` | bare `§` | bare `§` |
-| `nycrr/0` | regulation | `22 NYCRR 806.9` | `N.Y. Comp. Codes R. & Regs.`; title `22`, section `806.9` | none | none |
-| `njac/0` | regulation | `N.J.A.C. 10:129A-3.4` | `N.J. Admin. Code`; section `10:129A-3.4` | none | none |
 | `treas_reg/0` | regulation | `Treas.Reg. § 1.170A-1` | `Treas. Reg.`; section `1.170A-1` | section `1` | right |
 | `treas_reg/1` | regulation | `Treas.Reg. § 1.48-1` | `Treas. Reg.`; section `1.48-1` | right | right |
 | `ussg/0` | guideline | `U.S.S.G. § 3B1.2` | `U.S.S.G.`; section `3B1.2` | bare `§` | bare `§` |
@@ -103,27 +92,25 @@ against the text stare.pub serves. A case page (`https://stare.pub/c/<slug>/<vol
 is the permanent address stare.pub gives each case; until case pages ship, `data` and
 `member` are where the text is.
 
-Nine of the 36 point at a CAP case that way, each at a new offset, with
-`courtlistener_opinion` keeping the CourtListener opinion id: `fed_r_evid/0`,
-`njac/0`, `nycrr/0`, `pub_l/0`, `state_const/1`, `treas_reg/1`, `us_const/1`,
-`usc_et_seq/0` and `usc_et_seq/1`. Two point at a CourtListener record stare.pub serves,
-which `source` names with `source` `cl`, the record's `ref` (`<cluster>/<hash>`), its
-`url` and the `sha256` of its JSON; stare.pub states each record's terms in its own
-`license` (Public Domain Mark 1.0) and `attribution` (CourtListener, Free Law Project,
-export 2026-09-30). `fed_r_crim_p/0` is on its own opinion's record. `usc_range/0`'s
+Five of the 21 point at a CAP case that way, each at a new offset, with
+`courtlistener_opinion` keeping the CourtListener opinion id: `pub_l/0`, `treas_reg/1`,
+`us_const/1`, `usc_et_seq/0` and `usc_et_seq/1`. One points at a CourtListener record
+stare.pub serves, which `source` names with `source` `cl`, the record's `ref`
+(`<cluster>/<hash>`), its `url` and the `sha256` of its JSON; stare.pub states each
+record's terms in its own `license` (Public Domain Mark 1.0) and `attribution`
+(CourtListener, Free Law Project, export 2026-09-30). `usc_range/0`'s
 opinion is in a cluster the 2026-09-30 export doesn't have; the opinion cites itself as
 `2022 OK 30`, and the record at that citation, cluster 8242608, holds three copies of the
 same opinion, each with the excerpt verbatim, so its offset is the occurrence nearest the
-one it had. The other 25 stay on the CourtListener sample (`corpus`
+one it had. The other 15 stay on the CourtListener sample (`corpus`
 `courtlistener-10pct`):
 
-- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `fed_r_app_p/0`, `fed_r_app_p/1`, `fed_r_civ_p/0`, `fed_r_civ_p/1`, `fed_r_crim_p/1`, `fed_reg/0`, `fed_reg/1`, `pa_r_civ_p/0`, `pub_l/1`, `stat/0`, `state_const/2`, `treas_reg/0`, `us_const/0`, `us_const/2`, `us_const/3`, `usc_range/1`, `ussg/0`, `ussg/1`.
-- stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `fed_r_evid/1`, `stat/1`.
-- CourtListener lists no citation for the decision, so nothing in stare.pub's index leads to it: `state_const/0`, `tex_r_p/0`, `tex_r_p/1`.
-- the opinion's cluster isn't in CourtListener's 2026-09-30 export, so no citation of it leads into stare.pub's index: `fed_r_civ_p/2`, `mich_ct_r/0`.
+- stare.pub serves the decision from CAP, a different transcription (CAP's OCR text, with typographic quotes and its own misreadings) in which the excerpt doesn't appear verbatim; `source.stare_pub` names that case: `fed_r_civ_p/0`, `fed_r_civ_p/1`, `fed_reg/0`, `fed_reg/1`, `pub_l/1`, `stat/0`, `treas_reg/0`, `us_const/0`, `us_const/2`, `us_const/3`, `usc_range/1`, `ussg/0`, `ussg/1`.
+- stare.pub's CourtListener record of the decision differs from the excerpt in spacing or whitespace; `source.stare_pub` names the record: `stat/1`.
+- the opinion's cluster isn't in CourtListener's 2026-09-30 export, so no citation of it leads into stare.pub's index: `fed_r_civ_p/2`.
 
 ## Not covered yet
 
-State constitutions beyond three, more state court rules (only Texas, Pennsylvania and
-Michigan here), Idaho's and Indiana's shared `I.C. §`, Maryland's article abbreviations
+State constitutions beyond the three in `vectors/statutes`, more state court rules (only
+Connecticut, Texas, Pennsylvania and Michigan there), Idaho's and Indiana's shared `I.C. §`, Maryland's article abbreviations
 (`CP § 8-301`), lists (`§§ 17a-101(b)(9) and 17a-101a`) and Id. chains into a statute.

@@ -1,7 +1,10 @@
 # Statute vectors
 
-Statute and court-rule citations as state and federal courts write them, one or two real
-inputs per jurisdiction and form, each with a hand-checked expected citation (#22). The set
+Statute, court-rule, constitution and regulation citations as courts and state attorneys
+general write them, one or two real inputs per jurisdiction and form, each with an expected
+citation read by hand (#22). Two excerpts are from state Attorney General opinions, not court
+opinions: `ark_aca/1` (Arkansas) and `la_rev_stat/0` (Louisiana); the maintainer kept them
+(A63, 2026-10-25). The set
 starts with the forms citare's state-code work measured as the most common misses: in the
 CourtListener ten-percent sample and a CAP sample, statutes that came through as bare `§`
 unknown citations because neither engine knew the code's name (`General Statutes § 52-557n`,
@@ -22,9 +25,11 @@ citation gives:
 - `span`, in code points (the excerpts are plain text, so spans are scored)
 - `groups`: the parts as written: `reporter` (`General Statutes`, `OCGA`, `Pa.C.S.`), `section`,
   and `title`, `chapter` or `subject` where the form has one
-- `reporter_normalized`: the code's standard abbreviation whatever the spelling (`Conn. Gen.
-  Stat.` for `General Statutes`), keeping the subject of a code cited by subject (`N.Y. Penal
-  Law`, `Cal. Civ. Proc. Code`, `Tex. Penal Code Ann.`)
+- `reporter_normalized`: the code's identifier whatever the spelling (`Conn. Gen. Stat.` for
+  `General Statutes`), keeping the subject of a code cited by subject (`N.Y. Penal Law`,
+  `Cal. Civ. Proc. Code`, `Tex. Penal Code Ann.`): reporters-db's key where it has one, else
+  the form the jurisdiction's courts use, with the Bluebook form and reporters-db's key as
+  aliases in [`data/law-codes.json`](../../data/law-codes.json) (docs/protocol.md)
 - `metadata`: pin cite, parenthetical and year as for any citation, and `jurisdiction`
   (`Connecticut`, `United States`), the jurisdiction reporters-db's laws data gives the code
 
@@ -52,13 +57,23 @@ where it was wrong; three were:
 Those three stay in `baselines/citare.known-failures` after the state-code forms land. The
 rest of the set is there too until citation-bench's locked citare commit has them.
 
+`nm_nmsa/0` first held `NMSA 1978, § 32A-I-29(H) (1997)`, CAP's OCR of `32A-4-29` in a
+sentence that also misreads "hearing" as "heating". On the maintainer's ruling (A63) its
+excerpt was taken again from the same opinion, the sentence at offset 8137 that cites
+`NMSA 1978, § 32A-4-29(H) (1997)` cleanly.
+
 ## Provenance
 
-The set's `SOURCE.json` gives every vector here the provenance `hand-checked`: the
-expected citations were drafted from citare's output and read by hand against their
-sentences, as described above, and the maintainer has not yet verified them
-(docs/protocol.md, "Vector provenance"). `bench/statutes.py` treats them as the reference
-until then.
+The set's `SOURCE.json` gives a vector here the provenance `hand-checked` unless it has
+its own: the expected citations were drafted from citare's output and read by hand against
+their sentences, as described above (docs/protocol.md, "Vector provenance").
+`bench/statutes.py` treats `hand-checked` and `verified` vectors as the reference.
+
+The vectors the maintainer's answers to the statute review settled (A63, 2026-10-25;
+[`verification/statutes/rulings.json`](../../verification/statutes/rulings.json)) have
+`provenance.status` `verified`: each passed every check `bench/verify_statutes.py` makes,
+with the ruling standing in for the claims no machine source settles. `conn_gen_stat/1`
+isn't among them: whether its section stays `10 -236b` as written is still open.
 
 The text comes from [stare.pub](https://stare.pub). `source` names the case there and the
 character offset of the excerpt in it, as docs/protocol.md ("Vector sources") defines:
@@ -113,7 +128,7 @@ What each engine gets right, per form (eyecite 2.7.8; citare with the state-code
 | Texas | `TEX. PENAL CODE § 1.07`, `Tex. Fam.Code § 54.02` | Tex. Penal Code Ann., Tex. Fam. Code Ann. | 0/4 | 4/4 | no law citation |
 | Texas | `Tex. Penal Code Ann. § 36.06` | Tex. Penal Code Ann. | 0/2 | 2/2 | normalized to `Tex. Code Ann.` |
 | Massachusetts | `G. L. c. 184, § 15`, `Mass. Gen. Laws ch. 260 § 2A` | Mass. Gen. Laws | 0/3 | 3/3 | no law citation |
-| New Mexico | `NMSA 1978, § 32A-I-29` | N.M. Stat. Ann. | 0/2 | 2/2 | no law citation |
+| New Mexico | `NMSA 1978, § 32A-4-29` | N.M. Stat. Ann. | 0/2 | 2/2 | no law citation |
 | Michigan | `M.C.L.A. § 257.520` | Mich. Comp. Laws | 0/2 | 2/2 | no law citation |
 | Alabama | `Ala. Code 1975, § 12-2-7` | Ala. Code | 0/2 | 2/2 | no law citation |
 | Arkansas | `A.C.A. § 4-9-203` | Ark. Code Ann. | 0/2 | 2/2 | no law citation |
@@ -122,6 +137,26 @@ What each engine gets right, per form (eyecite 2.7.8; citare with the state-code
 | West Virginia | `West Virginia Code § 31-1-15` | W. Va. Code | 0/2 | 2/2 | no law citation |
 | Wisconsin | `WIS. STAT. § 706.09` | Wis. Stat. | 0/1 | 1/1 | no law citation |
 | United States | `25 U.S.C. § 1912`, `40 C.F.R. § 261.4` | U.S.C., C.F.R. | 4/4 | 4/4 | |
+| United States | `Fed.R.Evid. 801`, `Fed.R.Crim.P. 8`, `Fed. R. App. P. 34` (court rules) | Fed. R. Evid., Fed. R. Crim. P., Fed. R. App. P. | 0/6 | 0/6 | no law citation |
+| Texas | `Tex. R. Civ. P. 185`, `Tex. R. App. P. 25.2` (court rules) | Tex. R. Civ. P., Tex. R. App. P. | 0/2 | 0/2 | no law citation |
+| Pennsylvania | `Pa. R.Civ.P. 1035.2` (court rules) | Pa. R. Civ. P. | 0/1 | 0/1 | no law citation |
+| Michigan | `MCR 3.101` (court rules) | Mich. Ct. R. | 0/1 | 0/1 | no law citation |
+| Ohio, Indiana, New Mexico | `Ohio Const. art. I, § 11`, `Ind. Const. Art. 1 § 18`, `N.M.Const., Art. II, § 10` | Ohio Const., Ind. Const., N.M. Const. | 0/3 | 0/3 | bare `§` |
+| New York | `22 NYCRR 806.9` (regulation) | N.Y. Comp. Codes R. & Regs. | 0/1 | 0/1 | no law citation |
+| New Jersey | `N.J.A.C. 10:129A-3.4` (regulation) | N.J. Admin. Code | 0/1 | 0/1 | no law citation |
+
+The last seven rows are the fifteen vectors drafted in
+[`vectors/statutes-proposed`](../statutes-proposed/README.md) and moved here when the
+maintainer reviewed them (A63); `provenance.note` names the id each had there. citare's
+column for them is citare 0.7.1 at `1a296a9`, the locked commit. Their text comes from
+stare.pub as above for `fed_r_evid/0`, `njac/0`, `nycrr/0` and `state_const/1` (CAP) and
+`fed_r_crim_p/0` (a CourtListener record stare.pub serves, `source` `cl`, with its
+`license`, Public Domain Mark 1.0, and `attribution` in the record). The others stay on
+the CourtListener sample: stare.pub's transcription of the decision differs from the
+excerpt (`fed_r_app_p/0`, `fed_r_app_p/1`, `fed_r_crim_p/1`, `pa_r_civ_p/0` and
+`state_const/2` against CAP, `fed_r_evid/1` against a CourtListener record), CourtListener
+lists no citation for it (`state_const/0`, `tex_r_p/0`, `tex_r_p/1`), or its cluster isn't
+in CourtListener's 2026-09-30 export (`mich_ct_r/0`).
 
 The `N.Y. Gen. Bus. Law § 394-ccc` split (citare#49) is in `vectors/divergences/`
 (`law_section/4`); neither corpus has a single-citation sentence with that code.
@@ -129,8 +164,8 @@ The `N.Y. Gen. Bus. Law § 394-ccc` split (citare#49) is in `vectors/divergences
 ## Not covered yet
 
 [`vectors/statutes-proposed`](../statutes-proposed/README.md) has unreviewed vectors for
-federal and state court rules, constitutions, state administrative codes, `Treas. Reg.`,
-`U.S.S.G.`, `Fed. Reg.`, `Stat.`, `Pub. L.`, `et seq.` and section ranges; they join this
-set once reviewed. Still missing from #22's list: Idaho's and Indiana's shared `I.C. §`,
+the Federal Rules of Civil Procedure, the U.S. Constitution, `Treas. Reg.`, `U.S.S.G.`,
+`Fed. Reg.`, `Stat.`, `Pub. L.`, `et seq.` and section ranges; they join this set once
+reviewed. Still missing from #22's list: Idaho's and Indiana's shared `I.C. §`,
 Maryland's article abbreviations (`CP § 8-301`), lists (`§§ 17a-101(b)(9) and 17a-101a`)
 and Id. chains into a statute.
