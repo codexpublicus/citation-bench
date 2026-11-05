@@ -62,7 +62,7 @@ TIERS = ("vectors", STARE, *(f"corpus-{s}pct" for s in CORPUS_SIZES))
 MISS = 3  # restore's exit code when the stored run doesn't match the current key
 EYECITE = "uv run -q --script adapters/eyecite/adapter.py"
 TIMEOUT = "900"  # seconds on one input before the adapter is restarted
-RUNNER = "homelab"  # the runs-on of CI's Stored eyecite runs job
+RUNNER = "homelab"  # the runs-on of .github/workflows/eyecite-baseline.yml
 
 
 def eyecite_version():

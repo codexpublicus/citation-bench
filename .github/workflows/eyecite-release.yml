@@ -17,7 +17,7 @@ permissions:
 jobs:
   check:
     name: Check PyPI for a new eyecite
-    runs-on: homelab
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -50,7 +50,7 @@ jobs:
           1. \`mise run export:eyecite $latest\` writes \`vectors/eyecite-$latest/\`. Keep \`vectors/eyecite-$pinned/\` for comparison.
           2. Pin \`adapters/eyecite/adapter.py\` to \`eyecite==$latest\` and to the dependency versions in that release's \`uv.lock\`. The vector defaults in \`.mise/tasks/\` follow the pin.
           3. \`mise run bench:eyecite\` must score 100%.
-          4. Push. CI's **Stored eyecite runs** job reruns eyecite on every tier and uploads \`eyecite-baseline\`; commit it into \`baselines/eyecite/\`.
+          4. Push, then run the **eyecite baselines** workflow on the branch (\`gh workflow run eyecite-baseline.yml --ref BRANCH\`). It reruns eyecite on every tier and uploads \`eyecite-baseline\`; commit it into \`baselines/eyecite/\`.
           5. Rebaseline \`baselines/citare.known-failures\` and bump \`CITATION_BENCH_REF\` in citare.
 
           Opened by \`.github/workflows/eyecite-release.yml\`. Refs #5.

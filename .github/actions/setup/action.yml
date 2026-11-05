@@ -1,11 +1,10 @@
-name: Homelab runner setup
+name: Runner setup
 description: >-
-  Checks for what the jobs need from the homelab runner image, then installs the mise
-  tools. uv builds sdists for some of the eyecite adapter's pinned dependencies
-  (pyahocorasick 2.0.0, regex 2023.12.25) because they have no cp313 wheels, so the
-  jobs need a C toolchain. The image has build-essential (lokkju/infra#81) but no
-  passwordless sudo (lokkju/infra#105), so this only tries `sudo -n apt-get` if the
-  toolchain is missing and fails if it can't.
+  Checks for a C toolchain, then installs the mise tools. uv builds sdists for some of
+  the eyecite adapter's pinned dependencies (pyahocorasick 2.0.0, regex 2023.12.25)
+  because they have no cp313 wheels, so the jobs need one. GitHub's Ubuntu images have
+  build-essential; on a runner without it, this tries `sudo -n apt-get` and fails if it
+  can't.
 
 runs:
   using: composite
@@ -28,7 +27,7 @@ runs:
         elif sudo -n true 2>/dev/null; then
           sudo=(sudo -n)
         else
-          echo "::error::the runner image lacks ${missing[*]} and has no passwordless sudo to install them (lokkju/infra#105); add them to homelab/images/garm-runner/Dockerfile in lokkju/infra"
+          echo "::error::the runner lacks ${missing[*]} and has no passwordless sudo to install them; add them to the runner image"
           exit 1
         fi
         echo "installing ${missing[*]}"
