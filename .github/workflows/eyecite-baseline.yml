@@ -1,0 +1,75 @@
+name: eyecite baselines
+
+# Reruns eyecite over every tier whose stored run in baselines/eyecite/ is stale
+# (bench/baseline.py), uploads the result as the eyecite-baseline artifact, and fails
+# until the artifact is committed. The runs are timed on the self-hosted `homelab`
+# runner class, the one engines' CI times itself on, and that class is part of each
+# tier's key (bench/baseline.py RUNNER), so this can't move to a GitHub-hosted runner
+# without restoring every tier and changing what the timings are compared against.
+#
+# Self-hosted runners never run code from a fork: this has no pull_request trigger,
+# only a push to main and a dispatch, which needs write access to the repository. The
+# job's guard repeats that, so a trigger added later can't route a fork's code here.
+# CI's Stored eyecite runs job checks the keys on every PR on a GitHub-hosted runner.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eyecite-baseline-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MISE_TRUSTED_CONFIG_PATHS: ${{ github.workspace }}
+  # Nothing here builds citare, and the self-hosted pods start empty every time.
+  MISE_DISABLE_TOOLS: rust
+  # eyecite's output depends on the string hash seed; the adapter pins it as well.
+  PYTHONHASHSEED: "0"
+
+jobs:
+  baseline:
+    name: Stored eyecite runs
+    if: >-
+      github.repository == 'codexpublicus/citation-bench'
+      && (github.event_name == 'workflow_dispatch'
+          || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
+    runs-on: homelab
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+
+      - name: Check the keys
+        id: stale
+        run: |
+          uv run -q bench/baseline.py check | tee -a "$GITHUB_STEP_SUMMARY" || true
+          echo "tiers=$(uv run -q bench/baseline.py stale | xargs)" >> "$GITHUB_OUTPUT"
+
+      - name: Run eyecite on the stale tiers
+        if: steps.stale.outputs.tiers != ''
+        run: mise run baseline:eyecite
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: steps.stale.outputs.tiers != ''
+        with:
+          name: eyecite-baseline
+          path: baselines/eyecite/
+          if-no-files-found: error
+
+      - name: Fail until the new runs are committed
+        if: steps.stale.outputs.tiers != ''
+        env:
+          TIERS: ${{ steps.stale.outputs.tiers }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          msg="Stored eyecite runs are stale ($TIERS). Commit the new ones: gh run download $RUN_ID -n eyecite-baseline -D /tmp/eyecite-$RUN_ID && cp /tmp/eyecite-$RUN_ID/* baselines/eyecite/"
+          echo "::error title=Stale eyecite runs::$msg"
+          { echo; echo "$msg"; echo; sed 's/^/    /' baselines/eyecite/MANIFEST.json; } >> "$GITHUB_STEP_SUMMARY"
+          exit 1

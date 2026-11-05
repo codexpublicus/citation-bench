@@ -16,7 +16,7 @@ concurrency:
 
 env:
   MISE_TRUSTED_CONFIG_PATHS: ${{ github.workspace }}
-  # No job here builds citare, and the homelab pods start empty every time.
+  # No job here builds citare.
   MISE_DISABLE_TOOLS: rust
   # eyecite's output depends on the string hash seed; the adapter pins it as well.
   PYTHONHASHSEED: "0"
@@ -24,26 +24,26 @@ env:
 jobs:
   check:
     name: Lint and unit tests
-    runs-on: homelab
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/homelab-setup
+      - uses: ./.github/actions/setup
       - run: mise run check
 
   # eyecite against its own vectors has to score 100%; anything less is a bug in the
   # exporter, the adapter or the scorer, not in eyecite.
   eyecite:
     name: eyecite vectors
-    runs-on: homelab
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/homelab-setup
+      - uses: ./.github/actions/setup
       - run: mise run bench:eyecite
       # Per-kind statute metrics (bench/statutes.py) for eyecite, in the job summary.
       # citare's CI reports its own beside these; nothing here gates.
@@ -53,19 +53,19 @@ jobs:
           cat reports/statutes/report.md >> "$GITHUB_STEP_SUMMARY"
 
   # The stored eyecite runs in baselines/eyecite/ (bench/baseline.py) have to match
-  # their keys, or engines' CI falls back to running eyecite live. When one is stale,
-  # this job runs eyecite over that tier on this runner class, the same one engines'
-  # CI times itself on, uploads the result as the eyecite-baseline artifact, and fails
-  # until the artifact is committed. The ten-percent corpus takes the longest.
+  # their keys, or engines' CI falls back to running eyecite live. This job only checks
+  # the keys. A stale tier is rerun by the eyecite baselines workflow
+  # (eyecite-baseline.yml), which runs on the self-hosted runner class the stored runs
+  # are timed on, and only on a push to main or a maintainer's dispatch.
   baseline:
     name: Stored eyecite runs
-    runs-on: homelab
-    timeout-minutes: 150
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/homelab-setup
+      - uses: ./.github/actions/setup
 
       - name: Check the keys
         id: stale
@@ -73,24 +73,13 @@ jobs:
           uv run -q bench/baseline.py check | tee -a "$GITHUB_STEP_SUMMARY" || true
           echo "tiers=$(uv run -q bench/baseline.py stale | xargs)" >> "$GITHUB_OUTPUT"
 
-      - name: Run eyecite on the stale tiers
-        if: steps.stale.outputs.tiers != ''
-        run: mise run baseline:eyecite
-
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: steps.stale.outputs.tiers != ''
-        with:
-          name: eyecite-baseline
-          path: baselines/eyecite/
-          if-no-files-found: error
-
       - name: Fail until the new runs are committed
         if: steps.stale.outputs.tiers != ''
         env:
           TIERS: ${{ steps.stale.outputs.tiers }}
-          RUN_ID: ${{ github.run_id }}
+          REF: ${{ github.head_ref || github.ref_name }}
         run: |
-          msg="Stored eyecite runs are stale ($TIERS). Commit the new ones: gh run download $RUN_ID -n eyecite-baseline -D /tmp/eyecite-$RUN_ID && cp /tmp/eyecite-$RUN_ID/* baselines/eyecite/"
+          msg="Stored eyecite runs are stale ($TIERS). A maintainer reruns them with: gh workflow run eyecite-baseline.yml --ref $REF, then commits the eyecite-baseline artifact that run uploads into baselines/eyecite/."
           echo "::error title=Stale eyecite runs::$msg"
-          { echo; echo "$msg"; echo; sed 's/^/    /' baselines/eyecite/MANIFEST.json; } >> "$GITHUB_STEP_SUMMARY"
+          { echo; echo "$msg"; } >> "$GITHUB_STEP_SUMMARY"
           exit 1
