@@ -3,11 +3,24 @@
 #MISE alias="verify:statutes"
 #USAGE flag "--offline" help="use the cached sources only"
 #USAGE flag "--refresh" help="refetch every source and repin it"
+#USAGE flag "--without-keys" help="run with COURTLISTENER_API_TOKEN or NY_OPENLEG_API_KEY unset; their checks are recorded as not-run"
 # Fetches the official sources bench/verify_statutes.py uses into .cache/statute-sources/
 # (gitignored), records each one's URL, date and SHA-256 in
 # verification/statutes/sources.json, and writes verdicts.json and report.md there.
 # Nothing in CI runs this; tests/test_verify_statutes.py covers the checks offline.
 set -euo pipefail
+if [[ "${usage_without_keys:-false}" != "true" ]]; then
+  missing=()
+  [[ -n "${COURTLISTENER_API_TOKEN:-}" ]] || missing+=(COURTLISTENER_API_TOKEN)
+  [[ -n "${NY_OPENLEG_API_KEY:-}" ]] || missing+=(NY_OPENLEG_API_KEY)
+  if (( ${#missing[@]} )); then
+    echo "verify:statutes: ${missing[*]} unset. Set in the untracked .mise/config.local.toml with" >&2
+    echo "  mise set --file .mise/config.local.toml --prompt ${missing[*]}" >&2
+    echo "or exported, or pass --without-keys to record their checks as not-run" >&2
+    echo "(verification/statutes/README.md, \"Keyed sources\")." >&2
+    exit 1
+  fi
+fi
 args=()
 [[ "${usage_offline:-false}" == "true" ]] && args+=(--offline)
 [[ "${usage_refresh:-false}" == "true" ]] && args+=(--refresh)
