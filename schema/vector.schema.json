@@ -46,7 +46,7 @@
         "note": {"type": "string"},
         "ground_truth": {
           "type": "boolean",
-          "description": "false: the vector is checked and scored as its status says, but is not ground truth for a dataset of citations found in opinion text (stare-builder's tier 0), because its input wasn't taken from an opinion (source.fields). Absent: the status alone decides. See docs/protocol.md, Vector provenance."
+          "description": "false: the vector is checked and scored as its status says, but is not ground truth for a dataset of citations found in opinion text (tier 0 of stare.pub's citation dataset), because its input wasn't taken from an opinion (source.fields). Absent: the status alone decides. See docs/protocol.md, Vector provenance."
         }
       }
     }

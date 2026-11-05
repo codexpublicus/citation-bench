@@ -242,10 +242,10 @@ agreement between two engines is reported as agreement, apart from the scores.
 
 `provenance.ground_truth: false` marks a vector that is checked and scored as its status
 says but is not ground truth for a dataset of citations found in opinion text, such as
-stare-builder's tier 0, because its input wasn't taken from an opinion. The two
-`cap-slugs` `mass_app_div_numbered` vectors have it: no opinion in either corpus cites
-that series, so their inputs are written from the cited cases' CAP records. Without the
-field, the status alone decides.
+tier 0 of stare.pub's citation dataset, because its input wasn't taken from an opinion.
+The two `cap-slugs` `mass_app_div_numbered` vectors have it: no opinion in either corpus
+cites that series, so their inputs are written from the cited cases' CAP records. Without
+the field, the status alone decides.
 
 `bench/verify_statutes.py` (`mise run verify:statutes`) checks the statute vectors' parts
 against official sources (the U.S. Code, eCFR, the Statutes at Large, the Federal Register,
