@@ -3,9 +3,10 @@ name: eyecite baselines
 # Reruns eyecite over every tier whose stored run in baselines/eyecite/ is stale
 # (bench/baseline.py), uploads the result as the eyecite-baseline artifact, and fails
 # until the artifact is committed. The runs are timed on the self-hosted `homelab`
-# runner class, the one engines' CI times itself on, and that class is part of each
-# tier's key (bench/baseline.py RUNNER), so this can't move to a GitHub-hosted runner
-# without restoring every tier and changing what the timings are compared against.
+# runner class (this job's `homelab-public` runners), the one engines' CI times itself
+# on, and that class is part of each tier's key (bench/baseline.py RUNNER), so this
+# can't move to a GitHub-hosted runner without restoring every tier and changing what
+# the timings are compared against.
 #
 # Self-hosted runners never run code from a fork: this has no pull_request trigger,
 # only a push to main and a dispatch, which needs write access to the repository. The
@@ -38,7 +39,7 @@ jobs:
       github.repository == 'codexpublicus/citation-bench'
       && (github.event_name == 'workflow_dispatch'
           || (github.event_name == 'push' && github.ref == 'refs/heads/main'))
-    runs-on: homelab
+    runs-on: homelab-public
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

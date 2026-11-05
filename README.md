@@ -209,11 +209,11 @@ uv run bench/baseline.py restore corpus-1pct results/eyecite.json   # exit 3 on 
 CI's **Stored eyecite runs** job checks the keys on every PR and push on a GitHub-hosted
 runner, and fails while a tier is stale. The **eyecite baselines** workflow
 (`.github/workflows/eyecite-baseline.yml`) does the same as `baseline:eyecite` on a
-self-hosted `homelab` runner, the runner class citare's CI times itself on, and uploads
-the result as the `eyecite-baseline` artifact to commit (`gh run download RUN_ID -n
-eyecite-baseline -D DIR` wants an empty or new `DIR`). It runs on a push to main, and on
-a branch when a maintainer dispatches it (`gh workflow run eyecite-baseline.yml --ref
-BRANCH`); it never runs a fork's code. A weekly workflow opens an issue when PyPI has an
+self-hosted `homelab` runner (`runs-on: homelab-public`), the runner class citare's CI
+times itself on, and uploads the result as the `eyecite-baseline` artifact to commit
+(`gh run download RUN_ID -n eyecite-baseline -D DIR` wants an empty or new `DIR`). It
+runs on a push to main, and on a branch when a maintainer dispatches it (`gh workflow
+run eyecite-baseline.yml --ref BRANCH`); it never runs a fork's code. A weekly workflow opens an issue when PyPI has an
 eyecite newer than the adapter's pin.
 
 ### Engine reports
