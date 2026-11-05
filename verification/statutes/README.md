@@ -96,11 +96,23 @@ Two sources need a key, and the script reads each from the environment only:
   (`PEN`), Family Ct Act (`FCT`) and Judiciary Law (`JUD`) sections. A `SECTION`
   document at that location passes; HTTP 404 is a contradiction.
 
-Both are age-encrypted in `.mise/config.toml` and decrypted only in the operator's
-environment, so the run that writes this directory is
-`MISE_EXPERIMENTAL=1 mise run verify:statutes`. With a key unset, as in CI, its checks
-are recorded as `not-run`, the vector stays `unverifiable`, and the report lists the
-checks not run; nothing fails. A key goes into the request only: the cache, the lock,
+Neither is in the repository. Set them in `.mise/config.local.toml`, which mise loads
+after `.mise/config.toml` and `.gitignore` keeps out of git:
+
+```bash
+mise set --file .mise/config.local.toml --prompt COURTLISTENER_API_TOKEN NY_OPENLEG_API_KEY
+```
+
+or export both in the shell that runs the verifier. To keep them age-encrypted at rest,
+add `--age-encrypt --age-key-file <your age identity>` to that command (it needs
+`MISE_EXPERIMENTAL=1`), put the identity in the same file under `[settings.age]`
+(`identity_files = ["<your age identity>"]`), and run the verifier with
+`MISE_EXPERIMENTAL=1` too.
+
+`mise run verify:statutes` stops with a message naming the missing key when either is
+unset; `mise run verify:statutes --without-keys` runs anyway. Run without a key, the
+script records that key's checks as `not-run`, the vector stays `unverifiable`, and the
+report lists the checks not run; nothing fails. A key goes into the request only: the cache, the lock,
 the verdicts, the report and error messages hold the URL without it. An HTTP 429 is
 retried after the wait the server names (`Retry-After`, or CourtListener's "available
 in N seconds"), or after 15, 30, 60 seconds and so on, six times at most. A wait over

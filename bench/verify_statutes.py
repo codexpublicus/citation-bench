@@ -183,8 +183,8 @@ RATE_LIMIT_RETRIES = 6
 # ends requests to that host for the run: its uncached checks are recorded as not run.
 RATE_LIMIT_MAX_WAIT = 120
 
-# Keyed APIs. Each key comes from the environment only (the operator's mise env
-# decrypts it from .mise/config.toml); with it unset the check is recorded as not run.
+# Keyed APIs. Each key comes from the environment only (mise loads it from the untracked
+# .mise/config.local.toml); with it unset the check is recorded as not run.
 # A key never goes into a URL that is cached, pinned, logged or reported.
 COURTLISTENER_API = "https://www.courtlistener.com/api/rest/v4/"
 COURTLISTENER_TOKEN_ENV = "COURTLISTENER_API_TOKEN"

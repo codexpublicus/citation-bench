@@ -96,6 +96,13 @@ mise run bench:curated eyecite      # the hand-curated set, the same way as the 
 mise run bench:curated citare
 ```
 
+`mise run verify:statutes` checks the statute vectors against official sources, two of
+which need a key: `COURTLISTENER_API_TOKEN` and `NY_OPENLEG_API_KEY`. Neither is in the
+repository; set them in the untracked `.mise/config.local.toml` with
+`mise set --file .mise/config.local.toml --prompt COURTLISTENER_API_TOKEN NY_OPENLEG_API_KEY`,
+or export them ([`verification/statutes/`](verification/statutes/README.md), "Keyed
+sources"). Nothing else needs a key.
+
 Compare two runs, of different engines or of two versions of one engine, on the same
 inputs:
 
