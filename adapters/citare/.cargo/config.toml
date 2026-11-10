@@ -1,3 +1,0 @@
-# citare is private: fetch it with the git CLI so the usual credential helpers apply.
-[net]
-git-fetch-with-cli = true
