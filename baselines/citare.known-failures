@@ -1,4 +1,9 @@
 cap-slugs/find/ct_cl_wv/2
+divergences/resolve/id_after_parallel/0
+divergences/resolve/id_after_parallel/1
+divergences/resolve/id_after_parallel/2
+divergences/resolve/id_after_parallel/3
+divergences/resolve/reference_names/1
 eyecite-2.7.8/find/test_markup_plaintiff_and_antecedent_guesses/21
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/0
 eyecite-2.7.8/find/test_nominative_reporter_overlaps/1
